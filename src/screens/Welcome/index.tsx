@@ -1,16 +1,28 @@
-import React, {useRef, useState} from 'react';
-import {Animated, FlatList, Image, TouchableOpacity, View} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import {OnboardingItem, Paginator} from '../../components';
-import {NextButton} from '../../components/NextButton';
-import {Description, Title} from '../../components/Typography';
-import {slides} from '../../utilities';
+import React from 'react';
+import {Image, View} from 'react-native';
+import {SocialBlock} from '../../components';
+import {Subtitle, Title} from '../../components/Typography';
+import {TextButton} from '../../ui';
+import {Screen} from '../../ui/Screen';
 import {styles} from './styles';
 
 export const Welcome: React.FC = () => {
   return (
-    <View>
-      <Title>s</Title>
-    </View>
+    <Screen>
+      <View style={styles.header}>
+        <Image source={require('../../assets/images/logo_white_blue.png')} />
+        <Title style={{marginTop: 16}}>Welcome to CyberMetals</Title>
+      </View>
+      <View style={styles.authButtons}>
+        <TextButton
+          title="Log in"
+          style={{marginBottom: 20}}
+          solid
+          onPress={() => console.log(1)}
+        />
+        <TextButton title="Create New Account" onPress={() => console.log(1)} />
+      </View>
+      <SocialBlock />
+    </Screen>
   );
 };

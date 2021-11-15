@@ -1,13 +1,18 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/core';
 import React, {useRef, useState} from 'react';
 import {Animated, FlatList, Image, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {OnboardingItem, Paginator} from '../../components';
-import {NextButton} from '../../components/NextButton';
+
 import {Description} from '../../components/Typography';
+import {TextButton} from '../../ui';
 import {slides} from '../../utilities';
 import {styles} from './styles';
 
 export const Onboarding: React.FC = () => {
+  const navigation: any = useNavigation();
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const slidesRef: any = useRef(null);
@@ -19,11 +24,16 @@ export const Onboarding: React.FC = () => {
 
   const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current;
 
-  const scrollTo = () => {
+  const scrollTo = async () => {
     if (currentIndex < slides.length - 1) {
       slidesRef.current.scrollToIndex({index: currentIndex + 1});
     } else {
-      console.log('welcome');
+      try {
+        await AsyncStorage.setItem('@viewedOnboarding', 'true');
+        navigation.navigate('welcome');
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
@@ -34,7 +44,7 @@ export const Onboarding: React.FC = () => {
         style={styles.linearGradient}>
         <TouchableOpacity
           style={styles.skipButton}
-          onPress={() => console.log('welcome')}>
+          onPress={() => navigation.navigate('welcome')}>
           <Description style={styles.skipText}>Skip</Description>
         </TouchableOpacity>
         <Image
@@ -64,7 +74,12 @@ export const Onboarding: React.FC = () => {
       </LinearGradient>
       <View style={styles.footer}>
         <Paginator data={slides} currentIndex={currentIndex} />
-        <NextButton title="Next" onPress={scrollTo} style={styles.nextButton} />
+        <TextButton
+          title="Next"
+          solid
+          onPress={scrollTo}
+          style={styles.nextButton}
+        />
       </View>
     </View>
   );
