@@ -1,12 +1,16 @@
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {Image, View} from 'react-native';
 import {SocialBlock} from '../../components';
 import {Subtitle, Title} from '../../components/Typography';
+import {Screens} from '../../constants';
 import {TextButton} from '../../ui';
 import {Screen} from '../../ui/Screen';
 import {styles} from './styles';
 
 export const Welcome: React.FC = () => {
+  const navigation: any = useNavigation();
+
   return (
     <Screen>
       <View style={styles.header}>
@@ -20,7 +24,10 @@ export const Welcome: React.FC = () => {
           solid
           onPress={() => console.log(1)}
         />
-        <TextButton title="Create New Account" onPress={() => console.log(1)} />
+        <TextButton
+          title="Create New Account"
+          onPress={() => navigation.navigate(Screens.register)}
+        />
       </View>
       <SocialBlock />
     </Screen>

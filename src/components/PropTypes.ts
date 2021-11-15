@@ -16,3 +16,11 @@ export type NextButtonProps = {
   onPress: () => void;
   style?: {[key: string]: number | string};
 };
+
+export type PaginationFooterProps = {
+  data: {[key: string]: string | any};
+  currentIndex: number;
+  onPress: () => void;
+  title: string;
+  style?: {[key: string]: number | string};
+};

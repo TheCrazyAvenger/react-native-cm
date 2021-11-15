@@ -3,7 +3,7 @@ import {useNavigation} from '@react-navigation/core';
 import React, {useRef, useState} from 'react';
 import {Animated, FlatList, Image, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {OnboardingItem, Paginator} from '../../components';
+import {OnboardingItem, PaginationFooter, Paginator} from '../../components';
 
 import {Description} from '../../components/Typography';
 import {TextButton} from '../../ui';
@@ -72,15 +72,12 @@ export const Onboarding: React.FC = () => {
           />
         </View>
       </LinearGradient>
-      <View style={styles.footer}>
-        <Paginator data={slides} currentIndex={currentIndex} />
-        <TextButton
-          title="Next"
-          solid
-          onPress={scrollTo}
-          style={styles.nextButton}
-        />
-      </View>
+      <PaginationFooter
+        data={slides}
+        currentIndex={currentIndex}
+        onPress={scrollTo}
+        title="Next"
+      />
     </View>
   );
 };
