@@ -7,6 +7,7 @@ export type TextButtonProps = {
   solid?: boolean;
   onPress: () => void;
   style?: {[key: string]: number | string};
+  disabled?: boolean;
 };
 
 export type SocialButtonProps = {

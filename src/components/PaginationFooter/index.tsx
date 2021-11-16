@@ -1,7 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
 import {PaginationFooterProps, Paginator} from '..';
-import {colors} from '../../constants';
 import {TextButton} from '../../ui';
 import {styles} from './styles';
 

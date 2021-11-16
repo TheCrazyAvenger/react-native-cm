@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
 import {AppNavigator} from './navigation/AppNavigator';
 
@@ -7,5 +8,9 @@ export const App: React.FC = () => {
     SplashScreen.hide();
   }, []);
 
-  return <AppNavigator />;
+  return (
+    <SafeAreaProvider>
+      <AppNavigator />
+    </SafeAreaProvider>
+  );
 };

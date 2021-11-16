@@ -1,12 +1,18 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/core';
 import React, {useRef, useState} from 'react';
-import {Animated, FlatList, Image, TouchableOpacity, View} from 'react-native';
+import {
+  Animated,
+  FlatList,
+  Image,
+  StatusBar,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {OnboardingItem, PaginationFooter, Paginator} from '../../components';
+import {OnboardingItem, PaginationFooter} from '../../components';
 
 import {Description} from '../../components/Typography';
-import {TextButton} from '../../ui';
 import {slides} from '../../utilities';
 import {styles} from './styles';
 
@@ -39,6 +45,7 @@ export const Onboarding: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor={'#2F80ED'} />
       <LinearGradient
         colors={['#2F80ED', '#2360B1']}
         style={styles.linearGradient}>

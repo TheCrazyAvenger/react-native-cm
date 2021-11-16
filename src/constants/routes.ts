@@ -1,5 +1,13 @@
 export enum Screens {
   onBoarding = 'onBoarding',
   welcome = 'welcome',
-  register = 'register',
+  signUp = 'signUp',
+  introduce = 'introduce',
+  email = 'email',
+  password = 'password',
+  emailVerification = 'emailVerification',
+  emailVerSuccess = 'emailVerSuccess',
+  mobileVerification = 'mobileVerification',
+  mobileVerCode = 'mobileVerCode',
+  mobileVerSuccess = 'mobileVerSuccess',
 }

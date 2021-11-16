@@ -22,4 +22,11 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.primary,
   },
+  disable: {
+    backgroundColor: '#C1D9FA',
+    borderColor: '#C1D9FA',
+  },
+  disableTitle: {
+    color: colors.white,
+  },
 });

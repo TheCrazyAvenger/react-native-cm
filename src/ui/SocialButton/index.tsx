@@ -1,6 +1,5 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
-import {Button} from 'react-native-elements';
 import {Image} from 'react-native-elements/dist/image/Image';
 import {SocialButtonProps} from '..';
 import {styles} from './styles';

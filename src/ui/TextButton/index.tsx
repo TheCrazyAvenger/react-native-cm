@@ -8,6 +8,7 @@ export const TextButton: React.FC<TextButtonProps> = ({
   solid = false,
   onPress,
   style,
+  disabled,
 }) => {
   const buttonStyle = [styles.buttonStyle, style, solid ? styles.solid : null];
 
@@ -20,7 +21,11 @@ export const TextButton: React.FC<TextButtonProps> = ({
       titleStyle={[...titleStyle]}
       type="solid"
       title={title}
+      touchSoundDisabled={false}
       onPress={onPress}
+      disabled={disabled}
+      disabledStyle={styles.disable}
+      disabledTitleStyle={styles.disableTitle}
     />
   );
 };

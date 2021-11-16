@@ -24,3 +24,29 @@ export type PaginationFooterProps = {
   title: string;
   style?: {[key: string]: number | string};
 };
+
+export type CheckBoxProps = {
+  value: any;
+  onPress: () => void;
+  error: any;
+  isTouched: any;
+};
+
+export type FormInputProps = {
+  label: string;
+  plaseholder: string;
+  onChangeText: any;
+  onFocus: any;
+  onInput?: any;
+  value: any;
+  errorMessage: any;
+  isTouched: any;
+  style?: {[key: string]: number | string};
+  secureTextEntry?: boolean;
+  rightIcon?: any;
+};
+
+export type PasswordItemProps = {
+  text: string;
+  color: string;
+};
