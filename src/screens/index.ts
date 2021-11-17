@@ -1,5 +1,6 @@
 export * from './Onboarding';
 export * from './Welcome';
+export * from './Home';
 
 export * from './SignUpScreens/Introduce';
 export * from './SignUpScreens/Email';

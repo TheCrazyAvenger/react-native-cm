@@ -1,0 +1,38 @@
+export const metals = [
+  {
+    color: '#FFBD00',
+    metal: 'Gold',
+    price: '$1,853.21 USD',
+    ounce: '0.24 oz',
+    usd: '$1,234',
+    ounceChange: '+0.12%',
+    usdChange: '+$12.34',
+  },
+  {
+    color: '#2F80ED',
+    metal: 'Silver',
+    price: '$27.96 USD',
+    ounce: '0.1 oz',
+    usd: '$879.34',
+    ounceChange: '+0.10%',
+    usdChange: '+$8.79',
+  },
+  {
+    color: '#219653',
+    metal: 'Platinum',
+    price: '$1,287.44 USD',
+    ounce: '0.4 oz',
+    usd: '$1,078',
+    ounceChange: '+0.20%',
+    usdChange: '+$10.78',
+  },
+  {
+    color: '#F2994A',
+    metal: 'Palladium',
+    price: '$3,035.82 USD',
+    ounce: '0.8 oz',
+    usd: '$2,123',
+    ounceChange: '+0.11%',
+    usdChange: '+$21.23',
+  },
+];

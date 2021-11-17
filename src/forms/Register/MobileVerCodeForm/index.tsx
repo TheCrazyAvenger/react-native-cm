@@ -19,7 +19,7 @@ export const MobileVerCodeForm: React.FC = () => {
 
   const goToNext = () => {
     type === 'SignIn'
-      ? console.log('Done')
+      ? navigation.push(Screens.home)
       : navigation.push(Screens.mobileVerSuccess, {
           values: {...route.params.values},
         });

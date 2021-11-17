@@ -4,8 +4,8 @@ import {colors} from '../../../constants';
 export const styles = StyleSheet.create({
   default: {
     fontFamily: 'OpenSans-SemiBold',
-    fontSize: 18,
+    fontSize: 24,
     color: colors.black,
-    lineHeight: 24.51,
+    lineHeight: 43.58,
   },
 });

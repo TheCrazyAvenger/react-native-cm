@@ -6,6 +6,7 @@ import {
   ForgotPassError,
   ForgotPassSucces,
   ForgotPassword,
+  Home,
   LogIn,
   MobileVerCode,
   Password,
@@ -19,7 +20,7 @@ export const LogInStack: React.FC = () => {
       screenOptions={{
         headerShown: false,
       }}
-      initialRouteName={Screens.logIn}>
+      initialRouteName={Screens.home}>
       <Stack.Screen name={Screens.logIn} component={LogIn} />
       <Stack.Screen name={Screens.mobileVerCode} component={MobileVerCode} />
       <Stack.Screen name={Screens.forgotPassword} component={ForgotPassword} />
@@ -33,6 +34,7 @@ export const LogInStack: React.FC = () => {
       />
       <Stack.Screen name={Screens.password} component={Password} />
       <Stack.Screen name={Screens.forgotPassDone} component={ForgotPassDone} />
+      <Stack.Screen name={Screens.home} component={Home} />
     </Stack.Navigator>
   );
 };

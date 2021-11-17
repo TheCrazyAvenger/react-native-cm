@@ -60,3 +60,20 @@ export type NotificationProps = {
   visible: boolean;
   onPress: any;
 };
+
+export type MetalsCardProps = {
+  data: any;
+};
+
+export type ActionsCardProps = {
+  backgroundColor: string;
+  title: string;
+  description: string;
+  buttonTitle: string;
+  onPress: any;
+};
+
+export type ViewMoreButtonProps = {
+  style?: {[key: string]: number | string};
+  onPress: any;
+};

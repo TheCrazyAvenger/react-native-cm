@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import {Description, Title} from '../../../components/Typography';
+import {Screens} from '../../../constants';
 import {Screen, TextButton} from '../../../ui';
 import {styles} from './styles';
 
@@ -17,8 +18,7 @@ export const MobileVerSuccess: React.FC = () => {
   const navigation: any = useNavigation();
 
   const goToNext = () => {
-    console.log('Done');
-    console.log(route.params);
+    navigation.push(Screens.home);
     // navigation.push(Screens.mobileVerification, {
     //   values: {...route.params.values},
     // });

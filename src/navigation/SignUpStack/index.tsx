@@ -6,6 +6,7 @@ import {
   EmailVerError,
   EmailVerification,
   EmailVerSuccess,
+  Home,
   Introduce,
   MobileVerCode,
   MobileVerification,
@@ -43,6 +44,7 @@ export const SignUpStack: React.FC = () => {
         name={Screens.mobileVerSuccess}
         component={MobileVerSuccess}
       />
+      <Stack.Screen name={Screens.home} component={Home} />
     </Stack.Navigator>
   );
 };

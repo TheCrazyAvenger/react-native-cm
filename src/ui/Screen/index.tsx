@@ -7,6 +7,10 @@ export const Screen: React.FC<ScreenProps> = ({children, type, style}) => {
   return type === 'View' ? (
     <View style={{...styles.container, ...style}}>{children}</View>
   ) : (
-    <ScrollView style={{...styles.container, ...style}}>{children}</ScrollView>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      style={{...styles.container, ...style}}>
+      {children}
+    </ScrollView>
   );
 };

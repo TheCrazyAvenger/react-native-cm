@@ -1,6 +1,7 @@
 export enum Screens {
   onBoarding = 'onBoarding',
   welcome = 'welcome',
+  home = 'home',
   signUp = 'signUp',
   signIn = 'signIn',
   introduce = 'introduce',
