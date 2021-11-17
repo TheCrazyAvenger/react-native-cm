@@ -4,7 +4,7 @@ import {colors} from '../../constants';
 export const styles = StyleSheet.create({
   social: {
     alignItems: 'center',
-    marginTop: 90,
+    marginTop: 70,
   },
   socialButtons: {
     marginTop: 16,

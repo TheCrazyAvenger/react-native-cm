@@ -1,17 +1,18 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   header: {
     marginTop: 112,
     alignItems: 'center',
     marginBottom: 37,
     marginHorizontal: 10,
   },
-
   footer: {
-    flex: 0.1,
     paddingHorizontal: 10,
-    marginTop: 75,
+    marginVertical: 25,
   },
   title: {
     marginBottom: 25,

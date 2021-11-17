@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '../../constants';
 import {
   Email,
+  EmailVerError,
   EmailVerification,
   EmailVerSuccess,
   Introduce,
@@ -32,6 +33,7 @@ export const SignUpStack: React.FC = () => {
         name={Screens.emailVerSuccess}
         component={EmailVerSuccess}
       />
+      <Stack.Screen name={Screens.emailVerError} component={EmailVerError} />
       <Stack.Screen
         name={Screens.mobileVerification}
         component={MobileVerification}

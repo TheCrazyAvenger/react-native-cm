@@ -12,7 +12,7 @@ export const Welcome: React.FC = () => {
   const navigation: any = useNavigation();
 
   return (
-    <Screen>
+    <Screen style={{paddingHorizontal: 36}}>
       <StatusBar
         barStyle="dark-content"
         translucent
@@ -27,7 +27,7 @@ export const Welcome: React.FC = () => {
           title="Log in"
           style={{marginBottom: 20}}
           solid
-          onPress={() => console.log(1)}
+          onPress={() => navigation.navigate(Screens.signIn)}
         />
         <TextButton
           title="Create New Account"

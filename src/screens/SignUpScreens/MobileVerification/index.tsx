@@ -15,7 +15,7 @@ export const MobileVerification: React.FC = () => {
         translucent
         backgroundColor={'transparent'}
       />
-      <Screen>
+      <Screen type="View">
         <View style={styles.header}>
           <Title style={{marginBottom: 25}}>Mobile Verification</Title>
           <Description>

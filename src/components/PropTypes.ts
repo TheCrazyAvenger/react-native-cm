@@ -32,6 +32,10 @@ export type CheckBoxProps = {
   isTouched: any;
 };
 
+export type SocialBlockProps = {
+  style?: {[key: string]: number | string};
+};
+
 export type FormInputProps = {
   label: string;
   plaseholder: string;
@@ -49,4 +53,10 @@ export type FormInputProps = {
 export type PasswordItemProps = {
   text: string;
   color: string;
+};
+
+export type NotificationProps = {
+  text: string;
+  visible: boolean;
+  onPress: any;
 };

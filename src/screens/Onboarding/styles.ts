@@ -21,13 +21,16 @@ export const styles = StyleSheet.create({
     top: 40,
   },
   linearGradient: {
-    flex: 0.85,
+    flex: 1,
   },
   footer: {
+    position: 'absolute',
+    bottom: 0,
     alignItems: 'center',
     paddingTop: 5,
-    flex: 0.15,
-    paddingHorizontal: 36,
+    paddingBottom: 25,
+    backgroundColor: colors.white,
+    width: '100%',
   },
   nextButton: {
     marginTop: 20,

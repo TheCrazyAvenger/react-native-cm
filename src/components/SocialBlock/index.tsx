@@ -1,12 +1,13 @@
 import React from 'react';
 import {View} from 'react-native';
+import {SocialBlockProps} from '..';
 import {SocialButton} from '../../ui';
 import {Subtitle} from '../Typography';
 import {styles} from './styles';
 
-export const SocialBlock: React.FC = () => {
+export const SocialBlock: React.FC<SocialBlockProps> = ({style}) => {
   return (
-    <View style={styles.social}>
+    <View style={{...styles.social, ...style}}>
       <Subtitle>Or Login with</Subtitle>
       <View style={styles.socialButtons}>
         <SocialButton

@@ -4,6 +4,7 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
   StatusBar,
   View,
 } from 'react-native';
@@ -24,38 +25,33 @@ export const MobileVerSuccess: React.FC = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={{flex: 1}}
-      behavior={Platform.OS === 'android' ? undefined : 'padding'}>
+    <Screen type="View">
       <StatusBar
         barStyle="dark-content"
         translucent
         backgroundColor={'transparent'}
       />
+      <View style={{flex: 1}}>
+        <ScrollView>
+          <View style={styles.header}>
+            <Title style={styles.title}>Mobile Verification Complete</Title>
+            <Description style={styles.description}>
+              Thank you for opening a CyberMetals account!
+            </Description>
+          </View>
+          <Image
+            style={{alignSelf: 'center'}}
+            source={require('../../../assets/images/register/complete.png')}
+          />
+        </ScrollView>
 
-      <Screen>
-        <View style={{flex: 1, justifyContent: 'space-between'}}>
-          <View style={{alignItems: 'center'}}>
-            <View style={styles.header}>
-              <Title style={styles.title}>Mobile Verification Complete</Title>
-              <Description style={styles.description}>
-                Thank you for opening a CyberMetals account!
-              </Description>
-            </View>
-            <Image
-              source={require('../../../assets/images/register/complete.png')}
-            />
-          </View>
-          <View style={styles.buttons}>
-            <TextButton
-              title="Go To Dashboard"
-              onPress={goToNext}
-              solid
-              style={{marginBottom: 20}}
-            />
-          </View>
-        </View>
-      </Screen>
-    </KeyboardAvoidingView>
+        <TextButton
+          title="Go To Dashboard"
+          onPress={goToNext}
+          solid
+          style={{marginVertical: 25}}
+        />
+      </View>
+    </Screen>
   );
 };

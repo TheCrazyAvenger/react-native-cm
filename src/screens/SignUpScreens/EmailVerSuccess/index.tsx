@@ -4,6 +4,7 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
   StatusBar,
   View,
 } from 'react-native';
@@ -25,24 +26,22 @@ export const EmailVerSuccess: React.FC = () => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={{flex: 1}}
-      behavior={Platform.OS === 'android' ? undefined : 'padding'}>
+    <Screen type="View">
       <StatusBar
         barStyle="dark-content"
         translucent
         backgroundColor={'transparent'}
       />
-
-      <Screen>
-        <View style={{flex: 0.85, alignItems: 'center'}}>
+      <View style={styles.container}>
+        <ScrollView>
           <View style={styles.header}>
             <Title style={styles.title}>Email Verification Complete</Title>
           </View>
           <Image
+            style={{alignSelf: 'center'}}
             source={require('../../../assets/images/register/complete.png')}
           />
-        </View>
+        </ScrollView>
         <PaginationFooter
           data={slides}
           currentIndex={3}
@@ -50,7 +49,7 @@ export const EmailVerSuccess: React.FC = () => {
           title="Continue"
           style={styles.footer}
         />
-      </Screen>
-    </KeyboardAvoidingView>
+      </View>
+    </Screen>
   );
 };

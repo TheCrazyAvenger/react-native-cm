@@ -6,12 +6,11 @@ import {Description, Title} from '../Typography';
 import {styles} from './styles';
 
 export const OnboardingItem: React.FC<OnboardingItemProps> = ({item}) => {
-  const {width, height} = useWindowDimensions();
-  const imageHeight = (65 / 100) * height;
+  const {width} = useWindowDimensions();
 
   return (
     <View style={[styles.container, {width}]}>
-      <View>
+      <View style={styles.header}>
         <Title style={{color: colors.white, marginVertical: 10}}>
           {item.title}
         </Title>
@@ -20,7 +19,7 @@ export const OnboardingItem: React.FC<OnboardingItemProps> = ({item}) => {
         </Description>
       </View>
       <View style={styles.imageItem}>
-        <Image source={item.image} style={[{width, height: imageHeight}]} />
+        <Image resizeMode="contain" source={item.image} style={[{width}]} />
       </View>
     </View>
   );

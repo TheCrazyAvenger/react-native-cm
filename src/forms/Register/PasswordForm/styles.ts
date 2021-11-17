@@ -5,9 +5,6 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  form: {
-    flex: 0.8,
-  },
   dot: {
     width: 6,
     height: 6,
@@ -16,7 +13,7 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
   },
   footer: {
-    flex: 0.15,
+    marginVertical: 25,
     paddingHorizontal: 10,
   },
 });

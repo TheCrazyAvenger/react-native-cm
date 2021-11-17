@@ -5,5 +5,6 @@ export * from './PaginationFooter';
 export * from './CheckBoxItem';
 export * from './FormInput';
 export * from './PasswordItem';
+export * from './Notification';
 
 export * from './PropTypes';

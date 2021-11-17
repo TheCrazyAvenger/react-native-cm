@@ -6,9 +6,11 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 36,
     paddingTop: 25,
   },
+  header: {
+    height: 160,
+    marginBottom: 60,
+  },
   imageItem: {
-    position: 'absolute',
-    bottom: -165,
     alignSelf: 'center',
   },
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Formik} from 'formik';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {FormInput} from '../../../components';
 import {mobileSchema} from '../..';
 import {PaginationFooter} from '../../../components';
@@ -15,6 +15,7 @@ export const MobileVerForm: React.FC = () => {
 
   const goToNext = (values: {[key: string]: string | boolean}) => {
     navigation.push(Screens.mobileVerCode, {
+      type: 'SignUp',
       values: {...values, ...route.params.values},
     });
   };
@@ -35,7 +36,7 @@ export const MobileVerForm: React.FC = () => {
         setFieldTouched,
       }) => (
         <View style={styles.container}>
-          <View style={styles.form}>
+          <ScrollView>
             <FormInput
               label="Mobile Number"
               plaseholder="Your Phone Number"
@@ -45,7 +46,7 @@ export const MobileVerForm: React.FC = () => {
               errorMessage={errors.mobile}
               isTouched={touched.mobile}
             />
-          </View>
+          </ScrollView>
           <PaginationFooter
             data={slides}
             currentIndex={4}

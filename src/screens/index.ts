@@ -9,3 +9,10 @@ export * from './SignUpScreens/EmailVerSuccess';
 export * from './SignUpScreens/MobileVerification';
 export * from './SignUpScreens/MobileVerCode';
 export * from './SignUpScreens/MobileVerSuccess';
+export * from './SignUpScreens/EmailVerError';
+
+export * from './LogInScreens/LogIn';
+export * from './LogInScreens/ForgotPassword';
+export * from './LogInScreens/ForgotPassSucces';
+export * from './LogInScreens/ForgotPassError';
+export * from './LogInScreens/ForgotPassDone';

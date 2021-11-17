@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   buttons: {
-    marginBottom: 25,
+    marginVertical: 25,
   },
   notification: {
     position: 'absolute',

@@ -15,16 +15,17 @@ export const Introduce: React.FC = () => {
         translucent
         backgroundColor={'transparent'}
       />
-      <Screen>
-        <View style={styles.header}>
-          <Title style={{marginBottom: 25}}>Introduce Yourself</Title>
-          <Description>
-            Please enter your legal first and last name.
-          </Description>
-        </View>
-
-        <IntroduceForm />
-      </Screen>
+      <View style={{flex: 1}}>
+        <Screen type="View">
+          <View style={styles.header}>
+            <Title style={{marginBottom: 25}}>Introduce Yourself</Title>
+            <Description>
+              Please enter your legal first and last name.
+            </Description>
+          </View>
+          <IntroduceForm />
+        </Screen>
+      </View>
     </KeyboardAvoidingView>
   );
 };

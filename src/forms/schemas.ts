@@ -47,3 +47,22 @@ export const mobileSchema = yup.object().shape({
 export const mobileVerCodeSchema = yup.object().shape({
   code: yup.number().required('Please enter code'),
 });
+
+export const logInSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email()
+    .label('Email adress')
+    .required('Please enter your email')
+    .max(50, 'The field should be less than or equal to 50 symbols '),
+  password: yup.string().required('Password is required'),
+});
+
+export const forgotPassSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email()
+    .label('Email adress')
+    .required('Please enter your email')
+    .max(50, 'The field should be less than or equal to 50 symbols '),
+});

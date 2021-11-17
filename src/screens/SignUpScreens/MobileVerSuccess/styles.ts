@@ -12,9 +12,6 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     marginHorizontal: 20,
   },
-  buttons: {
-    marginBottom: 25,
-  },
   description: {
     textAlign: 'center',
     paddingHorizontal: 30,

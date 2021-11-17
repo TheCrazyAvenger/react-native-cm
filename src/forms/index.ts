@@ -4,4 +4,7 @@ export * from './Register/PasswordForm';
 export * from './Register/MobileVerForm';
 export * from './Register/MobileVerCodeForm';
 
+export * from './LogIn/LogInForm';
+export * from './LogIn/ForgotPassForm';
+
 export * from './schemas';

@@ -34,12 +34,16 @@ export const Onboarding: React.FC = () => {
     if (currentIndex < slides.length - 1) {
       slidesRef.current.scrollToIndex({index: currentIndex + 1});
     } else {
-      try {
-        await AsyncStorage.setItem('@viewedOnboarding', 'true');
-        navigation.navigate('welcome');
-      } catch (e) {
-        console.log(e);
-      }
+      skipHandler();
+    }
+  };
+
+  const skipHandler = async () => {
+    try {
+      await AsyncStorage.setItem('@viewedOnboarding', 'true');
+      navigation.navigate('welcome');
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -49,9 +53,7 @@ export const Onboarding: React.FC = () => {
       <LinearGradient
         colors={['#2F80ED', '#2360B1']}
         style={styles.linearGradient}>
-        <TouchableOpacity
-          style={styles.skipButton}
-          onPress={() => navigation.navigate('welcome')}>
+        <TouchableOpacity style={styles.skipButton} onPress={skipHandler}>
           <Description style={styles.skipText}>Skip</Description>
         </TouchableOpacity>
         <Image
@@ -81,6 +83,7 @@ export const Onboarding: React.FC = () => {
       </LinearGradient>
       <PaginationFooter
         data={slides}
+        style={styles.footer}
         currentIndex={currentIndex}
         onPress={scrollTo}
         title="Next"

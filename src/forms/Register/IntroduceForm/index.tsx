@@ -1,17 +1,18 @@
 import React from 'react';
 import {Formik} from 'formik';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {FormInput} from '../../../components';
 import {introduceSchema} from '../..';
 import {CheckBoxItem, PaginationFooter} from '../../../components';
 import {slides} from '../../../utilities';
 import {styles} from './styles';
-import {useNavigation} from '@react-navigation/core';
+import {useNavigation, useRoute} from '@react-navigation/core';
 import {Screens} from '../../../constants';
 
 export const IntroduceForm: React.FC = () => {
   const navigation: any = useNavigation();
-
+  const route = useRoute();
+  console.log(route.params);
   const goToNext = (values: {[key: string]: string | boolean}) => {
     const {firstName, lastName} = values;
     navigation.push(Screens.email, {
@@ -38,7 +39,7 @@ export const IntroduceForm: React.FC = () => {
         setFieldValue,
       }) => (
         <View style={styles.container}>
-          <View style={styles.form}>
+          <ScrollView>
             <FormInput
               label="First Name"
               plaseholder="Your First Name"
@@ -57,13 +58,15 @@ export const IntroduceForm: React.FC = () => {
               errorMessage={errors.lastName}
               isTouched={touched.lastName}
             />
+
             <CheckBoxItem
               value={values.checkBox}
               isTouched={touched.checkBox}
               onPress={() => setFieldValue('checkBox', !values.checkBox)}
               error={errors.checkBox}
             />
-          </View>
+          </ScrollView>
+
           <PaginationFooter
             data={slides}
             currentIndex={0}

@@ -1,5 +1,6 @@
 export type ScreenProps = {
   style?: {[key: string]: string | number};
+  type?: 'View';
 };
 
 export type TextButtonProps = {

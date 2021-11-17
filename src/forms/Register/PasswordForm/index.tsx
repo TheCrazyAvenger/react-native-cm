@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Formik} from 'formik';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {Image, ScrollView, TouchableOpacity, View} from 'react-native';
 import {FormInput, PasswordItem} from '../../../components';
 import {passwordSchema} from '../..';
 import {PaginationFooter} from '../../../components';
@@ -8,6 +8,7 @@ import {passwordConditions, slides} from '../../../utilities';
 import {styles} from './styles';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {colors, Screens} from '../../../constants';
+import {TextButton} from '../../../ui';
 
 export const PasswordForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(true);
@@ -21,11 +22,15 @@ export const PasswordForm: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
+  const {type} = route.params;
+
   const goToNext = (values: {[key: string]: string | boolean}) => {
     const password = values.password;
-    navigation.push(Screens.emailVerification, {
-      values: {password, ...route.params.values},
-    });
+    type === 'SignIn'
+      ? navigation.push(Screens.forgotPassDone)
+      : navigation.push(Screens.emailVerification, {
+          values: {password, ...route.params.values},
+        });
   };
 
   const checkPassword = (text: string) => {
@@ -51,13 +56,13 @@ export const PasswordForm: React.FC = () => {
         handleSubmit,
         values,
         errors,
+
         touched,
         setFieldTouched,
-        setFieldError,
       }) => {
         return (
           <View style={styles.container}>
-            <View style={styles.form}>
+            <ScrollView>
               <FormInput
                 label="Password"
                 plaseholder="Enter password"
@@ -94,6 +99,7 @@ export const PasswordForm: React.FC = () => {
                   />
                 );
               })}
+
               <FormInput
                 label="Confirm Password"
                 plaseholder="Confirm password"
@@ -103,24 +109,39 @@ export const PasswordForm: React.FC = () => {
                 errorMessage={errors.confirmPassword}
                 isTouched={touched.confirmPassword}
                 secureTextEntry={showConfirmPassword}
-                rightIcon={() => (
-                  <TouchableOpacity
-                    onPress={() => setShowConfirmPassword(prev => !prev)}>
+                rightIcon={() =>
+                  errors.confirmPassword || values.confirmPassword === '' ? (
+                    <TouchableOpacity
+                      onPress={() => setShowConfirmPassword(prev => !prev)}>
+                      <Image
+                        source={require('../../../assets/images/register/show.png')}
+                      />
+                    </TouchableOpacity>
+                  ) : (
                     <Image
-                      source={require('../../../assets/images/register/show.png')}
+                      source={require('../../../assets/images/register/check.png')}
                     />
-                  </TouchableOpacity>
-                )}
+                  )
+                }
               />
-            </View>
+            </ScrollView>
 
-            <PaginationFooter
-              data={slides}
-              currentIndex={2}
-              onPress={handleSubmit}
-              title="Continue"
-              style={styles.footer}
-            />
+            {type === 'SignIn' ? (
+              <TextButton
+                title="Reset Password"
+                style={{marginVertical: 25}}
+                solid
+                onPress={handleSubmit}
+              />
+            ) : (
+              <PaginationFooter
+                data={slides}
+                currentIndex={2}
+                onPress={handleSubmit}
+                title="Continue"
+                style={styles.footer}
+              />
+            )}
           </View>
         );
       }}
