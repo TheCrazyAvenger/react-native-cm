@@ -7,6 +7,7 @@ export const metals = [
     usd: '$1,234',
     ounceChange: '+0.12%',
     usdChange: '+$12.34',
+    id: 1,
   },
   {
     color: '#2F80ED',
@@ -16,6 +17,7 @@ export const metals = [
     usd: '$879.34',
     ounceChange: '+0.10%',
     usdChange: '+$8.79',
+    id: 2,
   },
   {
     color: '#219653',
@@ -25,6 +27,7 @@ export const metals = [
     usd: '$1,078',
     ounceChange: '+0.20%',
     usdChange: '+$10.78',
+    id: 3,
   },
   {
     color: '#F2994A',
@@ -34,5 +37,6 @@ export const metals = [
     usd: '$2,123',
     ounceChange: '+0.11%',
     usdChange: '+$21.23',
+    id: 4,
   },
 ];

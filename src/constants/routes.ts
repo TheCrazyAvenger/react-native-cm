@@ -1,9 +1,12 @@
 export enum Screens {
   onBoarding = 'onBoarding',
   welcome = 'welcome',
+
+  homeStack = 'homeStack',
   home = 'home',
+  holdings = 'holdings',
+
   signUp = 'signUp',
-  signIn = 'signIn',
   introduce = 'introduce',
   email = 'email',
   password = 'password',
@@ -13,6 +16,8 @@ export enum Screens {
   mobileVerification = 'mobileVerification',
   mobileVerCode = 'mobileVerCode',
   mobileVerSuccess = 'mobileVerSuccess',
+
+  signIn = 'signIn',
   logIn = 'logIn',
   forgotPassword = 'forgotPassword',
   forgotPassSucces = 'forgotPassSucces',

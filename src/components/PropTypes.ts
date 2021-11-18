@@ -77,3 +77,25 @@ export type ViewMoreButtonProps = {
   style?: {[key: string]: number | string};
   onPress: any;
 };
+
+export type MenuModalItemProps = {
+  uri: any;
+  onPress: () => void;
+  title: string;
+  text: string;
+};
+
+export type MetalPickerProps = {
+  currentMetal: number;
+  onPress: (id: number) => void;
+};
+
+export type HoldingsHeaderProps = {
+  metalType: number;
+  setMetal: (id: number) => void;
+};
+
+export type ChartProps = {
+  chartTime: number;
+  setTime: (i: number) => void;
+};

@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {colors} from '../../constants';
 
 export const styles = StyleSheet.create({
   navigatorContainer: {
@@ -33,5 +34,6 @@ export const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 60,
+    backgroundColor: colors.white,
   },
 });

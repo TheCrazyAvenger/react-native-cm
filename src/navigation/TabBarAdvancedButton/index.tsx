@@ -9,6 +9,10 @@ type TabBgProps = {
   style: {[key: string]: string | number};
 };
 
+type ButtonProps = {
+  onPress: () => void;
+};
+
 const TabBg: React.FC<TabBgProps> = ({color, style}) => {
   return (
     <Svg width={100} height={72} viewBox="0 0 75 61" style={style}>
@@ -20,13 +24,15 @@ const TabBg: React.FC<TabBgProps> = ({color, style}) => {
   );
 };
 
-export const TabBarAdvancedButton: React.FC = ({...props}) => {
-  const {onPress}: any = props;
+export const TabBarAdvancedButton: React.FC<ButtonProps> = ({onPress}) => {
   return (
     <View style={styles.buttonContainer} pointerEvents="box-none">
       <TabBg color={colors.white} style={styles.background} />
 
-      <TouchableOpacity style={styles.button} onPress={onPress}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        style={styles.button}
+        onPress={onPress}>
         <Image source={require('../../assets/images/navigation/switch.png')} />
       </TouchableOpacity>
     </View>

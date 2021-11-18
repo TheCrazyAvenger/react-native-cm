@@ -6,12 +6,22 @@ export * from './CheckBoxItem';
 export * from './FormInput';
 export * from './PasswordItem';
 export * from './Notification';
-export * from './Header';
+
 export * from './Wrapper';
-export * from './MetalsCard';
-export * from './ActionsCard';
-export * from './ActivityCard';
-export * from './NewsCard';
+
 export * from './ViewMoreButton';
+export * from './MenuModalItem';
+
+export * from './homeComponents/Header';
+export * from './homeComponents/MetalsCard';
+export * from './homeComponents/ActionsCard';
+export * from './homeComponents/ActivityCard';
+export * from './homeComponents/NewsCard';
+
+export * from './holdingsComponents/MetalPicker';
+export * from './holdingsComponents/HoldingsHeader';
+export * from './holdingsComponents/MetalDetails';
+export * from './holdingsComponents/PriceGraph';
+export * from './holdingsComponents/Chart';
 
 export * from './PropTypes';

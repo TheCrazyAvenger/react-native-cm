@@ -3,7 +3,7 @@ import {colors} from '../../constants';
 
 export const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    maxWidth: '100%',
   },
   buttonStyle: {
     backgroundColor: colors.white,
