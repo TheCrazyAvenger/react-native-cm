@@ -24,4 +24,7 @@ export * from './holdingsComponents/MetalDetails';
 export * from './holdingsComponents/PriceGraph';
 export * from './holdingsComponents/Chart';
 
+export * from './portfolioComponents/PortfolioHeader';
+export * from './portfolioComponents/MetalsInfo';
+
 export * from './PropTypes';

@@ -7,6 +7,10 @@ export const metals = [
     usd: '$1,234',
     ounceChange: '+0.12%',
     usdChange: '+$12.34',
+    owned: 485.0,
+    gainLose: 368.4,
+    totalCost: 970.25,
+    totalOwned: 0.25,
     id: 1,
   },
   {
@@ -17,6 +21,10 @@ export const metals = [
     usd: '$879.34',
     ounceChange: '+0.10%',
     usdChange: '+$8.79',
+    owned: 193.25,
+    gainLose: 212.9,
+    totalCost: 642.8,
+    totalOwned: 0.325,
     id: 2,
   },
   {
@@ -27,6 +35,10 @@ export const metals = [
     usd: '$1,078',
     ounceChange: '+0.20%',
     usdChange: '+$10.78',
+    owned: 77.05,
+    gainLose: 16.0,
+    totalCost: 218.4,
+    totalOwned: 0.025,
     id: 3,
   },
   {
@@ -37,6 +49,10 @@ export const metals = [
     usd: '$2,123',
     ounceChange: '+0.11%',
     usdChange: '+$21.23',
+    owned: 32.4,
+    gainLose: 24.0,
+    totalCost: 315.2,
+    totalOwned: 0.001,
     id: 4,
   },
 ];

@@ -5,6 +5,7 @@ export enum Screens {
   homeStack = 'homeStack',
   home = 'home',
   holdings = 'holdings',
+  portfolio = 'portfolio',
 
   signUp = 'signUp',
   introduce = 'introduce',

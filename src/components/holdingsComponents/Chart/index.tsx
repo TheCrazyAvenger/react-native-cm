@@ -49,6 +49,7 @@ export const Chart: React.FC<ChartProps> = ({chartTime, setTime}) => {
           const color = item.id === chartTime ? colors.primary : colors.black;
           return (
             <TouchableOpacity
+              key={i}
               activeOpacity={0.7}
               onPress={() => setTime(item.id)}>
               <SubtitleMedium style={{color}}>{item.time}</SubtitleMedium>

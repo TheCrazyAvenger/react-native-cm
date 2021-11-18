@@ -4,7 +4,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import {colors, Screens} from '../../constants';
-import {NullString} from '../../screens';
+import {NullString, Portfolio} from '../../screens';
 import {styles} from './styles';
 import {Platform, View} from 'react-native';
 
@@ -54,7 +54,7 @@ export const BottomTabs: React.FC = () => {
           component={HomeStack}
         />
         <Tab.Screen
-          name="Portfolio"
+          name={Screens.portfolio}
           options={{
             title: 'Portfolio',
             tabBarIcon: ({focused}) => (
@@ -65,7 +65,7 @@ export const BottomTabs: React.FC = () => {
               borderTopEndRadius: 8,
             },
           }}
-          component={NullString}
+          component={Portfolio}
         />
         <Tab.Screen
           name="Deal"

@@ -2,6 +2,7 @@ export * from './Onboarding';
 export * from './Welcome';
 export * from './Home';
 export * from './Holdings';
+export * from './Portfolio';
 export * from './NullScreen';
 
 export * from './SignUpScreens/Introduce';
