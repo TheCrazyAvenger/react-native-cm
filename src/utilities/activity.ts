@@ -6,6 +6,7 @@ export const activity = [
     usd: '+ $5.45',
     oz: '0.002 oz',
     image: require('../assets/images/home/buy.png'),
+    id: '1',
   },
   {
     type: 'Sold Platinum',
@@ -14,6 +15,7 @@ export const activity = [
     usd: '+ $7.80',
     oz: '0.003 oz',
     image: require('../assets/images/home/sold.png'),
+    id: '2',
   },
   {
     type: 'Deposited Cash',
@@ -21,6 +23,7 @@ export const activity = [
     color: '#135D2D',
     usd: '+ $28.45',
     image: require('../assets/images/home/deposit.png'),
+    id: '3',
   },
   {
     type: 'Redeemed Products F...',
@@ -28,6 +31,7 @@ export const activity = [
     color: '#135D2D',
     usd: '+ $4.12',
     image: require('../assets/images/home/redeemed.png'),
+    id: '4',
   },
   {
     type: 'Withdrawn cash',
@@ -35,5 +39,6 @@ export const activity = [
     color: '#A01313',
     usd: '- $17.00',
     image: require('../assets/images/home/withdrawn.png'),
+    id: '5',
   },
 ];

@@ -13,8 +13,8 @@ export const ActivityCard: React.FC = () => {
       {activity.map((item, i) => {
         const {type, date, color, usd, image} = item;
         return (
-          <>
-            <View key={i} style={styles.cardItem}>
+          <React.Fragment key={i}>
+            <View style={styles.cardItem}>
               <View style={styles.cardItem}>
                 <Image style={{marginRight: 20}} source={image} />
                 <View>
@@ -32,7 +32,7 @@ export const ActivityCard: React.FC = () => {
             {i === activity.length - 1 ? null : (
               <Wrapper style={{backgroundColor: colors.primary}} />
             )}
-          </>
+          </React.Fragment>
         );
       })}
       <ViewMoreButton onPress={() => console.log(1)} />

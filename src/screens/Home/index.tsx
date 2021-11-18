@@ -1,18 +1,14 @@
 import React from 'react';
-import {ScrollView, StatusBar, View} from 'react-native';
+import {StatusBar} from 'react-native';
 import {
   ActionsCard,
   ActivityCard,
   Header,
   MetalsCard,
   NewsCard,
-  Wrapper,
 } from '../../components';
-import {Description, Illustration, Subtitle} from '../../components/Typography';
-import {colors} from '../../constants';
 import {Screen} from '../../ui';
 import {metals} from '../../utilities';
-import {styles} from './styles';
 
 export const Home: React.FC = () => {
   return (
