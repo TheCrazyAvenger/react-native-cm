@@ -1,14 +1,13 @@
-import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {Image, View} from 'react-native';
 import {MetalsCardProps, Wrapper} from '../..';
-import {colors, Screens} from '../../../constants';
-import {Illustration, Subtitle, SubtitleMedium} from '../../Typography';
+import {colors} from '../../../constants';
+import {getColor} from '../../../utilities';
+import {Subtitle, SubtitleMedium} from '../../Typography';
 import {styles} from './styles';
 
 export const MetalsInfo: React.FC<MetalsCardProps> = ({data}) => {
   const {color, metal, owned, gainLose, totalCost, totalOwned} = data;
-  const navigation: any = useNavigation();
 
   return (
     <View>
@@ -20,7 +19,15 @@ export const MetalsInfo: React.FC<MetalsCardProps> = ({data}) => {
 
         <View style={styles.cardItem}>
           <SubtitleMedium>Gains/Losses</SubtitleMedium>
-          <SubtitleMedium>$ {gainLose} USD</SubtitleMedium>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <SubtitleMedium style={{color: getColor(gainLose)}}>
+              $ {gainLose} USD
+            </SubtitleMedium>
+            <Image
+              style={{marginLeft: 5}}
+              source={require('../../../assets/images/potfolio/upArrow.png')}
+            />
+          </View>
         </View>
         <View style={styles.cardItem}>
           <SubtitleMedium>Total Acquisition Cost</SubtitleMedium>

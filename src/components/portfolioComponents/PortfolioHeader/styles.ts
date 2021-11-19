@@ -24,4 +24,10 @@ export const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Bold',
     fontSize: 13,
   },
+  changeGraph: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
 });

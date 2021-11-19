@@ -1,5 +1,5 @@
-export const getColor = (text: string) => {
-  const isUp = text.includes('+');
-  if (isUp) return 'green';
-  return 'red';
+export const getColor = (text: string | number) => {
+  const isDown = text.toString().includes('-');
+  if (isDown) return 'red';
+  return 'green';
 };
