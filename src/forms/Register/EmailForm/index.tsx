@@ -64,21 +64,13 @@ export const EmailForm: React.FC = () => {
               onPress={handleSubmit}
             />
           ) : (
-            <>
-              <TextButton
-                title="Confirm"
-                style={{marginVertical: 25}}
-                solid
-                onPress={() => navigation.navigate(Screens.email)}
-              />
-              <PaginationFooter
-                data={slides}
-                currentIndex={1}
-                onPress={handleSubmit}
-                title="Continue"
-                style={styles.footer}
-              />
-            </>
+            <PaginationFooter
+              data={slides}
+              currentIndex={1}
+              onPress={handleSubmit}
+              title="Continue"
+              style={styles.footer}
+            />
           )}
         </View>
       )}

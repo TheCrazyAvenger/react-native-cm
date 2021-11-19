@@ -1,13 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
-import {
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StatusBar,
-  View,
-} from 'react-native';
+import {Image, ScrollView, StatusBar, View} from 'react-native';
 import {Description, Title} from '../../../components/Typography';
 import {Screens} from '../../../constants';
 import {Screen, TextButton} from '../../../ui';

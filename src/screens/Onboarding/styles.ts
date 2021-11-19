@@ -32,7 +32,4 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.white,
     width: '100%',
   },
-  nextButton: {
-    marginTop: 20,
-  },
 });

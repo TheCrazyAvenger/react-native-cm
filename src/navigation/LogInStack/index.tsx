@@ -33,7 +33,7 @@ export const LogInStack: React.FC = () => {
       />
       <Stack.Screen name={Screens.password} component={Password} />
       <Stack.Screen name={Screens.forgotPassDone} component={ForgotPassDone} />
-      <Stack.Screen name={Screens.mobileVerCode} component={MobileVerCode} />
+      <Stack.Screen name={Screens.mobileLogInCode} component={MobileVerCode} />
     </Stack.Navigator>
   );
 };

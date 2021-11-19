@@ -10,6 +10,7 @@ const Stack = createNativeStackNavigator();
 export const AuthStack: React.FC<{showOnBoarding: boolean}> = ({
   showOnBoarding,
 }) => {
+  console.log(showOnBoarding);
   return (
     <Stack.Navigator
       screenOptions={{

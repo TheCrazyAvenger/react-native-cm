@@ -30,20 +30,22 @@ export const Holdings: React.FC = () => {
       <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
         <MetalsDetails id={metalType} />
         <View style={styles.buttons}>
-          <TextButton
-            title="Sell"
-            style={styles.button}
-            onPress={() => console.log('Sell')}
-          />
-
-          <TextButton
-            solid
-            title="Buy"
-            style={styles.button}
-            onPress={() => console.log('Sell')}
-          />
+          <View>
+            <TextButton
+              title="Sell"
+              style={styles.button}
+              onPress={() => console.log('Sell')}
+            />
+          </View>
+          <View>
+            <TextButton
+              solid
+              title="Buy"
+              style={styles.button}
+              onPress={() => console.log('Sell')}
+            />
+          </View>
         </View>
-
         <PriceGraph id={metalType} />
 
         <NewsCard />

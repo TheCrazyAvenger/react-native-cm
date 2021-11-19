@@ -24,4 +24,5 @@ export enum Screens {
   forgotPassSucces = 'forgotPassSucces',
   forgotPassError = 'ForgotPassError',
   forgotPassDone = 'forgotPassDone',
+  mobileLogInCode = 'mobileLogInCode',
 }
