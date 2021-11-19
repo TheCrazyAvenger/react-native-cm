@@ -3,8 +3,15 @@ export * from './Welcome';
 export * from './Home';
 export * from './Holdings';
 export * from './Portfolio';
-export * from './Settings';
+export * from './Prices';
 export * from './NullScreen';
+
+export * from './SettingsScreens/Settings';
+export * from './SettingsScreens/Refer';
+export * from './SettingsScreens/AutoBuyScreens/AutoBuy';
+export * from './SettingsScreens/AutoBuyScreens/AutoBuyList';
+export * from './SettingsScreens/AutoBuyScreens/ChooseProduct';
+export * from './SettingsScreens/AutoBuyScreens/AutoBuySetUp';
 
 export * from './SignUpScreens/Introduce';
 export * from './SignUpScreens/Email';

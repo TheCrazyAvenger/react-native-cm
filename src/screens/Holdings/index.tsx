@@ -42,7 +42,7 @@ export const Holdings: React.FC = () => {
               solid
               title="Buy"
               style={styles.button}
-              onPress={() => console.log('Sell')}
+              onPress={() => console.log('Buy')}
             />
           </View>
         </View>

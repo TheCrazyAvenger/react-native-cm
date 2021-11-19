@@ -7,6 +7,16 @@ export enum Screens {
   holdings = 'holdings',
   portfolio = 'portfolio',
 
+  settingsStack = 'settingsStack',
+  settings = 'settings',
+  refer = 'refer',
+
+  autoBuyStack = 'autoBuyStack',
+  autoBuy = 'autoBuy',
+  autoBuyList = 'autoBuyList',
+  chooseProduct = 'chooseProduct',
+  autoBuySetUp = 'autoBuySetUp',
+
   signUp = 'signUp',
   introduce = 'introduce',
   email = 'email',

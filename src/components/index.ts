@@ -27,4 +27,10 @@ export * from './holdingsComponents/Chart';
 export * from './portfolioComponents/PortfolioHeader';
 export * from './portfolioComponents/MetalsInfo';
 
+export * from './settingsComponents/SettingsHeader';
+export * from './settingsComponents/MenuItem';
+export * from './settingsComponents/MenuItemSmall';
+
+export * from './autoBuyComponents/ProductItem';
+
 export * from './PropTypes';

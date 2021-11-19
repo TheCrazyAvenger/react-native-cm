@@ -6,6 +6,7 @@ import {useAppDispatch, useAppSelector} from '../hooks/hooks';
 import {getData} from '../store/actions';
 import {AuthStack} from './AuthStack';
 import {BottomTabs} from './BottomTabs';
+import {MainNavigator} from './MainNavigator';
 
 export const AppNavigator: React.FC = () => {
   const token = useAppSelector(state => state.auth.token);
@@ -46,7 +47,7 @@ export const AppNavigator: React.FC = () => {
       {loading ? (
         <ActivityIndicator />
       ) : token ? (
-        <BottomTabs />
+        <MainNavigator />
       ) : (
         <AuthStack showOnBoarding={showOnBoarding} />
       )}

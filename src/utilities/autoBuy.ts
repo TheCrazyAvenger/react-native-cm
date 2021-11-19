@@ -1,0 +1,38 @@
+export const autoBuy = [
+  {
+    metal: 'Gold',
+    price: 1853.5,
+    vault: 'JM Bullion',
+    premium: 13.5,
+    storageFee: 0.3,
+    spread: 0.83,
+    id: 1,
+  },
+  {
+    metal: 'Silver',
+    price: 25.44,
+    vault: 'JM Bullion',
+    premium: 0.44,
+    storageFee: 0.25,
+    spread: 0.52,
+    id: 2,
+  },
+  {
+    metal: 'Platinum',
+    price: 1015.0,
+    vault: 'JM Bullion',
+    premium: 15.0,
+    storageFee: 0.2,
+    spread: 0.99,
+    id: 3,
+  },
+  {
+    metal: 'Palladium',
+    price: 1015.0,
+    vault: 'JM Bullion',
+    premium: 15.0,
+    storageFee: 0.15,
+    spread: 1.19,
+    id: 4,
+  },
+];

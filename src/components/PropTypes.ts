@@ -99,3 +99,32 @@ export type ChartProps = {
   chartTime: number;
   setTime: (i: number) => void;
 };
+
+export type MenuItemProps = {
+  title: string;
+  description: string;
+  image: any;
+  onPress: (...args: any) => void;
+  style?: {[key: string]: number | string};
+  type?: 'switch';
+  switchValue?: boolean;
+};
+
+export type MenuItemSmallProps = {
+  title: string;
+  textColor?: string;
+  onPress: (...args: any) => void;
+  style?: {[key: string]: number | string};
+};
+
+export type ProductItemProps = {
+  metal: string;
+  price: number;
+  vault: string;
+  premium: number;
+  storageFee: number;
+  spread: number;
+  textColor?: string;
+  onPress: (...args: any) => void;
+  style?: {[key: string]: number | string};
+};
