@@ -1,17 +1,25 @@
 import {StyleSheet} from 'react-native';
+import {colors} from '../../../../constants';
 
 export const styles = StyleSheet.create({
   container: {
     marginVertical: 24,
-    padding: 10,
+    padding: 20,
     paddingVertical: 15,
     borderWidth: 1,
     borderColor: 'rgba(47, 128, 237, 0.3)',
     borderRadius: 5,
   },
+
   title: {
     fontFamily: 'OpenSans-Regular',
     marginBottom: 20,
-    marginHorizontal: 10,
+    width: '90%',
+  },
+  reviewItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    marginBottom: 20,
   },
 });

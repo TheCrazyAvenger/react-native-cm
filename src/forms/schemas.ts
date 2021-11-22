@@ -66,3 +66,10 @@ export const forgotPassSchema = yup.object().shape({
     .required('Please enter your email')
     .max(50, 'The field should be less than or equal to 50 symbols '),
 });
+
+export const autoBuySchema = yup.object().shape({
+  startDate: yup.string().required('Please enter Start Date'),
+  endDate: yup.string().label('End Date').required('Please enter End Date'),
+  frequency: yup.string().required('Please enter Frequency'),
+  amount: yup.number().required('Please enter amount'),
+});

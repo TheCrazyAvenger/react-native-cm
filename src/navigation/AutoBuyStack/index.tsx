@@ -1,7 +1,14 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '../../constants';
-import {AutoBuy, AutoBuyList, ChooseProduct, AutoBuySetup} from '../../screens';
+import {
+  AutoBuy,
+  AutoBuyList,
+  ChooseProduct,
+  AutoBuySetup,
+  ReviewAutoBuy,
+  CompleteAutoBuy,
+} from '../../screens';
 import {BackButton} from '../BackButton';
 import {styles} from './styles';
 
@@ -21,6 +28,11 @@ export const AutoBuyStack: React.FC = () => {
       <Stack.Screen name={Screens.autoBuyList} component={AutoBuyList} />
       <Stack.Screen name={Screens.chooseProduct} component={ChooseProduct} />
       <Stack.Screen name={Screens.autoBuySetUp} component={AutoBuySetup} />
+      <Stack.Screen name={Screens.reviewAutoBuy} component={ReviewAutoBuy} />
+      <Stack.Screen
+        name={Screens.completeAutoBuy}
+        component={CompleteAutoBuy}
+      />
     </Stack.Navigator>
   );
 };

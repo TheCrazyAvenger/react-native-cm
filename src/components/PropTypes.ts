@@ -30,6 +30,7 @@ export type CheckBoxProps = {
   onPress: () => void;
   error: any;
   isTouched: any;
+  style?: {[key: string]: number | string};
 };
 
 export type SocialBlockProps = {
@@ -37,7 +38,7 @@ export type SocialBlockProps = {
 };
 
 export type FormInputProps = {
-  label: string;
+  label?: string;
   plaseholder: string;
   onChangeText: any;
   onFocus: any;
@@ -127,4 +128,44 @@ export type ProductItemProps = {
   textColor?: string;
   onPress: (...args: any) => void;
   style?: {[key: string]: number | string};
+};
+
+export type AutoBuyItemProps = {
+  metal: string;
+  amount: number;
+  frequency: string;
+  paymentMethod: string;
+  startDate: string;
+  endDate: string;
+  style?: {[key: string]: number | string};
+  id: number;
+};
+
+export type DatePickerProps = {
+  value: any;
+  errorMessage: any;
+  disabled?: boolean;
+  label?: string;
+  isTouched: any;
+  style?: {[key: string]: number | string};
+  onConfirm: (...args: any) => void;
+};
+
+export type ItemPickerProps = {
+  style?: {[key: string]: number | string};
+  label?: string;
+  value: string;
+  showBorders?: boolean;
+  onChange: (value: string) => void;
+  items: {label: string; value: string}[];
+};
+
+export type ModalWindowProps = {
+  title: string;
+  text: string;
+  confirmTitle: string;
+  cancelTitle: string;
+  onConfirm: (...args: any) => void;
+  onCancel: (...args: any) => void;
+  visible: boolean;
 };

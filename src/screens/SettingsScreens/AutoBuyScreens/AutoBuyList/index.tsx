@@ -1,18 +1,18 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Image, ScrollView, StatusBar, View} from 'react-native';
-import {Wrapper} from '../../../../components';
-import {
-  Description,
-  Subtitle,
-  SubtitleMedium,
-} from '../../../../components/Typography';
+import {StatusBar, View} from 'react-native';
+import {AutoBuyItem, Wrapper} from '../../../../components';
+import {Subtitle, SubtitleMedium} from '../../../../components/Typography';
 import {colors, Screens} from '../../../../constants';
+import {useAppSelector} from '../../../../hooks/hooks';
+
 import {Screen, TextButton} from '../../../../ui';
 import {styles} from './styles';
 
 export const AutoBuyList: React.FC = () => {
   const navigation: any = useNavigation();
+
+  const autoBuy = useAppSelector(state => state.autoBuy.autoBuy);
 
   return (
     <Screen>
@@ -41,9 +41,29 @@ export const AutoBuyList: React.FC = () => {
           View, edit, or cancel your existing Auto Buy transactions.
         </SubtitleMedium>
       </View>
-      <View style={styles.activeList}>
-        <Subtitle style={{marginTop: 100, textAlign: 'center'}}>Empty</Subtitle>
-      </View>
+
+      {autoBuy ? (
+        <View style={{marginBottom: 20}}>
+          {autoBuy.map((item: any) => (
+            <AutoBuyItem
+              key={item.id}
+              id={item.id}
+              metal={item.metal}
+              amount={item.amount}
+              frequency={item.frequency}
+              endDate={item.endDate}
+              startDate={item.startDate}
+              paymentMethod={item.paymentMethod}
+            />
+          ))}
+        </View>
+      ) : (
+        <View style={styles.activeList}>
+          <Subtitle style={{marginTop: 100, textAlign: 'center'}}>
+            Empty
+          </Subtitle>
+        </View>
+      )}
     </Screen>
   );
 };

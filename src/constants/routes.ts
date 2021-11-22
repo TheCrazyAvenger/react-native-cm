@@ -16,6 +16,8 @@ export enum Screens {
   autoBuyList = 'autoBuyList',
   chooseProduct = 'chooseProduct',
   autoBuySetUp = 'autoBuySetUp',
+  reviewAutoBuy = 'reviewAutoBuy',
+  completeAutoBuy = 'completeAutoBuy',
 
   signUp = 'signUp',
   introduce = 'introduce',

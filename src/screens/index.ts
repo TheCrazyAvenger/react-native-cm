@@ -8,10 +8,13 @@ export * from './NullScreen';
 
 export * from './SettingsScreens/Settings';
 export * from './SettingsScreens/Refer';
+
 export * from './SettingsScreens/AutoBuyScreens/AutoBuy';
 export * from './SettingsScreens/AutoBuyScreens/AutoBuyList';
 export * from './SettingsScreens/AutoBuyScreens/ChooseProduct';
 export * from './SettingsScreens/AutoBuyScreens/AutoBuySetUp';
+export * from './SettingsScreens/AutoBuyScreens/ReviewAutoBuy';
+export * from './SettingsScreens/AutoBuyScreens/CompleteAutoBuy';
 
 export * from './SignUpScreens/Introduce';
 export * from './SignUpScreens/Email';

@@ -7,4 +7,6 @@ export * from './Register/MobileVerCodeForm';
 export * from './LogIn/LogInForm';
 export * from './LogIn/ForgotPassForm';
 
+export * from './AutoBuySetUpForm';
+
 export * from './schemas';

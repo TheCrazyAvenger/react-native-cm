@@ -6,4 +6,5 @@ export * from './news';
 export * from './time';
 export * from './autoBuy';
 
+export * from './getNextYear';
 export * from './getColor';

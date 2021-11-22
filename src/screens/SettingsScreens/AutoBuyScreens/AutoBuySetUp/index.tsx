@@ -1,7 +1,8 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {View} from 'react-native';
-import {Description, TitleMedium} from '../../../../components/Typography';
+import {TitleMedium} from '../../../../components/Typography';
+import {AutoBuySetUpForm} from '../../../../forms';
 import {Screen} from '../../../../ui';
 
 import {styles} from './styles';
@@ -12,16 +13,7 @@ export const AutoBuySetup: React.FC = () => {
   return (
     <Screen>
       <View style={styles.container}>
-        <TitleMedium style={styles.title}>Set Up Auto Buy </TitleMedium>
-        {/* Add form */}
-        <View style={styles.datePicker}>
-          <View>
-            <Description>Strat Date</Description>
-          </View>
-          <View>
-            <Description>End Date</Description>
-          </View>
-        </View>
+        <AutoBuySetUpForm />
       </View>
     </Screen>
   );

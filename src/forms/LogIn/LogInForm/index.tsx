@@ -37,7 +37,6 @@ export const LogInForm: React.FC = () => {
       const expirationDate = new Date(
         new Date().getTime() + data.expiresIn * 1000,
       );
-
       const userEmail = values.email;
       const token = data.idToken;
 
