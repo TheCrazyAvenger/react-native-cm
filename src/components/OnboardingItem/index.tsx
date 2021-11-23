@@ -7,6 +7,7 @@ import {styles} from './styles';
 
 export const OnboardingItem: React.FC<OnboardingItemProps> = ({item}) => {
   const {width} = useWindowDimensions();
+  const {Image} = item;
 
   return (
     <View style={[styles.container, {width}]}>
@@ -19,7 +20,9 @@ export const OnboardingItem: React.FC<OnboardingItemProps> = ({item}) => {
         </Description>
       </View>
       <View style={styles.imageItem}>
-        <Image resizeMode="contain" source={item.image} style={[{width}]} />
+        <View style={[{width, alignItems: 'center'}]}>
+          <Image />
+        </View>
       </View>
     </View>
   );

@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
-import {Image, Text, View} from 'react-native';
-import {CheckBox} from 'react-native-elements';
-import {CheckBoxProps, ItemPickerProps} from '..';
+import {Image, View} from 'react-native';
+import {ItemPickerProps} from '..';
 import {Dropdown} from 'react-native-element-dropdown';
 import {colors} from '../../constants';
 import {Description, SubtitleMedium} from '../Typography';
 import {styles} from './styles';
-import RNPickerSelect from 'react-native-picker-select';
 
 export const ItemPicker: React.FC<ItemPickerProps> = ({
   label,
@@ -27,7 +25,7 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
   };
 
   return (
-    <View style={style}>
+    <View>
       {label && (
         <Description
           style={{color: colors.gray, marginBottom: 6, marginHorizontal: 10}}>
@@ -36,7 +34,7 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
       )}
 
       <Dropdown
-        style={styles.dropdown}
+        style={{...styles.dropdown, ...style}}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.selectedTextStyle}
         data={items}

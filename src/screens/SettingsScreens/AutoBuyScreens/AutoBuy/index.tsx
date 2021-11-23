@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, ScrollView, StatusBar, View} from 'react-native';
+import {ShareRefer} from '../../../../assets/images/settings';
 import {Description, Subtitle} from '../../../../components/Typography';
 import {Screens} from '../../../../constants';
 import {Screen, TextButton} from '../../../../ui';
@@ -19,10 +20,7 @@ export const AutoBuy: React.FC = () => {
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.header}>
-            <Image
-              style={{marginBottom: 20}}
-              source={require('../../../../assets/images/settings/shareRefer.png')}
-            />
+            <ShareRefer />
             <Subtitle style={styles.title}>Set up Auto Buy Now</Subtitle>
             <Description style={styles.description}>
               CyberMetals Auto Buy program allows you to make recurring

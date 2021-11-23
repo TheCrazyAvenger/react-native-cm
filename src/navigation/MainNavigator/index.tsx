@@ -6,6 +6,7 @@ import {Refer} from '../../screens';
 import {styles} from './styles';
 import {BackButton} from '../BackButton';
 import {AutoBuyStack} from '../AutoBuyStack';
+import {PriceAlertsStack} from '../PriceAlertsStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +38,11 @@ export const MainNavigator: React.FC = () => {
           name={Screens.autoBuyStack}
           options={{title: 'Auto Buy'}}
           component={AutoBuyStack}
+        />
+        <Stack.Screen
+          name={Screens.priceAlertsStack}
+          options={{title: 'Spot Price Alerts'}}
+          component={PriceAlertsStack}
         />
       </Stack.Group>
     </Stack.Navigator>

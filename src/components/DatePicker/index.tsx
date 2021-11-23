@@ -6,6 +6,7 @@ import {Error} from '../Typography/Error';
 import {styles} from './styles';
 import {Description, SubtitleMedium} from '../Typography';
 import {colors} from '../../constants';
+import {Calendar} from '../../assets/images/settings';
 
 export const DatePicker: React.FC<DatePickerProps> = ({
   value,
@@ -53,10 +54,10 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         <SubtitleMedium style={{color: disabled ? '#DEDEDE' : colors.black}}>
           {value}
         </SubtitleMedium>
-        <Image
-          style={{marginLeft: 5, opacity: disabled ? 0.4 : 1}}
-          source={require('../../assets/images/settings/calendar.png')}
-        />
+
+        <View style={{marginLeft: 5, opacity: disabled ? 0.4 : 1}}>
+          <Calendar />
+        </View>
       </TouchableOpacity>
       {errorMessage && isTouched && (
         <Error style={styles.error}>{errorMessage}</Error>

@@ -17,6 +17,7 @@ import {styles} from './styles';
 export const PriceGraph: React.FC<{id: number}> = ({id}) => {
   const {price, ounceChange, usdChange} = metals[id - 1];
   const [chartTime, setChartTime] = useState(1);
+  const lineColor = metals[id - 1].color;
 
   const setTime = (i: number) => {
     setChartTime(i);
@@ -44,7 +45,7 @@ export const PriceGraph: React.FC<{id: number}> = ({id}) => {
           </Illustration>
         </View>
         <Wrapper style={{backgroundColor: colors.paleBlue, marginTop: 8}} />
-        <Chart chartTime={chartTime} setTime={setTime} />
+        <Chart lineColor={lineColor} chartTime={chartTime} setTime={setTime} />
       </View>
     </View>
   );

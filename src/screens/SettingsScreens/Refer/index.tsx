@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Image, ScrollView, StatusBar, View} from 'react-native';
+import {ShareRefer} from '../../../assets/images/settings';
 import {Description, Subtitle} from '../../../components/Typography';
 import {Screen, TextButton} from '../../../ui';
 import {styles} from './styles';
@@ -18,10 +19,7 @@ export const Refer: React.FC = () => {
       <View style={styles.container}>
         <ScrollView>
           <View style={styles.header}>
-            <Image
-              style={{marginBottom: 20}}
-              source={require('../../../assets/images/settings/shareRefer.png')}
-            />
+            <ShareRefer />
             <Subtitle style={styles.title}>Share with your friends</Subtitle>
             <Description style={styles.description}>
               When you introduce a friend to CyberMetals, they will instatntly

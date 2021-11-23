@@ -15,10 +15,6 @@ export const Holdings: React.FC = () => {
   const {id} = route.params;
   const [metalType, setMetalType] = useState(id);
 
-  const setHandler = (id: number) => {
-    setMetalType(id);
-  };
-
   return (
     <Screen style={{paddingHorizontal: 0}}>
       <StatusBar
@@ -26,7 +22,7 @@ export const Holdings: React.FC = () => {
         translucent
         backgroundColor={'transparent'}
       />
-      <HoldingsHeader metalType={metalType} setMetal={setHandler} />
+      <HoldingsHeader metalType={metalType} setMetal={setMetalType} />
       <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
         <MetalsDetails id={metalType} />
         <View style={styles.buttons}>

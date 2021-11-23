@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {AutoBuyItemProps, ModalWindow} from '../..';
+import {Delete, Edit} from '../../../assets/images/settings';
 import {colors, Screens} from '../../../constants';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {deleteAutoBuy} from '../../../store/slices/autoBuySlice';
@@ -75,15 +76,12 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
           </View>
           <View style={styles.actionButtons}>
             <TouchableOpacity onPress={goToEdit}>
-              <Image
-                source={require('../../../assets/images/settings/edit.png')}
-              />
+              <Edit />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setVisibleModal(true)}>
-              <Image
-                style={{marginLeft: 15}}
-                source={require('../../../assets/images/settings/trash.png')}
-              />
+            <TouchableOpacity
+              style={{marginLeft: 15}}
+              onPress={() => setVisibleModal(true)}>
+              <Delete />
             </TouchableOpacity>
           </View>
         </View>

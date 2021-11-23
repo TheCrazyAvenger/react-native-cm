@@ -73,3 +73,12 @@ export const autoBuySchema = yup.object().shape({
   frequency: yup.string().required('Please enter Frequency'),
   amount: yup.number().required('Please enter amount'),
 });
+
+export const priceAlertsSchema = yup.object().shape({
+  condition: yup.string().required('Please enter Condition'),
+  value: yup
+    .number()
+    .required('Please enter value')
+    .min(0.5, 'At least 0.5%')
+    .max(100, 'Only 100%'),
+});

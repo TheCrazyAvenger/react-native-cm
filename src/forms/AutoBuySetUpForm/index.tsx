@@ -3,7 +3,7 @@ import {Formik} from 'formik';
 import React from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {autoBuySchema} from '..';
-import {colors, Screens} from '../../constants';
+import {Screens} from '../../constants';
 import {styles} from './styles';
 import {
   CheckBoxItem,
@@ -18,14 +18,11 @@ import {
   TitleMedium,
 } from '../../components/Typography';
 import {TextButton} from '../../ui';
-import {useAppDispatch} from '../../hooks/hooks';
-import {updateAutoBuy} from '../../store/slices/autoBuySlice';
+import {CashBalance} from '../../assets/images/settings';
 
 export const AutoBuySetUpForm: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
-
-  const dispatch = useAppDispatch();
 
   const {type, prevValues} = route.params;
   const {data} = route.params;
@@ -134,10 +131,9 @@ export const AutoBuySetUpForm: React.FC = () => {
               style={styles.paymentMethod}
               activeOpacity={0.7}
               onPress={() => console.log('Choose payment method')}>
-              <Image
-                style={{marginRight: 12}}
-                source={require('../../assets/images/settings/cashBalance.png')}
-              />
+              <View style={{marginRight: 12}}>
+                <CashBalance />
+              </View>
               <SubtitleMedium style={{fontFamily: 'OpenSans-SemiBold'}}>
                 Cash Balance: $54.80
               </SubtitleMedium>

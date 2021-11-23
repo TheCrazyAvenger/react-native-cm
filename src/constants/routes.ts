@@ -19,6 +19,11 @@ export enum Screens {
   reviewAutoBuy = 'reviewAutoBuy',
   completeAutoBuy = 'completeAutoBuy',
 
+  priceAlertsStack = 'priceAlertsStack',
+  priceAlerts = 'priceAlerts',
+  choosePriceAlert = 'choosePriceAlert',
+  priceAlertSetUp = 'priceAlertSetUp',
+
   signUp = 'signUp',
   introduce = 'introduce',
   email = 'email',

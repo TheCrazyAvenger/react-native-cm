@@ -16,6 +16,10 @@ export * from './SettingsScreens/AutoBuyScreens/AutoBuySetUp';
 export * from './SettingsScreens/AutoBuyScreens/ReviewAutoBuy';
 export * from './SettingsScreens/AutoBuyScreens/CompleteAutoBuy';
 
+export * from './SettingsScreens/PriceAlertsScreens/PriceAlerts';
+export * from './SettingsScreens/PriceAlertsScreens/ChoosePriceAlert';
+export * from './SettingsScreens/PriceAlertsScreens/PriceAlertSetUp';
+
 export * from './SignUpScreens/Introduce';
 export * from './SignUpScreens/Email';
 export * from './SignUpScreens/Password';

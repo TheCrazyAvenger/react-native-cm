@@ -9,4 +9,6 @@ export * from './LogIn/ForgotPassForm';
 
 export * from './AutoBuySetUpForm';
 
+export * from './PriceAlertsSetUpForm';
+
 export * from './schemas';

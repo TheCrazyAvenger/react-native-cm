@@ -1,6 +1,21 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity} from 'react-native';
+import {
+  Alerts,
+  Autobuy,
+  ChangePassword,
+  FaceID,
+  Notifications,
+  Passcode,
+  PaymentMethods,
+  Profile,
+  Referal,
+  StorageFees,
+  TouchID,
+  Transactions,
+  Verification,
+} from '../../../assets/images/settings';
 import {
   MenuItem,
   MenuItemSmall,
@@ -31,46 +46,46 @@ export const Settings: React.FC = () => {
         title="Profile"
         description="Edit name and view address detail"
         onPress={() => console.log('Go to Profile')}
-        image={require('../../../assets/images/settings/profile.png')}
+        Image={Profile}
       />
       <MenuItem
         title="Payment Methods"
         description="View and manage your payment methods"
         onPress={() => console.log('Go to Payments Methods')}
-        image={require('../../../assets/images/settings/payment.png')}
+        Image={PaymentMethods}
       />
       <MenuItem
         title="Transactions"
         description="View your tansaction history"
         onPress={() => console.log('Go to Transactions')}
-        image={require('../../../assets/images/settings/transactions.png')}
+        Image={Transactions}
       />
       <MenuItem
         title="Storage Fees"
         description="Edit name and view address detail"
         onPress={() => console.log('Go to Storage Fees')}
-        image={require('../../../assets/images/settings/fees.png')}
+        Image={StorageFees}
       />
       <MenuItem
         title="Verification"
         description="Enter or view your verification status"
         onPress={() => console.log('Go to Verification')}
-        image={require('../../../assets/images/settings/verification.png')}
+        Image={Verification}
       />
       <MenuItem
         title="Change Your Password"
         description="Set up your new password"
         onPress={() => console.log('Go to Change Your Password')}
-        image={require('../../../assets/images/settings/changePass.png')}
+        Image={ChangePassword}
         style={{marginBottom: 50}}
       />
 
       <Subtitle style={styles.title}>Security</Subtitle>
       <MenuItem
-        title="Secure With Fingerprint"
+        title="Secure with Touch ID"
         description="Set up a passcode to access CyberMetals without having to type your password"
         onPress={() => setFingerprint(prev => !prev)}
-        image={require('../../../assets/images/settings/fingerprint.png')}
+        Image={TouchID}
         type="switch"
         switchValue={fingerprint}
       />
@@ -78,7 +93,7 @@ export const Settings: React.FC = () => {
         title="Secure With a Face ID"
         description="Set up a passcode to access CyberMetals without having to type your password"
         onPress={() => setFaceId(prev => !prev)}
-        image={require('../../../assets/images/settings/faceId.png')}
+        Image={FaceID}
         type="switch"
         switchValue={faceId}
       />
@@ -86,7 +101,7 @@ export const Settings: React.FC = () => {
         title="Secure With a Passcode"
         description="Set up a passcode to access CyberMetals without having to type your password"
         onPress={() => setPasscode(prev => !prev)}
-        image={require('../../../assets/images/settings/padlock.png')}
+        Image={Passcode}
         style={{marginBottom: 50}}
         type="switch"
         switchValue={passcode}
@@ -97,25 +112,25 @@ export const Settings: React.FC = () => {
         title="Refer a Friend"
         description="Share your love of CyberMetals and get $5 for every friend that makes a purchase "
         onPress={() => navigation.navigate(Screens.refer)}
-        image={require('../../../assets/images/settings/referal.png')}
+        Image={Referal}
       />
       <MenuItem
         title="Auto Buy"
         description="Share your love of CyberMetals and get $5 for every friend that makes a purchase "
         onPress={() => navigation.navigate(Screens.autoBuyStack)}
-        image={require('../../../assets/images/settings/autobuy.png')}
+        Image={Autobuy}
       />
       <MenuItem
         title="Spot Price Alerts"
         description="Share your love of CyberMetals and get $5 for every friend that makes a purchase "
-        onPress={() => console.log('Go to Price Alerts')}
-        image={require('../../../assets/images/settings/alerts.png')}
+        onPress={() => navigation.navigate(Screens.priceAlertsStack)}
+        Image={Alerts}
       />
       <MenuItem
         title="Notifications"
         description="Set up custom market alerts, receive the latest precious metals news and special offers from"
         onPress={() => console.log('Go to Notifications')}
-        image={require('../../../assets/images/settings/notifications.png')}
+        Image={Notifications}
         style={{marginBottom: 50}}
       />
 

@@ -1,3 +1,5 @@
+import {Buy, Deposit, Sold, Redeem, WithDraw} from '../assets/images/home';
+
 export const activity = [
   {
     type: 'Bought Platinum',
@@ -5,7 +7,7 @@ export const activity = [
     color: '#135D2D',
     usd: '+ $5.45',
     oz: '0.002 oz',
-    image: require('../assets/images/home/buy.png'),
+    Image: Buy,
     id: '1',
   },
   {
@@ -14,7 +16,7 @@ export const activity = [
     color: '#135D2D',
     usd: '+ $7.80',
     oz: '0.003 oz',
-    image: require('../assets/images/home/sold.png'),
+    Image: Sold,
     id: '2',
   },
   {
@@ -22,7 +24,7 @@ export const activity = [
     date: 'May 7, 2021',
     color: '#135D2D',
     usd: '+ $28.45',
-    image: require('../assets/images/home/deposit.png'),
+    Image: Deposit,
     id: '3',
   },
   {
@@ -30,7 +32,7 @@ export const activity = [
     date: 'May 7, 2021',
     color: '#135D2D',
     usd: '+ $4.12',
-    image: require('../assets/images/home/redeemed.png'),
+    Image: Redeem,
     id: '4',
   },
   {
@@ -38,7 +40,7 @@ export const activity = [
     date: 'May 7, 2021',
     color: '#A01313',
     usd: '- $17.00',
-    image: require('../assets/images/home/withdrawn.png'),
+    Image: WithDraw,
     id: '5',
   },
 ];

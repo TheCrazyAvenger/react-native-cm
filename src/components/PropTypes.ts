@@ -80,7 +80,7 @@ export type ViewMoreButtonProps = {
 };
 
 export type MenuModalItemProps = {
-  uri: any;
+  Image: any;
   onPress: () => void;
   title: string;
   text: string;
@@ -88,6 +88,7 @@ export type MenuModalItemProps = {
 
 export type MetalPickerProps = {
   currentMetal: number;
+  colorfull?: boolean;
   onPress: (id: number) => void;
 };
 
@@ -98,13 +99,14 @@ export type HoldingsHeaderProps = {
 
 export type ChartProps = {
   chartTime: number;
+  lineColor: any;
   setTime: (i: number) => void;
 };
 
 export type MenuItemProps = {
   title: string;
   description: string;
-  image: any;
+  Image: any;
   onPress: (...args: any) => void;
   style?: {[key: string]: number | string};
   type?: 'switch';
@@ -168,4 +170,31 @@ export type ModalWindowProps = {
   onConfirm: (...args: any) => void;
   onCancel: (...args: any) => void;
   visible: boolean;
+};
+
+export type PriceAlertItemProps = {
+  color: string;
+  metal: string;
+  backgroundColor: string;
+  Image: any;
+  style?: {[key: string]: number | string};
+  onPress: (...args: any) => void;
+};
+
+export type PriceAlertListItemProps = {
+  metal: string;
+  backgroundColor: string;
+  condition: string;
+  date: string;
+  id: number;
+  time: string;
+  color: string;
+  value: number;
+  style?: {[key: string]: number | string};
+};
+
+export type EmptyDataScreenProps = {
+  title: string;
+  text: string;
+  onPress: (...args: any) => void;
 };

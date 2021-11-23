@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {Logo} from '../../assets/images';
 import {OnboardingItem, PaginationFooter} from '../../components';
 
 import {Description} from '../../components/Typography';
@@ -56,10 +57,9 @@ export const Onboarding: React.FC = () => {
         <TouchableOpacity style={styles.skipButton} onPress={skipHandler}>
           <Description style={styles.skipText}>Skip</Description>
         </TouchableOpacity>
-        <Image
-          style={styles.logo}
-          source={require('../../assets/images/logo.png')}
-        />
+        <View style={styles.logo}>
+          <Logo />
+        </View>
         <View style={{flex: 3}}>
           <FlatList
             data={slides}

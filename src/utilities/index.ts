@@ -8,3 +8,4 @@ export * from './autoBuy';
 
 export * from './getNextYear';
 export * from './getColor';
+export * from './getMetalImage';

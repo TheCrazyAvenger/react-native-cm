@@ -9,14 +9,13 @@ import {
   TitleMedium,
 } from '../../Typography';
 import {styles} from './styles';
+import {Logo} from '../../../assets/images';
 
 export const Header: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Image
-        style={{marginBottom: 37, alignSelf: 'center'}}
-        source={require('../../../assets/images/logo.png')}
-      />
+      <Logo style={{marginBottom: 37, alignSelf: 'center'}} />
+
       <View style={styles.headerItem}>
         <View>
           <Description style={{color: colors.white}}>

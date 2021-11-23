@@ -18,7 +18,11 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
   const {price, ounce, ounceChange} = metals[metalType - 1];
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...styles.container,
+        backgroundColor: metals[metalType - 1].color,
+      }}>
       <TitleMedium style={styles.title}>Holdings</TitleMedium>
       <MetalPicker currentMetal={metalType} onPress={setMetal} />
       <Wrapper style={{marginTop: 4}} />

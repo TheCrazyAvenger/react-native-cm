@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   title: {
+    marginTop: 20,
     textAlign: 'center',
     fontFamily: 'OpenSans-Bold',
   },

@@ -44,10 +44,10 @@ export const AppNavigator: React.FC = () => {
 
   return (
     <NavigationContainer>
-      {loading ? (
-        <ActivityIndicator />
-      ) : token ? (
+      {token ? (
         <MainNavigator />
+      ) : loading ? (
+        <ActivityIndicator />
       ) : (
         <AuthStack showOnBoarding={showOnBoarding} />
       )}

@@ -4,6 +4,14 @@ import {MenuModalProps} from '..';
 import {MenuModalItem} from '../..';
 import {colors} from '../../../constants';
 import {styles} from './styles';
+import {
+  BuyMetal,
+  SellMetal,
+  Fund,
+  Withdraw,
+  Redeem,
+  Close,
+} from '../../../assets/images/navigation';
 
 export const MenuModal: React.FC<MenuModalProps> = ({visible, onPress}) => {
   return (
@@ -13,31 +21,31 @@ export const MenuModal: React.FC<MenuModalProps> = ({visible, onPress}) => {
           <MenuModalItem
             title="Buy"
             text="Buy gold, silver, platinum and palladium"
-            uri={require('../../../assets/images/navigation/buyMetal.png')}
+            Image={BuyMetal}
             onPress={() => console.log(1)}
           />
           <MenuModalItem
             title="Sell"
             text="Sell your gold, silver, platinum or palladium"
-            uri={require('../../../assets/images/navigation/sellMetal.png')}
+            Image={SellMetal}
             onPress={() => console.log(1)}
           />
           <MenuModalItem
             title="Fund"
             text="Deposit your funds"
-            uri={require('../../../assets/images/navigation/fund.png')}
+            Image={Fund}
             onPress={() => console.log(1)}
           />
           <MenuModalItem
             title="Withdraw"
             text="Widthdraw your funds"
-            uri={require('../../../assets/images/navigation/withdraw.png')}
+            Image={Withdraw}
             onPress={() => console.log(1)}
           />
           <MenuModalItem
             title="Redeem"
             text="Redeem your holdings for physical metals"
-            uri={require('../../../assets/images/navigation/redeem.png')}
+            Image={Redeem}
             onPress={() => console.log(1)}
           />
         </View>
@@ -45,9 +53,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({visible, onPress}) => {
           activeOpacity={0.7}
           style={styles.closeButton}
           onPress={onPress}>
-          <Image
-            source={require('../../../assets/images/navigation/close.png')}
-          />
+          <Close />
         </TouchableOpacity>
       </View>
     </Modal>

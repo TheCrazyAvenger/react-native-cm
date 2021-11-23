@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {Switch} from 'react-native-elements';
 import {MenuItemProps} from '../..';
 import {colors} from '../../../constants';
@@ -9,7 +9,7 @@ import {styles} from './styles';
 export const MenuItem: React.FC<MenuItemProps> = ({
   title,
   description,
-  image,
+  Image,
   onPress,
   style,
   type,
@@ -21,7 +21,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
       onPress={onPress}
       style={{...styles.container, ...style}}>
       <View style={styles.content}>
-        <Image style={{marginRight: 13}} source={image} />
+        <Image />
         <View style={{width: type ? '76%' : '85%'}}>
           <SubtitleMedium style={styles.title}>{title}</SubtitleMedium>
           <Illustration>{description}</Illustration>
