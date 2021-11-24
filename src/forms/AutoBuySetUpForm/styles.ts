@@ -40,6 +40,9 @@ export const styles = StyleSheet.create({
   title: {
     color: colors.gray,
     marginBottom: 6,
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 16,
+    fontWeight: '400',
     marginHorizontal: 10,
   },
   paymentMethod: {

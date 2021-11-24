@@ -1,22 +1,23 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {Image, ScrollView, StatusBar, View} from 'react-native';
-import {News} from '../../../assets/images/settings/notifications';
-import {MenuItem, Wrapper} from '../../../components';
+import {StatusBar, View} from 'react-native';
 import {
-  Description,
-  SubtitleMedium,
-  TitleMedium,
-} from '../../../components/Typography';
-import {colors} from '../../../constants';
+  News,
+  PaymentMethods,
+  Promotions,
+  TransactionsUpdate,
+} from '../../../assets/images/settings';
 
-import {Screen, TextButton} from '../../../ui';
-import {styles} from './styles';
+import {MenuItem} from '../../../components';
 
-export const ReviewAutoBuy: React.FC = () => {
+import {Screen} from '../../../ui';
+
+export const Notifications: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
   const [transaction, setTransaction] = useState(false);
+  const [promotions, setPromotions] = useState(false);
+  const [news, setNews] = useState(false);
 
   return (
     <Screen>
@@ -25,31 +26,33 @@ export const ReviewAutoBuy: React.FC = () => {
         translucent
         backgroundColor={'transparent'}
       />
-      {/* <MenuItem
-        title="Secure with Touch ID"
-        description="Set up a passcode to access CyberMetals without having to type your password"
-        onPress={() => setTransaction(prev => !prev)}
-        Image={News}
-        type="switch"
-        switchValue={transaction}
-      />
-      <MenuItem
-        title="Secure With a Face ID"
-        description="Set up a passcode to access CyberMetals without having to type your password"
-        onPress={() => setFaceId(prev => !prev)}
-        Image={FaceID}
-        type="switch"
-        switchValue={faceId}
-      />
-      <MenuItem
-        title="Secure With a Passcode"
-        description="Set up a passcode to access CyberMetals without having to type your password"
-        onPress={() => setPasscode(prev => !prev)}
-        Image={News}
-        style={{marginBottom: 50}}
-        type="switch"
-        switchValue={passcode}
-      /> */}
+      <View style={{marginTop: 33}}>
+        <MenuItem
+          title="Transaction Updates"
+          description="Get notified when market prices are on the move"
+          onPress={() => setTransaction(prev => !prev)}
+          Image={TransactionsUpdate}
+          type="switch"
+          switchValue={transaction}
+        />
+        <MenuItem
+          title="Promotions"
+          description="Receive promotions and special offers from CyberMetals"
+          onPress={() => setPromotions(prev => !prev)}
+          Image={Promotions}
+          type="switch"
+          switchValue={promotions}
+        />
+        <MenuItem
+          title={'Market News & Updates'}
+          description="Keep up to date on the latest precious metals market news"
+          onPress={() => setNews(prev => !prev)}
+          Image={News}
+          style={{marginBottom: 50}}
+          type="switch"
+          switchValue={news}
+        />
+      </View>
     </Screen>
   );
 };

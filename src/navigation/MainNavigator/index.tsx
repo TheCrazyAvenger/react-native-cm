@@ -2,11 +2,12 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '../../constants';
 import {BottomTabs} from '../BottomTabs';
-import {Refer} from '../../screens';
+import {Notifications, Profile, Refer, Verification} from '../../screens';
 import {styles} from './styles';
 import {BackButton} from '../BackButton';
 import {AutoBuyStack} from '../AutoBuyStack';
 import {PriceAlertsStack} from '../PriceAlertsStack';
+import {VerificationStack} from '../VerificationStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +44,21 @@ export const MainNavigator: React.FC = () => {
           name={Screens.priceAlertsStack}
           options={{title: 'Spot Price Alerts'}}
           component={PriceAlertsStack}
+        />
+        <Stack.Screen
+          name={Screens.notifications}
+          options={{title: 'Notifications'}}
+          component={Notifications}
+        />
+        <Stack.Screen
+          name={Screens.profile}
+          options={{title: 'Profile'}}
+          component={Profile}
+        />
+        <Stack.Screen
+          name={Screens.verificationStack}
+          options={{title: 'Verification'}}
+          component={VerificationStack}
         />
       </Stack.Group>
     </Stack.Navigator>

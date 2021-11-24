@@ -45,7 +45,7 @@ export const Settings: React.FC = () => {
       <MenuItem
         title="Profile"
         description="Edit name and view address detail"
-        onPress={() => console.log('Go to Profile')}
+        onPress={() => navigation.navigate(Screens.profile)}
         Image={Profile}
       />
       <MenuItem
@@ -69,7 +69,7 @@ export const Settings: React.FC = () => {
       <MenuItem
         title="Verification"
         description="Enter or view your verification status"
-        onPress={() => console.log('Go to Verification')}
+        onPress={() => navigation.navigate(Screens.verificationStack)}
         Image={Verification}
       />
       <MenuItem
@@ -129,7 +129,7 @@ export const Settings: React.FC = () => {
       <MenuItem
         title="Notifications"
         description="Set up custom market alerts, receive the latest precious metals news and special offers from"
-        onPress={() => console.log('Go to Notifications')}
+        onPress={() => navigation.navigate(Screens.notifications)}
         Image={Notifications}
         style={{marginBottom: 50}}
       />

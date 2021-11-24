@@ -16,6 +16,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   isTouched,
   onConfirm,
   style,
+  labelStyle,
+  errorStyle,
+  showIcon = true,
 }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const showDatePicker = () => {
@@ -38,7 +41,17 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   return (
     <View style={style}>
-      {label && <Description style={styles.dateTitle}>{label}</Description>}
+      {label && (
+        <Description
+          style={{
+            ...labelStyle,
+            ...styles.dateTitle,
+            ...(errorMessage && isTouched ? styles.errorLabel : null),
+            ...styles.label,
+          }}>
+          {label}
+        </Description>
+      )}
 
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
@@ -48,19 +61,31 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       />
       <TouchableOpacity
         disabled={disabled}
-        style={dateStyle}
+        style={{
+          ...dateStyle,
+          ...(errorMessage && isTouched ? styles.errorInput : null),
+        }}
         activeOpacity={0.7}
         onPress={showDatePicker}>
-        <SubtitleMedium style={{color: disabled ? '#DEDEDE' : colors.black}}>
-          {value}
+        <SubtitleMedium
+          style={{
+            color: disabled
+              ? '#DEDEDE'
+              : value !== ''
+              ? colors.black
+              : colors.placeholder,
+          }}>
+          {value !== '' ? value : 'Your Date'}
         </SubtitleMedium>
 
-        <View style={{marginLeft: 5, opacity: disabled ? 0.4 : 1}}>
-          <Calendar />
-        </View>
+        {showIcon && (
+          <View style={{marginLeft: 5, opacity: disabled ? 0.4 : 1}}>
+            <Calendar />
+          </View>
+        )}
       </TouchableOpacity>
       {errorMessage && isTouched && (
-        <Error style={styles.error}>{errorMessage}</Error>
+        <Error style={{...styles.error, ...errorStyle}}>{errorMessage}</Error>
       )}
     </View>
   );

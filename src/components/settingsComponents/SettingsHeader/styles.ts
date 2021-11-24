@@ -7,7 +7,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 49,
-    marginBottom: 25,
+
+    flexWrap: 'wrap',
   },
   userName: {
     fontFamily: 'OpenSans-Bold',
@@ -15,7 +16,7 @@ export const styles = StyleSheet.create({
   },
   verified: {
     borderWidth: 1,
-    borderColor: 'green',
+    marginBottom: 25,
     borderRadius: 48,
     paddingHorizontal: 8,
     paddingVertical: 4,

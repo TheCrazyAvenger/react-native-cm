@@ -49,6 +49,7 @@ export type FormInputProps = {
   style?: {[key: string]: number | string};
   secureTextEntry?: boolean;
   rightIcon?: any;
+  disabled?: boolean;
 };
 
 export type PasswordItemProps = {
@@ -150,6 +151,9 @@ export type DatePickerProps = {
   label?: string;
   isTouched: any;
   style?: {[key: string]: number | string};
+  labelStyle?: {[key: string]: number | string};
+  errorStyle?: {[key: string]: number | string};
+  showIcon?: boolean;
   onConfirm: (...args: any) => void;
 };
 
@@ -157,7 +161,10 @@ export type ItemPickerProps = {
   style?: {[key: string]: number | string};
   label?: string;
   value: string;
-  showBorders?: boolean;
+  errorMessage: any;
+  isTouched: any;
+  labelStyle?: {[key: string]: number | string};
+  errorStyle?: {[key: string]: number | string};
   onChange: (value: string) => void;
   items: {label: string; value: string}[];
 };
@@ -196,5 +203,21 @@ export type PriceAlertListItemProps = {
 export type EmptyDataScreenProps = {
   title: string;
   text: string;
+  buttonTitle: string;
   onPress: (...args: any) => void;
+};
+
+export type FormImagePickerProps = {
+  name: any;
+};
+
+export type ImageInputProps = {
+  uri?: string | null;
+  onChange: any;
+};
+
+export type ImageInputListProps = {
+  uris: Array<string> | [];
+  onAdd: any;
+  onRemove: any;
 };

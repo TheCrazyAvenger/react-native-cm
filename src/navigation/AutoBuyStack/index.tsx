@@ -3,7 +3,6 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '../../constants';
 import {
   AutoBuy,
-  AutoBuyList,
   ChooseProduct,
   AutoBuySetup,
   ReviewAutoBuy,
@@ -25,7 +24,6 @@ export const AutoBuyStack: React.FC = () => {
         headerShown: false,
       }}>
       <Stack.Screen name={Screens.autoBuy} component={AutoBuy} />
-      <Stack.Screen name={Screens.autoBuyList} component={AutoBuyList} />
       <Stack.Screen name={Screens.chooseProduct} component={ChooseProduct} />
       <Stack.Screen name={Screens.autoBuySetUp} component={AutoBuySetup} />
       <Stack.Screen name={Screens.reviewAutoBuy} component={ReviewAutoBuy} />

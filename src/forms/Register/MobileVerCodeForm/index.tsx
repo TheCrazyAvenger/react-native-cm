@@ -10,63 +10,28 @@ import {useNavigation, useRoute} from '@react-navigation/core';
 import {Screens} from '../../../constants';
 import {Description} from '../../../components/Typography';
 import {TextButton} from '../../../ui';
-import {useAppDispatch} from '../../../hooks/hooks';
-import {useAuthMutation} from '../../../api';
-import {
-  authSucces,
-  clearError,
-  setError,
-} from '../../../store/slices/authSlice';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const MobileVerCodeForm: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
-  const [auth] = useAuthMutation();
+  const {type, code} = route.params;
 
-  const dispatch = useAppDispatch();
+  console.log(code);
 
-  const {type, values} = route.params;
-
-  const goToNext = () => {
-    type === 'SignIn'
-      ? navigation.push(Screens.home)
-      : navigation.push(Screens.mobileVerSuccess, {
-          values: {...route.params.values},
-        });
-  };
-
-  const authHandler = async () => {
+  const goToNext = async (values: any) => {
     try {
-      const isLogin = false;
-      const authData = {...values, isLogin};
-      const response: any = await auth(authData);
-
-      const data = response.data;
-
-      dispatch(clearError());
-      const expirationDate = new Date(
-        new Date().getTime() + data.expiresIn * 1000,
-      );
-
-      const userEmail = values.email;
-      const token = data.idToken;
-
-      await AsyncStorage.setItem('userEmail', JSON.stringify(values.email));
-      await AsyncStorage.setItem(
-        'token',
-        JSON.stringify(response.data.idToken),
-      );
-      await AsyncStorage.setItem(
-        'expirationDate',
-        JSON.stringify(expirationDate),
-      );
-      dispatch(authSucces({userEmail, token}));
-
-      goToNext();
-    } catch (e) {
-      console.log(e);
+      if (code !== values.code) {
+        return console.warn('Wrong code');
+      }
+      // await code.confirm(values.code);
+      type === 'SignIn'
+        ? navigation.push(Screens.home)
+        : navigation.push(Screens.mobileVerSuccess, {
+            values: {...route.params.values},
+          });
+    } catch (error) {
+      console.log('Invalid code.');
     }
   };
 
@@ -76,7 +41,7 @@ export const MobileVerCodeForm: React.FC = () => {
       initialValues={{
         code: '',
       }}
-      onSubmit={() => authHandler()}>
+      onSubmit={values => goToNext(values)}>
       {({
         handleChange,
         handleSubmit,

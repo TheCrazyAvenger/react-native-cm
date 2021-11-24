@@ -82,3 +82,59 @@ export const priceAlertsSchema = yup.object().shape({
     .min(0.5, 'At least 0.5%')
     .max(100, 'Only 100%'),
 });
+
+export const profileSchema = yup.object().shape({
+  firstName: yup
+    .string()
+    .required('Please enter your First Name')
+    .max(16, 'The field should be less than or equal to 16 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  lastName: yup
+    .string()
+    .required('Please enter your Last Name')
+    .max(16, 'The field should be less than or equal to 16 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+});
+
+export const verificationSchema = yup.object().shape({
+  firstName: yup
+    .string()
+    .required('Please enter your First Name')
+    .max(16, 'The field should be less than or equal to 16 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  lastName: yup
+    .string()
+    .required('Please enter your Last Name')
+    .max(16, 'The field should be less than or equal to 16 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  dateOfBirth: yup.string().required('Please enter your Date of Birth'),
+  mobile: yup
+    .string()
+    .required('Please enter your phone number')
+    .matches(/^\+[1-9]{1}[0-9]{3,14}$/, {message: 'Enter correct number'}),
+  address1: yup
+    .string()
+    .required('Please enter your Address 1')
+    .max(16, 'The field should be less than or equal to 16 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  address2: yup
+    .string()
+    .required('Please enter your Address 2')
+    .max(16, 'The field should be less than or equal to 16 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  city: yup
+    .string()
+    .required('Please enter your City')
+    .max(16, 'The field should be less than or equal to 16 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  state: yup.string().required('Please enter your State'),
+  postalCode: yup
+    .number()
+    .min(5, 'At least 5 numbers')
+    .required('Please enter Postal Code'),
+});
+
+export const documentsVerificationSchema = yup.object().shape({
+  documentsType: yup.string().required('Please choose Document Type'),
+  documents: yup.array().min(1, 'Please select at least one image.'),
+});

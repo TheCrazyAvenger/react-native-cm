@@ -10,10 +10,16 @@ export enum Screens {
   settingsStack = 'settingsStack',
   settings = 'settings',
   refer = 'refer',
+  notifications = 'notifications',
+  profile = 'profile',
+
+  verificationStack = 'verificationStack',
+  verification = 'verification',
+  documentsVerification = 'documentsVerification',
+  verificationComplete = 'verificationComplete',
 
   autoBuyStack = 'autoBuyStack',
   autoBuy = 'autoBuy',
-  autoBuyList = 'autoBuyList',
   chooseProduct = 'chooseProduct',
   autoBuySetUp = 'autoBuySetUp',
   reviewAutoBuy = 'reviewAutoBuy',

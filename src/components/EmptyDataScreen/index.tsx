@@ -9,6 +9,7 @@ import {styles} from './styles';
 export const EmptyDataScreen: React.FC<EmptyDataScreenProps> = ({
   title,
   text,
+  buttonTitle,
   onPress,
 }) => {
   return (
@@ -27,7 +28,7 @@ export const EmptyDataScreen: React.FC<EmptyDataScreenProps> = ({
           </View>
         </ScrollView>
         <TextButton
-          title="Add New"
+          title={buttonTitle}
           style={{marginBottom: 25}}
           solid
           onPress={onPress}

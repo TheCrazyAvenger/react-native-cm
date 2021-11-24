@@ -3,7 +3,7 @@ import {Image, View} from 'react-native';
 import {ItemPickerProps} from '..';
 import {Dropdown} from 'react-native-element-dropdown';
 import {colors} from '../../constants';
-import {Description, SubtitleMedium} from '../Typography';
+import {Description, SubtitleMedium, Error} from '../Typography';
 import {styles} from './styles';
 
 export const ItemPicker: React.FC<ItemPickerProps> = ({
@@ -11,7 +11,10 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
   style,
   onChange,
   value,
-  showBorders = true,
+  labelStyle,
+  errorStyle,
+  errorMessage,
+  isTouched,
   items,
 }) => {
   const [isFocus, setIsFocus] = useState(false);
@@ -28,20 +31,33 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
     <View>
       {label && (
         <Description
-          style={{color: colors.gray, marginBottom: 6, marginHorizontal: 10}}>
+          style={{
+            ...labelStyle,
+            ...(errorMessage && isTouched ? styles.errorLabel : null),
+            ...styles.label,
+            marginBottom: 6,
+            marginHorizontal: 10,
+          }}>
           {label}
         </Description>
       )}
 
       <Dropdown
-        style={{...styles.dropdown, ...style}}
-        placeholderStyle={styles.placeholderStyle}
+        style={{
+          ...styles.dropdown,
+          ...style,
+          ...(errorMessage && isTouched ? styles.errorInput : null),
+        }}
+        placeholderStyle={{
+          ...styles.placeholderStyle,
+          color: value === '' ? colors.placeholder : colors.black,
+        }}
         selectedTextStyle={styles.selectedTextStyle}
         data={items}
         maxHeight={280}
         labelField="label"
         valueField="value"
-        placeholder={value}
+        placeholder={value !== '' ? value : 'Select one'}
         value={value}
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
@@ -62,6 +78,9 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
         }
         renderItem={renderItem}
       />
+      {errorMessage && isTouched && (
+        <Error style={{...styles.error, ...errorStyle}}>{errorMessage}</Error>
+      )}
     </View>
   );
 };

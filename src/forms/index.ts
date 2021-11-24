@@ -11,4 +11,8 @@ export * from './AutoBuySetUpForm';
 
 export * from './PriceAlertsSetUpForm';
 
+export * from './Settings/ProfileForm';
+export * from './Settings/VerificationForm';
+export * from './Settings/DocumentsVerificationForm';
+
 export * from './schemas';

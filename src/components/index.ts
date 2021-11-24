@@ -9,6 +9,9 @@ export * from './Notification';
 export * from './DatePicker';
 export * from './ItemPicker';
 export * from './EmptyDataScreen';
+export * from './FormImagePicker';
+export * from './ImageInputList';
+export * from './ImageInput';
 
 export * from './Wrapper';
 export * from './ModalWindow';

@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:151533539517:android:a1418755b70b18a60127d4",
+        "mobilesdk_app_id": "1:151533539517:android:621f86aea19740d80127d4",
         "android_client_info": {
           "package_name": "com.cybermetals"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "151533539517-bule69gl1r576s2b7rf6n9kpba981qig.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cybermetals",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
         {
           "client_id": "151533539517-78foonv86g2dpub046lp1pdvpdp1ft3r.apps.googleusercontent.com",
           "client_type": 3
@@ -29,6 +37,13 @@
             {
               "client_id": "151533539517-78foonv86g2dpub046lp1pdvpdp1ft3r.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "151533539517-77gvgeqb6iqb0ruvdj3r497lmup92vqb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cybermetals"
+              }
             }
           ]
         }

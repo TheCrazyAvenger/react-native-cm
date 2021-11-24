@@ -18,6 +18,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   secureTextEntry,
   rightIcon,
   onInput,
+  disabled,
 }) => {
   const inputContainerStyle = [
     styles.inputContainerStyle,
@@ -43,6 +44,7 @@ export const FormInput: React.FC<FormInputProps> = ({
         inputStyle={styles.inputStyle}
         labelStyle={[...labelStyle, style]}
         inputContainerStyle={[...inputContainerStyle]}
+        disabled={disabled ? true : false}
       />
       {errorMessage && isTouched && (
         <Error style={styles.error}>{errorMessage}</Error>

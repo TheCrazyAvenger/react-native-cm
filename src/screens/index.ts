@@ -8,9 +8,14 @@ export * from './NullScreen';
 
 export * from './SettingsScreens/Settings';
 export * from './SettingsScreens/Refer';
+export * from './SettingsScreens/Notifications';
+export * from './SettingsScreens/Profile';
+
+export * from './SettingsScreens/VerificationScreens/Verification';
+export * from './SettingsScreens/VerificationScreens/DocumentsVerification';
+export * from './SettingsScreens/VerificationScreens/VerificationComplete';
 
 export * from './SettingsScreens/AutoBuyScreens/AutoBuy';
-export * from './SettingsScreens/AutoBuyScreens/AutoBuyList';
 export * from './SettingsScreens/AutoBuyScreens/ChooseProduct';
 export * from './SettingsScreens/AutoBuyScreens/AutoBuySetUp';
 export * from './SettingsScreens/AutoBuyScreens/ReviewAutoBuy';

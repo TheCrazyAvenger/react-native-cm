@@ -13,17 +13,36 @@ export const styles = StyleSheet.create({
   },
   placeholderStyle: {
     fontSize: 16,
-    color: colors.black,
+    fontFamily: 'OpenSans-Regular',
   },
   selectedTextStyle: {
     fontSize: 16,
     color: colors.black,
+    fontFamily: 'OpenSans-Regular',
+  },
+  label: {
+    fontFamily: 'OpenSans-Regular',
+    marginBottom: 6,
+    fontWeight: '400',
+    color: colors.gray,
+    fontSize: 16,
   },
   item: {
     padding: 17,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  errorLabel: {
+    color: colors.red,
+  },
+  errorInput: {
+    borderColor: colors.red,
+  },
+  error: {
+    position: 'absolute',
+    left: 10,
+    top: 75,
   },
   textItem: {
     flex: 1,

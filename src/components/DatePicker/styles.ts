@@ -15,9 +15,22 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  label: {
+    fontFamily: 'OpenSans-Regular',
+    marginBottom: 6,
+    fontWeight: '400',
+    color: colors.gray,
+    fontSize: 16,
+  },
   error: {
     position: 'absolute',
     left: 10,
     top: 81,
+  },
+  errorInput: {
+    borderColor: colors.red,
+  },
+  errorLabel: {
+    color: colors.red,
   },
 });

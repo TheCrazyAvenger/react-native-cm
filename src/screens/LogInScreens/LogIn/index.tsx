@@ -1,8 +1,8 @@
 import React from 'react';
 import {KeyboardAvoidingView, Platform, StatusBar, View} from 'react-native';
 import {SocialBlock} from '../../../components';
-import {Description, Title} from '../../../components/Typography';
-import {EmailForm, LogInForm} from '../../../forms';
+import {Title} from '../../../components/Typography';
+import {LogInForm} from '../../../forms';
 import {Screen} from '../../../ui';
 import {styles} from './styles';
 

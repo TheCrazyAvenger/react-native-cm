@@ -110,6 +110,8 @@ export const AutoBuySetUpForm: React.FC = () => {
                 {label: 'Bi-weekly', value: 'Bi-weekly'},
                 {label: 'Monthly', value: 'Monthly'},
               ]}
+              errorMessage={errors.frequency}
+              isTouched={touched.frequency}
               value={values.frequency}
               onChange={value => setFieldValue('frequency', value)}
             />
