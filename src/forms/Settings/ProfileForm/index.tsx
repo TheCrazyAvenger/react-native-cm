@@ -4,26 +4,15 @@ import {ScrollView, View} from 'react-native';
 import {FormInput} from '../../../components';
 import {profileSchema} from '../..';
 import {styles} from './styles';
-import {useNavigation} from '@react-navigation/core';
-import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
+import {useAppSelector} from '../../../hooks/hooks';
 import {TextButton} from '../../../ui';
-import {changeName} from '../../../store/slices/authSlice';
 
-export const ProfileForm: React.FC = () => {
-  const navigation: any = useNavigation();
-
-  const dispatch = useAppDispatch();
-
+export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
+  onSubmit,
+}) => {
   const email = useAppSelector(state => state.auth.userEmail);
   const firstName = useAppSelector(state => state.auth.firstName);
   const lastName = useAppSelector(state => state.auth.lastName);
-
-  const saveChanges = async (values: {[key: string]: any}) => {
-    const {firstName, lastName} = values;
-
-    await dispatch(changeName({firstName, lastName}));
-    navigation.pop();
-  };
 
   return (
     <Formik
@@ -33,7 +22,7 @@ export const ProfileForm: React.FC = () => {
         lastName: lastName,
         email: email,
       }}
-      onSubmit={values => saveChanges(values)}>
+      onSubmit={values => onSubmit(values)}>
       {({
         handleChange,
         handleSubmit,

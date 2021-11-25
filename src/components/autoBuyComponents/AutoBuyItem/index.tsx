@@ -18,6 +18,7 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
   endDate,
   style,
   id,
+  onRemove,
 }) => {
   const [visibleModal, setVisibleModal] = useState(false);
   const navigation: any = useNavigation();
@@ -54,7 +55,7 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
         text="Are you sure you want to cancel this Auto Buy transaction?"
         confirmTitle="Yes, cancel"
         cancelTitle="No, keep it"
-        onConfirm={() => dispatch(deleteAutoBuy(id))}
+        onConfirm={() => onRemove(id)}
         onCancel={() => setVisibleModal(false)}
         visible={visibleModal}
       />

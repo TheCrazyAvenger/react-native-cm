@@ -5,12 +5,9 @@ import {FormImagePicker, ItemPicker} from '../../../components';
 import {documentsVerificationSchema} from '../..';
 import {styles} from './styles';
 import {useNavigation, useRoute} from '@react-navigation/core';
-import {useAppDispatch} from '../../../hooks/hooks';
 import {TextButton} from '../../../ui';
 import {colors, Screens} from '../../../constants';
 import {SubtitleMedium, Error} from '../../../components/Typography';
-import {setVerified} from '../../../store/slices/authSlice';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const DocumentsVerificationForm: React.FC = () => {
   const navigation: any = useNavigation();
@@ -18,11 +15,7 @@ export const DocumentsVerificationForm: React.FC = () => {
 
   const {values: prevValues} = route.params;
 
-  const dispatch = useAppDispatch();
-
   const saveChanges = async (values: {[key: string]: any}) => {
-    await AsyncStorage.setItem('verified', JSON.stringify(true));
-    dispatch(setVerified(true));
     navigation.navigate(Screens.verificationComplete, {
       values: {...values, ...prevValues},
     });

@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import React from 'react';
 import {ScrollView, StatusBar, View} from 'react-native';
@@ -8,18 +9,43 @@ import {
   SubtitleMedium,
 } from '../../../../components/Typography';
 import {Screens} from '../../../../constants';
-import {useAppSelector} from '../../../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
+import {setLoading, setVerified} from '../../../../store/slices/authSlice';
 import {Screen, TextButton} from '../../../../ui';
+import database from '@react-native-firebase/database';
 
 import {styles} from './styles';
+import {LoadingItem} from '../../../../components';
 
 export const VerificationComplete: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
   const verifed = useAppSelector(state => state.auth.verified);
+  const token = useAppSelector(state => state.auth.token);
+  const loading = useAppSelector(state => state.auth.loading);
+
+  const dispatch = useAppDispatch();
 
   const values = route.params?.values;
+
+  const goToSettings = async () => {
+    dispatch(setLoading(true));
+    await AsyncStorage.setItem('verified', JSON.stringify(true));
+
+    await database()
+      .ref('users/' + token)
+      .update({verified: true});
+
+    await dispatch(setVerified(true));
+    await dispatch(setLoading(false));
+
+    navigation.navigate(Screens.settings);
+  };
+
+  if (loading) {
+    return <LoadingItem />;
+  }
 
   values && console.log(values);
 
@@ -35,7 +61,7 @@ export const VerificationComplete: React.FC = () => {
           <View style={styles.header}>
             <VerComplete />
             <Subtitle style={styles.title}>
-              {verifed ? 'Verifed' : 'Submitted for Verification'}
+              {verifed ? 'Verified' : 'Submitted for Verification'}
             </Subtitle>
             {!verifed && (
               <SubtitleMedium style={styles.description}>
@@ -51,7 +77,7 @@ export const VerificationComplete: React.FC = () => {
           title="Back to Settings"
           style={{marginBottom: 25}}
           solid
-          onPress={() => navigation.navigate(Screens.settings)}
+          onPress={goToSettings}
         />
       </View>
     </Screen>

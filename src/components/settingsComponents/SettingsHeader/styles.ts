@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
   userName: {
     fontFamily: 'OpenSans-Bold',
     color: colors.primary,
+    maxWidth: '80%',
   },
   verified: {
     borderWidth: 1,

@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {getAutoBuy} from '../actions/autoBuy';
 
 export interface AutoBuyState {
   autoBuy: Array<{[key: string]: string | number} | null> | any;
@@ -39,6 +40,16 @@ export const autoBuySlice = createSlice({
         }),
       ];
     },
+  },
+  extraReducers: builder => {
+    builder.addCase(
+      getAutoBuy.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        if (action.payload) {
+          state.autoBuy = action.payload;
+        }
+      },
+    );
   },
 });
 export const {addAutoBuy, deleteAutoBuy, updateAutoBuy} = autoBuySlice.actions;

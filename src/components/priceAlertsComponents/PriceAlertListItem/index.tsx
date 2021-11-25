@@ -21,6 +21,7 @@ export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
   value,
   id,
   style,
+  onRemove,
 }) => {
   const [visibleModal, setVisibleModal] = useState(false);
   const dispatch = useAppDispatch();
@@ -50,7 +51,7 @@ export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
         text="Are you sure you want to cancel this Alert?"
         confirmTitle="Yes, cancel"
         cancelTitle="No, keep it"
-        onConfirm={() => dispatch(deletePriceAlerts(id))}
+        onConfirm={() => onRemove(id)}
         onCancel={() => setVisibleModal(false)}
         visible={visibleModal}
       />

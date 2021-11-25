@@ -9,31 +9,25 @@ import {styles} from './styles';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {colors, Screens} from '../../../constants';
 import {TextButton} from '../../../ui';
-import {useAppSelector} from '../../../hooks/hooks';
 
-export const PasswordForm: React.FC = () => {
-  const navigation: any = useNavigation();
-  const route: any = useRoute();
-
-  const {type} = route.params;
-
+export const ChangePasswordForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(true);
   const [showConfirmPassword, setShowConfirmPassword] = useState(true);
-  const [showCurrentPassword, setShowCurrentPassword] = useState(true);
-
-  const password = useAppSelector(state => state.auth.password);
 
   const [lettersReg, setNumericReg] = useState<string | null>(null);
   const [numericReg, setLettersReg] = useState<string | null>(null);
   const [specReg, setSpecReg] = useState<string | null>(null);
   const [length, setLength] = useState<string | null>(null);
 
+  const navigation: any = useNavigation();
+  const route: any = useRoute();
+
+  const {type} = route.params;
+
   const goToNext = (values: {[key: string]: string | boolean}) => {
     const password = values.password;
     type === 'SignIn'
       ? navigation.push(Screens.forgotPassDone)
-      : type === 'Change'
-      ? navigation.pop()
       : navigation.push(Screens.emailVerification, {
           values: {password, ...route.params.values},
         });
@@ -55,7 +49,6 @@ export const PasswordForm: React.FC = () => {
       initialValues={{
         password: '',
         confirmPassword: '',
-        currentPassword: type === 'Change' ? password : '',
       }}
       onSubmit={values => goToNext(values)}>
       {({
@@ -70,28 +63,6 @@ export const PasswordForm: React.FC = () => {
         return (
           <View style={styles.container}>
             <ScrollView>
-              {type === 'Change' && (
-                <FormInput
-                  label="Current Password"
-                  plaseholder="Enter Current Password"
-                  onChangeText={handleChange('currentPassword')}
-                  onFocus={() => setFieldTouched('currentPassword', false)}
-                  value={values.currentPassword}
-                  errorMessage={errors.currentPassword}
-                  isTouched={touched.currentPassword}
-                  style={{marginTop: 20}}
-                  secureTextEntry={showCurrentPassword}
-                  rightIcon={() => (
-                    <TouchableOpacity
-                      onPress={() => setShowCurrentPassword(prev => !prev)}>
-                      <Image
-                        source={require('../../../assets/images/register/show.png')}
-                      />
-                    </TouchableOpacity>
-                  )}
-                />
-              )}
-
               <FormInput
                 label="Password"
                 plaseholder="Enter password"
@@ -158,13 +129,6 @@ export const PasswordForm: React.FC = () => {
             {type === 'SignIn' ? (
               <TextButton
                 title="Reset Password"
-                style={{marginVertical: 25}}
-                solid
-                onPress={handleSubmit}
-              />
-            ) : type === 'Change' ? (
-              <TextButton
-                title="Save changes"
                 style={{marginVertical: 25}}
                 solid
                 onPress={handleSubmit}

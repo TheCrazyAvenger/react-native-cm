@@ -1,7 +1,7 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {Image, ScrollView, StatusBar, View} from 'react-native';
-import {Wrapper} from '../../../../components';
+import {LoadingItem, Wrapper} from '../../../../components';
 import {
   Description,
   Subtitle,
@@ -10,13 +10,18 @@ import {
 } from '../../../../components/Typography';
 import {colors, Screens} from '../../../../constants';
 import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
+import {setLoading} from '../../../../store/slices/authSlice';
 import {addAutoBuy, updateAutoBuy} from '../../../../store/slices/autoBuySlice';
 import {Screen, TextButton} from '../../../../ui';
 import {styles} from './styles';
+import database from '@react-native-firebase/database';
 
 export const ReviewAutoBuy: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
+
+  const loading = useAppSelector(state => state.auth.loading);
+  const token = useAppSelector(state => state.auth.token);
 
   const {type} = route.params;
   const dispatch = useAppDispatch();
@@ -26,7 +31,7 @@ export const ReviewAutoBuy: React.FC = () => {
 
   const autoBuy = useAppSelector(state => state.autoBuy.autoBuy);
 
-  const goToNext = () => {
+  const goToNext = async () => {
     navigation.navigate(Screens.completeAutoBuy, {
       type: type ? type : null,
       amount,
@@ -46,8 +51,21 @@ export const ReviewAutoBuy: React.FC = () => {
       metal,
       id: type ? id : autoBuy.length + 1,
     };
-    type ? dispatch(updateAutoBuy(data)) : dispatch(addAutoBuy(data));
+
+    dispatch(setLoading(true));
+
+    await database().ref(`/users/${token}/autoBuy/${data.id}`).set(data);
+    if (type) {
+      await dispatch(updateAutoBuy(data));
+    } else {
+      await dispatch(addAutoBuy(data));
+    }
+    dispatch(setLoading(false));
   };
+
+  if (loading) {
+    return <LoadingItem />;
+  }
 
   return (
     <Screen>

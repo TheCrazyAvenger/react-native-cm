@@ -1,50 +1,49 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
-import {Image, ScrollView, StatusBar, View} from 'react-native';
-import {ShareRefer} from '../../../../assets/images/settings';
-import {AutoBuyItem, EmptyDataScreen, Wrapper} from '../../../../components';
+import React, {useEffect} from 'react';
+import {StatusBar, View} from 'react-native';
 import {
-  Description,
-  Subtitle,
-  SubtitleMedium,
-} from '../../../../components/Typography';
+  AutoBuyItem,
+  EmptyDataScreen,
+  LoadingItem,
+  Wrapper,
+} from '../../../../components';
+import {Subtitle, SubtitleMedium} from '../../../../components/Typography';
 import {colors, Screens} from '../../../../constants';
-import {useAppSelector} from '../../../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
+import {getAutoBuy} from '../../../../store/actions/autoBuy';
+import {setLoading} from '../../../../store/slices/authSlice';
 import {Screen, TextButton} from '../../../../ui';
 import {styles} from './styles';
+import database from '@react-native-firebase/database';
+import {deleteAutoBuy} from '../../../../store/slices/autoBuySlice';
 
 export const AutoBuy: React.FC = () => {
-  // return (
-  //   <Screen type="View">
-  //     <StatusBar
-  //       barStyle="dark-content"
-  //       translucent
-  //       backgroundColor={'transparent'}
-  //     />
-  //     <View style={styles.container}>
-  //       <ScrollView>
-  //         <View style={styles.header}>
-  //           <ShareRefer />
-  //           <Subtitle style={styles.title}>Set up Auto Buy Now</Subtitle>
-  //           <Description style={styles.description}>
-  //             CyberMetals Auto Buy program allows you to make recurring
-  //             purchases of digital metals in increments that fit your timeframe
-  //             and budget.
-  //           </Description>
-  //         </View>
-  //       </ScrollView>
-  //       <TextButton
-  //         title="Add New"
-  //         style={{marginBottom: 25}}
-  //         solid
-  //         onPress={() => navigation.navigate(Screens.autoBuyList)}
-  //       />
-  //     </View>
-  //   </Screen>
-  // );
   const navigation: any = useNavigation();
 
+  const dispatch = useAppDispatch();
+
   const autoBuy = useAppSelector(state => state.autoBuy.autoBuy);
+  const loading = useAppSelector(state => state.auth.loading);
+  const token = useAppSelector(state => state.auth.token);
+
+  useEffect(() => {
+    getList();
+  }, []);
+
+  const getList = async () => {
+    dispatch(setLoading(true));
+    await dispatch(getAutoBuy());
+    dispatch(setLoading(false));
+  };
+
+  const removeItem = async (id: number) => {
+    await database().ref(`/users/${token}/autoBuy/${id}`).remove();
+    await dispatch(deleteAutoBuy(id));
+  };
+
+  if (loading) {
+    return <LoadingItem />;
+  }
 
   if (autoBuy.length === 0) {
     return (
@@ -87,26 +86,24 @@ export const AutoBuy: React.FC = () => {
         </SubtitleMedium>
       </View>
 
-      {autoBuy ? (
+      {autoBuy && (
         <View style={{marginBottom: 20}}>
-          {autoBuy.map((item: any) => (
-            <AutoBuyItem
-              key={item.id}
-              id={item.id}
-              metal={item.metal}
-              amount={item.amount}
-              frequency={item.frequency}
-              endDate={item.endDate}
-              startDate={item.startDate}
-              paymentMethod={item.paymentMethod}
-            />
-          ))}
-        </View>
-      ) : (
-        <View style={styles.activeList}>
-          <Subtitle style={{marginTop: 100, textAlign: 'center'}}>
-            Empty
-          </Subtitle>
+          {autoBuy.map(
+            (item: any) =>
+              item !== null && (
+                <AutoBuyItem
+                  key={item.id}
+                  id={item.id}
+                  metal={item.metal}
+                  amount={item.amount}
+                  frequency={item.frequency}
+                  endDate={item.endDate}
+                  startDate={item.startDate}
+                  paymentMethod={item.paymentMethod}
+                  onRemove={removeItem}
+                />
+              ),
+          )}
         </View>
       )}
     </Screen>

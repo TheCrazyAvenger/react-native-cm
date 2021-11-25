@@ -12,6 +12,7 @@ export * from './EmptyDataScreen';
 export * from './FormImagePicker';
 export * from './ImageInputList';
 export * from './ImageInput';
+export * from './LoadingItem';
 
 export * from './Wrapper';
 export * from './ModalWindow';

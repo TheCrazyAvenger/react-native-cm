@@ -7,7 +7,7 @@ import {styles} from './styles';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {authSucces} from '../../../store/slices/authSlice';
+import {authSucces, setLoading} from '../../../store/slices/authSlice';
 import {useAppDispatch} from '../../../hooks/hooks';
 
 export const MobileVerSuccess: React.FC = () => {
@@ -17,10 +17,11 @@ export const MobileVerSuccess: React.FC = () => {
 
   console.log(route.params.values);
 
-  const goToNext = () => {
-    const {email, password, firstName, lastName} = route.params.values;
+  const goToNext = async () => {
+    dispatch(setLoading(true));
+    const {email, mobile, password, firstName, lastName} = route.params.values;
 
-    auth()
+    await auth()
       .createUserWithEmailAndPassword(email, password)
       .then(async data => {
         const {uid, email} = data.user;
@@ -29,16 +30,28 @@ export const MobileVerSuccess: React.FC = () => {
           .set({
             firstName: firstName,
             lastName: lastName,
-            email: email,
+            userEmail: email,
+            mobile: mobile,
             verified: false,
+            password: password,
+            token: uid,
           });
-        await AsyncStorage.setItem('userEmail', JSON.stringify(email));
+
         await AsyncStorage.setItem('token', JSON.stringify(uid));
-        await AsyncStorage.setItem('firstName', JSON.stringify(firstName));
-        await AsyncStorage.setItem('lastName', JSON.stringify(lastName));
-        await AsyncStorage.setItem('password', JSON.stringify(password));
-        await AsyncStorage.setItem('verified', JSON.stringify(false));
-        dispatch(authSucces({email, token: uid}));
+
+        await dispatch(
+          authSucces({
+            userEmail: email,
+            token: uid,
+            verified: false,
+            firstName,
+            lastName,
+            password,
+            mobile,
+          }),
+        );
+
+        dispatch(setLoading(false));
       })
       .catch(error => {
         if (error.code === 'auth/email-already-in-use') {
@@ -50,6 +63,8 @@ export const MobileVerSuccess: React.FC = () => {
         }
 
         console.error(error);
+
+        dispatch(setLoading(false));
       });
   };
 

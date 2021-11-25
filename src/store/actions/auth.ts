@@ -1,41 +1,57 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import database from '@react-native-firebase/database';
 
 export const getData = createAsyncThunk('auth/getData', async () => {
   try {
-    let token = await AsyncStorage.getItem('token');
-    let userEmail = await AsyncStorage.getItem('userEmail');
-    let firstName = await AsyncStorage.getItem('firstName');
-    let lastName = await AsyncStorage.getItem('lastName');
-    let password = await AsyncStorage.getItem('password');
-    let verified = await AsyncStorage.getItem('verified');
-    console.log(token, userEmail, firstName, lastName, password, verified);
-    if (
-      token === null &&
-      userEmail === null &&
-      firstName === null &&
-      lastName === null &&
-      password === null &&
-      verified === null
-    ) {
-      return {
-        token: null,
-        userEmail: null,
-        firstName: '',
-        lastName: '',
-        password: '',
-        verified: false,
-      };
-    } else {
-      return {
-        token: JSON.parse(token!),
-        userEmail: JSON.parse(userEmail!),
-        firstName: JSON.parse(firstName!),
-        lastName: JSON.parse(lastName!),
-        password: JSON.parse(password!),
-        verified: JSON.parse(verified!),
-      };
-    }
+    let token: any = await AsyncStorage.getItem('token');
+
+    return await database()
+      .ref(`/users/${JSON.parse(token)}`)
+      .once('value')
+      .then(snapshot => {
+        const data: any = snapshot.val();
+        console.log(data);
+        const {
+          userEmail,
+          mobile,
+          password,
+          firstName,
+          lastName,
+          token,
+          verified,
+        } = data;
+
+        if (
+          token === null &&
+          userEmail === null &&
+          firstName === null &&
+          lastName === null &&
+          password === null &&
+          verified === null &&
+          mobile === null
+        ) {
+          return {
+            token: null,
+            userEmail: null,
+            firstName: '',
+            lastName: '',
+            password: '',
+            mobile: '',
+            verified: false,
+          };
+        } else {
+          return {
+            token,
+            userEmail,
+            firstName,
+            lastName,
+            password,
+            verified,
+            mobile,
+          };
+        }
+      });
   } catch (e) {
     console.log(e);
   }
@@ -43,12 +59,7 @@ export const getData = createAsyncThunk('auth/getData', async () => {
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   try {
-    // await AsyncStorage.removeItem('firstName');
-    // await AsyncStorage.removeItem('lastName');
-    // await AsyncStorage.removeItem('password');
-    await AsyncStorage.removeItem('userEmail');
     await AsyncStorage.removeItem('token');
-    // await AsyncStorage.removeItem('verified');
   } catch (e) {
     console.log(e);
   }

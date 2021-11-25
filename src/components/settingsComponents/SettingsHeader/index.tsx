@@ -17,7 +17,7 @@ export const SettingsHeader: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={{marginBottom: 25}}>
-        <TitleMedium style={styles.userName}>
+        <TitleMedium numberOfLines={1} style={styles.userName}>
           {firstName} {lastName}
         </TitleMedium>
         <Description style={{color: colors.primary}}>{email}</Description>

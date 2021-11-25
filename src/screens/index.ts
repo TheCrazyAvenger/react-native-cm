@@ -10,6 +10,7 @@ export * from './SettingsScreens/Settings';
 export * from './SettingsScreens/Refer';
 export * from './SettingsScreens/Notifications';
 export * from './SettingsScreens/Profile';
+export * from './SettingsScreens/ChangePassword';
 
 export * from './SettingsScreens/VerificationScreens/Verification';
 export * from './SettingsScreens/VerificationScreens/DocumentsVerification';

@@ -75,7 +75,9 @@ export const Settings: React.FC = () => {
       <MenuItem
         title="Change Your Password"
         description="Set up your new password"
-        onPress={() => console.log('Go to Change Your Password')}
+        onPress={() =>
+          navigation.navigate(Screens.changePassword, {type: 'Change'})
+        }
         Image={ChangePassword}
         style={{marginBottom: 50}}
       />

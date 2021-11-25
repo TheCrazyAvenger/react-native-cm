@@ -1,21 +1,49 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StatusBar} from 'react-native';
 import {
   EmptyDataScreen,
+  LoadingItem,
   MetalPicker,
   PriceAlertListItem,
   Wrapper,
 } from '../../../../components';
 import {colors, Screens} from '../../../../constants';
-import {useAppSelector} from '../../../../hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
+import {getPriceAlerts} from '../../../../store/actions/priceAlerts';
+import {setLoading} from '../../../../store/slices/authSlice';
+import {deletePriceAlerts} from '../../../../store/slices/priceAlertSlice';
 import {Screen, TextButton} from '../../../../ui';
 import {metals} from '../../../../utilities';
+import database from '@react-native-firebase/database';
 
 export const PriceAlerts: React.FC = () => {
   const navigation: any = useNavigation();
   const priceAlerts = useAppSelector(state => state.priceAlerts.priceAlerts);
+  const loading = useAppSelector(state => state.auth.loading);
+  const token = useAppSelector(state => state.auth.token);
   const [metalType, setMetalType] = useState(1);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    getList();
+  }, []);
+
+  const getList = async () => {
+    dispatch(setLoading(true));
+    await dispatch(getPriceAlerts());
+    dispatch(setLoading(false));
+  };
+
+  const removeItem = async (id: number) => {
+    await database().ref(`/users/${token}/priceAlerts/${id}`).remove();
+    await dispatch(deletePriceAlerts(id));
+  };
+
+  if (loading) {
+    return <LoadingItem />;
+  }
 
   if (priceAlerts.length === 0) {
     return (
@@ -51,6 +79,7 @@ export const PriceAlerts: React.FC = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         {priceAlerts.map(
           (item: any) =>
+            item !== null &&
             item.metal === metals[metalType - 1].metal && (
               <PriceAlertListItem
                 key={item.id}
@@ -62,6 +91,7 @@ export const PriceAlerts: React.FC = () => {
                 id={item.id}
                 color={item.color}
                 value={item.value}
+                onRemove={removeItem}
               />
             ),
         )}

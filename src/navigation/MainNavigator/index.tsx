@@ -2,7 +2,13 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '../../constants';
 import {BottomTabs} from '../BottomTabs';
-import {Notifications, Profile, Refer, Verification} from '../../screens';
+import {
+  ChangePassword,
+  Notifications,
+  Profile,
+  Refer,
+  Verification,
+} from '../../screens';
 import {styles} from './styles';
 import {BackButton} from '../BackButton';
 import {AutoBuyStack} from '../AutoBuyStack';
@@ -59,6 +65,11 @@ export const MainNavigator: React.FC = () => {
           name={Screens.verificationStack}
           options={{title: 'Verification'}}
           component={VerificationStack}
+        />
+        <Stack.Screen
+          name={Screens.changePassword}
+          options={{title: 'Change Your Password'}}
+          component={ChangePassword}
         />
       </Stack.Group>
     </Stack.Navigator>

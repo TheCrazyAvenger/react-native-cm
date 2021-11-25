@@ -12,6 +12,7 @@ export enum Screens {
   refer = 'refer',
   notifications = 'notifications',
   profile = 'profile',
+  changePassword = 'changePassword',
 
   verificationStack = 'verificationStack',
   verification = 'verification',

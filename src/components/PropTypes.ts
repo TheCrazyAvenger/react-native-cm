@@ -4,6 +4,7 @@ export type OnboardingItemProps = {
 
 export type TextProps = {
   style?: {[key: string]: number | string};
+  numberOfLines?: number;
 };
 
 export type PaginatorProps = {
@@ -142,6 +143,7 @@ export type AutoBuyItemProps = {
   endDate: string;
   style?: {[key: string]: number | string};
   id: number;
+  onRemove: (...args: any) => void;
 };
 
 export type DatePickerProps = {
@@ -161,8 +163,8 @@ export type ItemPickerProps = {
   style?: {[key: string]: number | string};
   label?: string;
   value: string;
-  errorMessage: any;
-  isTouched: any;
+  errorMessage?: any;
+  isTouched?: any;
   labelStyle?: {[key: string]: number | string};
   errorStyle?: {[key: string]: number | string};
   onChange: (value: string) => void;
@@ -198,6 +200,7 @@ export type PriceAlertListItemProps = {
   color: string;
   value: number;
   style?: {[key: string]: number | string};
+  onRemove: (...args: any) => void;
 };
 
 export type EmptyDataScreenProps = {
