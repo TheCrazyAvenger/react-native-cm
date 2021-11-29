@@ -19,6 +19,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   labelStyle,
   errorStyle,
   showIcon = true,
+  type,
 }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const showDatePicker = () => {
@@ -35,7 +36,13 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   };
 
   const handleConfirm = (date: Date) => {
-    onConfirm(date.toLocaleDateString());
+    const currentDate =
+      type === 'card'
+        ? `${
+            date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()
+          }/${date.getFullYear()}`
+        : date.toLocaleDateString();
+    onConfirm(currentDate);
     hideDatePicker();
   };
 

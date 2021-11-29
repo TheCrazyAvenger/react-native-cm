@@ -33,6 +33,7 @@ export const ForgotPassForm: React.FC = () => {
         <View style={styles.container}>
           <ScrollView>
             <FormInput
+              onBlur={() => setFieldTouched('email', true)}
               label="Email"
               plaseholder="Your email"
               onChangeText={handleChange('email')}

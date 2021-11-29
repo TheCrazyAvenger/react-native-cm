@@ -26,6 +26,9 @@ export * from './SettingsScreens/PriceAlertsScreens/PriceAlerts';
 export * from './SettingsScreens/PriceAlertsScreens/ChoosePriceAlert';
 export * from './SettingsScreens/PriceAlertsScreens/PriceAlertSetUp';
 
+export * from './SettingsScreens/PaymentMethodsScreens/PaymentMethods';
+export * from './SettingsScreens/PaymentMethodsScreens/PaymentMethodsSetUp';
+
 export * from './SignUpScreens/Introduce';
 export * from './SignUpScreens/Email';
 export * from './SignUpScreens/Password';

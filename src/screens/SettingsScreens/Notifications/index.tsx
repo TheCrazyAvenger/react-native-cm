@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import {StatusBar, View} from 'react-native';
 import {
   News,
-  PaymentMethods,
   Promotions,
   TransactionsUpdate,
 } from '../../../assets/images/settings';

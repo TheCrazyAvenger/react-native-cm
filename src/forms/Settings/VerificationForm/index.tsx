@@ -48,6 +48,7 @@ export const VerificationForm: React.FC = () => {
         return (
           <View style={styles.container}>
             <FormInput
+              onBlur={() => setFieldTouched('firstName', true)}
               label="First Name"
               plaseholder="Your First Name"
               onChangeText={handleChange('firstName')}
@@ -57,6 +58,7 @@ export const VerificationForm: React.FC = () => {
               isTouched={touched.firstName}
             />
             <FormInput
+              onBlur={() => setFieldTouched('lastName', true)}
               label="Last Name"
               plaseholder="Your Last Name"
               onChangeText={handleChange('lastName')}
@@ -76,6 +78,7 @@ export const VerificationForm: React.FC = () => {
               showIcon={false}
             />
             <FormInput
+              onBlur={() => setFieldTouched('mobile', true)}
               label="Phone Number"
               plaseholder="Your Phone Number"
               onChangeText={handleChange('mobile')}
@@ -85,6 +88,7 @@ export const VerificationForm: React.FC = () => {
               isTouched={touched.mobile}
             />
             <FormInput
+              onBlur={() => setFieldTouched('address1', true)}
               label="Address 1"
               plaseholder="Your Address 1"
               onChangeText={handleChange('address1')}
@@ -94,6 +98,7 @@ export const VerificationForm: React.FC = () => {
               isTouched={touched.address1}
             />
             <FormInput
+              onBlur={() => setFieldTouched('address2', true)}
               label="Address 2"
               plaseholder="Your Address 2"
               onChangeText={handleChange('address2')}
@@ -103,6 +108,7 @@ export const VerificationForm: React.FC = () => {
               isTouched={touched.address2}
             />
             <FormInput
+              onBlur={() => setFieldTouched('city', true)}
               label="City"
               plaseholder="Your City"
               onChangeText={handleChange('city')}
@@ -120,6 +126,7 @@ export const VerificationForm: React.FC = () => {
               isTouched={touched.state}
             />
             <FormInput
+              onBlur={() => setFieldTouched('postalCode', true)}
               label="Postal Code"
               plaseholder="Your Postal Code"
               onChangeText={handleChange('postalCode')}
@@ -129,6 +136,7 @@ export const VerificationForm: React.FC = () => {
               isTouched={touched.postalCode}
             />
             <FormInput
+              onBlur={() => setFieldTouched('country', true)}
               label="Country of Residence"
               plaseholder="Your Country of Residence"
               onChangeText={handleChange('country')}

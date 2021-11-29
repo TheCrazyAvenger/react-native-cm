@@ -17,26 +17,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 20,
   },
-  dateTitle: {
-    color: colors.gray,
-    marginBottom: 6,
-  },
-  date: {
-    padding: 10,
-    flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: colors.placeholder,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  amount: {
-    height: 55,
-    borderWidth: 1,
-    borderColor: colors.placeholder,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-  },
   title: {
     color: colors.gray,
     marginBottom: 6,

@@ -1,10 +1,9 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
-import {Image, ScrollView, StatusBar, View} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import {LoadingItem, Wrapper} from '../../../../components';
 import {
   Description,
-  Subtitle,
   SubtitleMedium,
   TitleMedium,
 } from '../../../../components/Typography';

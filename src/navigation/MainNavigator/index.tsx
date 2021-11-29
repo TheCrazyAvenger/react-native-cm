@@ -2,18 +2,13 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '../../constants';
 import {BottomTabs} from '../BottomTabs';
-import {
-  ChangePassword,
-  Notifications,
-  Profile,
-  Refer,
-  Verification,
-} from '../../screens';
+import {Notifications, Password, Profile, Refer} from '../../screens';
 import {styles} from './styles';
 import {BackButton} from '../BackButton';
 import {AutoBuyStack} from '../AutoBuyStack';
 import {PriceAlertsStack} from '../PriceAlertsStack';
 import {VerificationStack} from '../VerificationStack';
+import {PaymentMethodsStack} from '../PaymentMethodsStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -67,9 +62,14 @@ export const MainNavigator: React.FC = () => {
           component={VerificationStack}
         />
         <Stack.Screen
-          name={Screens.changePassword}
+          name={Screens.password}
           options={{title: 'Change Your Password'}}
-          component={ChangePassword}
+          component={Password}
+        />
+        <Stack.Screen
+          name={Screens.paymentMethodsStack}
+          options={{title: 'Payment Methods'}}
+          component={PaymentMethodsStack}
         />
       </Stack.Group>
     </Stack.Navigator>

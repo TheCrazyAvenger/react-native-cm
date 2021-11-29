@@ -120,6 +120,7 @@ export const AutoBuySetUpForm: React.FC = () => {
               {data ? data.metal : null} Amount
             </Description>
             <FormInput
+              onBlur={() => setFieldTouched('amount', true)}
               plaseholder="Your amount ($)"
               onChangeText={handleChange('amount')}
               onFocus={() => setFieldTouched('amount', false)}

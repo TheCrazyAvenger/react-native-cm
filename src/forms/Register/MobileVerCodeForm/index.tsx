@@ -54,6 +54,7 @@ export const MobileVerCodeForm: React.FC = () => {
         <View style={styles.container}>
           <ScrollView>
             <FormInput
+              onBlur={() => setFieldTouched('code', true)}
               label="Code"
               plaseholder="Your Code"
               onChangeText={handleChange('code')}

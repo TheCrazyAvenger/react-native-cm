@@ -11,9 +11,12 @@ export * from './AutoBuySetUpForm';
 
 export * from './PriceAlertsSetUpForm';
 
+export * from './paymentMethodsForms/PaymentMethodsSetUpForm';
+export * from './paymentMethodsForms/CardForm';
+export * from './paymentMethodsForms/BankForm';
+
 export * from './Settings/ProfileForm';
 export * from './Settings/VerificationForm';
 export * from './Settings/DocumentsVerificationForm';
-export * from './Settings/ChangePasswordForm';
 
 export * from './schemas';

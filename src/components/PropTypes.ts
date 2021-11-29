@@ -43,11 +43,13 @@ export type FormInputProps = {
   plaseholder: string;
   onChangeText: any;
   onFocus: any;
+  onBlur: any;
   onInput?: any;
   value: any;
   errorMessage: any;
   isTouched: any;
   style?: {[key: string]: number | string};
+  containerStyle?: {[key: string]: number | string};
   secureTextEntry?: boolean;
   rightIcon?: any;
   disabled?: boolean;
@@ -62,6 +64,7 @@ export type NotificationProps = {
   text: string;
   visible: boolean;
   onPress: any;
+  style?: {[key: string]: number | string};
 };
 
 export type MetalsCardProps = {
@@ -157,6 +160,7 @@ export type DatePickerProps = {
   errorStyle?: {[key: string]: number | string};
   showIcon?: boolean;
   onConfirm: (...args: any) => void;
+  type?: 'card';
 };
 
 export type ItemPickerProps = {
@@ -169,6 +173,8 @@ export type ItemPickerProps = {
   errorStyle?: {[key: string]: number | string};
   onChange: (value: string) => void;
   items: {label: string; value: string}[];
+  showArrow?: boolean;
+  LeftIcon?: any;
 };
 
 export type ModalWindowProps = {
@@ -223,4 +229,14 @@ export type ImageInputListProps = {
   uris: Array<string> | [];
   onAdd: any;
   onRemove: any;
+};
+
+export type PaymentMethodsItemProps = {
+  paymentMethod: string;
+  cardNumber: string;
+  id: number;
+  expiring: string;
+  style?: {[key: string]: number | string};
+  onRemove: (...args: any) => void;
+  type: string | null;
 };

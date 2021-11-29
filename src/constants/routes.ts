@@ -26,6 +26,10 @@ export enum Screens {
   reviewAutoBuy = 'reviewAutoBuy',
   completeAutoBuy = 'completeAutoBuy',
 
+  paymentMethodsStack = 'paymentMethodsStack',
+  paymentMethods = 'paymentMethods',
+  paymentMethodsSetUp = 'paymentMethodsSetUp',
+
   priceAlertsStack = 'priceAlertsStack',
   priceAlerts = 'priceAlerts',
   choosePriceAlert = 'choosePriceAlert',

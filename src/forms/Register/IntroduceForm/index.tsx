@@ -44,6 +44,7 @@ export const IntroduceForm: React.FC = () => {
           <View style={styles.container}>
             <ScrollView>
               <FormInput
+                onBlur={() => setFieldTouched('firstName', true)}
                 label="First Name"
                 plaseholder="Your First Name"
                 onChangeText={handleChange('firstName')}
@@ -53,6 +54,7 @@ export const IntroduceForm: React.FC = () => {
                 isTouched={touched.firstName}
               />
               <FormInput
+                onBlur={() => setFieldTouched('lastName', true)}
                 label="Last Name"
                 plaseholder="Your Last Name"
                 onChangeText={handleChange('lastName')}

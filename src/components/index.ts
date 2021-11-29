@@ -45,4 +45,6 @@ export * from './autoBuyComponents/AutoBuyItem';
 export * from './priceAlertsComponents/PriceAlertItem';
 export * from './priceAlertsComponents/PriceAlertListItem';
 
+export * from './paymentMethodsComponents/PaymentMethodsItem';
+
 export * from './PropTypes';

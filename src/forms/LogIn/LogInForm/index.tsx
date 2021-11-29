@@ -35,6 +35,7 @@ export const LogInForm: React.FC<{onSubmit: (...args: any) => void}> = ({
         <View style={styles.container}>
           <View style={styles.form}>
             <FormInput
+              onBlur={() => setFieldTouched('email', true)}
               label="Email"
               plaseholder="Your email"
               onChangeText={handleChange('email')}
@@ -45,6 +46,7 @@ export const LogInForm: React.FC<{onSubmit: (...args: any) => void}> = ({
             />
 
             <FormInput
+              onBlur={() => setFieldTouched('password', true)}
               label="Password"
               plaseholder="Enter password"
               onChangeText={handleChange('password')}

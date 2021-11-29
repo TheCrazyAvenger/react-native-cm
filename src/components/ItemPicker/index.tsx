@@ -16,6 +16,8 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
   errorMessage,
   isTouched,
   items,
+  showArrow = true,
+  LeftIcon,
 }) => {
   const [isFocus, setIsFocus] = useState(false);
 
@@ -65,8 +67,15 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
           onChange(item.value);
           setIsFocus(false);
         }}
+        renderLeftIcon={() =>
+          LeftIcon ? (
+            <View style={{marginRight: 8}}>
+              <LeftIcon />
+            </View>
+          ) : null
+        }
         renderRightIcon={() =>
-          isFocus ? (
+          !showArrow ? null : isFocus ? (
             <Image
               source={require('../../assets/images/settings/upIcon.png')}
             />

@@ -47,6 +47,7 @@ export const MobileVerForm: React.FC = () => {
         <View style={styles.container}>
           <ScrollView>
             <FormInput
+              onBlur={() => setFieldTouched('mobile', true)}
               label="Mobile Number"
               plaseholder="Your Phone Number"
               onChangeText={handleChange('mobile')}

@@ -51,7 +51,7 @@ export const Settings: React.FC = () => {
       <MenuItem
         title="Payment Methods"
         description="View and manage your payment methods"
-        onPress={() => console.log('Go to Payments Methods')}
+        onPress={() => navigation.navigate(Screens.paymentMethodsStack)}
         Image={PaymentMethods}
       />
       <MenuItem
@@ -75,9 +75,7 @@ export const Settings: React.FC = () => {
       <MenuItem
         title="Change Your Password"
         description="Set up your new password"
-        onPress={() =>
-          navigation.navigate(Screens.changePassword, {type: 'Change'})
-        }
+        onPress={() => navigation.navigate(Screens.password, {type: 'Change'})}
         Image={ChangePassword}
         style={{marginBottom: 50}}
       />

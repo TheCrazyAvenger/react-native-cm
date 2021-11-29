@@ -33,6 +33,18 @@ import News from './notifications/news.svg';
 import Promotions from './notifications/promotions.svg';
 import TransactionsUpdate from './notifications/transactions.svg';
 
+import CreditCard from './paymentMethods/creditCard.svg';
+import BankWire from './paymentMethods/bankWire.svg';
+import ACH from './paymentMethods/ach.svg';
+import PayPal from './paymentMethods/paypal.svg';
+
+import Warning from './paymentMethods/warning.svg';
+
+import Visa from './paymentMethods/visa.svg';
+import MasterCard from './paymentMethods/masterCard.svg';
+import AmericanExpress from './paymentMethods/americanExpress.svg';
+import Discover from './paymentMethods/discover.svg';
+
 export {
   Alerts,
   PaymentMethods,
@@ -63,4 +75,13 @@ export {
   News,
   Promotions,
   TransactionsUpdate,
+  CreditCard,
+  BankWire,
+  ACH,
+  PayPal,
+  Warning,
+  Visa,
+  MasterCard,
+  AmericanExpress,
+  Discover,
 };
