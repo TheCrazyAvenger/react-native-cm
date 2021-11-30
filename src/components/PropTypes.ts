@@ -7,6 +7,11 @@ export type TextProps = {
   numberOfLines?: number;
 };
 
+export type NewsCardProps = {
+  size?: 'Full' | 'Small';
+  style?: {[key: string]: number | string};
+};
+
 export type PaginatorProps = {
   data: {[key: string]: string | any};
   currentIndex: number;

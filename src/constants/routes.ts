@@ -7,6 +7,9 @@ export enum Screens {
   holdings = 'holdings',
   portfolio = 'portfolio',
 
+  news = 'news',
+  detailsNews = 'detailsNews',
+
   settingsStack = 'settingsStack',
   settings = 'settings',
   refer = 'refer',

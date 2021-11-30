@@ -2,6 +2,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import {authApi} from '../api';
 import authSlice from './slices/authSlice';
 import autoBuySlice from './slices/autoBuySlice';
+import newsSlice from './slices/newsSlice';
 import paymentMethodsSlice from './slices/paymentMethodsSlice';
 import priceAlertSlice from './slices/priceAlertSlice';
 
@@ -12,6 +13,7 @@ export const store = configureStore({
     autoBuy: autoBuySlice,
     priceAlerts: priceAlertSlice,
     paymentMethod: paymentMethodsSlice,
+    news: newsSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(authApi.middleware),
