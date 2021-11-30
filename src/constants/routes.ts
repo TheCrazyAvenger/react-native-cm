@@ -6,6 +6,7 @@ export enum Screens {
   home = 'home',
   holdings = 'holdings',
   portfolio = 'portfolio',
+  prices = 'prices',
 
   news = 'news',
   detailsNews = 'detailsNews',

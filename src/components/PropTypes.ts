@@ -113,6 +113,15 @@ export type ChartProps = {
   setTime: (i: number) => void;
 };
 
+export type PricesItemProps = {
+  data: any;
+};
+
+export type PricesChartProps = {
+  chartMetal: number;
+  lineColor: any;
+};
+
 export type MenuItemProps = {
   title: string;
   description: string;
