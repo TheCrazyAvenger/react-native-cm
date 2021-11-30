@@ -9,6 +9,7 @@ import LottieView from 'lottie-react-native';
 import {MainNavigator} from './MainNavigator';
 import {setLoading} from '../store/slices/authSlice';
 import {LoadingItem} from '../components';
+import {getNews} from '../store/actions/news';
 
 export const AppNavigator: React.FC = () => {
   const token = useAppSelector(state => state.auth.token);
@@ -24,6 +25,7 @@ export const AppNavigator: React.FC = () => {
       const value = await AsyncStorage.getItem('@viewedOnboarding');
       // await AsyncStorage.removeItem('@viewedOnboarding');
       await dispatch(getData());
+      await dispatch(getNews());
       if (value !== null) {
         setShowOnboarding(false);
         return dispatch(setLoading(false));

@@ -1,8 +1,9 @@
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
-import {ViewMoreButton, Wrapper} from '../..';
-import {colors} from '../../../constants';
-import {activity, news} from '../../../utilities';
+import {TouchableOpacity, View} from 'react-native';
+import {NewsCardProps, ViewMoreButton, Wrapper} from '../..';
+import {colors, Screens} from '../../../constants';
+import {useAppSelector} from '../../../hooks/hooks';
 import {
   Description,
   DescriptionBold,
@@ -11,20 +12,38 @@ import {
 } from '../../Typography';
 import {styles} from './styles';
 
-export const NewsCard: React.FC = () => {
+export const NewsCard: React.FC<NewsCardProps> = ({size, style}) => {
+  const navigation: any = useNavigation();
+
+  const news = useAppSelector(state => state.news.news);
+  const newsList = size === 'Full' ? news : news.slice(0, 4);
+
   return (
-    <View style={styles.container}>
-      <View style={{...styles.cardItem, marginBottom: 15}}>
-        <TitleMedium>Market News</TitleMedium>
-        <ViewMoreButton style={{marginTop: 0}} onPress={() => console.log(1)} />
-      </View>
-      {news.map((item, i) => {
-        const {title, description, date, metal, author} = item;
+    <View style={{...styles.container, ...style}}>
+      {size === 'Full' ? null : (
+        <View style={{...styles.cardItem, marginBottom: 15}}>
+          <TitleMedium>Market News</TitleMedium>
+          <ViewMoreButton
+            style={{marginTop: 0}}
+            onPress={() => navigation.navigate(Screens.news)}
+          />
+        </View>
+      )}
+      {newsList.map((item: any, i: number) => {
+        const {name, description, date, metal, author} = item.title;
+        const {body} = item;
+
         return (
-          <React.Fragment key={i}>
-            <TouchableOpacity activeOpacity={0.7}>
-              <SubtitleMedium style={{marginBottom: 8}}>{title}</SubtitleMedium>
-              <SubtitleMedium style={styles.type}>{description}</SubtitleMedium>
+          <View key={i}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => navigation.push(Screens.detailsNews, {body})}>
+              <SubtitleMedium numberOfLines={2} style={{marginBottom: 8}}>
+                {name}
+              </SubtitleMedium>
+              <SubtitleMedium numberOfLines={2} style={styles.type}>
+                {description}
+              </SubtitleMedium>
               <Description>
                 <DescriptionBold style={{color: colors.primary}}>
                   {metal}
@@ -32,10 +51,10 @@ export const NewsCard: React.FC = () => {
                 {` · ${author} · ${date}`}
               </Description>
             </TouchableOpacity>
-            {i === news.length - 1 ? null : (
+            {i === newsList.length - 1 ? null : (
               <Wrapper style={{backgroundColor: colors.primary}} />
             )}
-          </React.Fragment>
+          </View>
         );
       })}
     </View>

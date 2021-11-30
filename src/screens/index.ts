@@ -6,6 +6,9 @@ export * from './Portfolio';
 export * from './Prices';
 export * from './NullScreen';
 
+export * from './News';
+export * from './DetailsNews';
+
 export * from './SettingsScreens/Settings';
 export * from './SettingsScreens/Refer';
 export * from './SettingsScreens/Notifications';
