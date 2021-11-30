@@ -5,33 +5,33 @@ import {ActivityIndicator} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../hooks/hooks';
 import {getData} from '../store/actions';
 import {AuthStack} from './AuthStack';
-import {BottomTabs} from './BottomTabs';
+import LottieView from 'lottie-react-native';
+import {MainNavigator} from './MainNavigator';
+import {setLoading} from '../store/slices/authSlice';
+import {LoadingItem} from '../components';
 
 export const AppNavigator: React.FC = () => {
   const token = useAppSelector(state => state.auth.token);
+  const loading = useAppSelector(state => state.auth.loading);
 
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getData());
-  }, []);
 
   const [showOnBoarding, setShowOnboarding] = useState(true);
-  const [loading, setLoading] = useState(false);
 
   const checkOnboarding = async () => {
-    setLoading(true);
+    dispatch(setLoading(true));
     try {
       const value = await AsyncStorage.getItem('@viewedOnboarding');
       // await AsyncStorage.removeItem('@viewedOnboarding');
-
+      await dispatch(getData());
       if (value !== null) {
         setShowOnboarding(false);
-        return setLoading(false);
+        return dispatch(setLoading(false));
       }
 
       setShowOnboarding(true);
 
-      setLoading(false);
+      return dispatch(setLoading(false));
     } catch (e) {
       console.log(e);
     }
@@ -43,10 +43,10 @@ export const AppNavigator: React.FC = () => {
 
   return (
     <NavigationContainer>
-      {loading ? (
-        <ActivityIndicator />
-      ) : token ? (
-        <BottomTabs />
+      {token ? (
+        <MainNavigator />
+      ) : loading ? (
+        <LoadingItem />
       ) : (
         <AuthStack showOnBoarding={showOnBoarding} />
       )}

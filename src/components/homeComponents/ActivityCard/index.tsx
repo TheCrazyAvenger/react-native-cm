@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {ViewMoreButton, Wrapper} from '../..';
 import {colors} from '../../../constants';
 import {activity} from '../../../utilities';
@@ -11,12 +11,12 @@ export const ActivityCard: React.FC = () => {
     <View style={styles.container}>
       <TitleMedium style={{marginBottom: 20}}>Recent Activity</TitleMedium>
       {activity.map((item, i) => {
-        const {type, date, color, usd, image} = item;
+        const {type, date, color, usd, Image} = item;
         return (
           <React.Fragment key={i}>
             <TouchableOpacity activeOpacity={0.7} style={styles.cardItem}>
               <View style={styles.cardItem}>
-                <Image style={{marginRight: 20}} source={image} />
+                <Image />
                 <View>
                   <SubtitleMedium style={styles.type}>{type}</SubtitleMedium>
                   <Description>{date}</Description>

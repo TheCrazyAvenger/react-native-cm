@@ -4,7 +4,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import {colors, Screens} from '../../constants';
-import {NullString, Portfolio} from '../../screens';
+import {NullString, Portfolio, Settings} from '../../screens';
 import {styles} from './styles';
 import {Platform, View} from 'react-native';
 
@@ -37,7 +37,8 @@ export const BottomTabs: React.FC = () => {
           headerShown: false,
           tabBarStyle: styles.tabBarStyle,
           tabBarLabelStyle: styles.tabBarLabel,
-        }}>
+        }}
+        initialRouteName={Screens.settings}>
         <Tab.Screen
           name={Screens.homeStack}
           options={{
@@ -91,7 +92,7 @@ export const BottomTabs: React.FC = () => {
           component={NullString}
         />
         <Tab.Screen
-          name="Settings"
+          name={Screens.settings}
           options={{
             title: 'Settings',
             tabBarIcon: ({focused}) => (
@@ -102,7 +103,7 @@ export const BottomTabs: React.FC = () => {
               borderTopEndRadius: 27,
             },
           }}
-          component={NullString}
+          component={Settings}
         />
       </Tab.Navigator>
     </>

@@ -8,63 +8,13 @@ import {useNavigation} from '@react-navigation/core';
 import {Screens} from '../../../constants';
 import {Description} from '../../../components/Typography';
 import {TextButton} from '../../../ui';
-import {useAuthMutation} from '../../../api';
 import {useAppDispatch} from '../../../hooks/hooks';
-import {
-  authSucces,
-  clearError,
-  setError,
-} from '../../../store/slices/authSlice';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const LogInForm: React.FC = () => {
+export const LogInForm: React.FC<{onSubmit: (...args: any) => void}> = ({
+  onSubmit,
+}) => {
   const [showPassword, setShowPassword] = useState(true);
   const navigation: any = useNavigation();
-
-  const dispatch = useAppDispatch();
-
-  const [auth] = useAuthMutation();
-
-  const authHandler = async (values: any) => {
-    try {
-      const isLogin = true;
-      const authData = {...values, isLogin};
-      const response: any = await auth(authData);
-
-      const data = response.data;
-
-      dispatch(clearError());
-      const expirationDate = new Date(
-        new Date().getTime() + data.expiresIn * 1000,
-      );
-
-      const userEmail = values.email;
-      const token = data.idToken;
-
-      await AsyncStorage.setItem('userEmail', JSON.stringify(values.email));
-      await AsyncStorage.setItem(
-        'token',
-        JSON.stringify(response.data.idToken),
-      );
-      await AsyncStorage.setItem(
-        'expirationDate',
-        JSON.stringify(expirationDate),
-      );
-      dispatch(authSucces({userEmail, token}));
-
-      goToNext(values);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const goToNext = (values: {[key: string]: string | boolean}) => {
-    const {email, password} = values;
-    navigation.push(Screens.mobileVerCode, {
-      type: 'SignIn',
-      values: {email, password},
-    });
-  };
 
   return (
     <Formik
@@ -73,7 +23,7 @@ export const LogInForm: React.FC = () => {
         email: '',
         password: '',
       }}
-      onSubmit={values => authHandler(values)}>
+      onSubmit={values => onSubmit(values)}>
       {({
         handleChange,
         handleSubmit,
@@ -85,6 +35,7 @@ export const LogInForm: React.FC = () => {
         <View style={styles.container}>
           <View style={styles.form}>
             <FormInput
+              onBlur={() => setFieldTouched('email', true)}
               label="Email"
               plaseholder="Your email"
               onChangeText={handleChange('email')}
@@ -95,6 +46,7 @@ export const LogInForm: React.FC = () => {
             />
 
             <FormInput
+              onBlur={() => setFieldTouched('password', true)}
               label="Password"
               plaseholder="Enter password"
               onChangeText={handleChange('password')}

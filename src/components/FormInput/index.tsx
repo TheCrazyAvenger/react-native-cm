@@ -11,16 +11,20 @@ export const FormInput: React.FC<FormInputProps> = ({
   plaseholder,
   onChangeText,
   onFocus,
+  onBlur,
   value,
   errorMessage,
   isTouched,
   style,
+  containerStyle,
   secureTextEntry,
   rightIcon,
   onInput,
+  disabled,
 }) => {
   const inputContainerStyle = [
     styles.inputContainerStyle,
+    containerStyle,
     errorMessage && isTouched ? styles.errorInput : null,
   ];
   const labelStyle = [
@@ -35,6 +39,7 @@ export const FormInput: React.FC<FormInputProps> = ({
         onTouchStart={onFocus}
         value={value}
         label={label}
+        onBlur={onBlur}
         onTextInput={onInput}
         secureTextEntry={secureTextEntry}
         placeholder={plaseholder}
@@ -43,6 +48,7 @@ export const FormInput: React.FC<FormInputProps> = ({
         inputStyle={styles.inputStyle}
         labelStyle={[...labelStyle, style]}
         inputContainerStyle={[...inputContainerStyle]}
+        disabled={disabled ? true : false}
       />
       {errorMessage && isTouched && (
         <Error style={styles.error}>{errorMessage}</Error>

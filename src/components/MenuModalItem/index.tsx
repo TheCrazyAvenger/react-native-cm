@@ -6,14 +6,14 @@ import {Illustration, Subtitle} from '../Typography';
 import {styles} from './styles';
 
 export const MenuModalItem: React.FC<MenuModalItemProps> = ({
-  uri,
+  Image,
   onPress,
   title,
   text,
 }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Image style={styles.image} source={uri} />
+      <Image />
       <View>
         <Subtitle style={styles.title}>{title}</Subtitle>
         <Illustration>{text}</Illustration>

@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(47, 128, 237, 0.3)',
     borderRadius: 5,
+    zIndex: 100,
     padding: 16,
     paddingRight: 20,
   },

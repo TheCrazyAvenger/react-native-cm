@@ -7,4 +7,18 @@ export * from './Register/MobileVerCodeForm';
 export * from './LogIn/LogInForm';
 export * from './LogIn/ForgotPassForm';
 
+export * from './AutoBuySetUpForm';
+
+export * from './PriceAlertsSetUpForm';
+
+export * from './paymentMethodsForms/PaymentMethodsSetUpForm';
+export * from './paymentMethodsForms/CardForm';
+export * from './paymentMethodsForms/BankForm';
+export * from './paymentMethodsForms/PayPalForm';
+export * from './paymentMethodsForms/ECheckForm';
+
+export * from './Settings/ProfileForm';
+export * from './Settings/VerificationForm';
+export * from './Settings/DocumentsVerificationForm';
+
 export * from './schemas';

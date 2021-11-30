@@ -8,8 +8,8 @@ export const authApi = createApi({
   endpoints: builder => ({
     auth: builder.mutation({
       query: data => {
-        const {firstName, lastName, email, password, isLogin} = data;
-        console.log(`${firstName} ${lastName}`);
+        const {email, password, isLogin} = data;
+
         const authData = {
           email,
           password,

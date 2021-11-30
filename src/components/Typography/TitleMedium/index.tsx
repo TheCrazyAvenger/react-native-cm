@@ -4,6 +4,14 @@ import {TextProps} from '../..';
 
 import {styles} from './styles';
 
-export const TitleMedium: React.FC<TextProps> = ({children, style}) => {
-  return <Text style={{...styles.default, ...style}}>{children}</Text>;
+export const TitleMedium: React.FC<TextProps> = ({
+  children,
+  style,
+  numberOfLines,
+}) => {
+  return (
+    <Text numberOfLines={numberOfLines} style={{...styles.default, ...style}}>
+      {children}
+    </Text>
+  );
 };

@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {StatusBar} from 'react-native';
 import {
@@ -7,10 +8,13 @@ import {
   MetalsCard,
   NewsCard,
 } from '../../components';
+import {Screens} from '../../constants';
 import {Screen} from '../../ui';
 import {metals} from '../../utilities';
 
 export const Home: React.FC = () => {
+  const navigation: any = useNavigation();
+
   return (
     <Screen style={{paddingHorizontal: 0}}>
       <StatusBar
@@ -36,7 +40,7 @@ export const Home: React.FC = () => {
           description="Start building your wealth with automated purchases."
           backgroundColor="#FFEBB3"
           buttonTitle="Start Now"
-          onPress={() => console.log(2)}
+          onPress={() => navigation.navigate(Screens.autoBuyStack)}
         />
         <ActivityCard />
         <NewsCard />

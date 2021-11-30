@@ -7,6 +7,37 @@ export enum Screens {
   holdings = 'holdings',
   portfolio = 'portfolio',
 
+  settingsStack = 'settingsStack',
+  settings = 'settings',
+  refer = 'refer',
+  notifications = 'notifications',
+  profile = 'profile',
+  changePassword = 'changePassword',
+  cookiePolicy = 'cookiePolicy',
+  transactions = 'transactions',
+  storageFees = 'storageFees',
+
+  verificationStack = 'verificationStack',
+  verification = 'verification',
+  documentsVerification = 'documentsVerification',
+  verificationComplete = 'verificationComplete',
+
+  autoBuyStack = 'autoBuyStack',
+  autoBuy = 'autoBuy',
+  chooseProduct = 'chooseProduct',
+  autoBuySetUp = 'autoBuySetUp',
+  reviewAutoBuy = 'reviewAutoBuy',
+  completeAutoBuy = 'completeAutoBuy',
+
+  paymentMethodsStack = 'paymentMethodsStack',
+  paymentMethods = 'paymentMethods',
+  paymentMethodsSetUp = 'paymentMethodsSetUp',
+
+  priceAlertsStack = 'priceAlertsStack',
+  priceAlerts = 'priceAlerts',
+  choosePriceAlert = 'choosePriceAlert',
+  priceAlertSetUp = 'priceAlertSetUp',
+
   signUp = 'signUp',
   introduce = 'introduce',
   email = 'email',

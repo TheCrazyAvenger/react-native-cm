@@ -1,6 +1,10 @@
+import {Gold, Palladium, Platinum, Silver} from '../assets/images/settings';
+
 export const metals = [
   {
     color: '#FFBD00',
+    backgroundColor: '#FFEDBB',
+    Image: Gold,
     metal: 'Gold',
     price: '$1,853.21 USD',
     ounce: '0.24 oz',
@@ -15,6 +19,8 @@ export const metals = [
   },
   {
     color: '#2F80ED',
+    backgroundColor: '#B7D5FF',
+    Image: Silver,
     metal: 'Silver',
     price: '$27.96 USD',
     ounce: '0.1 oz',
@@ -29,6 +35,8 @@ export const metals = [
   },
   {
     color: '#219653',
+    backgroundColor: '#B9DFC9',
+    Image: Platinum,
     metal: 'Platinum',
     price: '$1,287.44 USD',
     ounce: '0.4 oz',
@@ -43,6 +51,8 @@ export const metals = [
   },
   {
     color: '#F2994A',
+    backgroundColor: '#F8D5B5',
+    Image: Palladium,
     metal: 'Palladium',
     price: '$3,035.82 USD',
     ounce: '0.8 oz',

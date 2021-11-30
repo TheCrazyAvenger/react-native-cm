@@ -1,16 +1,57 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createAsyncThunk} from '@reduxjs/toolkit';
+import database from '@react-native-firebase/database';
 
 export const getData = createAsyncThunk('auth/getData', async () => {
   try {
-    let token = await AsyncStorage.getItem('token');
-    let userEmail = await AsyncStorage.getItem('userEmail');
+    let token: any = await AsyncStorage.getItem('token');
 
-    if (token === null && userEmail === null) {
-      return {token: null, userEmail: null};
-    } else {
-      return {token: JSON.parse(token!), userEmail: JSON.parse(userEmail!)};
-    }
+    return await database()
+      .ref(`/users/${JSON.parse(token)}`)
+      .once('value')
+      .then(snapshot => {
+        const data: any = snapshot.val();
+        console.log(data);
+        const {
+          userEmail,
+          mobile,
+          password,
+          firstName,
+          lastName,
+          token,
+          verified,
+        } = data;
+
+        if (
+          token === null &&
+          userEmail === null &&
+          firstName === null &&
+          lastName === null &&
+          password === null &&
+          verified === null &&
+          mobile === null
+        ) {
+          return {
+            token: null,
+            userEmail: null,
+            firstName: '',
+            lastName: '',
+            password: '',
+            mobile: '',
+            verified: false,
+          };
+        } else {
+          return {
+            token,
+            userEmail,
+            firstName,
+            lastName,
+            password,
+            verified,
+            mobile,
+          };
+        }
+      });
   } catch (e) {
     console.log(e);
   }
@@ -18,9 +59,7 @@ export const getData = createAsyncThunk('auth/getData', async () => {
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   try {
-    await AsyncStorage.removeItem('userEmail');
     await AsyncStorage.removeItem('token');
-    await AsyncStorage.removeItem('expirationDate');
   } catch (e) {
     console.log(e);
   }

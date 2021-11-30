@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {Image, StatusBar, View} from 'react-native';
+import {LogoWhiteBlue} from '../../assets/images';
 import {SocialBlock} from '../../components';
 import {Title} from '../../components/Typography';
 import {Screens} from '../../constants';
@@ -19,7 +20,7 @@ export const Welcome: React.FC = () => {
         backgroundColor={'transparent'}
       />
       <View style={styles.header}>
-        <Image source={require('../../assets/images/logo_white_blue.png')} />
+        <LogoWhiteBlue />
         <Title style={{marginTop: 16}}>Welcome to CyberMetals</Title>
       </View>
       <View style={styles.authButtons}>
