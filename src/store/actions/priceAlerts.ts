@@ -12,12 +12,23 @@ export const getPriceAlerts = createAsyncThunk(
         .ref(`/users/${JSON.parse(token)}/priceAlerts`)
         .once('value')
         .then(snapshot => {
-          const data: any = snapshot.val();
-          const priceAlertsList: any = [];
-          data.map(
-            (item: any, i: number) =>
-              item !== null && priceAlertsList.push(item),
-          );
+          const responce: any = snapshot.val();
+
+          const data = responce;
+
+          const priceAlertsList: any = {
+            Gold: [],
+            Silver: [],
+            Palladium: [],
+            Platinum: [],
+          };
+
+          [...Object.values(data)].map((item: any, i: number) => {
+            [...item].map((metals: any, i: number) => {
+              if (metals !== null)
+                return priceAlertsList[metals.metal].push(metals);
+            });
+          });
           return priceAlertsList;
         });
     } catch (e) {

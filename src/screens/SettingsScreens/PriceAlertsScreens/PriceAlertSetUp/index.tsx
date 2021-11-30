@@ -48,12 +48,14 @@ export const PriceAlertSetUp: React.FC = () => {
       value,
       date: type ? prevValues.date : date.toLocaleDateString(),
       time: type ? prevValues.time : time,
-      id: type ? prevValues.id : priceAlerts.length + 1,
+      id: type ? prevValues.id : priceAlerts[metal].length + 1,
     };
 
     dispatch(setLoading(true));
 
-    await database().ref(`/users/${token}/priceAlerts/${data.id}`).set(data);
+    await database()
+      .ref(`/users/${token}/priceAlerts/${data.metal}/${data.id}`)
+      .set(data);
     if (type) {
       await dispatch(updatePriceAlerts(data));
       await dispatch(setLoading(false));

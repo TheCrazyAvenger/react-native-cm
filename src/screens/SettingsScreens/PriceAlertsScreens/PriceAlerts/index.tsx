@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StatusBar} from 'react-native';
+import {ScrollView, StatusBar, View} from 'react-native';
 import {
   EmptyDataScreen,
   LoadingItem,
@@ -16,6 +16,9 @@ import {deletePriceAlerts} from '../../../../store/slices/priceAlertSlice';
 import {Screen, TextButton} from '../../../../ui';
 import {metals} from '../../../../utilities';
 import database from '@react-native-firebase/database';
+import {ShareRefer} from '../../../../assets/images/settings';
+import {styles} from './styles';
+import {TitleMedium} from '../../../../components/Typography';
 
 export const PriceAlerts: React.FC = () => {
   const navigation: any = useNavigation();
@@ -36,16 +39,23 @@ export const PriceAlerts: React.FC = () => {
     dispatch(setLoading(false));
   };
 
-  const removeItem = async (id: number) => {
-    await database().ref(`/users/${token}/priceAlerts/${id}`).remove();
-    await dispatch(deletePriceAlerts(id));
+  const removeItem = async (data: any) => {
+    await database()
+      .ref(`/users/${token}/priceAlerts/${data.metal}/${data.id}`)
+      .remove();
+    await dispatch(deletePriceAlerts({metal: data.metal, id: data.id}));
   };
 
   if (loading) {
     return <LoadingItem />;
   }
 
-  if (priceAlerts.length === 0) {
+  if (
+    priceAlerts.Gold.length === 0 &&
+    priceAlerts.Silver.length === 0 &&
+    priceAlerts.Platinum.length === 0 &&
+    priceAlerts.Palladium.length === 0
+  ) {
     return (
       <EmptyDataScreen
         title="No Alerts For Now"
@@ -77,23 +87,32 @@ export const PriceAlerts: React.FC = () => {
         }}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        {priceAlerts.map(
-          (item: any) =>
-            item !== null &&
-            item.metal === metals[metalType - 1].metal && (
-              <PriceAlertListItem
-                key={item.id}
-                metal={item.metal}
-                backgroundColor={item.backgroundColor}
-                condition={item.condition}
-                date={item.date}
-                time={item.time}
-                id={item.id}
-                color={item.color}
-                value={item.value}
-                onRemove={removeItem}
-              />
-            ),
+        {priceAlerts[metals[metalType - 1].metal].length ? (
+          priceAlerts[metals[metalType - 1].metal].map(
+            (item: any) =>
+              item !== null &&
+              item.metal === metals[metalType - 1].metal && (
+                <PriceAlertListItem
+                  key={item.id}
+                  metal={item.metal}
+                  backgroundColor={item.backgroundColor}
+                  condition={item.condition}
+                  date={item.date}
+                  time={item.time}
+                  id={item.id}
+                  color={item.color}
+                  value={item.value}
+                  onRemove={removeItem}
+                />
+              ),
+          )
+        ) : (
+          <View style={styles.noAlerts}>
+            <ShareRefer />
+            <TitleMedium style={{fontFamily: 'OpenSans-Regular'}}>
+              No alerts
+            </TitleMedium>
+          </View>
         )}
       </ScrollView>
       <TextButton

@@ -11,6 +11,9 @@ export * from './SettingsScreens/Refer';
 export * from './SettingsScreens/Notifications';
 export * from './SettingsScreens/Profile';
 export * from './SettingsScreens/ChangePassword';
+export * from './SettingsScreens/CookiePolicy';
+export * from './SettingsScreens/Transactions';
+export * from './SettingsScreens/StorageFees';
 
 export * from './SettingsScreens/VerificationScreens/Verification';
 export * from './SettingsScreens/VerificationScreens/DocumentsVerification';

@@ -37,7 +37,8 @@ export const BottomTabs: React.FC = () => {
           headerShown: false,
           tabBarStyle: styles.tabBarStyle,
           tabBarLabelStyle: styles.tabBarLabel,
-        }}>
+        }}
+        initialRouteName={Screens.settings}>
         <Tab.Screen
           name={Screens.homeStack}
           options={{

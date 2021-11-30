@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   },
   buttons: {
     marginTop: 10,
-    paddingHorizontal: 30,
+    paddingHorizontal: 9,
     marginBottom: 25,
   },
 });

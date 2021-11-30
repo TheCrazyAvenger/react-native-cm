@@ -2,7 +2,7 @@ import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
-import {BankForm, CardForm, paymentMethodSchema} from '../..';
+import {BankForm, CardForm, paymentMethodSchema, PayPalForm} from '../..';
 import {CreditCard} from '../../../assets/images/settings';
 import {ItemPicker} from '../../../components';
 import {Screens} from '../../../constants';
@@ -12,6 +12,7 @@ import database from '@react-native-firebase/database';
 import {addPaymentMethods} from '../../../store/slices/paymentMethodsSlice';
 import {setLoading} from '../../../store/slices/authSlice';
 import {getPaymentImage} from '../../../utilities';
+import {ECheckForm} from '../ECheckForm';
 
 export const PaymentMethodsSetUpForm: React.FC = () => {
   const navigation: any = useNavigation();
@@ -76,6 +77,12 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
             )}
             {values.paymentMethod === 'Bank Wire' && (
               <BankForm onSubmit={onSubmit} type="Bank Wire" />
+            )}
+            {values.paymentMethod === 'PayPal' && (
+              <PayPalForm onSubmit={onSubmit} type="PayPal" />
+            )}
+            {values.paymentMethod === 'ACH/eCheck' && (
+              <ECheckForm onSubmit={onSubmit} type="ACH/eCheck" />
             )}
           </View>
         );

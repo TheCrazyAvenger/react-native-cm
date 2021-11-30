@@ -17,7 +17,7 @@ export const PaymentMethodsSetUp: React.FC = () => {
   }
 
   return (
-    <Screen style={{paddingHorizontal: 16}}>
+    <Screen type="View" style={{paddingHorizontal: 16}}>
       <PaymentMethodsSetUpForm />
     </Screen>
   );

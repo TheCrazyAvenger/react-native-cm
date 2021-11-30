@@ -2,7 +2,15 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '../../constants';
 import {BottomTabs} from '../BottomTabs';
-import {Notifications, Password, Profile, Refer} from '../../screens';
+import {
+  CookiePolicy,
+  Notifications,
+  Password,
+  Profile,
+  Refer,
+  StorageFees,
+  Transactions,
+} from '../../screens';
 import {styles} from './styles';
 import {BackButton} from '../BackButton';
 import {AutoBuyStack} from '../AutoBuyStack';
@@ -70,6 +78,21 @@ export const MainNavigator: React.FC = () => {
           name={Screens.paymentMethodsStack}
           options={{title: 'Payment Methods'}}
           component={PaymentMethodsStack}
+        />
+        <Stack.Screen
+          name={Screens.cookiePolicy}
+          options={{title: 'Cookie Policy'}}
+          component={CookiePolicy}
+        />
+        <Stack.Screen
+          name={Screens.transactions}
+          options={{title: 'Transactions'}}
+          component={Transactions}
+        />
+        <Stack.Screen
+          name={Screens.storageFees}
+          options={{title: 'Storage Fees'}}
+          component={StorageFees}
         />
       </Stack.Group>
     </Stack.Navigator>

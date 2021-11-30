@@ -2,11 +2,16 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {getPriceAlerts} from '../actions/priceAlerts';
 
 export interface PriceAlertsState {
-  priceAlerts: Array<{[key: string]: string | number} | any>;
+  priceAlerts: {[key: string]: string | number} | any;
 }
 
 const initialState: PriceAlertsState = {
-  priceAlerts: [],
+  priceAlerts: {
+    Gold: [],
+    Silver: [],
+    Palladium: [],
+    Platinum: [],
+  },
 };
 
 export const priceAlertSlice = createSlice({
@@ -14,15 +19,16 @@ export const priceAlertSlice = createSlice({
   initialState,
   reducers: {
     addAlert: (state, action: PayloadAction<any>) =>
-      void state.priceAlerts.push(action.payload),
+      void state.priceAlerts[action.payload.metal].push(action.payload),
     deletePriceAlerts: (state, action: PayloadAction<any>) => {
-      state.priceAlerts = state.priceAlerts.filter(
-        (item: any) => item.id !== action.payload,
-      );
+      console.log(action.payload.metal);
+      state.priceAlerts[action.payload.metal] = state.priceAlerts[
+        action.payload.metal
+      ].filter((item: any) => item.id !== action.payload.id);
     },
     updatePriceAlerts: (state, action: PayloadAction<any>) => {
-      state.priceAlerts = [
-        ...state.priceAlerts.map((item: any) => {
+      state.priceAlerts[action.payload.metal] = [
+        ...state.priceAlerts[action.payload.metal].map((item: any) => {
           if (item.id === action.payload.id) {
             return (item = action.payload);
           }

@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'OpenSans-SemoBold',
     fontSize: 16,
     color: colors.primary,
+    lineHeight: 21.79,
   },
   disable: {
     backgroundColor: '#C1D9FA',

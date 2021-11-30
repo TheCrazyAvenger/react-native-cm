@@ -39,7 +39,9 @@ export const DatePicker: React.FC<DatePickerProps> = ({
     const currentDate =
       type === 'card'
         ? `${
-            date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()
+            date.getMonth() < 10
+              ? '0' + (date.getMonth() + 1)
+              : date.getMonth() + 1
           }/${date.getFullYear()}`
         : date.toLocaleDateString();
     onConfirm(currentDate);

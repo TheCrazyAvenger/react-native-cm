@@ -57,13 +57,13 @@ export const Settings: React.FC = () => {
       <MenuItem
         title="Transactions"
         description="View your tansaction history"
-        onPress={() => console.log('Go to Transactions')}
+        onPress={() => navigation.navigate(Screens.transactions)}
         Image={Transactions}
       />
       <MenuItem
         title="Storage Fees"
         description="Edit name and view address detail"
-        onPress={() => console.log('Go to Storage Fees')}
+        onPress={() => navigation.navigate(Screens.storageFees)}
         Image={StorageFees}
       />
       <MenuItem
@@ -149,7 +149,7 @@ export const Settings: React.FC = () => {
       />
       <MenuItemSmall
         title="Cookie Policy"
-        onPress={() => console.log('Go to Cookie Policy')}
+        onPress={() => navigation.navigate(Screens.cookiePolicy)}
         style={{marginBottom: 26}}
       />
       <Wrapper style={{backgroundColor: colors.gray, marginBottom: 15}} />

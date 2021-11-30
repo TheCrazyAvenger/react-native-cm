@@ -1,7 +1,7 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {Screens} from '../../../constants';
 import {styles} from './styles';
 import {DatePicker, FormInput, ItemPicker} from '../../../components';
@@ -60,7 +60,9 @@ export const CardForm: React.FC<{
           setCardType(setCard(values.cardNumber));
         };
         return (
-          <View style={styles.container}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.container}>
             <Subtitle style={styles.mainTitle}>Card Information</Subtitle>
             <FormInput
               label="Name on Card"
@@ -227,7 +229,7 @@ export const CardForm: React.FC<{
 
               <TextButton title="Cancel" onPress={() => navigation.pop()} />
             </View>
-          </View>
+          </ScrollView>
         );
       }}
     </Formik>

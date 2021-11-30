@@ -51,7 +51,7 @@ export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
         text="Are you sure you want to cancel this Alert?"
         confirmTitle="Yes, cancel"
         cancelTitle="No, keep it"
-        onConfirm={() => onRemove(id)}
+        onConfirm={() => onRemove({metal, id})}
         onCancel={() => setVisibleModal(false)}
         visible={visibleModal}
       />

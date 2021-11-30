@@ -212,8 +212,8 @@ export type PriceAlertListItemProps = {
 export type EmptyDataScreenProps = {
   title: string;
   text: string;
-  buttonTitle: string;
-  onPress: (...args: any) => void;
+  buttonTitle?: string;
+  onPress?: (...args: any) => void;
 };
 
 export type FormImagePickerProps = {

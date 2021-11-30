@@ -13,6 +13,9 @@ export enum Screens {
   notifications = 'notifications',
   profile = 'profile',
   changePassword = 'changePassword',
+  cookiePolicy = 'cookiePolicy',
+  transactions = 'transactions',
+  storageFees = 'storageFees',
 
   verificationStack = 'verificationStack',
   verification = 'verification',

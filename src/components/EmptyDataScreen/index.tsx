@@ -27,12 +27,14 @@ export const EmptyDataScreen: React.FC<EmptyDataScreenProps> = ({
             <Description style={styles.description}>{text}</Description>
           </View>
         </ScrollView>
-        <TextButton
-          title={buttonTitle}
-          style={{marginBottom: 25}}
-          solid
-          onPress={onPress}
-        />
+        {buttonTitle && onPress && (
+          <TextButton
+            title={buttonTitle}
+            style={{marginBottom: 25}}
+            solid
+            onPress={onPress}
+          />
+        )}
       </View>
     </Screen>
   );

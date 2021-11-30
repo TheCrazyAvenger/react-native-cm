@@ -6,6 +6,7 @@ export * from './news';
 export * from './time';
 export * from './autoBuy';
 export * from './states';
+export * from './cookieLinks';
 
 export * from './getNextYear';
 export * from './getColor';

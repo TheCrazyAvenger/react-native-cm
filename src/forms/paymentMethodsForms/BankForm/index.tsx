@@ -1,7 +1,7 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React from 'react';
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {styles} from './styles';
 import {FormInput, ItemPicker} from '../../../components';
 import {TextButton} from '../../../ui';
@@ -45,7 +45,9 @@ export const BankForm: React.FC<{
         setFieldValue,
       }) => {
         return (
-          <View style={styles.container}>
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={styles.container}>
             <FormInput
               label="Name on Card"
               plaseholder="Your Name on Card"
@@ -160,7 +162,7 @@ export const BankForm: React.FC<{
 
               <TextButton title="Cancel" onPress={() => navigation.pop()} />
             </View>
-          </View>
+          </ScrollView>
         );
       }}
     </Formik>

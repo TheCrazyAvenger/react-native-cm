@@ -4,16 +4,13 @@ import {colors} from '../../../constants';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  datePicker: {
-    marginHorizontal: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    marginHorizontal: 9,
   },
   buttons: {
-    marginTop: 10,
-    paddingHorizontal: 9,
     marginBottom: 25,
+  },
+  button: {
+    marginBottom: 20,
+    paddingHorizontal: 60,
   },
 });

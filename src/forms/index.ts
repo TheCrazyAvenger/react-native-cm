@@ -14,6 +14,8 @@ export * from './PriceAlertsSetUpForm';
 export * from './paymentMethodsForms/PaymentMethodsSetUpForm';
 export * from './paymentMethodsForms/CardForm';
 export * from './paymentMethodsForms/BankForm';
+export * from './paymentMethodsForms/PayPalForm';
+export * from './paymentMethodsForms/ECheckForm';
 
 export * from './Settings/ProfileForm';
 export * from './Settings/VerificationForm';
