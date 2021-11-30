@@ -4,7 +4,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import {colors, Screens} from '../../constants';
-import {NullString, Portfolio, Settings} from '../../screens';
+import {NullString, Portfolio, Prices, Settings} from '../../screens';
 import {styles} from './styles';
 import {Platform, View} from 'react-native';
 
@@ -78,7 +78,7 @@ export const BottomTabs: React.FC = () => {
           component={NullString}
         />
         <Tab.Screen
-          name="Prices"
+          name={Screens.prices}
           options={{
             title: 'Prices',
             tabBarIcon: ({focused}) => (
@@ -89,7 +89,7 @@ export const BottomTabs: React.FC = () => {
               borderTopStartRadius: 8,
             },
           }}
-          component={NullString}
+          component={Prices}
         />
         <Tab.Screen
           name={Screens.settings}

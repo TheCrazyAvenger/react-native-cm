@@ -20,6 +20,10 @@ export * from './ModalWindow';
 export * from './ViewMoreButton';
 export * from './MenuModalItem';
 
+export * from './pricesComponents/PricesGraph';
+export * from './pricesComponents/PricesChart';
+export * from './pricesComponents/PricesPaginator';
+
 export * from './homeComponents/Header';
 export * from './homeComponents/MetalsCard';
 export * from './homeComponents/ActionsCard';

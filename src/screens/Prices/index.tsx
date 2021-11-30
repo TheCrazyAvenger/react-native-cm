@@ -1,4 +1,5 @@
-import React from 'react';
+import {useNavigation} from '@react-navigation/core';
+import React, {useState} from 'react';
 import {StatusBar} from 'react-native';
 import {
   ActionsCard,
@@ -6,11 +7,17 @@ import {
   Header,
   MetalsCard,
   NewsCard,
+  PricesGraph,
 } from '../../components';
+import {Screens} from '../../constants';
 import {Screen} from '../../ui';
 import {metals} from '../../utilities';
 
 export const Prices: React.FC = () => {
+  const [metalType, setMetalType] = useState(1);
+
+  const navigation: any = useNavigation();
+
   return (
     <Screen style={{paddingHorizontal: 0}}>
       <StatusBar
@@ -20,25 +27,16 @@ export const Prices: React.FC = () => {
       />
       <Header />
       <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
-        {metals.map(item => (
-          <MetalsCard key={item.metal} data={item} />
-        ))}
-
+        <PricesGraph id={metalType} />
         <ActionsCard
-          title="Start Trading"
-          description="Build your portfolio with CyberMetals."
+          title="Create Price Alert"
+          description="Receive instant text notifications
+          when prices go above or below
+          your price targets."
           backgroundColor="#C1D9FA"
-          buttonTitle="Buy Now"
-          onPress={() => console.log(1)}
+          buttonTitle="Create"
+          onPress={() => navigation.navigate(Screens.priceAlertsStack)}
         />
-        <ActionsCard
-          title="Set Up Auto Buy"
-          description="Start building your wealth with automated purchases."
-          backgroundColor="#FFEBB3"
-          buttonTitle="Start Now"
-          onPress={() => console.log(2)}
-        />
-        <ActivityCard />
         <NewsCard />
       </Screen>
     </Screen>
