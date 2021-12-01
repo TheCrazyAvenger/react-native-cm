@@ -6,6 +6,7 @@ import {Screen} from '../../ui';
 import {styles} from './styles';
 import RenderHtml from 'react-native-render-html';
 import {Facebook, LinkedIn, Twitter} from '../../assets/images/news';
+import {tagStyles} from './tagStyles';
 
 export const DetailsNews: React.FC = () => {
   const route: any = useRoute();
@@ -20,6 +21,7 @@ export const DetailsNews: React.FC = () => {
           ignoredDomTags={['button']}
           contentWidth={width - 100}
           source={body}
+          tagsStyles={tagStyles}
         />
 
         <View style={styles.socials}>
