@@ -2,28 +2,50 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StatusBar, View} from 'react-native';
 import {Notification} from '../../../components';
-import {Description, Illustration, Title} from '../../../components/Typography';
+import {
+  Description,
+  Illustration,
+  Title,
+  Error,
+} from '../../../components/Typography';
 import {Screens} from '../../../constants';
+import {useAppDispatch} from '../../../hooks/hooks';
+import {setLoading} from '../../../store/slices/authSlice';
 import {Screen, TextButton} from '../../../ui';
 import {styles} from './styles';
+import auth from '@react-native-firebase/auth';
+
+const BUNDLE_ID = 'com.cybermetals';
+
+const actionCodeSettings = {
+  handleCodeInApp: true,
+  // URL must be whitelisted in the Firebase Console.
+  url: 'https://cybermetals.page.link/qL6j',
+  iOS: {
+    bundleId: BUNDLE_ID,
+  },
+  android: {
+    packageName: BUNDLE_ID,
+    installApp: true,
+    minimumVersion: '12',
+  },
+};
 
 export const EmailVerification: React.FC = () => {
   const route: any = useRoute();
   const navigation: any = useNavigation();
   const [showNotify, setShowNotify] = useState(false);
-  console.log(route.params);
+
+  const [error, setError] = useState<string | null>(null);
+  const [next, setNext] = useState(false);
+
+  const values = route.params.values;
+  const dispatch = useAppDispatch();
 
   const changeEmail = () => {
-    const values = route.params.values;
     navigation.push(Screens.email, {
       type: 'change',
       values: {...values},
-    });
-  };
-
-  const goToNext = () => {
-    navigation.push(Screens.emailVerSuccess, {
-      values: {...route.params.values},
     });
   };
 
@@ -36,12 +58,35 @@ export const EmailVerification: React.FC = () => {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
+    sendEmail();
+  }, []);
+
+  useEffect(() => {
+    if (next === true)
+      navigation.push(Screens.emailVerSuccess, {
+        values: {...route.params.values},
+      });
+  }, [next]);
+
+  const sendEmail = async () => {
+    try {
+      setNext(false);
+      await auth().sendSignInLinkToEmail(values.email, actionCodeSettings);
+      setNext(true);
+    } catch (e: any) {
+      setError(e.message);
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
     if (seconds > 0) {
       setTimeout(() => setSeconds(seconds - 1), 1000);
     }
   }, [seconds]);
 
   const resentEmail = () => {
+    sendEmail();
     setShowNotify(true);
     setSeconds(59);
   };
@@ -67,6 +112,9 @@ export const EmailVerification: React.FC = () => {
             follow the instructions in the email to complete the registration
             process.
           </Description>
+          {error && (
+            <Error style={{marginHorizontal: 10, marginTop: 10}}>{error}</Error>
+          )}
         </ScrollView>
         <View style={styles.buttons}>
           {seconds > 0 ? (
@@ -84,18 +132,6 @@ export const EmailVerification: React.FC = () => {
           />
 
           <TextButton title="Use Another Email" onPress={changeEmail} />
-          <TextButton
-            title="Skip(dev)"
-            onPress={goToNext}
-            solid
-            style={{marginTop: 20}}
-          />
-          <TextButton
-            title="Go to Error(dev)"
-            onPress={goToError}
-            solid
-            style={{marginTop: 20}}
-          />
         </View>
       </View>
     </Screen>

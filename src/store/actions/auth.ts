@@ -11,7 +11,7 @@ export const getData = createAsyncThunk('auth/getData', async () => {
       .once('value')
       .then(snapshot => {
         const data: any = snapshot.val();
-        console.log(data);
+
         const {
           userEmail,
           mobile,
@@ -48,6 +48,31 @@ export const getData = createAsyncThunk('auth/getData', async () => {
             lastName,
             password,
             verified,
+            mobile,
+          };
+        }
+      });
+  } catch (e) {}
+});
+
+export const loginHandler = createAsyncThunk('auth/loginHandler', async () => {
+  try {
+    let token: any = await AsyncStorage.getItem('token');
+
+    return await database()
+      .ref(`/users/${JSON.parse(token)}`)
+      .once('value')
+      .then(snapshot => {
+        const data: any = snapshot.val();
+
+        const {mobile} = data;
+
+        if (mobile === null) {
+          return {
+            mobile: '',
+          };
+        } else {
+          return {
             mobile,
           };
         }

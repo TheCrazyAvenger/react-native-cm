@@ -92,7 +92,7 @@ export const PasswordForm: React.FC<{
               ...styles.container,
               marginTop: type === 'Change' ? 20 : 0,
             }}>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
               {type === 'Change' && (
                 <FormInput
                   onBlur={() => setFieldTouched('currentPassword', true)}

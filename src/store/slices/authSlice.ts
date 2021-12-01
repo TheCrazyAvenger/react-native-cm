@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {getData, logout} from '../actions/auth';
+import {getData, loginHandler, logout} from '../actions/auth';
 
 export interface AuthState {
   firstName: string;
@@ -80,6 +80,16 @@ export const authSlice = createSlice({
         state.mobile = mobile;
       }
     });
+    builder.addCase(
+      loginHandler.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        if (action.payload) {
+          const {mobile} = action.payload;
+
+          state.mobile = mobile;
+        }
+      },
+    );
     builder.addCase(logout.fulfilled, state => {
       state.token = null;
       state.userEmail = null;

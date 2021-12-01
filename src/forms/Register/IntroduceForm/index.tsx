@@ -42,7 +42,7 @@ export const IntroduceForm: React.FC = () => {
           errors.checkBox && touched.checkBox ? colors.red : colors.black;
         return (
           <View style={styles.container}>
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
               <FormInput
                 onBlur={() => setFieldTouched('firstName', true)}
                 label="First Name"
