@@ -30,4 +30,8 @@ export const styles = StyleSheet.create({
   cardTitle: {
     fontFamily: 'OpenSans-Bold',
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });

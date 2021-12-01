@@ -6,17 +6,7 @@ export interface AutoBuyState {
 }
 
 const initialState: AutoBuyState = {
-  autoBuy: [
-    {
-      metal: 'Gold',
-      amount: '1001',
-      endDate: '11/22/22',
-      frequency: 'Daily',
-      id: 1,
-      paymentMethod: 'Cash Balance',
-      startDate: '11/22/21',
-    },
-  ],
+  autoBuy: [],
 };
 
 export const autoBuySlice = createSlice({
