@@ -9,6 +9,11 @@ export * from './NullScreen';
 export * from './News';
 export * from './DetailsNews';
 
+export * from './BuyScreens/ChooseBuy';
+export * from './BuyScreens/BuySetUp';
+export * from './BuyScreens/ReviewBuy';
+export * from './BuyScreens/CompleteBuy';
+
 export * from './SettingsScreens/Settings';
 export * from './SettingsScreens/Refer';
 export * from './SettingsScreens/Notifications';

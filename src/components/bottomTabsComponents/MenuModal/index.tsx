@@ -2,7 +2,7 @@ import React from 'react';
 import {Modal, Image, TouchableOpacity, View} from 'react-native';
 import {MenuModalProps} from '..';
 import {MenuModalItem} from '../..';
-import {colors} from '../../../constants';
+import {colors, Screens} from '../../../constants';
 import {styles} from './styles';
 import {
   BuyMetal,
@@ -12,8 +12,10 @@ import {
   Redeem,
   Close,
 } from '../../../assets/images/navigation';
+import {useNavigation} from '@react-navigation/core';
 
 export const MenuModal: React.FC<MenuModalProps> = ({visible, onPress}) => {
+  const navigation: any = useNavigation();
   return (
     <Modal transparent visible={visible} animationType="fade">
       <View style={styles.container}>
@@ -22,7 +24,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({visible, onPress}) => {
             title="Buy"
             text="Buy gold, silver, platinum and palladium"
             Image={BuyMetal}
-            onPress={() => console.log(1)}
+            onPress={() => navigation.navigate(Screens.buyStack)}
           />
           <MenuModalItem
             title="Sell"

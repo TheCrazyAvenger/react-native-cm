@@ -10,6 +10,9 @@ import {MainNavigator} from './MainNavigator';
 import {setLoading} from '../store/slices/authSlice';
 import {LoadingItem} from '../components';
 import {getNews} from '../store/actions/news';
+import {getOperations} from '../store/actions/operations';
+import {getAutoBuy} from '../store/actions/autoBuy';
+import {getPriceAlerts} from '../store/actions/priceAlerts';
 
 export const AppNavigator: React.FC = () => {
   const token = useAppSelector(state => state.auth.token);
@@ -26,6 +29,9 @@ export const AppNavigator: React.FC = () => {
       // await AsyncStorage.removeItem('@viewedOnboarding');
       await dispatch(getData());
       await dispatch(getNews());
+      await dispatch(getOperations());
+      await dispatch(getAutoBuy());
+      await dispatch(getPriceAlerts());
       if (value !== null) {
         setShowOnboarding(false);
         return dispatch(setLoading(false));

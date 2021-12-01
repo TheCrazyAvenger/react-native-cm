@@ -32,7 +32,9 @@ export const ModalWindow: React.FC<ModalWindowProps> = ({
               onPress={onConfirm}
             />
 
-            <TextButton title={cancelTitle} onPress={onCancel} />
+            {onCancel && cancelTitle && (
+              <TextButton title={cancelTitle} onPress={onCancel} />
+            )}
           </View>
         </View>
       </View>

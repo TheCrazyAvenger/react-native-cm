@@ -57,6 +57,7 @@ export type FormInputProps = {
   containerStyle?: {[key: string]: number | string};
   secureTextEntry?: boolean;
   rightIcon?: any;
+  leftIcon?: any;
   disabled?: boolean;
 };
 
@@ -195,9 +196,9 @@ export type ModalWindowProps = {
   title: string;
   text: string;
   confirmTitle: string;
-  cancelTitle: string;
+  cancelTitle?: string;
   onConfirm: (...args: any) => void;
-  onCancel: (...args: any) => void;
+  onCancel?: (...args: any) => void;
   visible: boolean;
 };
 
@@ -253,4 +254,19 @@ export type PaymentMethodsItemProps = {
   style?: {[key: string]: number | string};
   onRemove: (...args: any) => void;
   type: string | null;
+};
+
+export type BuyingInfoProps = {
+  paymentMethod: string;
+  metal: string;
+  amount: string;
+  spot: number;
+  amountOz: string;
+  style?: {[key: string]: number | string};
+};
+
+export type OrderInfoProps = {
+  order: number | string;
+  status: string;
+  style?: {[key: string]: number | string};
 };
