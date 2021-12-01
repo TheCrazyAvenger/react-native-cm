@@ -1,12 +1,12 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import {AutoBuyItemProps, ModalWindow} from '../..';
-import {Delete, Edit} from '../../../assets/images/settings';
+import {Delete, Edit, Warning} from '../../../assets/images/settings';
 import {colors, Screens} from '../../../constants';
 import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
 import {deleteAutoBuy} from '../../../store/slices/autoBuySlice';
-import {Description, SubtitleMedium} from '../../Typography';
+import {Description, Illustration, SubtitleMedium} from '../../Typography';
 import {styles} from './styles';
 
 export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
@@ -22,8 +22,17 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
 }) => {
   const [visibleModal, setVisibleModal] = useState(false);
   const navigation: any = useNavigation();
+  const [isExpiried, setIsExpiried] = useState(false);
 
   const autoBuy = useAppSelector(state => state.autoBuy.autoBuy);
+
+  useEffect(() => {
+    if (endDate) {
+      const today = new Date();
+      const expiringDate = new Date(endDate);
+      if (today > expiringDate) setIsExpiried(true);
+    }
+  }, []);
 
   const dispatch = useAppDispatch();
 
@@ -110,10 +119,23 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
           </View>
           {endDate ? (
             <View>
-              <Description style={{color: colors.gray, marginBottom: 4}}>
-                End Date
-              </Description>
-              <SubtitleMedium>{endDate}</SubtitleMedium>
+              <View style={styles.row}>
+                <Description
+                  style={{color: colors.gray, marginBottom: 4, marginRight: 5}}>
+                  End Date
+                </Description>
+                {isExpiried && <Warning />}
+              </View>
+              <View style={styles.row}>
+                <SubtitleMedium style={{marginRight: 5}}>
+                  {endDate}
+                </SubtitleMedium>
+                {isExpiried && (
+                  <Illustration style={{color: colors.red}}>
+                    Has expired
+                  </Illustration>
+                )}
+              </View>
             </View>
           ) : null}
         </View>
@@ -122,7 +144,7 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
           <Description style={{color: colors.gray, marginBottom: 4}}>
             Status
           </Description>
-          <SubtitleMedium>Active</SubtitleMedium>
+          <SubtitleMedium>{isExpiried ? 'Inactive' : 'Active'}</SubtitleMedium>
         </View>
       </View>
     </>
