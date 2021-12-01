@@ -17,18 +17,23 @@ export const LogIn: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const authHandler = async (values: any) => {
-    dispatch(setLoading(true));
-    const {email: userEmail, password} = values;
-    await auth()
-      .signInWithEmailAndPassword(userEmail, password)
-      .then(async data => {
-        await AsyncStorage.setItem('token', JSON.stringify(data.user.uid));
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    await dispatch(getData());
-    dispatch(setLoading(false));
+    try {
+      dispatch(setLoading(true));
+      const {email: userEmail, password} = values;
+      await auth()
+        .signInWithEmailAndPassword(userEmail, password)
+        .then(async data => {
+          await AsyncStorage.setItem('token', JSON.stringify(data.user.uid));
+          await dispatch(getData());
+          dispatch(setLoading(false));
+        })
+        .catch(error => {
+          console.error(error);
+          dispatch(setLoading(false));
+        });
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

@@ -45,7 +45,7 @@ export const EmailForm: React.FC = () => {
         setFieldTouched,
       }) => (
         <View style={styles.container}>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <FormInput
               onBlur={() => setFieldTouched('email', true)}
               label="Email"

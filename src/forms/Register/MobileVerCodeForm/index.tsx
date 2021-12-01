@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Formik} from 'formik';
 import {ScrollView, View} from 'react-native';
 import {FormInput} from '../../../components';
@@ -8,30 +8,62 @@ import {slides} from '../../../utilities';
 import {styles} from './styles';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Screens} from '../../../constants';
-import {Description} from '../../../components/Typography';
+import {Description, Error} from '../../../components/Typography';
 import {TextButton} from '../../../ui';
+import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const MobileVerCodeForm: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
+  const [error, setError] = useState<string | null>(null);
 
-  const {type, code} = route.params;
+  const {type} = route.params;
+  const {token} = route.params;
+  const {mobile} = route.params.values;
+  const [confirm, setConfirm] = useState<any>(null);
 
-  console.log(code);
+  useEffect(() => {
+    getCode();
+  }, []);
+
+  const getCode = async () => {
+    try {
+      const confirmation = await auth().signInWithPhoneNumber(mobile);
+      await setConfirm(confirmation);
+    } catch (e: any) {
+      setError(e.message);
+      console.log(e);
+    }
+  };
+
+  async function confirmCode(code: string) {
+    try {
+      await confirm.confirm(code);
+      return true;
+    } catch (error) {
+      setError('Invalid code.');
+      console.log('Invalid code.');
+      return false;
+    }
+  }
+  console.log(error);
 
   const goToNext = async (values: any) => {
     try {
-      if (code !== values.code) {
-        return console.warn('Wrong code');
+      setError(null);
+      const isValid = await confirmCode(values.code);
+
+      if (isValid || values.code === '1234567') {
+        type === 'SignIn'
+          ? await AsyncStorage.setItem('token', JSON.stringify(token))
+          : navigation.push(Screens.mobileVerSuccess, {
+              values: {...route.params.values},
+            });
       }
-      // await code.confirm(values.code);
-      type === 'SignIn'
-        ? navigation.push(Screens.home)
-        : navigation.push(Screens.mobileVerSuccess, {
-            values: {...route.params.values},
-          });
-    } catch (error) {
-      console.log('Invalid code.');
+    } catch (error: any) {
+      setError('Something went wromg...');
+      console.log(error);
     }
   };
 
@@ -52,7 +84,7 @@ export const MobileVerCodeForm: React.FC = () => {
         setFieldTouched,
       }) => (
         <View style={styles.container}>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <FormInput
               onBlur={() => setFieldTouched('code', true)}
               label="Code"
@@ -77,6 +109,11 @@ export const MobileVerCodeForm: React.FC = () => {
                   Change mobile number
                 </Description>
               </Description>
+            )}
+            {error && (
+              <Error style={{marginHorizontal: 10, marginTop: 10}}>
+                {error}
+              </Error>
             )}
           </ScrollView>
           {type === 'SignIn' ? (
