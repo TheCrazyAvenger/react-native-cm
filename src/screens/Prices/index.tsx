@@ -41,7 +41,7 @@ export const Prices: React.FC = () => {
             onPress={() => navigation.navigate(Screens.priceAlertsStack)}
           />
         ) : null}
-        <NewsCard />
+        <NewsCard size="Small" />
       </Screen>
     </Screen>
   );

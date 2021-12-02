@@ -4,28 +4,24 @@ import {TouchableOpacity, View} from 'react-native';
 import {NewsCardProps, ViewMoreButton, Wrapper} from '../..';
 import {colors, Screens} from '@constants';
 import {useAppSelector} from '@hooks';
-import {
-  Description,
-  DescriptionBold,
-  SubtitleMedium,
-  TitleMedium,
-} from '@Typography';
+import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
+import {getTime, removeTags} from '@utilities';
+import {LoadingItem} from '@components';
 
 export const NewsCard: React.FC<NewsCardProps> = ({size, style}) => {
   const navigation: any = useNavigation();
 
   const news = useAppSelector(state => state.news.news);
-  const newsList = size === 'Full' ? news : news.slice(0, 4);
 
-  const a = false;
+  const newsList = size === 'Full' ? news : news.slice(0, 4);
 
   return (
     <View style={{...styles.container, ...style}}>
       {size === 'Full' ? null : (
         <View style={{...styles.cardItem, marginBottom: 15}}>
           <TitleMedium>Market News</TitleMedium>
-          {newsList.length !== 0 && (
+          {news.length !== 0 && (
             <ViewMoreButton
               style={{marginTop: 0}}
               onPress={() => navigation.navigate(Screens.news)}
@@ -33,37 +29,43 @@ export const NewsCard: React.FC<NewsCardProps> = ({size, style}) => {
           )}
         </View>
       )}
-      {newsList.length !== 0 ? (
+      {news.length !== 0 ? (
         newsList.map((item: any, i: number) => {
-          const {name, description, date, metal, author} = item.title;
-          const {body} = item;
+          const {id, title, body, created_at, user_update} = item;
+
+          const {monthName, day, year} = getTime(created_at);
 
           return (
-            <View key={i}>
+            <View key={id}>
               <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => navigation.push(Screens.detailsNews, {body})}>
+                onPress={() =>
+                  navigation.push(Screens.detailsNews, {
+                    id,
+                    body,
+                    title,
+                    date: created_at,
+                  })
+                }>
                 <SubtitleMedium numberOfLines={2} style={{marginBottom: 8}}>
-                  {name}
+                  {title}
                 </SubtitleMedium>
                 <SubtitleMedium numberOfLines={2} style={styles.type}>
-                  {description}
+                  {removeTags(body)}
                 </SubtitleMedium>
                 <Description>
-                  <DescriptionBold style={{color: colors.primary}}>
-                    {metal}
-                  </DescriptionBold>
-                  {` · ${author} · ${date}`}
+                  {`${user_update} · ${monthName} ${day}, ${year}`}
                 </Description>
               </TouchableOpacity>
-              {i === newsList.length - 1 ? null : (
+              {i === news.length - 1 ? null : size === 'Small' &&
+                i === 3 ? null : (
                 <Wrapper style={{backgroundColor: colors.primary}} />
               )}
             </View>
           );
         })
       ) : (
-        <SubtitleMedium>Empty</SubtitleMedium>
+        <LoadingItem />
       )}
     </View>
   );

@@ -17,6 +17,7 @@
           ".json"
         ],
         "alias": {
+          "@api": "./src/api/index.ts",
           "@navigation": "./src/navigation",
           "@components": "./src/components/index.ts",
           "@Typography": "./src/components/Typography/index.ts",

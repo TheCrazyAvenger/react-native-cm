@@ -21,3 +21,5 @@ export * from './getCardType';
 export * from './getMonth';
 export * from './getMetal';
 export * from './getOperationImage';
+export * from './removeTags';
+export * from './getTime';

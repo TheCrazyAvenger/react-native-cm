@@ -8,6 +8,8 @@ export enum Screens {
   home = 'home',
   holdings = 'holdings',
   portfolio = 'portfolio',
+
+  pricesStack = 'pricesStack',
   prices = 'prices',
 
   buyStack = 'buyStack',

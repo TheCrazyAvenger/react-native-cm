@@ -17,6 +17,7 @@ import {
   SettingsIcon,
 } from '../../components/bottomTabsComponents';
 import {HomeStack} from '../HomeStack';
+import {PricesStack} from '@navigation/PricesStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -77,7 +78,7 @@ export const BottomTabs: React.FC = () => {
           component={NullString}
         />
         <Tab.Screen
-          name={Screens.prices}
+          name={Screens.pricesStack}
           options={{
             title: 'Prices',
             tabBarIcon: ({focused}) => (
@@ -88,7 +89,7 @@ export const BottomTabs: React.FC = () => {
               borderTopStartRadius: 8,
             },
           }}
-          component={Prices}
+          component={PricesStack}
         />
         <Tab.Screen
           name={Screens.settings}
