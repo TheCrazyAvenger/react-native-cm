@@ -2,8 +2,8 @@ import {useNavigation, useRoute} from '@react-navigation/core';
 import React from 'react';
 import {View} from 'react-native';
 import {styles} from './styles';
-import {SocialButton} from '../../../ui';
-import {useAppSelector} from '../../../hooks/hooks';
+import {SocialButton} from '@ui';
+import {useAppSelector} from '@hooks';
 
 export const PayPalForm: React.FC<{
   onSubmit: (...args: any) => void;
@@ -18,7 +18,7 @@ export const PayPalForm: React.FC<{
   return (
     <View style={styles.container}>
       <SocialButton
-        imageUri={require('../../../assets/images/settings/paymentMethods/paypalButton.png')}
+        imageUri={require('@assets/images/settings/paymentMethods/paypalButton.png')}
         onPress={() =>
           onSubmit({
             paymentMethod: type,

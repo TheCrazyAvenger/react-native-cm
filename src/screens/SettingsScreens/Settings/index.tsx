@@ -15,18 +15,13 @@ import {
   TouchID,
   Transactions,
   Verification,
-} from '../../../assets/images/settings';
-import {
-  MenuItem,
-  MenuItemSmall,
-  SettingsHeader,
-  Wrapper,
-} from '../../../components';
-import {Subtitle, SubtitleMedium} from '../../../components/Typography';
-import {colors, Screens} from '../../../constants';
-import {useAppDispatch} from '../../../hooks/hooks';
-import {logout} from '../../../store/actions';
-import {Screen} from '../../../ui';
+} from '@assets/images/settings';
+import {MenuItem, MenuItemSmall, SettingsHeader, Wrapper} from '@components';
+import {Subtitle, SubtitleMedium} from '@Typography';
+import {colors, Screens} from '@constants';
+import {useAppDispatch} from '@hooks';
+import {logout} from '@store/actions';
+import {Screen} from '@ui';
 import {styles} from './styles';
 
 export const Settings: React.FC = () => {

@@ -1,13 +1,9 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import React from 'react';
 import {View} from 'react-native';
-import {
-  Description,
-  SubtitleMedium,
-  TitleMedium,
-} from '../../../components/Typography';
+import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {BuySetUpForm} from '../../../forms';
-import {Screen} from '../../../ui';
+import {Screen} from '@ui';
 import {styles} from './styles';
 
 export const BuySetUp: React.FC = () => {

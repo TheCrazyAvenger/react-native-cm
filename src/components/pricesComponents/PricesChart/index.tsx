@@ -2,13 +2,14 @@ import React from 'react';
 import {View} from 'react-native';
 import {LineChart, Path} from 'react-native-svg-charts';
 import {PricesChartProps} from '../..';
-import {TextButton} from '../../../ui';
+import {TextButton} from '@ui';
 import {styles} from './styles';
 
 //@ts-ignore
 const Shadow: React.FC = ({line, lineColor}: {line: any; lineColor: any}) => (
   <Path
     key={'shadow'}
+    //@ts-ignore
     y={10}
     //@ts-ignore
     d={line}

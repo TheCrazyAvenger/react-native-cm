@@ -1,9 +1,9 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import {colors, Screens} from '../../../constants';
-import {useAppSelector} from '../../../hooks/hooks';
-import {Description, TitleMedium} from '../../Typography';
+import {colors, Screens} from '@constants';
+import {useAppSelector} from '@hooks';
+import {Description, TitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const SettingsHeader: React.FC = () => {

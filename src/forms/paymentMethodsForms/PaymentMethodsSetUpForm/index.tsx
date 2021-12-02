@@ -1,17 +1,15 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import {BankForm, CardForm, paymentMethodSchema, PayPalForm} from '../..';
-import {CreditCard} from '../../../assets/images/settings';
-import {ItemPicker} from '../../../components';
-import {Screens} from '../../../constants';
-import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
+import {ItemPicker} from '@components';
+import {useAppDispatch, useAppSelector} from '@hooks';
 import {styles} from './styles';
 import database from '@react-native-firebase/database';
-import {addPaymentMethods} from '../../../store/slices/paymentMethodsSlice';
-import {setLoading} from '../../../store/slices/authSlice';
-import {getPaymentImage} from '../../../utilities';
+import {addPaymentMethods} from '@store/slices/paymentMethodsSlice';
+import {setLoading} from '@store/slices/authSlice';
+import {getPaymentImage} from '@utilities';
 import {ECheckForm} from '../ECheckForm';
 
 export const PaymentMethodsSetUpForm: React.FC = () => {

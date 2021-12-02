@@ -1,9 +1,9 @@
 import React from 'react';
 import {StatusBar, View} from 'react-native';
-import {MetalsInfo, PortfolioHeader} from '../../components';
-import {Subtitle} from '../../components/Typography';
-import {Screen} from '../../ui';
-import {metals} from '../../utilities';
+import {MetalsInfo, PortfolioHeader} from '@components';
+import {Subtitle} from '@Typography';
+import {Screen} from '@ui';
+import {metals} from '@utilities';
 import {styles} from './styles';
 
 export const Portfolio: React.FC = () => {

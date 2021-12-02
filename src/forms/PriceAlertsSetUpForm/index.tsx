@@ -3,11 +3,11 @@ import {Formik} from 'formik';
 import React from 'react';
 import {View} from 'react-native';
 import {priceAlertsSchema} from '..';
-import {colors} from '../../constants';
+import {colors} from '@constants';
 import {styles} from './styles';
-import {ItemPicker} from '../../components';
-import {SubtitleMedium, Error} from '../../components/Typography';
-import {TextButton} from '../../ui';
+import {ItemPicker} from '@components';
+import {SubtitleMedium, Error} from '@Typography';
+import {TextButton} from '@ui';
 import {Input} from 'react-native-elements';
 
 export const PriceAlertsSetUpForm: React.FC<any> = ({metal, onSubmit}) => {

@@ -1,14 +1,14 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {Image, ScrollView, StatusBar, View} from 'react-native';
-import {Description, Title} from '../../../components/Typography';
-import {Screen, TextButton} from '../../../ui';
+import {Description, Title} from '@Typography';
+import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {authSucces, setLoading} from '../../../store/slices/authSlice';
-import {useAppDispatch} from '../../../hooks/hooks';
+import {authSucces, setLoading} from '@store/slices/authSlice';
+import {useAppDispatch} from '@hooks';
 
 export const MobileVerSuccess: React.FC = () => {
   const route: any = useRoute();

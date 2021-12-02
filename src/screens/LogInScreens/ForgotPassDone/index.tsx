@@ -1,9 +1,9 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {StatusBar, View, Image} from 'react-native';
-import {Title} from '../../../components/Typography';
-import {Screens} from '../../../constants';
-import {Screen, TextButton} from '../../../ui';
+import {Title} from '@Typography';
+import {Screens} from '@constants';
+import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 
 export const ForgotPassDone: React.FC = () => {
@@ -22,9 +22,7 @@ export const ForgotPassDone: React.FC = () => {
             You have successfully changed your password!
           </Title>
 
-          <Image
-            source={require('../../../assets/images/register/complete.png')}
-          />
+          <Image source={require('@assets/images/register/complete.png')} />
         </View>
         <View style={{marginVertical: 25}}>
           <TextButton

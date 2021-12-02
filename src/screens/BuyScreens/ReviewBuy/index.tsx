@@ -1,14 +1,10 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {BuyingInfo, LoadingItem, ModalWindow} from '../../../components';
-import {
-  Description,
-  SubtitleMedium,
-  TitleMedium,
-} from '../../../components/Typography';
-import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {Screen} from '../../../ui';
+import {BuyingInfo, LoadingItem, ModalWindow} from '@components';
+import {TitleMedium} from '@Typography';
+import {useAppDispatch, useAppSelector} from '@hooks';
+import {Screen} from '@ui';
 import {styles} from './styles';
 import {ReviewBuyForm} from '../../../forms';
 

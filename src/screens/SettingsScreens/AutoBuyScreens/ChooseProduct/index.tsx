@@ -1,10 +1,10 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StatusBar} from 'react-native';
-import {ProductItem} from '../../../../components';
-import {Screens} from '../../../../constants';
-import {Screen} from '../../../../ui';
-import {autoBuy} from '../../../../utilities';
+import {ProductItem} from '@components';
+import {Screens} from '@constants';
+import {Screen} from '@ui';
+import {autoBuy} from '@utilities';
 
 export const ChooseProduct: React.FC = () => {
   const navigation: any = useNavigation();

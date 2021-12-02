@@ -1,11 +1,9 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {View} from 'react-native';
-import {LoadingItem} from '../../../../components';
+import {LoadingItem} from '@components';
 import {PaymentMethodsSetUpForm} from '../../../../forms';
-import {useAppSelector} from '../../../../hooks/hooks';
-import {Screen} from '../../../../ui';
-import {styles} from './styles';
+import {useAppSelector} from '@hooks';
+import {Screen} from '@ui';
 
 export const PaymentMethodsSetUp: React.FC = () => {
   const navigation: any = useNavigation();

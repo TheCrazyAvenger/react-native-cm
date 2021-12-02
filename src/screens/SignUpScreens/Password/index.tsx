@@ -1,16 +1,16 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {KeyboardAvoidingView, Platform, StatusBar, View} from 'react-native';
-import {Description, Title} from '../../../components/Typography';
+import {Description, Title} from '@Typography';
 import {PasswordForm} from '../../../forms';
-import {Screen} from '../../../ui';
+import {Screen} from '@ui';
 import {styles} from './styles';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
-import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {setLoading} from '../../../store/slices/authSlice';
-import {getData} from '../../../store/actions';
-import {LoadingItem} from '../../../components';
+import {useAppDispatch, useAppSelector} from '@hooks';
+import {setLoading} from '@store/slices/authSlice';
+import {getData} from '@store/actions';
+import {LoadingItem} from '@components';
 
 export const Password: React.FC = () => {
   const route: any = useRoute();

@@ -1,12 +1,12 @@
 import React from 'react';
 import {Formik} from 'formik';
 import {ScrollView, View} from 'react-native';
-import {FormInput} from '../../../components';
+import {FormInput} from '@components';
 import {forgotPassSchema} from '../..';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/core';
-import {Screens} from '../../../constants';
-import {TextButton} from '../../../ui';
+import {Screens} from '@constants';
+import {TextButton} from '@ui';
 
 export const ForgotPassForm: React.FC = () => {
   const navigation: any = useNavigation();

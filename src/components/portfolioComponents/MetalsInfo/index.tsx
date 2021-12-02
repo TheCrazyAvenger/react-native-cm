@@ -1,9 +1,9 @@
 import React from 'react';
 import {Image, View} from 'react-native';
 import {MetalsCardProps, Wrapper} from '../..';
-import {colors} from '../../../constants';
-import {getColor} from '../../../utilities';
-import {Subtitle, SubtitleMedium} from '../../Typography';
+import {colors} from '@constants';
+import {getColor} from '@utilities';
+import {Subtitle, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const MetalsInfo: React.FC<MetalsCardProps> = ({data}) => {

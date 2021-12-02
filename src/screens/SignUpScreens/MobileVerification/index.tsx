@@ -1,8 +1,8 @@
 import React from 'react';
 import {KeyboardAvoidingView, Platform, StatusBar, View} from 'react-native';
-import {Description, Title} from '../../../components/Typography';
+import {Description, Title} from '@Typography';
 import {MobileVerForm} from '../../../forms';
-import {Screen} from '../../../ui';
+import {Screen} from '@ui';
 import {styles} from './styles';
 
 export const MobileVerification: React.FC = () => {

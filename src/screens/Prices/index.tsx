@@ -1,10 +1,10 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
 import {StatusBar} from 'react-native';
-import {ActionsCard, Header, NewsCard, PricesGraph} from '../../components';
-import {Screens} from '../../constants';
-import {useAppSelector} from '../../hooks/hooks';
-import {Screen} from '../../ui';
+import {ActionsCard, Header, NewsCard, PricesGraph} from '@components';
+import {Screens} from '@constants';
+import {useAppSelector} from '@hooks';
+import {Screen} from '@ui';
 
 export const Prices: React.FC = () => {
   const [metalType, setMetalType] = useState(1);

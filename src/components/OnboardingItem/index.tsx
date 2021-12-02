@@ -1,8 +1,8 @@
 import React from 'react';
-import {Image, useWindowDimensions, View} from 'react-native';
+import {useWindowDimensions, View} from 'react-native';
 import {OnboardingItemProps} from '..';
-import {colors} from '../../constants';
-import {Description, Title} from '../Typography';
+import {colors} from '@constants';
+import {Description, Title} from '@Typography';
 import {styles} from './styles';
 
 export const OnboardingItem: React.FC<OnboardingItemProps> = ({item}) => {

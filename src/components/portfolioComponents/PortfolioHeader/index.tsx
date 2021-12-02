@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
-import {Description, DescriptionBold, TitleMedium} from '../../Typography';
+import {Description, DescriptionBold, TitleMedium} from '@Typography';
 import {PieChart} from 'react-native-svg-charts';
 import {styles} from './styles';
-import {colors} from '../../../constants';
-import {getColor, metals} from '../../../utilities';
+import {colors} from '@constants';
+import {getColor, metals} from '@utilities';
 
 export const PortfolioHeader: React.FC = () => {
   const [graph, setGraph] = useState('pie');

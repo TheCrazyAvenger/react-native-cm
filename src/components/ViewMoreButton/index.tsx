@@ -1,8 +1,7 @@
 import React from 'react';
 import {Image, TouchableOpacity} from 'react-native';
-import {TextProps} from 'react-native-elements';
 import {ViewMoreButtonProps} from '..';
-import {SubtitleMedium} from '../Typography';
+import {SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const ViewMoreButton: React.FC<ViewMoreButtonProps> = ({
@@ -14,7 +13,7 @@ export const ViewMoreButton: React.FC<ViewMoreButtonProps> = ({
       <SubtitleMedium style={styles.buttonText}>View More</SubtitleMedium>
       <Image
         style={{marginLeft: 12}}
-        source={require('../../assets/images/home/viewMore.png')}
+        source={require('@assets/images/home/viewMore.png')}
       />
     </TouchableOpacity>
   );

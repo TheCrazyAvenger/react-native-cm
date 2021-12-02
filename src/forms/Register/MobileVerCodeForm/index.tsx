@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Formik} from 'formik';
 import {ScrollView, View} from 'react-native';
-import {FormInput} from '../../../components';
+import {FormInput, PaginationFooter} from '@components';
 import {mobileVerCodeSchema} from '../..';
-import {PaginationFooter} from '../../../components';
-import {slides} from '../../../utilities';
+import {slides} from '@utilities';
 import {styles} from './styles';
 import {useNavigation, useRoute} from '@react-navigation/core';
-import {Screens} from '../../../constants';
-import {Description, Error} from '../../../components/Typography';
-import {TextButton} from '../../../ui';
+import {Screens} from '@constants';
+import {Description, Error} from '@Typography';
+import {TextButton} from '@ui';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

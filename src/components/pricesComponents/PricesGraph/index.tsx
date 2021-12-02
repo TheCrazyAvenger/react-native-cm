@@ -1,7 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {Animated, FlatList, View} from 'react-native';
-import {metals} from '../../../utilities';
-
+import {metals} from '@utilities';
 import {PricesItem} from '../PricesItem';
 import {PricesPaginator} from '../PricesPaginator';
 

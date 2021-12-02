@@ -2,8 +2,8 @@ import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {MetalsCardProps, Wrapper} from '../..';
-import {colors, Screens} from '../../../constants';
-import {Illustration, Subtitle, SubtitleMedium} from '../../Typography';
+import {colors, Screens} from '@constants';
+import {Illustration, Subtitle, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const MetalsCard: React.FC<MetalsCardProps> = ({data}) => {

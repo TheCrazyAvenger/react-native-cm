@@ -1,11 +1,11 @@
 import React from 'react';
 import {Formik} from 'formik';
 import {ScrollView, View} from 'react-native';
-import {FormInput} from '../../../components';
+import {FormInput} from '@components';
 import {profileSchema} from '../..';
 import {styles} from './styles';
-import {useAppSelector} from '../../../hooks/hooks';
-import {TextButton} from '../../../ui';
+import {useAppSelector} from '@hooks';
+import {TextButton} from '@ui';
 
 export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
   onSubmit,

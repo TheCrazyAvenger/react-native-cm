@@ -2,10 +2,10 @@ import {useNavigation, useRoute} from '@react-navigation/core';
 import React from 'react';
 import {ScrollView, View} from 'react-native';
 import {styles} from './styles';
-import {SocialButton, TextButton} from '../../../ui';
-import {useAppSelector} from '../../../hooks/hooks';
-import {Description, SubtitleMedium} from '../../../components/Typography';
-import {colors} from '../../../constants';
+import {SocialButton, TextButton} from '@ui';
+import {useAppSelector} from '@hooks';
+import {Description, SubtitleMedium} from '@Typography';
+import {colors} from '@constants';
 
 export const ECheckForm: React.FC<{
   onSubmit: (...args: any) => void;

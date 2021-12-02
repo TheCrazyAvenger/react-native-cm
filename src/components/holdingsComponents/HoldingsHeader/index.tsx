@@ -1,14 +1,14 @@
 import React from 'react';
 import {Image, View} from 'react-native';
 import {HoldingsHeaderProps, MetalPicker, Wrapper} from '../..';
-import {colors} from '../../../constants';
-import {metals} from '../../../utilities';
+import {colors} from '@constants';
+import {metals} from '@utilities';
 import {
   DescriptionBold,
   Illustration,
   SubtitleMedium,
   TitleMedium,
-} from '../../Typography';
+} from '@Typography';
 import {styles} from './styles';
 
 export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({

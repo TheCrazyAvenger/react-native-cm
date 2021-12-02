@@ -2,8 +2,8 @@ import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {Switch} from 'react-native-elements';
 import {MenuItemProps} from '../..';
-import {colors} from '../../../constants';
-import {Illustration, SubtitleMedium} from '../../Typography';
+import {colors} from '@constants';
+import {Illustration, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const MenuItem: React.FC<MenuItemProps> = ({

@@ -1,16 +1,16 @@
 import React from 'react';
 import {KeyboardAvoidingView, Platform, StatusBar, View} from 'react-native';
-import {SocialBlock} from '../../../components';
-import {Title} from '../../../components/Typography';
+import {SocialBlock} from '@components';
+import {Title} from '@Typography';
 import {LogInForm} from '../../../forms';
-import {Screen} from '../../../ui';
+import {Screen} from '@ui';
 import {styles} from './styles';
 import auth from '@react-native-firebase/auth';
-import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {getData} from '../../../store/actions';
+import {useAppDispatch, useAppSelector} from '@hooks';
+import {getData} from '@store/actions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {setLoading} from '../../../store/slices/authSlice';
+import {setLoading} from '@store/slices/authSlice';
 
 export const LogIn: React.FC = () => {
   const loading = useAppSelector(state => state.auth.loading);

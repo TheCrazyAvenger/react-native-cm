@@ -2,19 +2,18 @@ import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {ScrollView, View} from 'react-native';
-import {Screens} from '../../../constants';
 import {styles} from './styles';
-import {DatePicker, FormInput, ItemPicker} from '../../../components';
-import {Subtitle, TitleMedium} from '../../../components/Typography';
-import {TextButton} from '../../../ui';
-import {cardNumberValidation, setCard, states} from '../../../utilities';
+import {DatePicker, FormInput, ItemPicker} from '@components';
+import {Subtitle} from '@Typography';
+import {TextButton} from '@ui';
+import {cardNumberValidation, setCard, states} from '@utilities';
 import {cardSchema} from '../..';
 import {
   AmericanExpress,
   Discover,
   MasterCard,
   Visa,
-} from '../../../assets/images/settings';
+} from '@assets/images/settings';
 
 export const CardForm: React.FC<{
   onSubmit: (...args: any) => void;

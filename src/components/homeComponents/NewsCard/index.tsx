@@ -2,14 +2,14 @@ import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {NewsCardProps, ViewMoreButton, Wrapper} from '../..';
-import {colors, Screens} from '../../../constants';
-import {useAppSelector} from '../../../hooks/hooks';
+import {colors, Screens} from '@constants';
+import {useAppSelector} from '@hooks';
 import {
   Description,
   DescriptionBold,
   SubtitleMedium,
   TitleMedium,
-} from '../../Typography';
+} from '@Typography';
 import {styles} from './styles';
 
 export const NewsCard: React.FC<NewsCardProps> = ({size, style}) => {

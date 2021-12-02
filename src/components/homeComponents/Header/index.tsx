@@ -1,21 +1,17 @@
 import React from 'react';
 import {Image, View} from 'react-native';
 import {Wrapper} from '../..';
-import {colors} from '../../../constants';
-import {
-  Description,
-  Illustration,
-  Subtitle,
-  TitleMedium,
-} from '../../Typography';
+import {colors} from '@constants';
+import {Description, Illustration, Subtitle, TitleMedium} from '@Typography';
 import {styles} from './styles';
-import {Logo} from '../../../assets/images';
+import {Logo} from '@assets/images';
 
 export const Header: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Logo style={{marginBottom: 37, alignSelf: 'center'}} />
-
+      <View style={{marginBottom: 37, alignSelf: 'center'}}>
+        <Logo />
+      </View>
       <View style={styles.headerItem}>
         <View>
           <Description style={{color: colors.white}}>

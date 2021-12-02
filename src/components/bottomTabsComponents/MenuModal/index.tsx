@@ -2,7 +2,7 @@ import React from 'react';
 import {Modal, Image, TouchableOpacity, View} from 'react-native';
 import {MenuModalProps} from '..';
 import {MenuModalItem} from '../..';
-import {colors, Screens} from '../../../constants';
+import {Screens} from '@constants';
 import {styles} from './styles';
 import {
   BuyMetal,
@@ -11,7 +11,7 @@ import {
   Withdraw,
   Redeem,
   Close,
-} from '../../../assets/images/navigation';
+} from '@assets/images/navigation';
 import {useNavigation} from '@react-navigation/core';
 
 export const MenuModal: React.FC<MenuModalProps> = ({visible, onPress}) => {

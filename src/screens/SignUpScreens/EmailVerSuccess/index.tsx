@@ -1,11 +1,11 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {Image, ScrollView, StatusBar, View} from 'react-native';
-import {PaginationFooter} from '../../../components';
-import {Title} from '../../../components/Typography';
-import {Screens} from '../../../constants';
-import {Screen} from '../../../ui';
-import {slides} from '../../../utilities';
+import {PaginationFooter} from '@components';
+import {Title} from '@Typography';
+import {Screens} from '@constants';
+import {Screen} from '@ui';
+import {slides} from '@utilities';
 import {styles} from './styles';
 
 export const EmailVerSuccess: React.FC = () => {

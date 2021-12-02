@@ -3,18 +3,14 @@ import {Formik} from 'formik';
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 
-import {colors, Screens} from '../../../constants';
+import {colors, Screens} from '@constants';
 import {styles} from './styles';
-import {FormInput, ItemPicker} from '../../../components';
-import {
-  Description,
-  SubtitleMedium,
-  TitleMedium,
-} from '../../../components/Typography';
-import {TextButton} from '../../../ui';
-import {CashBalance} from '../../../assets/images/settings';
+import {FormInput, ItemPicker} from '@components';
+import {Description, SubtitleMedium, TitleMedium} from '@Typography';
+import {TextButton} from '@ui';
+import {CashBalance} from '@assets/images/settings';
 import {buySchema} from '../..';
-import {Swiper} from '../../../assets/images/home';
+import {Swiper} from '@assets/images/home';
 
 export const BuySetUpForm: React.FC = () => {
   const navigation: any = useNavigation();

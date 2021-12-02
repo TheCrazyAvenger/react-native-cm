@@ -7,11 +7,11 @@ import {
   Header,
   MetalsCard,
   NewsCard,
-} from '../../components';
-import {Screens} from '../../constants';
-import {useAppSelector} from '../../hooks/hooks';
-import {Screen} from '../../ui';
-import {metals} from '../../utilities';
+} from '@components';
+import {Screens} from '@constants';
+import {useAppSelector} from '@hooks';
+import {Screen} from '@ui';
+import {metals} from '@utilities';
 
 export const Home: React.FC = () => {
   const navigation: any = useNavigation();

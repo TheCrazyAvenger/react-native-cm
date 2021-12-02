@@ -1,13 +1,8 @@
 import {useRoute} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {
-  HoldingsHeader,
-  MetalsDetails,
-  NewsCard,
-  PriceGraph,
-} from '../../components';
-import {Screen, TextButton} from '../../ui';
+import {HoldingsHeader, MetalsDetails, NewsCard, PriceGraph} from '@components';
+import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 
 export const Holdings: React.FC = () => {

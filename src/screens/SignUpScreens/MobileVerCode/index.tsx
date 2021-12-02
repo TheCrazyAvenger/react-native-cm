@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {KeyboardAvoidingView, Platform, StatusBar, View} from 'react-native';
-import {Description, Title} from '../../../components/Typography';
+import {Description, Title} from '@Typography';
 import {MobileVerCodeForm} from '../../../forms';
-import {Screen} from '../../../ui';
+import {Screen} from '@ui';
 import {styles} from './styles';
 import auth from '@react-native-firebase/auth';
 import {useRoute} from '@react-navigation/core';
-import {Notification} from '../../../components';
 
 export const MobileVerCode: React.FC = () => {
   const route: any = useRoute();

@@ -1,10 +1,10 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
 import {StatusBar, View, Image, ScrollView} from 'react-native';
-import {Notification} from '../../../components';
-import {Description, Title} from '../../../components/Typography';
-import {Screens} from '../../../constants';
-import {Screen, TextButton} from '../../../ui';
+import {Notification} from '@components';
+import {Description, Title} from '@Typography';
+import {Screens} from '@constants';
+import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 
 export const ForgotPassError: React.FC = () => {
@@ -33,9 +33,7 @@ export const ForgotPassError: React.FC = () => {
               Your reset password link has expired. Please click “Resend Email”
               below to receive another email.
             </Description>
-            <Image
-              source={require('../../../assets/images/register/error.png')}
-            />
+            <Image source={require('@assets/images/register/error.png')} />
           </View>
         </ScrollView>
       </View>

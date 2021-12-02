@@ -1,12 +1,11 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useEffect, useState} from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {AutoBuyItemProps, ModalWindow} from '../..';
-import {Delete, Edit, Warning} from '../../../assets/images/settings';
-import {colors, Screens} from '../../../constants';
-import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {deleteAutoBuy} from '../../../store/slices/autoBuySlice';
-import {Description, Illustration, SubtitleMedium} from '../../Typography';
+import {Delete, Edit, Warning} from '@assets/images/settings';
+import {colors, Screens} from '@constants';
+import {useAppDispatch, useAppSelector} from '@hooks';
+import {Description, Illustration, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({

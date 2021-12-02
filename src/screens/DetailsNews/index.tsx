@@ -1,11 +1,11 @@
 import {useRoute} from '@react-navigation/core';
 import React from 'react';
 import {TouchableOpacity, useWindowDimensions, View} from 'react-native';
-import {NewsCard} from '../../components';
-import {Screen} from '../../ui';
+import {NewsCard} from '@components';
+import {Screen} from '@ui';
 import {styles} from './styles';
 import RenderHtml from 'react-native-render-html';
-import {Facebook, LinkedIn, Twitter} from '../../assets/images/news';
+import {Facebook, LinkedIn, Twitter} from '@assets/images/news';
 import {tagStyles} from './tagStyles';
 
 export const DetailsNews: React.FC = () => {

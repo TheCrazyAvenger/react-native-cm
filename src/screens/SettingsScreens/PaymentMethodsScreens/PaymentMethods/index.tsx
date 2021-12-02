@@ -1,19 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StatusBar, View} from 'react-native';
-import {
-  EmptyDataScreen,
-  LoadingItem,
-  Notification,
-  PaymentMethodsItem,
-} from '../../../../components';
-import {Screens} from '../../../../constants';
-import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import {setLoading} from '../../../../store/slices/authSlice';
-import {Screen, TextButton} from '../../../../ui';
+import {EmptyDataScreen, LoadingItem, PaymentMethodsItem} from '@components';
+import {Screens} from '@constants';
+import {useAppDispatch, useAppSelector} from '@hooks';
+import {setLoading} from '@store/slices/authSlice';
+import {Screen, TextButton} from '@ui';
 import database from '@react-native-firebase/database';
-import {getPaymentMethod} from '../../../../store/actions/paymentMethod';
-import {deletePaymentMethods} from '../../../../store/slices/paymentMethodsSlice';
+import {getPaymentMethod} from '@store/actions/paymentMethod';
+import {deletePaymentMethods} from '@store/slices/paymentMethodsSlice';
 
 export const PaymentMethods: React.FC = () => {
   const navigation: any = useNavigation();

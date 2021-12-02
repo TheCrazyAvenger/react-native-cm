@@ -1,15 +1,14 @@
 import React from 'react';
 import {Formik} from 'formik';
-import {ScrollView, View} from 'react-native';
-import {DatePicker, FormInput, ItemPicker} from '../../../components';
-import {profileSchema, verificationSchema} from '../..';
+import {View} from 'react-native';
+import {DatePicker, FormInput, ItemPicker} from '@components';
+import {verificationSchema} from '../..';
 import {styles} from './styles';
-import {useNavigation, useRoute} from '@react-navigation/core';
-import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {TextButton} from '../../../ui';
-import {changeName} from '../../../store/slices/authSlice';
-import {states} from '../../../utilities';
-import {Screens} from '../../../constants';
+import {useNavigation} from '@react-navigation/core';
+import {useAppDispatch} from '@hooks';
+import {TextButton} from '@ui';
+import {states} from '@utilities';
+import {Screens} from '@constants';
 
 export const VerificationForm: React.FC = () => {
   const navigation: any = useNavigation();

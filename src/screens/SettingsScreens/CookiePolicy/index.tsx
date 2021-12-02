@@ -1,13 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Linking, StatusBar, TouchableOpacity, View} from 'react-native';
-import {
-  Subtitle,
-  SubtitleMedium,
-  TitleMedium,
-} from '../../../components/Typography';
-import {Screen} from '../../../ui';
-import {cookieLinks} from '../../../utilities';
+import {SubtitleMedium, TitleMedium} from '@Typography';
+import {Screen} from '@ui';
+import {cookieLinks} from '@utilities';
 import {styles} from './styles';
 
 export const CookiePolicy: React.FC = () => {

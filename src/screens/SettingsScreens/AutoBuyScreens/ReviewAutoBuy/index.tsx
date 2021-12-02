@@ -1,17 +1,13 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {StatusBar, View} from 'react-native';
-import {LoadingItem, Wrapper} from '../../../../components';
-import {
-  Description,
-  SubtitleMedium,
-  TitleMedium,
-} from '../../../../components/Typography';
-import {colors, Screens} from '../../../../constants';
-import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import {setLoading} from '../../../../store/slices/authSlice';
-import {addAutoBuy, updateAutoBuy} from '../../../../store/slices/autoBuySlice';
-import {Screen, TextButton} from '../../../../ui';
+import {LoadingItem, Wrapper} from '@components';
+import {Description, SubtitleMedium, TitleMedium} from '@Typography';
+import {colors, Screens} from '@constants';
+import {useAppDispatch, useAppSelector} from '@hooks';
+import {setLoading} from '@store/slices/authSlice';
+import {addAutoBuy, updateAutoBuy} from '@store/slices/autoBuySlice';
+import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import database from '@react-native-firebase/database';
 

@@ -1,17 +1,11 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StatusBar, View} from 'react-native';
-import {Notification} from '../../../components';
-import {
-  Description,
-  Illustration,
-  Title,
-  Error,
-} from '../../../components/Typography';
-import {Screens} from '../../../constants';
-import {useAppDispatch} from '../../../hooks/hooks';
-import {setLoading} from '../../../store/slices/authSlice';
-import {Screen, TextButton} from '../../../ui';
+import {Notification} from '@components';
+import {Description, Illustration, Title, Error} from '@Typography';
+import {Screens} from '@constants';
+import {useAppDispatch} from '@hooks';
+import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import auth from '@react-native-firebase/auth';
 

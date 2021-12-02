@@ -1,8 +1,8 @@
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {MenuItemSmallProps, Wrapper} from '../..';
-import {colors} from '../../../constants';
-import {SubtitleMedium} from '../../Typography';
+import {colors} from '@constants';
+import {SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const MenuItemSmall: React.FC<MenuItemSmallProps> = ({

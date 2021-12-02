@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {DatePickerProps} from '..';
-import {Error} from '../Typography/Error';
+import {Error, Description, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
-import {Description, SubtitleMedium} from '../Typography';
-import {colors} from '../../constants';
-import {Calendar} from '../../assets/images/settings';
+import {colors} from '@constants';
+import {Calendar} from '@assets/images/settings';
 
 export const DatePicker: React.FC<DatePickerProps> = ({
   value,

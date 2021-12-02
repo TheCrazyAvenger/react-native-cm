@@ -1,12 +1,11 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {Image, StatusBar, View} from 'react-native';
-import {LogoWhiteBlue} from '../../assets/images';
-import {SocialBlock} from '../../components';
-import {Title} from '../../components/Typography';
-import {Screens} from '../../constants';
-import {TextButton} from '../../ui';
-import {Screen} from '../../ui/Screen';
+import {StatusBar, View} from 'react-native';
+import {LogoWhiteBlue} from '@images';
+import {SocialBlock} from '@components';
+import {Title} from '@Typography';
+import {Screens} from '@constants';
+import {TextButton, Screen} from '@ui';
 import {styles} from './styles';
 
 export const Welcome: React.FC = () => {

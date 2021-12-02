@@ -1,16 +1,9 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {Wrapper} from '../..';
-import {colors} from '../../../constants';
-import {getColor, metals} from '../../../utilities';
-import {
-  DescriptionBold,
-  Error,
-  Illustration,
-  Subtitle,
-  SubtitleMedium,
-  TitleMedium,
-} from '../../Typography';
+import {colors} from '@constants';
+import {getColor, metals} from '@utilities';
+import {Illustration, SubtitleMedium, TitleMedium} from '@Typography';
 import {Chart} from '../Chart';
 import {styles} from './styles';
 

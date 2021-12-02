@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {BuyingInfoProps} from '../..';
-import {Description, SubtitleMedium, TitleMedium} from '../../Typography';
+import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const BuyingInfo: React.FC<BuyingInfoProps> = ({

@@ -2,10 +2,9 @@ import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {ModalWindow, PriceAlertListItemProps, Wrapper} from '../..';
-import {Delete, Edit} from '../../../assets/images/settings';
-import {colors, Screens} from '../../../constants';
-import {useAppDispatch} from '../../../hooks/hooks';
-import {deletePriceAlerts} from '../../../store/slices/priceAlertSlice';
+import {Delete, Edit} from '@assets/images/settings';
+import {colors, Screens} from '@constants';
+import {useAppDispatch} from '@hooks';
 import {getMetalImage} from '../../../utilities';
 
 import {Illustration, SubtitleMedium} from '../../Typography';

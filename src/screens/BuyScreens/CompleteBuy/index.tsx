@@ -1,10 +1,10 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {Image, StatusBar, View} from 'react-native';
-import {BuyingInfo, OrderInfo, Wrapper} from '../../../components';
-import {TitleMedium} from '../../../components/Typography';
-import {colors, Screens} from '../../../constants';
-import {Screen, TextButton} from '../../../ui';
+import {BuyingInfo, OrderInfo, Wrapper} from '@components';
+import {TitleMedium} from '@Typography';
+import {colors, Screens} from '@constants';
+import {Screen, TextButton} from '@ui';
 
 import {styles} from './styles';
 

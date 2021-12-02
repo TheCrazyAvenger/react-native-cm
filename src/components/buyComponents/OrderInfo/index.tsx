@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {OrderInfoProps} from '../..';
-import {Description, SubtitleMedium, TitleMedium} from '../../Typography';
+import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const OrderInfo: React.FC<OrderInfoProps> = ({order, status, style}) => {

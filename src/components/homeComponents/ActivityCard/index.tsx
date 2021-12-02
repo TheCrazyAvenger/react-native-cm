@@ -1,10 +1,10 @@
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {ViewMoreButton, Wrapper} from '../..';
-import {colors} from '../../../constants';
-import {useAppSelector} from '../../../hooks/hooks';
-import {activity, getColor, getOperationImage} from '../../../utilities';
-import {Description, SubtitleMedium, TitleMedium} from '../../Typography';
+import {colors} from '@constants';
+import {useAppSelector} from '@hooks';
+import {getColor, getOperationImage} from '@utilities';
+import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const ActivityCard: React.FC = () => {

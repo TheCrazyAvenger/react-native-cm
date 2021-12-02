@@ -3,18 +3,18 @@ import {Formik} from 'formik';
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 
-import {colors, Screens} from '../../../constants';
+import {colors, Screens} from '@constants';
 import {styles} from './styles';
-import {CheckBoxItem, LoadingItem} from '../../../components';
-import {SubtitleMedium} from '../../../components/Typography';
-import {TextButton} from '../../../ui';
+import {CheckBoxItem, LoadingItem} from '@components';
+import {SubtitleMedium} from '@Typography';
+import {TextButton} from '@ui';
 
 import {reviewBuySchema} from '../..';
-import {getMonth} from '../../../utilities';
-import {useAppDispatch, useAppSelector} from '../../../hooks/hooks';
-import {setLoading} from '../../../store/slices/authSlice';
+import {getMonth} from '@utilities';
+import {useAppDispatch, useAppSelector} from '@hooks';
+import {setLoading} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
-import {addOperation} from '../../../store/slices/operationsSlice';
+import {addOperation} from '@store/slices/operationsSlice';
 
 export const ReviewBuyForm: React.FC = () => {
   const navigation: any = useNavigation();
@@ -78,8 +78,6 @@ export const ReviewBuyForm: React.FC = () => {
   if (loading) {
     return <LoadingItem />;
   }
-
-  const goToNext = () => {};
 
   return (
     <Formik
