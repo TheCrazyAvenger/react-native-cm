@@ -1,8 +1,8 @@
 import React from 'react';
 import {View} from 'react-native';
 import {ActionsCardProps} from '../..';
-import {TextButton} from '../../../ui';
-import {SubtitleMedium, TitleMedium} from '../../Typography';
+import {TextButton} from '@ui';
+import {SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const ActionsCard: React.FC<ActionsCardProps> = ({

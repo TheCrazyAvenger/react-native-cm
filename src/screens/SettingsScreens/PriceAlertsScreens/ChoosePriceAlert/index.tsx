@@ -1,11 +1,11 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StatusBar, View} from 'react-native';
-import {PriceAlertItem} from '../../../../components/priceAlertsComponents/PriceAlertItem';
-import {SubtitleMedium} from '../../../../components/Typography';
-import {Screens} from '../../../../constants';
-import {Screen} from '../../../../ui';
-import {metals} from '../../../../utilities';
+import {PriceAlertItem} from '@components';
+import {SubtitleMedium} from '@Typography';
+import {Screens} from '@constants';
+import {Screen} from '@ui';
+import {metals} from '@utilities';
 import {styles} from './styles';
 
 export const ChoosePriceAlert: React.FC = () => {

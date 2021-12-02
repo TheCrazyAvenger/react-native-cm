@@ -1,9 +1,9 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {StatusBar, View, Image, ScrollView} from 'react-native';
-import {Description, Title} from '../../../components/Typography';
-import {Screens} from '../../../constants';
-import {Screen, TextButton} from '../../../ui';
+import {Description, Title} from '@Typography';
+import {Screens} from '@constants';
+import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 
 export const ForgotPassSucces: React.FC = () => {
@@ -33,9 +33,7 @@ export const ForgotPassSucces: React.FC = () => {
               support@cybermetals.com.
             </Description>
           </Description>
-          <Image
-            source={require('../../../assets/images/register/complete.png')}
-          />
+          <Image source={require('@assets/images/register/complete.png')} />
         </View>
       </ScrollView>
 

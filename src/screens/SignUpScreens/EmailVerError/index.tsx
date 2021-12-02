@@ -1,10 +1,10 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Image, ScrollView, StatusBar, View} from 'react-native';
-import {Notification} from '../../../components';
-import {Description, Title} from '../../../components/Typography';
-import {Screens} from '../../../constants';
-import {Screen, TextButton} from '../../../ui';
+import {Notification} from '@components';
+import {Description, Title} from '@Typography';
+import {Screens} from '@constants';
+import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 
 export const EmailVerError: React.FC = () => {

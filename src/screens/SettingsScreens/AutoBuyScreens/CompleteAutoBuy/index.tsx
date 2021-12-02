@@ -1,14 +1,10 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {Image, StatusBar, View} from 'react-native';
-import {Wrapper} from '../../../../components';
-import {
-  Description,
-  SubtitleMedium,
-  TitleMedium,
-} from '../../../../components/Typography';
-import {colors, Screens} from '../../../../constants';
-import {Screen, TextButton} from '../../../../ui';
+import {Wrapper} from '@components';
+import {Description, SubtitleMedium, TitleMedium} from '@Typography';
+import {colors} from '@constants';
+import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 
 export const CompleteAutoBuy: React.FC = () => {

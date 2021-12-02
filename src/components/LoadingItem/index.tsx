@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import LottieView from 'lottie-react-native';
-import {colors} from '../../constants';
+import {colors} from '@constants';
 
 export const LoadingItem: React.FC = () => {
   return (
     <LottieView
-      source={require('../../assets/images/loading.json')}
+      source={require('@assets/images/loading.json')}
       style={{
         backgroundColor: colors.white,
         flex: 1,

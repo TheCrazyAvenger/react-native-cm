@@ -4,17 +4,16 @@ import React, {useRef, useState} from 'react';
 import {
   Animated,
   FlatList,
-  Image,
   StatusBar,
   TouchableOpacity,
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Logo} from '../../assets/images';
-import {OnboardingItem, PaginationFooter} from '../../components';
+import {Logo} from '@assets/images';
+import {OnboardingItem, PaginationFooter} from '@components';
 
-import {Description} from '../../components/Typography';
-import {slides} from '../../utilities';
+import {Description} from '@Typography';
+import {slides} from '@utilities';
 import {styles} from './styles';
 
 export const Onboarding: React.FC = () => {

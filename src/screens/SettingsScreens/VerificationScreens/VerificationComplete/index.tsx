@@ -2,20 +2,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import React from 'react';
 import {ScrollView, StatusBar, View} from 'react-native';
-import {VerificationComplete as VerComplete} from '../../../../assets/images/settings';
-import {
-  Description,
-  Subtitle,
-  SubtitleMedium,
-} from '../../../../components/Typography';
-import {Screens} from '../../../../constants';
-import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import {setLoading, setVerified} from '../../../../store/slices/authSlice';
-import {Screen, TextButton} from '../../../../ui';
+import {VerificationComplete as VerComplete} from '@assets/images/settings';
+import {Subtitle, SubtitleMedium} from '@Typography';
+import {Screens} from '@constants';
+import {useAppDispatch, useAppSelector} from '@hooks';
+import {setLoading, setVerified} from '@store/slices/authSlice';
+import {Screen, TextButton} from '@ui';
 import database from '@react-native-firebase/database';
-
 import {styles} from './styles';
-import {LoadingItem} from '../../../../components';
+import {LoadingItem} from '@components';
 
 export const VerificationComplete: React.FC = () => {
   const navigation: any = useNavigation();

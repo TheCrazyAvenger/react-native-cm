@@ -2,11 +2,19 @@ export enum Screens {
   onBoarding = 'onBoarding',
   welcome = 'welcome',
 
+  bottomTabs = 'bottomTabs',
+
   homeStack = 'homeStack',
   home = 'home',
   holdings = 'holdings',
   portfolio = 'portfolio',
   prices = 'prices',
+
+  buyStack = 'buyStack',
+  chooseBuy = 'chooseBuy',
+  buySetup = 'buySetup',
+  reviewBuy = 'reviewBuy',
+  completeBuy = 'completeBuy',
 
   news = 'news',
   detailsNews = 'detailsNews',

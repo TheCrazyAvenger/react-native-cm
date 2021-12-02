@@ -3,10 +3,10 @@ import {Formik} from 'formik';
 import React from 'react';
 import {ScrollView, View} from 'react-native';
 import {styles} from './styles';
-import {FormInput, ItemPicker} from '../../../components';
-import {TextButton} from '../../../ui';
-import {states} from '../../../utilities';
-import {bankSchema, cardSchema} from '../..';
+import {FormInput, ItemPicker} from '@components';
+import {TextButton} from '@ui';
+import {states} from '@utilities';
+import {bankSchema} from '../..';
 
 export const BankForm: React.FC<{
   onSubmit: (...args: any) => void;

@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {Image, Modal, TouchableOpacity, View} from 'react-native';
-import {MenuModalItemProps, ModalWindowProps} from '..';
-import {TextButton} from '../../ui';
-import {Description, Illustration, Subtitle} from '../Typography';
+import React from 'react';
+import {Modal, View} from 'react-native';
+import {ModalWindowProps} from '..';
+import {TextButton} from '@ui';
+import {Description, Subtitle} from '@Typography';
 
 import {styles} from './styles';
 
@@ -32,7 +32,9 @@ export const ModalWindow: React.FC<ModalWindowProps> = ({
               onPress={onConfirm}
             />
 
-            <TextButton title={cancelTitle} onPress={onCancel} />
+            {onCancel && cancelTitle && (
+              <TextButton title={cancelTitle} onPress={onCancel} />
+            )}
           </View>
         </View>
       </View>

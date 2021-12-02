@@ -1,14 +1,13 @@
 import React from 'react';
 import {Formik} from 'formik';
 import {ScrollView, View} from 'react-native';
-import {FormInput} from '../../../components';
 import {introduceSchema} from '../..';
-import {CheckBoxItem, PaginationFooter} from '../../../components';
-import {slides} from '../../../utilities';
+import {CheckBoxItem, PaginationFooter, FormInput} from '@components';
+import {slides} from '@utilities';
 import {styles} from './styles';
-import {useNavigation, useRoute} from '@react-navigation/core';
-import {colors, Screens} from '../../../constants';
-import {Description} from '../../../components/Typography';
+import {useNavigation} from '@react-navigation/core';
+import {colors, Screens} from '@constants';
+import {Description} from '@Typography';
 
 export const IntroduceForm: React.FC = () => {
   const navigation: any = useNavigation();

@@ -2,7 +2,7 @@ import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {PriceAlertItemProps} from '../..';
 
-import {Subtitle} from '../../Typography';
+import {Subtitle} from '@Typography';
 import {styles} from './styles';
 
 export const PriceAlertItem: React.FC<PriceAlertItemProps> = ({

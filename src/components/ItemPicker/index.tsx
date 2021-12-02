@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {Image, View} from 'react-native';
 import {ItemPickerProps} from '..';
 import {Dropdown} from 'react-native-element-dropdown';
-import {colors} from '../../constants';
-import {Description, SubtitleMedium, Error} from '../Typography';
+import {colors} from '@constants';
+import {Description, SubtitleMedium, Error} from '@Typography';
 import {styles} from './styles';
 
 export const ItemPicker: React.FC<ItemPickerProps> = ({

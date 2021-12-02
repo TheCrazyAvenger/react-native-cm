@@ -1,8 +1,8 @@
 import React from 'react';
 import {useWindowDimensions, View} from 'react-native';
 import {PricesChart, PricesItemProps, Wrapper} from '../..';
-import {colors} from '../../../constants';
-import {Description, Subtitle, SubtitleMedium} from '../../Typography';
+import {colors} from '@constants';
+import {Description, Subtitle} from '@Typography';
 import {styles} from './styles';
 
 export const PricesItem: React.FC<PricesItemProps> = ({data}) => {

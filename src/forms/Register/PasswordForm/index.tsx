@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
 import {Formik} from 'formik';
 import {Image, ScrollView, TouchableOpacity, View} from 'react-native';
-import {FormInput, PasswordItem} from '../../../components';
+import {FormInput, PasswordItem} from '@components';
 import {passwordSchema} from '../..';
-import {PaginationFooter} from '../../../components';
-import {passwordConditions, slides} from '../../../utilities';
+import {PaginationFooter} from '@components';
+import {passwordConditions, slides} from '@utilities';
 import {styles} from './styles';
 import {useNavigation, useRoute} from '@react-navigation/core';
-import {colors, Screens} from '../../../constants';
-import {TextButton} from '../../../ui';
-import {useAppSelector} from '../../../hooks/hooks';
+import {colors, Screens} from '@constants';
+import {TextButton} from '@ui';
+import {useAppSelector} from '@hooks';
 import * as yup from 'yup';
 
 export const PasswordForm: React.FC<{

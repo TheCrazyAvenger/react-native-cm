@@ -7,18 +7,18 @@ import {
   MetalPicker,
   PriceAlertListItem,
   Wrapper,
-} from '../../../../components';
-import {colors, Screens} from '../../../../constants';
-import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import {getPriceAlerts} from '../../../../store/actions/priceAlerts';
-import {setLoading} from '../../../../store/slices/authSlice';
-import {deletePriceAlerts} from '../../../../store/slices/priceAlertSlice';
-import {Screen, TextButton} from '../../../../ui';
-import {metals} from '../../../../utilities';
+} from '@components';
+import {colors, Screens} from '@constants';
+import {useAppDispatch, useAppSelector} from '@hooks';
+import {getPriceAlerts} from '@store/actions/priceAlerts';
+import {setLoading} from '@store/slices/authSlice';
+import {deletePriceAlerts} from '@store/slices/priceAlertSlice';
+import {Screen, TextButton} from '@ui';
+import {metals} from '@utilities';
 import database from '@react-native-firebase/database';
-import {ShareRefer} from '../../../../assets/images/settings';
+import {ShareRefer} from '@assets/images/settings';
 import {styles} from './styles';
-import {TitleMedium} from '../../../../components/Typography';
+import {TitleMedium} from '@Typography';
 
 export const PriceAlerts: React.FC = () => {
   const navigation: any = useNavigation();

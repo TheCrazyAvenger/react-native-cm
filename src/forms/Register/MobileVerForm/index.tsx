@@ -1,13 +1,12 @@
 import React from 'react';
 import {Formik} from 'formik';
 import {ScrollView, View} from 'react-native';
-import {FormInput} from '../../../components';
+import {FormInput, PaginationFooter} from '@components';
 import {mobileSchema} from '../..';
-import {PaginationFooter} from '../../../components';
-import {slides} from '../../../utilities';
+import {slides} from '@utilities';
 import {styles} from './styles';
 import {useNavigation, useRoute} from '@react-navigation/core';
-import {Screens} from '../../../constants';
+import {Screens} from '@constants';
 
 export const MobileVerForm: React.FC = () => {
   const navigation: any = useNavigation();

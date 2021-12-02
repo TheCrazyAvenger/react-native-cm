@@ -1,20 +1,17 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {StatusBar, View} from 'react-native';
-import {LoadingItem, Wrapper} from '../../../../components';
-import {Subtitle, SubtitleMedium} from '../../../../components/Typography';
-import {colors} from '../../../../constants';
+import {LoadingItem, Wrapper} from '@components';
+import {Subtitle, SubtitleMedium} from '@Typography';
+import {colors} from '@constants';
 import {PriceAlertsSetUpForm} from '../../../../forms';
-import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import {
-  addAlert,
-  updatePriceAlerts,
-} from '../../../../store/slices/priceAlertSlice';
-import {Screen} from '../../../../ui';
-import {metals} from '../../../../utilities';
+import {useAppDispatch, useAppSelector} from '@hooks';
+import {addAlert, updatePriceAlerts} from '@store/slices/priceAlertSlice';
+import {Screen} from '@ui';
+import {metals} from '@utilities';
 import {styles} from './styles';
 import database from '@react-native-firebase/database';
-import {setLoading} from '../../../../store/slices/authSlice';
+import {setLoading} from '@store/slices/authSlice';
 
 export const PriceAlertSetUp: React.FC = () => {
   const navigation: any = useNavigation();

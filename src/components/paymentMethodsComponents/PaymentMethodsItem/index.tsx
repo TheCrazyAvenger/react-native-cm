@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {ModalWindow, PaymentMethodsItemProps, Wrapper} from '../..';
-import {Delete, Warning} from '../../../assets/images/settings';
-import {colors} from '../../../constants';
+import {Delete, Warning} from '@assets/images/settings';
+import {colors} from '@constants';
 import {
   getCardImage,
   getCardType,
   getPaymentImage,
   setExpiring,
-} from '../../../utilities';
+} from '@utilities';
 
-import {Illustration, SubtitleMedium} from '../../Typography';
+import {Illustration, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const PaymentMethodsItem: React.FC<PaymentMethodsItemProps> = ({

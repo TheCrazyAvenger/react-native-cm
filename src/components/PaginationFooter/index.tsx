@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {PaginationFooterProps, Paginator} from '..';
-import {TextButton} from '../../ui';
+import {TextButton} from '@ui';
 import {styles} from './styles';
 
 export const PaginationFooter: React.FC<PaginationFooterProps> = ({

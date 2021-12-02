@@ -1,7 +1,7 @@
 import React from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {MenuModalItemProps} from '..';
-import {Illustration, Subtitle} from '../Typography';
+import {Illustration, Subtitle} from '@Typography';
 
 import {styles} from './styles';
 

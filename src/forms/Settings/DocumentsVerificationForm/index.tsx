@@ -1,13 +1,13 @@
 import React from 'react';
 import {Formik} from 'formik';
 import {ScrollView, View} from 'react-native';
-import {FormImagePicker, ItemPicker} from '../../../components';
+import {FormImagePicker, ItemPicker} from '@components';
 import {documentsVerificationSchema} from '../..';
 import {styles} from './styles';
 import {useNavigation, useRoute} from '@react-navigation/core';
-import {TextButton} from '../../../ui';
-import {colors, Screens} from '../../../constants';
-import {SubtitleMedium, Error} from '../../../components/Typography';
+import {TextButton} from '@ui';
+import {colors, Screens} from '@constants';
+import {SubtitleMedium, Error} from '@Typography';
 
 export const DocumentsVerificationForm: React.FC = () => {
   const navigation: any = useNavigation();

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
-import {getColor, metals} from '../../../utilities';
-import {Illustration, Subtitle} from '../../Typography';
+import {getColor, metals} from '@utilities';
+import {Illustration, Subtitle} from '@Typography';
 import {styles} from './styles';
 
 export const MetalsDetails: React.FC<{id: number}> = ({id}) => {

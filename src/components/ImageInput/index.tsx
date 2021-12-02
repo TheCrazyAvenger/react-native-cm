@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Image, Alert, View, TouchableOpacity} from 'react-native';
 import {ImageInputProps} from '..';
 import {styles} from './styles';
 import ImagePicker from 'react-native-image-crop-picker';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {colors} from '../../constants';
-import {Close, Plus} from '../../assets/images/settings';
-import {SubtitleMedium} from '../Typography';
+import {Close, Plus} from '@assets/images/settings';
+import {SubtitleMedium} from '@Typography';
 
 export const ImageInput: React.FC<ImageInputProps> = ({uri, onChange}) => {
   const handleImage = () => {

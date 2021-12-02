@@ -17,6 +17,7 @@ import {AutoBuyStack} from '../AutoBuyStack';
 import {PriceAlertsStack} from '../PriceAlertsStack';
 import {VerificationStack} from '../VerificationStack';
 import {PaymentMethodsStack} from '../PaymentMethodsStack';
+import {BuyStack} from '../BuyStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,7 +25,7 @@ export const MainNavigator: React.FC = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name={'bottomTabs'}
+        name={Screens.bottomTabs}
         options={{
           headerShown: false,
         }}
@@ -93,6 +94,19 @@ export const MainNavigator: React.FC = () => {
           name={Screens.storageFees}
           options={{title: 'Storage Fees'}}
           component={StorageFees}
+        />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={{
+          headerLeft: () => <BackButton />,
+          headerTitleAlign: 'center',
+          headerTitleStyle: styles.headerTitleStyle,
+          headerShadowVisible: false,
+        }}>
+        <Stack.Screen
+          name={Screens.buyStack}
+          options={{title: 'Buy'}}
+          component={BuyStack}
         />
       </Stack.Group>
     </Stack.Navigator>

@@ -2,14 +2,15 @@ import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {LineChart, Path} from 'react-native-svg-charts';
 import {ChartProps, Wrapper} from '../..';
-import {colors} from '../../../constants';
-import {time} from '../../../utilities';
-import {SubtitleMedium} from '../../Typography';
+import {colors} from '@constants';
+import {time} from '@utilities';
+import {SubtitleMedium} from '@Typography';
 
 //@ts-ignore
 const Shadow: React.FC = ({line, lineColor}: {line: any; lineColor: any}) => (
   <Path
     key={'shadow'}
+    //@ts-ignore
     y={10}
     //@ts-ignore
     d={line}

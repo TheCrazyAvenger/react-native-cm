@@ -1,9 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
 import {ProductItemProps, Wrapper} from '../..';
-import {colors} from '../../../constants';
-import {TextButton} from '../../../ui';
-import {Illustration, Subtitle, SubtitleMedium} from '../../Typography';
+import {colors} from '@constants';
+import {TextButton} from '@ui';
+import {Illustration, Subtitle, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const ProductItem: React.FC<ProductItemProps> = ({

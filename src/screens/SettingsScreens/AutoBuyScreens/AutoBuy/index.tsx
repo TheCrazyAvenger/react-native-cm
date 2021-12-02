@@ -1,21 +1,16 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {StatusBar, View} from 'react-native';
-import {
-  AutoBuyItem,
-  EmptyDataScreen,
-  LoadingItem,
-  Wrapper,
-} from '../../../../components';
-import {Subtitle, SubtitleMedium} from '../../../../components/Typography';
-import {colors, Screens} from '../../../../constants';
-import {useAppDispatch, useAppSelector} from '../../../../hooks/hooks';
-import {getAutoBuy} from '../../../../store/actions/autoBuy';
-import {setLoading} from '../../../../store/slices/authSlice';
-import {Screen, TextButton} from '../../../../ui';
+import {AutoBuyItem, EmptyDataScreen, LoadingItem, Wrapper} from '@components';
+import {Subtitle, SubtitleMedium} from '@Typography';
+import {colors, Screens} from '@constants';
+import {useAppDispatch, useAppSelector} from '@hooks';
+import {getAutoBuy} from '@store/actions/autoBuy';
+import {setLoading} from '@store/slices/authSlice';
+import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import database from '@react-native-firebase/database';
-import {deleteAutoBuy} from '../../../../store/slices/autoBuySlice';
+import {deleteAutoBuy} from '@store/slices/autoBuySlice';
 
 export const AutoBuy: React.FC = () => {
   const navigation: any = useNavigation();

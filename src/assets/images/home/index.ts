@@ -4,4 +4,6 @@ import Deposit from './deposit.svg';
 import Redeem from './redeemed.svg';
 import WithDraw from './withdraw.svg';
 
-export {Buy, Sold, Deposit, Redeem, WithDraw};
+import Swiper from './swiper.svg';
+
+export {Buy, Sold, Deposit, Redeem, WithDraw, Swiper};

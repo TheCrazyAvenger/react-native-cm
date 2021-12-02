@@ -1,9 +1,9 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import {Input} from 'react-native-elements';
 import {FormInputProps} from '..';
-import {Error} from '../Typography/Error';
-import {colors} from '../../constants';
+import {Error} from '@Typography';
+import {colors} from '@constants';
 import {styles} from './styles';
 
 export const FormInput: React.FC<FormInputProps> = ({
@@ -19,6 +19,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   containerStyle,
   secureTextEntry,
   rightIcon,
+  leftIcon,
   onInput,
   disabled,
 }) => {
@@ -43,6 +44,7 @@ export const FormInput: React.FC<FormInputProps> = ({
         onTextInput={onInput}
         secureTextEntry={secureTextEntry}
         placeholder={plaseholder}
+        leftIcon={leftIcon}
         onChangeText={onChangeText}
         placeholderTextColor={colors.placeholder}
         inputStyle={styles.inputStyle}

@@ -1,24 +1,15 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {autoBuySchema} from '..';
-import {Screens} from '../../constants';
+import {Screens} from '@constants';
 import {styles} from './styles';
-import {
-  CheckBoxItem,
-  DatePicker,
-  FormInput,
-  ItemPicker,
-} from '../../components';
-import {getNextYear} from '../../utilities';
-import {
-  Description,
-  SubtitleMedium,
-  TitleMedium,
-} from '../../components/Typography';
-import {TextButton} from '../../ui';
-import {CashBalance} from '../../assets/images/settings';
+import {CheckBoxItem, DatePicker, FormInput, ItemPicker} from '@components';
+import {getNextYear} from '@utilities';
+import {Description, SubtitleMedium, TitleMedium} from '@Typography';
+import {TextButton} from '@ui';
+import {CashBalance} from '@assets/images/settings';
 
 export const AutoBuySetUpForm: React.FC = () => {
   const navigation: any = useNavigation();

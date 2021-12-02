@@ -234,3 +234,17 @@ export const bankSchema = yup.object().shape({
     .matches(/[0-9]{5}/, 'Please enter correct code')
     .required('Please enter Code'),
 });
+
+export const buySchema = yup.object().shape({
+  amount: yup
+    .number()
+    .min(1, 'Please enter Amount')
+    .required('Please enter Amount'),
+  amountOz: yup.string(),
+  frequency: yup.string().required('Please enter Frequency'),
+  paymentMethod: yup.string().required('Please enter Payment Method'),
+});
+
+export const reviewBuySchema = yup.object().shape({
+  checkBox: yup.boolean().required().oneOf([true]),
+});

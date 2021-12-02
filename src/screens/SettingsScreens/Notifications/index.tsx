@@ -1,15 +1,9 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {
-  News,
-  Promotions,
-  TransactionsUpdate,
-} from '../../../assets/images/settings';
-
-import {MenuItem} from '../../../components';
-
-import {Screen} from '../../../ui';
+import {News, Promotions, TransactionsUpdate} from '@assets/images/settings';
+import {MenuItem} from '@components';
+import {Screen} from '@ui';
 
 export const Notifications: React.FC = () => {
   const navigation: any = useNavigation();

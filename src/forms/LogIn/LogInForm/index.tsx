@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
 import {Formik} from 'formik';
 import {Image, TouchableOpacity, View} from 'react-native';
-import {FormInput} from '../../../components';
+import {FormInput} from '@components';
 import {logInSchema} from '../..';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/core';
-import {Screens} from '../../../constants';
-import {Description} from '../../../components/Typography';
-import {TextButton} from '../../../ui';
-import {useAppDispatch} from '../../../hooks/hooks';
+import {Screens} from '@constants';
+import {Description} from '@Typography';
+import {TextButton} from '@ui';
 
 export const LogInForm: React.FC<{onSubmit: (...args: any) => void}> = ({
   onSubmit,

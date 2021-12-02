@@ -9,6 +9,9 @@ export * from './LogIn/ForgotPassForm';
 
 export * from './AutoBuySetUpForm';
 
+export * from './buyForms/BuySetUpForm';
+export * from './buyForms/ReviewBuyForm';
+
 export * from './PriceAlertsSetUpForm';
 
 export * from './paymentMethodsForms/PaymentMethodsSetUpForm';
