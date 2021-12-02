@@ -16,6 +16,8 @@ export const getPriceAlerts = createAsyncThunk(
 
           const data = responce;
 
+          console.log(data);
+
           const priceAlertsList: any = {
             Gold: [],
             Silver: [],
@@ -23,7 +25,7 @@ export const getPriceAlerts = createAsyncThunk(
             Platinum: [],
           };
 
-          [...Object.values(data)].map((item: any, i: number) => {
+          [...Object.values(data)].map((item: any) => {
             [...item].map((metals: any, i: number) => {
               if (metals !== null)
                 return priceAlertsList[metals.metal].push(metals);

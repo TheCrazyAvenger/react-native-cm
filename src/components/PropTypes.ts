@@ -189,6 +189,7 @@ export type ItemPickerProps = {
   onChange: (value: string) => void;
   items: {label: string; value: string}[];
   showArrow?: boolean;
+  placeholderStyle?: {[key: string]: number | string};
   LeftIcon?: any;
 };
 
@@ -252,6 +253,7 @@ export type PaymentMethodsItemProps = {
   id: number;
   expiring: string;
   style?: {[key: string]: number | string};
+  label: string;
   onRemove: (...args: any) => void;
   type: string | null;
 };

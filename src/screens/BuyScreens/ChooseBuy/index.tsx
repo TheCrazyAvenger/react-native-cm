@@ -1,4 +1,4 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {StatusBar} from 'react-native';
 import {ProductItem} from '@components';
@@ -8,6 +8,7 @@ import {buy} from '@utilities';
 
 export const ChooseBuy: React.FC = () => {
   const navigation: any = useNavigation();
+  const route: any = useRoute();
 
   return (
     <Screen style={{paddingVertical: 24}}>

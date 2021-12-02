@@ -13,6 +13,7 @@ export * from './FormImagePicker';
 export * from './ImageInputList';
 export * from './ImageInput';
 export * from './LoadingItem';
+export * from './PaymentMethodPicker';
 
 export * from './Wrapper';
 export * from './ModalWindow';

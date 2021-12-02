@@ -45,7 +45,7 @@ export const PriceAlertSetUp: React.FC = () => {
       value,
       date: type ? prevValues.date : date.toLocaleDateString(),
       time: type ? prevValues.time : time,
-      id: type ? prevValues.id : priceAlerts[metal].length + 1,
+      id: type ? prevValues.id : Math.floor(Math.random() * 10) + 1,
     };
 
     dispatch(setLoading(true));

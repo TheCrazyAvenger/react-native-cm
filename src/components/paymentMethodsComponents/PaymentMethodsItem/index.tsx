@@ -20,6 +20,7 @@ export const PaymentMethodsItem: React.FC<PaymentMethodsItemProps> = ({
   type,
   id,
   style,
+  label,
   onRemove,
 }) => {
   const [visibleModal, setVisibleModal] = useState(false);
@@ -38,13 +39,13 @@ export const PaymentMethodsItem: React.FC<PaymentMethodsItemProps> = ({
         text={`Are you sure you want to remove linked ${
           type ? getCardType(type) : ''
         } ${paymentMethod} ${
-          paymentMethod === 'PayPal' || paymentMethod === 'ACH/eCheck'
+          paymentMethod === 'payPal' || paymentMethod === 'eCheck'
             ? cardNumber
             : `ending with ${cardNumber.split('').splice(-4).join('')}`
         }?`}
         confirmTitle="Remove"
         cancelTitle="Cancel"
-        onConfirm={() => onRemove(id)}
+        onConfirm={() => onRemove(paymentMethod, id)}
         onCancel={() => setVisibleModal(false)}
         visible={visibleModal}
       />
@@ -58,7 +59,7 @@ export const PaymentMethodsItem: React.FC<PaymentMethodsItemProps> = ({
             <View style={styles.row}>
               <SubtitleMedium
                 style={{fontFamily: 'OpenSans-Bold', marginRight: 5}}>
-                {paymentMethod}
+                {label}
               </SubtitleMedium>
               {isExpiried && <Warning />}
             </View>
@@ -70,7 +71,7 @@ export const PaymentMethodsItem: React.FC<PaymentMethodsItemProps> = ({
               )}
               {cardNumber && (
                 <Illustration style={{marginRight: 10}}>
-                  {paymentMethod === 'PayPal' || paymentMethod === 'ACH/eCheck'
+                  {paymentMethod === 'payPal' || paymentMethod === 'eCheck'
                     ? cardNumber
                     : `Ending with ${cardNumber.split('').splice(-4).join('')}`}
                 </Illustration>

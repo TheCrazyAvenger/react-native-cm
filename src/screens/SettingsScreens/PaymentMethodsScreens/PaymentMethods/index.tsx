@@ -31,9 +31,11 @@ export const PaymentMethods: React.FC = () => {
     dispatch(setLoading(false));
   };
 
-  const removeItem = async (id: number) => {
-    await database().ref(`/users/${token}/paymentMethods/${id}`).remove();
-    await dispatch(deletePaymentMethods(id));
+  const removeItem = async (type: string, id: number) => {
+    await database()
+      .ref(`/users/${token}/paymentMethods/${type}/${id}`)
+      .remove();
+    await dispatch(deletePaymentMethods({paymentMethod: type, id}));
   };
 
   if (loading) {
@@ -62,19 +64,24 @@ export const PaymentMethods: React.FC = () => {
       <ScrollView showsVerticalScrollIndicator={false} style={{marginTop: 25}}>
         {paymentMethods && (
           <View style={{marginBottom: 20}}>
-            {paymentMethods.map(
-              (item: any) =>
-                item !== null && (
-                  <PaymentMethodsItem
-                    key={item.id}
-                    type={item.cardType ? item.cardType : 'Unknown'}
-                    id={item.id}
-                    expiring={item.expirationDate ? item.expirationDate : null}
-                    paymentMethod={item.paymentMethod}
-                    cardNumber={item.cardNumber}
-                    onRemove={removeItem}
-                  />
-                ),
+            {[...Object.values(paymentMethods)].map((paymentMethod: any) =>
+              paymentMethod.map(
+                (item: any) =>
+                  item !== null && (
+                    <PaymentMethodsItem
+                      key={item.id}
+                      type={item.cardType ? item.cardType : 'Unknown'}
+                      id={item.id}
+                      expiring={
+                        item.expirationDate ? item.expirationDate : null
+                      }
+                      label={item.label}
+                      paymentMethod={item.paymentMethod}
+                      cardNumber={item.cardNumber}
+                      onRemove={removeItem}
+                    />
+                  ),
+              ),
             )}
           </View>
         )}

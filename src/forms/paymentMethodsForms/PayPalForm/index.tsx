@@ -8,7 +8,8 @@ import {useAppSelector} from '@hooks';
 export const PayPalForm: React.FC<{
   onSubmit: (...args: any) => void;
   type: string;
-}> = ({onSubmit, type}) => {
+  label: string;
+}> = ({onSubmit, type, label}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
@@ -23,6 +24,7 @@ export const PayPalForm: React.FC<{
           onSubmit({
             paymentMethod: type,
             cardNumber: `${firstName}.${lastName}@work.com`,
+            label,
           })
         }
         style={styles.button}

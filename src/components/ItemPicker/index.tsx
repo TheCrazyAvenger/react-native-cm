@@ -14,6 +14,7 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
   labelStyle,
   errorStyle,
   errorMessage,
+  placeholderStyle,
   isTouched,
   items,
   showArrow = true,
@@ -54,7 +55,7 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
           ...styles.placeholderStyle,
           color: value === '' ? colors.placeholder : colors.black,
         }}
-        selectedTextStyle={styles.selectedTextStyle}
+        selectedTextStyle={{...styles.selectedTextStyle, ...placeholderStyle}}
         data={items}
         maxHeight={280}
         labelField="label"

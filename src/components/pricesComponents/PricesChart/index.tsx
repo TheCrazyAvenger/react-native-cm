@@ -4,6 +4,8 @@ import {LineChart, Path} from 'react-native-svg-charts';
 import {PricesChartProps} from '../..';
 import {TextButton} from '@ui';
 import {styles} from './styles';
+import {Screens} from '@constants';
+import {useNavigation} from '@react-navigation/native';
 
 //@ts-ignore
 const Shadow: React.FC = ({line, lineColor}: {line: any; lineColor: any}) => (
@@ -24,6 +26,8 @@ export const PricesChart: React.FC<PricesChartProps> = ({
   chartMetal,
   lineColor,
 }) => {
+  const navigation: any = useNavigation();
+
   const data = [
     [10, 10, 4, 91, 35, 53, -53, 24, 50, 35, 53, -53, 24, 50, -20, 10],
     [10, 10, 40, 95, -4, -24, 5, 45, 50, 91, 35, 53, -53, -20, 10],
@@ -48,7 +52,15 @@ export const PricesChart: React.FC<PricesChartProps> = ({
           <TextButton title="Sell" onPress={() => console.log('Sell')} />
         </View>
         <View style={{width: '47%'}}>
-          <TextButton title="Buy" solid onPress={() => console.log('Buy')} />
+          <TextButton
+            title="Buy"
+            solid
+            onPress={() =>
+              navigation.navigate(Screens.buyStack, {
+                metalType: chartMetal - 1,
+              })
+            }
+          />
         </View>
       </View>
     </View>

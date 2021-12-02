@@ -26,10 +26,12 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
   const onSubmit = async (values: any) => {
     dispatch(setLoading(true));
 
-    const id = paymentMethods.length + 1;
+    const {paymentMethod} = values;
+
+    const id = paymentMethods[paymentMethod].length + 1;
 
     await database()
-      .ref(`/users/${token}/paymentMethods/${id}`)
+      .ref(`/users/${token}/paymentMethods/${paymentMethod}/${id}`)
       .set({...values, id});
 
     await dispatch(addPaymentMethods({...values, id}));
@@ -43,7 +45,7 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
     <Formik
       validationSchema={paymentMethodSchema}
       initialValues={{
-        paymentMethod: 'Credit/Debit Card',
+        paymentMethod: 'creditCard',
       }}
       onSubmit={values => onSubmit(values)}>
       {({
@@ -60,27 +62,35 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
               LeftIcon={getPaymentImage(values.paymentMethod)}
               label="Payment Method"
               items={[
-                {label: 'Credit/Debit Card', value: 'Credit/Debit Card'},
-                {label: 'Bank Wire', value: 'Bank Wire'},
-                {label: 'PayPal', value: 'PayPal'},
-                {label: 'ACH/eCheck', value: 'ACH/eCheck'},
+                {label: 'Credit/Debit Card', value: 'creditCard'},
+                {label: 'Bank Wire', value: 'bankWire'},
+                {label: 'PayPal', value: 'payPal'},
+                {label: 'ACH/eCheck', value: 'eCheck'},
               ]}
               errorMessage={errors.paymentMethod}
               isTouched={touched.paymentMethod}
               value={values.paymentMethod}
               onChange={value => setFieldValue('paymentMethod', value)}
             />
-            {values.paymentMethod === 'Credit/Debit Card' && (
-              <CardForm onSubmit={onSubmit} type="Credit/Debit Card" />
+            {values.paymentMethod === 'creditCard' && (
+              <CardForm
+                onSubmit={onSubmit}
+                type="creditCard"
+                label="Credit/Debit Card"
+              />
             )}
-            {values.paymentMethod === 'Bank Wire' && (
-              <BankForm onSubmit={onSubmit} type="Bank Wire" />
+            {values.paymentMethod === 'bankWire' && (
+              <BankForm onSubmit={onSubmit} type="bankWire" label="Bank Wire" />
             )}
-            {values.paymentMethod === 'PayPal' && (
-              <PayPalForm onSubmit={onSubmit} type="PayPal" />
+            {values.paymentMethod === 'payPal' && (
+              <PayPalForm onSubmit={onSubmit} type="payPal" label="PayPal" />
             )}
-            {values.paymentMethod === 'ACH/eCheck' && (
-              <ECheckForm onSubmit={onSubmit} type="ACH/eCheck" />
+            {values.paymentMethod === 'eCheck' && (
+              <ECheckForm
+                onSubmit={onSubmit}
+                type="eCheck"
+                label="ACH/eCheck"
+              />
             )}
           </View>
         );

@@ -10,7 +10,8 @@ import {colors} from '@constants';
 export const ECheckForm: React.FC<{
   onSubmit: (...args: any) => void;
   type: string;
-}> = ({onSubmit, type}) => {
+  label: string;
+}> = ({onSubmit, type, label}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
@@ -40,6 +41,7 @@ export const ECheckForm: React.FC<{
             onSubmit({
               paymentMethod: type,
               cardNumber: 'CHASE CHECKING ACCOUNT ending with 1234',
+              label,
             })
           }
           title="Log In to Your Online
