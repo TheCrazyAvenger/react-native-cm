@@ -13,7 +13,7 @@ export const PaginationFooter: React.FC<PaginationFooterProps> = ({
 }) => {
   return (
     <View style={{...styles.footer, ...style}}>
-      <Paginator data={data} currentIndex={currentIndex} />
+      {/* <Paginator data={data} currentIndex={currentIndex} /> */}
       <TextButton
         title={title}
         solid

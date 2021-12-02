@@ -26,8 +26,6 @@ export const ActivityCard: React.FC = () => {
     });
   });
 
-  console.log(operationsLength);
-
   return (
     <View style={styles.container}>
       <TitleMedium style={{marginBottom: 20}}>Recent Activity</TitleMedium>

@@ -5,6 +5,12 @@ export const styles = StyleSheet.create({
     marginTop: 25,
     marginBottom: 100,
   },
+  header: {
+    marginBottom: 20,
+  },
+  date: {
+    marginTop: 8,
+  },
   socials: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {StatusBar} from 'react-native';
+import {Alert, Button, StatusBar, View} from 'react-native';
 import {
   ActionsCard,
   ActivityCard,
@@ -32,6 +32,10 @@ export const Home: React.FC = () => {
           <MetalsCard key={item.metal} data={item} />
         ))}
 
+        {/* <View style={{marginTop: 50}}>
+          <Button onPress={onShare} title="Share" />
+        </View> */}
+
         {operations.buy.length === 0 ? (
           <ActionsCard
             title="Start Trading"
@@ -51,7 +55,7 @@ export const Home: React.FC = () => {
           />
         ) : null}
         <ActivityCard />
-        <NewsCard />
+        <NewsCard size="Small" />
       </Screen>
     </Screen>
   );

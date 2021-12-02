@@ -21,7 +21,6 @@ export const priceAlertSlice = createSlice({
     addAlert: (state, action: PayloadAction<any>) =>
       void state.priceAlerts[action.payload.metal].push(action.payload),
     deletePriceAlerts: (state, action: PayloadAction<any>) => {
-      console.log(action.payload.metal);
       state.priceAlerts[action.payload.metal] = state.priceAlerts[
         action.payload.metal
       ].filter((item: any) => item.id !== action.payload.id);
