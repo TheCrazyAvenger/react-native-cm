@@ -6,6 +6,7 @@ import {
   ChooseBuy,
   CompleteBuy,
   PaymentMethodsSetUp,
+  Profile,
   ReviewBuy,
 } from '@screens';
 import {BackButton} from '../BackButton';
@@ -31,6 +32,7 @@ export const BuyStack: React.FC = () => {
         name={Screens.paymentMethodsSetUp}
         component={PaymentMethodsSetUp}
       />
+      <Stack.Screen name={Screens.profile} component={Profile} />
     </Stack.Navigator>
   );
 };

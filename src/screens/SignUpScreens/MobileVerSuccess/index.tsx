@@ -36,6 +36,18 @@ export const MobileVerSuccess: React.FC = () => {
             verified: false,
             password: password,
             token: uid,
+            legalAdress: {
+              streetAdress: null,
+              city: null,
+              state: null,
+              postalCode: null,
+            },
+            shippingAdress: {
+              streetAdress: null,
+              city: null,
+              state: null,
+              postalCode: null,
+            },
           });
 
         await AsyncStorage.setItem('token', JSON.stringify(uid));

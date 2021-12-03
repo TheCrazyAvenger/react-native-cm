@@ -18,6 +18,7 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
   errorMessage,
   placeholderStyle,
   isTouched,
+  disabled,
   items,
   showArrow = true,
   LeftIcon,
@@ -58,9 +59,14 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
           ...styles.placeholderStyle,
           color: value === '' ? colors.placeholder : colors.black,
         }}
-        selectedTextStyle={{...styles.selectedTextStyle, ...placeholderStyle}}
+        selectedTextStyle={{
+          ...styles.selectedTextStyle,
+          ...placeholderStyle,
+          color: disabled ? colors.placeholder : colors.black,
+        }}
         data={items}
         maxHeight={maxHeight ? maxHeight : 280}
+        disable={disabled}
         labelField="label"
         valueField="value"
         placeholder={value !== '' ? value : 'Select one'}

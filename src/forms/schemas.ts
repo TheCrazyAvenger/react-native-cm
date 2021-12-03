@@ -95,6 +95,36 @@ export const profileSchema = yup.object().shape({
     .required('Please enter your Last Name')
     .max(16, 'The field should be less than or equal to 16 symbols ')
     .min(2, 'This field should contain at least 2 symbols'),
+  legalStreetAdress: yup
+    .string()
+    .required('Please enter your Legal Adress')
+    .max(30, 'The field should be less than or equal to 30 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  legalCity: yup
+    .string()
+    .required('Please enter your Legal City')
+    .max(30, 'The field should be less than or equal to 30 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  legalState: yup.string().required('Please enter your Legal State'),
+  legalCode: yup
+    .number()
+    .min(5, 'At least 5 numbers')
+    .required('Please enter Postal Code'),
+  shippingStreetAdress: yup
+    .string()
+    .required('Please enter your Shipping Adress')
+    .max(30, 'The field should be less than or equal to 30 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  shippingCity: yup
+    .string()
+    .required('Please enter your Shipping City')
+    .max(30, 'The field should be less than or equal to 30 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  shippingState: yup.string().required('Please enter your Shipping State'),
+  shippingCode: yup
+    .number()
+    .min(5, 'At least 5 numbers')
+    .required('Please enter Postal Code'),
 });
 
 export const verificationSchema = yup.object().shape({
