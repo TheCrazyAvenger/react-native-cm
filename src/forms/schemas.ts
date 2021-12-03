@@ -238,9 +238,13 @@ export const bankSchema = yup.object().shape({
 export const buySchema = yup.object().shape({
   amount: yup
     .number()
-    .min(1, 'Please enter Amount')
-    .required('Please enter Amount'),
-  amountOz: yup.string(),
+    .min(0.1, 'Please enter Amount.')
+    .required('Please enter Amount.')
+    .min(1, 'Minimum purchase amount is .001 ounces'),
+  amountOz: yup
+    .number()
+    .required()
+    .min(0.001, 'Minimum purchase amount is .001 ounces'),
   frequency: yup.string().required('Please enter Frequency'),
   paymentMethod: yup.string().required('Please enter Payment Method'),
 });

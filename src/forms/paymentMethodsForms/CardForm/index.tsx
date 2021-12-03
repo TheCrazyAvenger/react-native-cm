@@ -18,7 +18,8 @@ import {
 export const CardForm: React.FC<{
   onSubmit: (...args: any) => void;
   type: string;
-}> = ({onSubmit, type}) => {
+  label: string;
+}> = ({onSubmit, type, label}) => {
   const [cardType, setCardType] = useState<string | null>(null);
   const navigation: any = useNavigation();
   const route: any = useRoute();
@@ -44,6 +45,7 @@ export const CardForm: React.FC<{
           ...values,
           paymentMethod: type,
           cardType: cardType !== null ? cardType : 'Unknown',
+          label,
         })
       }>
       {({

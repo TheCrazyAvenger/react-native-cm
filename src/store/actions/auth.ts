@@ -20,6 +20,7 @@ export const getData = createAsyncThunk('auth/getData', async () => {
           lastName,
           token,
           verified,
+          cashBalance,
         } = data;
 
         if (
@@ -29,7 +30,8 @@ export const getData = createAsyncThunk('auth/getData', async () => {
           lastName === null &&
           password === null &&
           verified === null &&
-          mobile === null
+          mobile === null &&
+          cashBalance === null
         ) {
           return {
             token: null,
@@ -39,6 +41,7 @@ export const getData = createAsyncThunk('auth/getData', async () => {
             password: '',
             mobile: '',
             verified: false,
+            cashBalance: 0,
           };
         } else {
           return {
@@ -49,6 +52,7 @@ export const getData = createAsyncThunk('auth/getData', async () => {
             password,
             verified,
             mobile,
+            cashBalance,
           };
         }
       });

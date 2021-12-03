@@ -32,6 +32,12 @@
           "@images": "./src/assets/images/index.ts"
         }
       }
+    ],
+    [
+      "@babel/plugin-transform-spread",
+      {
+        "loose": true
+      }
     ]
   ]
 }

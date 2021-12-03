@@ -12,6 +12,7 @@ import {getAutoBuy} from '../store/actions/autoBuy';
 import {getPriceAlerts} from '../store/actions/priceAlerts';
 import {useGetFullNewsMutation} from '@api';
 import {addNews} from '@store/slices/newsSlice';
+import {getPaymentMethod} from '@store/actions/paymentMethod';
 
 export const AppNavigator: React.FC = () => {
   const token = useAppSelector(state => state.auth.token);
@@ -36,6 +37,7 @@ export const AppNavigator: React.FC = () => {
       await dispatch(getOperations());
       await dispatch(getAutoBuy());
       await dispatch(getPriceAlerts());
+      await dispatch(getPaymentMethod());
 
       await dispatch(addNews(Object.values(news)[0]));
       if (value !== null) {

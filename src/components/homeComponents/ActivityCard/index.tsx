@@ -20,11 +20,11 @@ export const ActivityCard: React.FC = () => {
       : false;
 
   let operationsLength = 0;
-  [...Object.values(operations)].map((operation: any) => {
-    operation.map((operation: any) => {
+  Object.values(operations).map((item: any) =>
+    [...item].map(operation => {
       if (operation !== null) return operationsLength++;
-    });
-  });
+    }),
+  );
 
   return (
     <View style={styles.container}>
@@ -55,7 +55,7 @@ export const ActivityCard: React.FC = () => {
                     <Description>{oz ? `${oz} oz` : null}</Description>
                   </View>
                 </TouchableOpacity>
-                {id === operationsLength ? null : (
+                {index === operationsLength - 1 ? null : (
                   <Wrapper style={{backgroundColor: colors.primary}} />
                 )}
               </React.Fragment>

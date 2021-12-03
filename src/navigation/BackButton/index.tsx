@@ -7,7 +7,7 @@ import Svg, {Path} from 'react-native-svg';
 export const BackButton: React.FC = () => {
   const navigation: any = useNavigation();
   return (
-    <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.pop()}>
+    <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.goBack()}>
       {/*
        // @ts-ignore */}
       <Svg

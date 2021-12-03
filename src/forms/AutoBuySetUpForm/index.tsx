@@ -5,11 +5,16 @@ import {TouchableOpacity, View} from 'react-native';
 import {autoBuySchema} from '..';
 import {Screens} from '@constants';
 import {styles} from './styles';
-import {CheckBoxItem, DatePicker, FormInput, ItemPicker} from '@components';
+import {
+  CheckBoxItem,
+  DatePicker,
+  FormInput,
+  ItemPicker,
+  PaymentMethodPicker,
+} from '@components';
 import {getNextYear} from '@utilities';
-import {Description, SubtitleMedium, TitleMedium} from '@Typography';
+import {Description, TitleMedium} from '@Typography';
 import {TextButton} from '@ui';
-import {CashBalance} from '@assets/images/settings';
 
 export const AutoBuySetUpForm: React.FC = () => {
   const navigation: any = useNavigation();
@@ -120,18 +125,9 @@ export const AutoBuySetUpForm: React.FC = () => {
               isTouched={touched.amount}
             />
 
-            <Description style={styles.title}>Payment Method</Description>
-            <TouchableOpacity
-              style={styles.paymentMethod}
-              activeOpacity={0.7}
-              onPress={() => console.log('Choose payment method')}>
-              <View style={{marginRight: 12}}>
-                <CashBalance />
-              </View>
-              <SubtitleMedium style={{fontFamily: 'OpenSans-SemiBold'}}>
-                Cash Balance: $54.80
-              </SubtitleMedium>
-            </TouchableOpacity>
+            <PaymentMethodPicker
+              onChange={(value: any) => setFieldValue('paymentMethod', value)}
+            />
 
             <View style={{marginHorizontal: 10}}>
               <TextButton

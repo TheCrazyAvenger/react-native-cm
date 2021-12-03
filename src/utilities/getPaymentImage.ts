@@ -1,11 +1,18 @@
-import {CreditCard, BankWire, ACH, PayPal} from '../assets/images/settings';
+import {
+  CreditCard,
+  BankWire,
+  ACH,
+  PayPal,
+  CashBalance,
+} from '@assets/images/settings';
 
 export const getPaymentImage = (payment: string) => {
   const payments = {
-    'Credit/Debit Card': CreditCard,
-    'Bank Wire': BankWire,
-    'ACH/eCheck': ACH,
-    PayPal: PayPal,
+    creditCard: CreditCard,
+    bankWire: BankWire,
+    payPal: PayPal,
+    cashBalance: CashBalance,
+    eCheck: ACH,
   };
   //@ts-ignore
   return payments[payment];

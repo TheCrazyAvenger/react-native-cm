@@ -1,10 +1,12 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import {ProductItemProps, Wrapper} from '../..';
 import {colors} from '@constants';
 import {TextButton} from '@ui';
-import {Illustration, Subtitle, SubtitleMedium} from '@Typography';
+import {Description, Illustration, Subtitle, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
+import {Info} from '@assets/images/buy';
+import {Tooltip} from 'react-native-elements';
 
 export const ProductItem: React.FC<ProductItemProps> = ({
   vault,
@@ -27,7 +29,25 @@ export const ProductItem: React.FC<ProductItemProps> = ({
         <Illustration style={{fontSize: 14, marginBottom: 5}}>
           Vault
         </Illustration>
-        <SubtitleMedium>{vault}</SubtitleMedium>
+        <View style={styles.row}>
+          <SubtitleMedium style={{marginRight: 5}}>{vault}</SubtitleMedium>
+          {/* 
+          //@ts-ignore*/}
+          <Tooltip
+            withPointer={false}
+            containerStyle={{...styles.tooltip, width: 200}}
+            backgroundColor={colors.white}
+            popover={
+              <Description>
+                Our {metal} is a digital representation of fully-backed physical{' '}
+                {metal}, which is fully insured, regularly audited, and securely
+                stored in Dallas with our vaulting partners, JM Bullion and
+                A-Mark Precious Metals.
+              </Description>
+            }>
+            <Info />
+          </Tooltip>
+        </View>
       </View>
       <View style={{alignItems: 'flex-end'}}>
         <Illustration style={{fontSize: 14, marginBottom: 5}}>
@@ -48,7 +68,26 @@ export const ProductItem: React.FC<ProductItemProps> = ({
         <Illustration style={{fontSize: 14, marginBottom: 5}}>
           Spread
         </Illustration>
-        <SubtitleMedium>$ {spread}/oz</SubtitleMedium>
+
+        <View style={styles.row}>
+          <SubtitleMedium style={{marginRight: 5}}>
+            $ {spread}/oz
+          </SubtitleMedium>
+          {/* 
+          //@ts-ignore*/}
+          <Tooltip
+            withPointer={false}
+            containerStyle={{...styles.tooltip, width: 190}}
+            backgroundColor={colors.white}
+            popover={
+              <Description>
+                Spread is the difference between current buy price and current
+                sell price.
+              </Description>
+            }>
+            <Info />
+          </Tooltip>
+        </View>
       </View>
     </View>
     <TextButton

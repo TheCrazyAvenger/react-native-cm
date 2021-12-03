@@ -23,12 +23,12 @@ export const getPriceAlerts = createAsyncThunk(
             Platinum: [],
           };
 
-          [...Object.values(data)].map((item: any, i: number) => {
-            [...item].map((metals: any, i: number) => {
+          Object.values(data).map((item: any) =>
+            [...item].map(metals => {
               if (metals !== null)
                 return priceAlertsList[metals.metal].push(metals);
-            });
-          });
+            }),
+          );
           return priceAlertsList;
         });
     } catch (e) {

@@ -11,7 +11,8 @@ import {bankSchema} from '../..';
 export const BankForm: React.FC<{
   onSubmit: (...args: any) => void;
   type: string;
-}> = ({onSubmit, type}) => {
+  label: string;
+}> = ({onSubmit, type, label}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
@@ -33,6 +34,7 @@ export const BankForm: React.FC<{
         onSubmit({
           ...values,
           paymentMethod: type,
+          label,
         })
       }>
       {({

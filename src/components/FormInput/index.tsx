@@ -22,6 +22,9 @@ export const FormInput: React.FC<FormInputProps> = ({
   leftIcon,
   onInput,
   disabled,
+  keyboardType = 'default',
+  errorStyle,
+  showError = true,
 }) => {
   const inputContainerStyle = [
     styles.inputContainerStyle,
@@ -34,27 +37,30 @@ export const FormInput: React.FC<FormInputProps> = ({
   ];
 
   return (
-    <View>
-      <Input
-        rightIcon={rightIcon}
-        onTouchStart={onFocus}
-        value={value}
-        label={label}
-        onBlur={onBlur}
-        onTextInput={onInput}
-        secureTextEntry={secureTextEntry}
-        placeholder={plaseholder}
-        leftIcon={leftIcon}
-        onChangeText={onChangeText}
-        placeholderTextColor={colors.placeholder}
-        inputStyle={styles.inputStyle}
-        labelStyle={[...labelStyle, style]}
-        inputContainerStyle={[...inputContainerStyle]}
-        disabled={disabled ? true : false}
-      />
-      {errorMessage && isTouched && (
-        <Error style={styles.error}>{errorMessage}</Error>
+    <>
+      <View>
+        <Input
+          rightIcon={rightIcon}
+          onTouchStart={onFocus}
+          value={value}
+          label={label}
+          keyboardType={keyboardType}
+          onBlur={onBlur}
+          onTextInput={onInput}
+          secureTextEntry={secureTextEntry}
+          placeholder={plaseholder}
+          leftIcon={leftIcon}
+          onChangeText={onChangeText}
+          placeholderTextColor={colors.placeholder}
+          inputStyle={styles.inputStyle}
+          labelStyle={[...labelStyle, style]}
+          inputContainerStyle={[...inputContainerStyle]}
+          disabled={disabled ? true : false}
+        />
+      </View>
+      {errorMessage && isTouched && showError && (
+        <Error style={{...styles.error, ...errorStyle}}>{errorMessage}</Error>
       )}
-    </View>
+    </>
   );
 };

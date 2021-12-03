@@ -1,24 +1,19 @@
+import {colors} from '@constants';
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
 
 export const styles = StyleSheet.create({
-  mainTitle: {
-    fontFamily: 'OpenSans-Regular',
-    marginBottom: 20,
-    marginHorizontal: 10,
+  picker: {
+    paddingVertical: 17,
+    height: 'auto',
+    marginBottom: 0,
   },
-  amount: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between',
+  pickerPlaceholder: {
+    fontFamily: 'OpenSans-SemiBold',
+    fontSize: 16,
+    lineHeight: 21.79,
   },
-  price: {
-    marginTop: 18,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 15,
-    marginHorizontal: 10,
+  cardPicker: {
+    marginBottom: 0,
   },
   title: {
     color: colors.gray,
@@ -36,11 +31,11 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 15,
-    marginBottom: 15,
+    marginBottom: 25,
     marginHorizontal: 10,
   },
-  priceTitle: {
-    fontFamily: 'OpenSans-Bold',
-    fontSize: 22,
+  paypal: {
+    paddingHorizontal: 10,
+    fontFamily: 'OpenSans-SemiBold',
   },
 });

@@ -31,22 +31,32 @@ export const PaymentMethods: React.FC = () => {
     dispatch(setLoading(false));
   };
 
-  const removeItem = async (id: number) => {
+  const removeItem = async (type: string, id: number) => {
     await database().ref(`/users/${token}/paymentMethods/${id}`).remove();
-    await dispatch(deletePaymentMethods(id));
+    await dispatch(deletePaymentMethods({paymentMethod: type, id}));
   };
 
   if (loading) {
     return <LoadingItem />;
   }
 
-  if (paymentMethods.length === 0) {
+  if (
+    paymentMethods.cashBalance.length === 0 &&
+    paymentMethods.creditCard.length === 0 &&
+    paymentMethods.bankWire.length === 0 &&
+    paymentMethods.payPal.length === 0 &&
+    paymentMethods.eCheck.length === 0
+  ) {
     return (
       <EmptyDataScreen
         title="No Payment Methods Available"
         text="CyberMetals accepts ACH/eChecks, Credit/Debit Cards, Bank Wire, Cryptos and more. You can even connect your bank account to enjoy the ease of quick payments."
         buttonTitle="Add New Payment Method"
-        onPress={() => navigation.navigate(Screens.paymentMethodsSetUp)}
+        onPress={() =>
+          navigation.navigate(Screens.paymentMethodsSetUp, {
+            type: 'creditCard',
+          })
+        }
       />
     );
   }
@@ -62,19 +72,24 @@ export const PaymentMethods: React.FC = () => {
       <ScrollView showsVerticalScrollIndicator={false} style={{marginTop: 25}}>
         {paymentMethods && (
           <View style={{marginBottom: 20}}>
-            {paymentMethods.map(
-              (item: any) =>
-                item !== null && (
-                  <PaymentMethodsItem
-                    key={item.id}
-                    type={item.cardType ? item.cardType : 'Unknown'}
-                    id={item.id}
-                    expiring={item.expirationDate ? item.expirationDate : null}
-                    paymentMethod={item.paymentMethod}
-                    cardNumber={item.cardNumber}
-                    onRemove={removeItem}
-                  />
-                ),
+            {[...Object.values(paymentMethods)].map((paymentMethod: any) =>
+              paymentMethod.map(
+                (item: any) =>
+                  item !== null && (
+                    <PaymentMethodsItem
+                      key={item.id}
+                      type={item.cardType ? item.cardType : 'Unknown'}
+                      id={item.id}
+                      expiring={
+                        item.expirationDate ? item.expirationDate : null
+                      }
+                      label={item.label}
+                      paymentMethod={item.paymentMethod}
+                      cardNumber={item.cardNumber}
+                      onRemove={removeItem}
+                    />
+                  ),
+              ),
             )}
           </View>
         )}
@@ -84,7 +99,11 @@ export const PaymentMethods: React.FC = () => {
         solid
         title="Add New Payment Method"
         style={{marginBottom: 25}}
-        onPress={() => navigation.navigate(Screens.paymentMethodsSetUp)}
+        onPress={() =>
+          navigation.navigate(Screens.paymentMethodsSetUp, {
+            type: 'creditCard',
+          })
+        }
       />
     </Screen>
   );

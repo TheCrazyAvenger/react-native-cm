@@ -7,6 +7,7 @@ export * from './autoBuy';
 export * from './states';
 export * from './buy';
 export * from './cookieLinks';
+export * from './cmCredentials';
 
 export * from './secondsToTime';
 export * from './getNextYear';
@@ -23,3 +24,6 @@ export * from './getMetal';
 export * from './getOperationImage';
 export * from './removeTags';
 export * from './getTime';
+export * from './validateNumbers';
+export * from './numberWithCommas';
+export * from './getPaymentName';

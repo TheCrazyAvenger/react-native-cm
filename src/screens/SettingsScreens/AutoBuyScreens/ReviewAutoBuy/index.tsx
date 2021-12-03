@@ -44,7 +44,7 @@ export const ReviewAutoBuy: React.FC = () => {
       startDate,
       endDate,
       metal,
-      id: type ? id : autoBuy.length + 1,
+      id: type ? id : `${Math.round(Math.random() * 1000000)}_${metal}`,
     };
 
     dispatch(setLoading(true));

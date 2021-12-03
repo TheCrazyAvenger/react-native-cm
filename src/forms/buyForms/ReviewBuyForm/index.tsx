@@ -12,7 +12,7 @@ import {TextButton} from '@ui';
 import {reviewBuySchema} from '../..';
 import {getMonth} from '@utilities';
 import {useAppDispatch, useAppSelector} from '@hooks';
-import {setLoading} from '@store/slices/authSlice';
+import {setLoading, updateCash} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
 import {addOperation} from '@store/slices/operationsSlice';
 
@@ -26,6 +26,7 @@ export const ReviewBuyForm: React.FC = () => {
   const operations = useAppSelector(state => state.operations.operations);
   const loading = useAppSelector(state => state.auth.loading);
   const token = useAppSelector(state => state.auth.token);
+  const cashBalance = useAppSelector(state => state.auth.cashBalance);
 
   const dispatch = useAppDispatch();
 
@@ -36,7 +37,7 @@ export const ReviewBuyForm: React.FC = () => {
       const day = date.getDate();
       const year = date.getFullYear();
 
-      const id = operations.buy.length + 1;
+      const id = `${Math.round(Math.random() * 1000000)}_buy`;
 
       const data = {
         type: `Bought ${metal}`,
@@ -49,12 +50,21 @@ export const ReviewBuyForm: React.FC = () => {
 
       dispatch(setLoading(true));
 
-      await database().ref(`/users/${token}/operations/buy/${id}`).set(data);
+      await database().ref(`/users/${token}/operations/${id}`).set(data);
 
       await dispatch(addOperation(data));
+
+      const newCashValue =
+        paymentMethod === 'cashBalance' ? cashBalance - +amount : cashBalance;
+
+      await database()
+        .ref(`/users/${token}`)
+        .update({cashBalance: newCashValue});
+      await dispatch(updateCash(newCashValue));
+
       await dispatch(setLoading(false));
 
-      navigation.navigate(Screens.completeBuy, {
+      navigation.push(Screens.completeBuy, {
         type: 'Success',
         data: route.params.data,
         amount,
@@ -63,7 +73,7 @@ export const ReviewBuyForm: React.FC = () => {
         amountOz,
       });
     } catch (e) {
-      navigation.navigate(Screens.completeBuy, {
+      navigation.push(Screens.completeBuy, {
         type: 'Error',
         data: route.params.data,
         amount,
@@ -86,14 +96,7 @@ export const ReviewBuyForm: React.FC = () => {
         checkBox: false,
       }}
       onSubmit={() => buyGold()}>
-      {({
-        handleSubmit,
-        values,
-        errors,
-        touched,
-
-        setFieldValue,
-      }) => {
+      {({handleSubmit, values, errors, touched, setFieldValue}) => {
         const checkBoxError =
           errors.checkBox && touched.checkBox ? colors.red : colors.black;
         return (

@@ -7,6 +7,7 @@ import {useAppDispatch, useAppSelector} from '@hooks';
 import {Screen} from '@ui';
 import {styles} from './styles';
 import {ReviewBuyForm} from '../../../forms';
+import {getPaymentName} from '@utilities';
 
 export const ReviewBuy: React.FC = () => {
   const navigation: any = useNavigation();
@@ -80,7 +81,7 @@ export const ReviewBuy: React.FC = () => {
           amount={amount}
           spot={spot}
           amountOz={amountOz}
-          paymentMethod={paymentMethod}
+          paymentMethod={getPaymentName(paymentMethod)}
         />
 
         <ReviewBuyForm />

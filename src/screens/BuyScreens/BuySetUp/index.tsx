@@ -24,17 +24,17 @@ export const BuySetUp: React.FC = () => {
             </View>
             <View style={styles.infoItem}>
               <Description style={styles.infoTitle}>Premium</Description>
-              <SubtitleMedium>+$ {premium}/oz</SubtitleMedium>
+              <SubtitleMedium>{`+$${premium}/oz`}</SubtitleMedium>
             </View>
           </View>
           <View>
             <View style={styles.infoItem}>
               <Description style={styles.infoTitle}>Spot</Description>
-              <SubtitleMedium>$ {spot}/oz</SubtitleMedium>
+              <SubtitleMedium>{`$${spot}/oz`}</SubtitleMedium>
             </View>
             <View style={styles.infoItem}>
               <Description style={styles.infoTitle}>Your Price</Description>
-              <SubtitleMedium>$ {ask}/oz</SubtitleMedium>
+              <SubtitleMedium>{`$${ask}/oz`}</SubtitleMedium>
             </View>
           </View>
         </View>

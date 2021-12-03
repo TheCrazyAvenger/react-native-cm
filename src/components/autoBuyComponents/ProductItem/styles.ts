@@ -15,4 +15,14 @@ export const styles = StyleSheet.create({
   cardTitle: {
     fontFamily: 'OpenSans-Bold',
   },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  tooltip: {
+    height: 'auto',
+    elevation: 3,
+    padding: 12,
+  },
 });

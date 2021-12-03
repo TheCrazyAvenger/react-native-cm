@@ -2,11 +2,17 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {getPaymentMethod} from '../actions/paymentMethod';
 
 export interface PaymentMethodsState {
-  paymentMethods: Array<{[key: string]: string | number} | any>;
+  paymentMethods: {[key: string]: string | number} | any;
 }
 
 const initialState: PaymentMethodsState = {
-  paymentMethods: [],
+  paymentMethods: {
+    cashBalance: [],
+    creditCard: [],
+    bankWire: [],
+    payPal: [],
+    eCheck: [],
+  },
 };
 
 export const paymentMethodsSlice = createSlice({
@@ -14,11 +20,13 @@ export const paymentMethodsSlice = createSlice({
   initialState,
   reducers: {
     addPaymentMethods: (state, action: PayloadAction<any>) =>
-      void state.paymentMethods.push(action.payload),
+      void state.paymentMethods[action.payload.paymentMethod].push(
+        action.payload,
+      ),
     deletePaymentMethods: (state, action: PayloadAction<any>) => {
-      state.paymentMethods = state.paymentMethods.filter(
-        (item: any) => item.id !== action.payload,
-      );
+      state.paymentMethods[action.payload.paymentMethod] = state.paymentMethods[
+        action.payload.paymentMethod
+      ].filter((item: any) => item.id !== action.payload.id);
     },
   },
   extraReducers: builder => {

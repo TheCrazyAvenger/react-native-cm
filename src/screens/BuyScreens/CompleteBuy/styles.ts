@@ -10,7 +10,9 @@ export const styles = StyleSheet.create({
     borderColor: 'rgba(47, 128, 237, 0.3)',
     borderRadius: 5,
   },
-
+  stepsTitle: {
+    fontFamily: 'OpenSans-Bold',
+  },
   title: {
     fontFamily: 'OpenSans-Regular',
     marginBottom: 20,
