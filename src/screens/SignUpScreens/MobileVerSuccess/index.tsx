@@ -28,6 +28,7 @@ export const MobileVerSuccess: React.FC = () => {
         database()
           .ref('users/' + uid)
           .set({
+            cashBalance: 10000,
             firstName: firstName,
             lastName: lastName,
             userEmail: email,

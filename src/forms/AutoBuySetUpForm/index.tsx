@@ -125,7 +125,9 @@ export const AutoBuySetUpForm: React.FC = () => {
               isTouched={touched.amount}
             />
 
-            <PaymentMethodPicker />
+            <PaymentMethodPicker
+              onChange={(value: any) => setFieldValue('paymentMethod', value)}
+            />
 
             <View style={{marginHorizontal: 10}}>
               <TextButton

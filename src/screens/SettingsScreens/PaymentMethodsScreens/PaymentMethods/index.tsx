@@ -52,7 +52,11 @@ export const PaymentMethods: React.FC = () => {
         title="No Payment Methods Available"
         text="CyberMetals accepts ACH/eChecks, Credit/Debit Cards, Bank Wire, Cryptos and more. You can even connect your bank account to enjoy the ease of quick payments."
         buttonTitle="Add New Payment Method"
-        onPress={() => navigation.navigate(Screens.paymentMethodsSetUp)}
+        onPress={() =>
+          navigation.navigate(Screens.paymentMethodsSetUp, {
+            type: 'creditCard',
+          })
+        }
       />
     );
   }
@@ -95,7 +99,11 @@ export const PaymentMethods: React.FC = () => {
         solid
         title="Add New Payment Method"
         style={{marginBottom: 25}}
-        onPress={() => navigation.navigate(Screens.paymentMethodsSetUp)}
+        onPress={() =>
+          navigation.navigate(Screens.paymentMethodsSetUp, {
+            type: 'creditCard',
+          })
+        }
       />
     </Screen>
   );

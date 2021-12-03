@@ -1,7 +1,13 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Screens} from '../../constants';
-import {BuySetUp, ChooseBuy, CompleteBuy, ReviewBuy} from '../../screens';
+import {Screens} from '@constants';
+import {
+  BuySetUp,
+  ChooseBuy,
+  CompleteBuy,
+  PaymentMethodsSetUp,
+  ReviewBuy,
+} from '@screens';
 import {BackButton} from '../BackButton';
 import {styles} from './styles';
 
@@ -21,6 +27,10 @@ export const BuyStack: React.FC = () => {
       <Stack.Screen name={Screens.buySetup} component={BuySetUp} />
       <Stack.Screen name={Screens.reviewBuy} component={ReviewBuy} />
       <Stack.Screen name={Screens.completeBuy} component={CompleteBuy} />
+      <Stack.Screen
+        name={Screens.paymentMethodsSetUp}
+        component={PaymentMethodsSetUp}
+      />
     </Stack.Navigator>
   );
 };

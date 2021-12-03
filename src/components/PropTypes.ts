@@ -51,14 +51,17 @@ export type FormInputProps = {
   onBlur: any;
   onInput?: any;
   value: any;
-  errorMessage: any;
+  errorMessage?: any;
   isTouched: any;
   style?: {[key: string]: number | string};
   containerStyle?: {[key: string]: number | string};
   secureTextEntry?: boolean;
   rightIcon?: any;
   leftIcon?: any;
+  keyboardType?: any;
   disabled?: boolean;
+  errorStyle?: {[key: string]: number | string};
+  showError?: boolean;
 };
 
 export type PasswordItemProps = {
@@ -191,6 +194,7 @@ export type ItemPickerProps = {
   showArrow?: boolean;
   placeholderStyle?: {[key: string]: number | string};
   LeftIcon?: any;
+  maxHeight?: number;
 };
 
 export type ModalWindowProps = {
@@ -271,4 +275,20 @@ export type OrderInfoProps = {
   order: number | string;
   status: string;
   style?: {[key: string]: number | string};
+};
+
+export type PaymentMethodPickerProps = {
+  onChange: (value: any) => void;
+};
+
+export type EmptyPaymentMethodProps = {
+  title: string;
+  type?: string;
+  onPress?: (...args: any) => void;
+};
+
+export type CredentialsItemProps = {
+  title: string;
+  value: string;
+  id: number;
 };

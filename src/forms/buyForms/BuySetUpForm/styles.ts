@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   price: {
+    marginTop: 18,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

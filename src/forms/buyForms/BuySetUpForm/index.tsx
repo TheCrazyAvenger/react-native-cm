@@ -1,20 +1,30 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
-
+import {View} from 'react-native';
 import {colors, Screens} from '@constants';
 import {styles} from './styles';
-import {FormInput, ItemPicker} from '@components';
+import {
+  FormInput,
+  ItemPicker,
+  LoadingItem,
+  PaymentMethodPicker,
+} from '@components';
 import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {TextButton} from '@ui';
-import {CashBalance} from '@assets/images/settings';
 import {buySchema} from '../..';
 import {Swiper} from '@assets/images/home';
+import {useAppSelector} from '@hooks';
+import {validateNumbers} from '@utilities';
 
 export const BuySetUpForm: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
+
+  const cashBalance = useAppSelector(state => state.auth.cashBalance);
+  const paymentMethods = useAppSelector(
+    state => state.paymentMethod.paymentMethods,
+  );
 
   const goToNext = (values: {[key: string]: string | number}) => {
     const {amount, amountOz, frequency, paymentMethod} = values;
@@ -35,7 +45,7 @@ export const BuySetUpForm: React.FC = () => {
         amount: '',
         amountOz: '',
         frequency: 'One Time Purchase',
-        paymentMethod: 'Cash Balance',
+        paymentMethod: 'cashBalance',
       }}
       onSubmit={values => goToNext(values)}>
       {({
@@ -43,6 +53,7 @@ export const BuySetUpForm: React.FC = () => {
         handleSubmit,
         values,
         errors,
+        isValid,
         touched,
         setFieldTouched,
         setFieldValue,
@@ -56,12 +67,24 @@ export const BuySetUpForm: React.FC = () => {
             <View style={styles.amount}>
               <View style={{width: '47%'}}>
                 <FormInput
-                  onBlur={() => setFieldTouched('amount', true)}
+                  onBlur={async () => {
+                    setFieldTouched('amount', true);
+                    setFieldTouched('amountOz', true);
+                    await setFieldValue('amountOz', getOz());
+                  }}
                   label="Amount"
                   plaseholder="USD"
+                  keyboardType="numeric"
                   onChangeText={handleChange('amount')}
-                  onFocus={() => setFieldTouched('amount', false)}
-                  onInput={() => setFieldValue('amountOz', getOz())}
+                  onFocus={() => {
+                    setFieldTouched('amount', false);
+                    setFieldTouched('amountOz', false);
+                  }}
+                  onInput={() => {
+                    setFieldValue('amount', validateNumbers(values.amount));
+                    setFieldValue('amountOz', getOz());
+                  }}
+                  errorStyle={{width: '180%'}}
                   value={values.amount}
                   errorMessage={errors.amount}
                   isTouched={touched.amount}
@@ -77,13 +100,16 @@ export const BuySetUpForm: React.FC = () => {
               </View>
               <View style={{width: '47%'}}>
                 <FormInput
-                  onBlur={() => setFieldTouched('amountOz', true)}
+                  onBlur={() => {
+                    setFieldTouched('amountOz', true);
+                  }}
                   plaseholder="OZ"
                   onChangeText={handleChange('amountOz')}
                   onFocus={() => setFieldTouched('amountOz', false)}
                   value={values.amountOz}
-                  errorMessage={errors.amountOz}
                   isTouched={touched.amountOz}
+                  errorMessage={errors.amountOz}
+                  showError={false}
                   disabled
                   rightIcon={() => (
                     <SubtitleMedium style={{color: colors.gray}}>
@@ -109,18 +135,9 @@ export const BuySetUpForm: React.FC = () => {
               onChange={value => setFieldValue('frequency', value)}
             />
 
-            <Description style={styles.title}>Payment Method</Description>
-            <TouchableOpacity
-              style={styles.paymentMethod}
-              activeOpacity={0.7}
-              onPress={() => console.log('Choose payment method')}>
-              <View style={{marginRight: 12}}>
-                <CashBalance />
-              </View>
-              <SubtitleMedium style={{fontFamily: 'OpenSans-SemiBold'}}>
-                Cash Balance: $54.80
-              </SubtitleMedium>
-            </TouchableOpacity>
+            <PaymentMethodPicker
+              onChange={(value: any) => setFieldValue('paymentMethod', value)}
+            />
 
             <View style={styles.price}>
               <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
@@ -133,10 +150,38 @@ export const BuySetUpForm: React.FC = () => {
               <TextButton
                 style={{marginBottom: 20}}
                 title="Confirm Buy"
+                changeDisabledStyle={true}
+                disabledStyle={{
+                  backgroundColor:
+                    cashBalance < +values.amount ? '#F39A9A' : '#C1D9FA',
+                }}
+                disabledTitle={
+                  cashBalance < +values.amount ? 'Insufficient Funds' : null
+                }
+                disabled={
+                  cashBalance < +values.amount
+                    ? true
+                    : paymentMethods[values.paymentMethod].length === 0 &&
+                      values.paymentMethod !== 'cashBalance'
+                    ? true
+                    : !isValid
+                    ? true
+                    : false
+                }
                 solid
                 onPress={handleSubmit}
               />
               <TextButton title="Cancel" onPress={() => navigation.pop()} />
+              {values.paymentMethod === 'eCheck' && (
+                <View style={{marginTop: 20}}>
+                  <Description style={{color: colors.gray}}>
+                    Log in (Plaid) to your online Checking account for instant
+                    verification. We strongly encourage you to only link a
+                    Checking account, as linking a Savings account may result in
+                    processing delays and/or fees from your bank.
+                  </Description>
+                </View>
+              )}
             </View>
           </View>
         );

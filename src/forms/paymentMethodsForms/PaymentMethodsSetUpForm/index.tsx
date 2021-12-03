@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import {BankForm, CardForm, paymentMethodSchema, PayPalForm} from '../..';
 import {ItemPicker} from '@components';
@@ -21,7 +21,7 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
     state => state.paymentMethod.paymentMethods,
   );
 
-  console.log(paymentMethods);
+  const {type} = route.params;
 
   const dispatch = useAppDispatch();
 
@@ -47,7 +47,7 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
     <Formik
       validationSchema={paymentMethodSchema}
       initialValues={{
-        paymentMethod: 'creditCard',
+        paymentMethod: type,
       }}
       onSubmit={values => onSubmit(values)}>
       {({

@@ -9,6 +9,10 @@ export type TextButtonProps = {
   onPress: () => void;
   style?: {[key: string]: number | string};
   disabled?: boolean;
+  disabledStyle?: {[key: string]: number | string};
+  changeDisabledStyle?: boolean;
+  disabledTitle?: string | null;
+  titleStyle?: {[key: string]: number | string};
 };
 
 export type SocialButtonProps = {

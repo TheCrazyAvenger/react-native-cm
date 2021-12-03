@@ -11,9 +11,11 @@ export interface AuthState {
   error: any;
   verified: boolean;
   loading: boolean;
+  cashBalance: number;
 }
 
 const initialState: AuthState = {
+  cashBalance: 0,
   firstName: '',
   lastName: '',
   password: '',
@@ -38,6 +40,7 @@ export const authSlice = createSlice({
         lastName,
         password,
         mobile,
+        cashBalance,
       } = action.payload;
       state.token = token;
       state.verified = verified;
@@ -46,6 +49,7 @@ export const authSlice = createSlice({
       state.userEmail = userEmail;
       state.password = password;
       state.mobile = mobile;
+      state.cashBalance = cashBalance;
     },
     changeName: (state, action: PayloadAction<{[key: string]: string}>) => {
       state.firstName = action.payload.firstName;
@@ -56,6 +60,9 @@ export const authSlice = createSlice({
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
+    },
+    updateCash: (state, action: PayloadAction<number>) => {
+      state.cashBalance = action.payload;
     },
   },
   extraReducers: builder => {
@@ -69,6 +76,7 @@ export const authSlice = createSlice({
           lastName,
           password,
           mobile,
+          cashBalance,
         } = action.payload;
 
         state.token = token;
@@ -78,6 +86,7 @@ export const authSlice = createSlice({
         state.userEmail = userEmail;
         state.password = password;
         state.mobile = mobile;
+        state.cashBalance = cashBalance;
       }
     });
     builder.addCase(
@@ -96,7 +105,7 @@ export const authSlice = createSlice({
     });
   },
 });
-export const {authSucces, changeName, setVerified, setLoading} =
+export const {authSucces, changeName, setVerified, setLoading, updateCash} =
   authSlice.actions;
 
 export default authSlice.reducer;

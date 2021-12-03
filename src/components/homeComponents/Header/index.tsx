@@ -5,8 +5,12 @@ import {colors} from '@constants';
 import {Description, Illustration, Subtitle, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {Logo} from '@assets/images';
+import {useAppSelector} from '@hooks';
+import {numberWithCommas} from '@utilities';
 
 export const Header: React.FC = () => {
+  const cashBalance = useAppSelector(state => state.auth.cashBalance);
+
   return (
     <View style={styles.container}>
       <View style={{marginBottom: 37, alignSelf: 'center'}}>
@@ -38,7 +42,9 @@ export const Header: React.FC = () => {
       <View style={styles.headerItem}>
         <View>
           <Description style={{color: colors.white}}>Cash Balance:</Description>
-          <Subtitle style={{color: colors.white}}>$1,084.10 USD</Subtitle>
+          <Subtitle style={{color: colors.white}}>{`$${numberWithCommas(
+            cashBalance,
+          )} USD`}</Subtitle>
         </View>
         <View style={{alignItems: 'flex-end'}}>
           <Description style={{color: colors.white}}>

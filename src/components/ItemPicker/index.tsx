@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import {Image, View} from 'react-native';
-import {ItemPickerProps} from '..';
+import {ItemPickerProps, Wrapper} from '..';
 import {Dropdown} from 'react-native-element-dropdown';
 import {colors} from '@constants';
 import {Description, SubtitleMedium, Error} from '@Typography';
 import {styles} from './styles';
+import {Text} from 'react-native-elements';
+import {useAppSelector} from '@hooks';
 
 export const ItemPicker: React.FC<ItemPickerProps> = ({
   label,
@@ -19,6 +21,7 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
   items,
   showArrow = true,
   LeftIcon,
+  maxHeight,
 }) => {
   const [isFocus, setIsFocus] = useState(false);
 
@@ -57,7 +60,7 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
         }}
         selectedTextStyle={{...styles.selectedTextStyle, ...placeholderStyle}}
         data={items}
-        maxHeight={280}
+        maxHeight={maxHeight ? maxHeight : 280}
         labelField="label"
         valueField="value"
         placeholder={value !== '' ? value : 'Select one'}

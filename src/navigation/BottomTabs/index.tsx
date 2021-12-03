@@ -4,7 +4,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import {colors, Screens} from '../../constants';
-import {NullString, Portfolio, Prices, Settings} from '../../screens';
+import {NullString, Portfolio, Settings} from '../../screens';
 import {styles} from './styles';
 import {Platform, View} from 'react-native';
 
