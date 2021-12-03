@@ -13,9 +13,8 @@ import {
   PaymentMethodPicker,
 } from '@components';
 import {getNextYear} from '@utilities';
-import {Description, SubtitleMedium, TitleMedium} from '@Typography';
+import {Description, TitleMedium} from '@Typography';
 import {TextButton} from '@ui';
-import {CashBalance} from '@assets/images/settings';
 
 export const AutoBuySetUpForm: React.FC = () => {
   const navigation: any = useNavigation();

@@ -8,7 +8,7 @@ import {PriceAlertsSetUpForm} from '../../../../forms';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {addAlert, updatePriceAlerts} from '@store/slices/priceAlertSlice';
 import {Screen} from '@ui';
-import {metals} from '@utilities';
+import {getMetal, getMetalImage, metals} from '@utilities';
 import {styles} from './styles';
 import database from '@react-native-firebase/database';
 import {setLoading} from '@store/slices/authSlice';
@@ -19,14 +19,15 @@ export const PriceAlertSetUp: React.FC = () => {
 
   const loading = useAppSelector(state => state.auth.loading);
   const token = useAppSelector(state => state.auth.token);
-  const priceAlerts = useAppSelector(state => state.priceAlerts.priceAlerts);
   const dispatch = useAppDispatch();
 
   const {id, type, prevValues} = route.params;
 
-  const metalType = metals[type ? prevValues.id - 1 : id - 1];
+  const metalType = metals[type ? getMetal(prevValues.metal) : id - 1];
 
-  const {Image, metal, color, backgroundColor, price} = metalType;
+  const {metal, color, backgroundColor, price} = metalType;
+
+  const Image = getMetalImage(metal);
 
   const goToNext = async (values: {[key: string]: string | number}) => {
     const {condition, value} = values;
@@ -45,14 +46,14 @@ export const PriceAlertSetUp: React.FC = () => {
       value,
       date: type ? prevValues.date : date.toLocaleDateString(),
       time: type ? prevValues.time : time,
-      id: type ? prevValues.id : Math.floor(Math.random() * 10) + 1,
+      id: type
+        ? prevValues.id
+        : `${Math.round(Math.random() * 1000000)}_${metal}`,
     };
 
     dispatch(setLoading(true));
 
-    await database()
-      .ref(`/users/${token}/priceAlerts/${data.metal}/${data.id}`)
-      .set(data);
+    await database().ref(`/users/${token}/priceAlerts/${data.id}`).set(data);
     if (type) {
       await dispatch(updatePriceAlerts(data));
       await dispatch(setLoading(false));

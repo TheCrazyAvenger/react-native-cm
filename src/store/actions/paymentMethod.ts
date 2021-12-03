@@ -24,14 +24,14 @@ export const getPaymentMethod = createAsyncThunk(
             eCheck: [],
           };
 
-          [...Object.values(data)].map((item: any) => {
-            return [...item].map((paymentMethod: any, i: number) => {
+          Object.values(data).map((item: any) =>
+            [...item].map(paymentMethod => {
               if (paymentMethod !== null)
                 return paymentMethodList[paymentMethod.paymentMethod].push(
                   paymentMethod,
                 );
-            });
-          });
+            }),
+          );
 
           return paymentMethodList;
         });

@@ -12,9 +12,10 @@ export const getAutoBuy = createAsyncThunk('auth/getAutoBuy', async () => {
       .then(snapshot => {
         const data: any = snapshot.val();
         const autoBuyList: any = [];
-        data.map(
+        [...Object.values(data)].map(
           (item: any, i: number) => item !== null && autoBuyList.push(item),
         );
+
         return autoBuyList;
       });
   } catch (e) {

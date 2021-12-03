@@ -32,9 +32,7 @@ export const PaymentMethods: React.FC = () => {
   };
 
   const removeItem = async (type: string, id: number) => {
-    await database()
-      .ref(`/users/${token}/paymentMethods/${type}/${id}`)
-      .remove();
+    await database().ref(`/users/${token}/paymentMethods/${id}`).remove();
     await dispatch(deletePaymentMethods({paymentMethod: type, id}));
   };
 
@@ -42,7 +40,13 @@ export const PaymentMethods: React.FC = () => {
     return <LoadingItem />;
   }
 
-  if (paymentMethods.length === 0) {
+  if (
+    paymentMethods.cashBalance.length === 0 &&
+    paymentMethods.creditCard.length === 0 &&
+    paymentMethods.bankWire.length === 0 &&
+    paymentMethods.payPal.length === 0 &&
+    paymentMethods.eCheck.length === 0
+  ) {
     return (
       <EmptyDataScreen
         title="No Payment Methods Available"

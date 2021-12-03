@@ -24,12 +24,12 @@ export const getOperations = createAsyncThunk(
             redeem: [],
           };
 
-          [...Object.values(data)].map((item: any, i: number) => {
-            [...item].map((operation: any, i: number) => {
+          Object.values(data).map((item: any) =>
+            [...item].map(operation => {
               if (operation !== null)
                 return operationsList[operation.image].push(operation);
-            });
-          });
+            }),
+          );
           return operationsList;
         });
     } catch (e) {

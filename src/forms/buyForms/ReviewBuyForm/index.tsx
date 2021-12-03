@@ -36,7 +36,7 @@ export const ReviewBuyForm: React.FC = () => {
       const day = date.getDate();
       const year = date.getFullYear();
 
-      const id = operations.buy.length + 1;
+      const id = `${Math.round(Math.random() * 1000000)}_buy`;
 
       const data = {
         type: `Bought ${metal}`,
@@ -49,7 +49,7 @@ export const ReviewBuyForm: React.FC = () => {
 
       dispatch(setLoading(true));
 
-      await database().ref(`/users/${token}/operations/buy/${id}`).set(data);
+      await database().ref(`/users/${token}/operations/${id}`).set(data);
 
       await dispatch(addOperation(data));
       await dispatch(setLoading(false));

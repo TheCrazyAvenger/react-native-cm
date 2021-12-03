@@ -40,9 +40,7 @@ export const PriceAlerts: React.FC = () => {
   };
 
   const removeItem = async (data: any) => {
-    await database()
-      .ref(`/users/${token}/priceAlerts/${data.metal}/${data.id}`)
-      .remove();
+    await database().ref(`/users/${token}/priceAlerts/${data.id}`).remove();
     await dispatch(deletePriceAlerts({metal: data.metal, id: data.id}));
   };
 

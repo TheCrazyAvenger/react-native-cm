@@ -21,6 +21,8 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
     state => state.paymentMethod.paymentMethods,
   );
 
+  console.log(paymentMethods);
+
   const dispatch = useAppDispatch();
 
   const onSubmit = async (values: any) => {
@@ -28,10 +30,10 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
 
     const {paymentMethod} = values;
 
-    const id = paymentMethods[paymentMethod].length + 1;
+    const id = `${Math.round(Math.random() * 1000000)}_${paymentMethod}`;
 
     await database()
-      .ref(`/users/${token}/paymentMethods/${paymentMethod}/${id}`)
+      .ref(`/users/${token}/paymentMethods/${id}`)
       .set({...values, id});
 
     await dispatch(addPaymentMethods({...values, id}));
@@ -49,7 +51,6 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
       }}
       onSubmit={values => onSubmit(values)}>
       {({
-        handleSubmit,
         values,
         errors,
         touched,
