@@ -272,6 +272,7 @@ export type BuyingInfoProps = {
   spot: number;
   amountOz: string;
   style?: {[key: string]: number | string};
+  type: string;
 };
 
 export type OrderInfoProps = {
@@ -281,6 +282,7 @@ export type OrderInfoProps = {
 };
 
 export type PaymentMethodPickerProps = {
+  label: string;
   onChange: (value: any) => void;
 };
 

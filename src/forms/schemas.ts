@@ -279,6 +279,16 @@ export const buySchema = yup.object().shape({
   paymentMethod: yup.string().required('Please enter Payment Method'),
 });
 
+export const sellSchema = yup.object().shape({
+  amount: yup
+    .number()
+    .min(0.1, 'Please enter Amount.')
+    .required('Please enter Amount.')
+    .min(1, 'Minimum amount is .001 ounces'),
+  amountOz: yup.number().required().min(0.001, 'Minimum amount is .001 ounces'),
+  paymentMethod: yup.string().required('Please enter Payment Method'),
+});
+
 export const reviewBuySchema = yup.object().shape({
   checkBox: yup.boolean().required().oneOf([true]),
 });

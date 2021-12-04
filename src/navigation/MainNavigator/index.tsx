@@ -17,8 +17,7 @@ import {AutoBuyStack} from '../AutoBuyStack';
 import {PriceAlertsStack} from '../PriceAlertsStack';
 import {VerificationStack} from '../VerificationStack';
 import {PaymentMethodsStack} from '../PaymentMethodsStack';
-import {BuyStack} from '../BuyStack';
-import {SellStack} from '@navigation/SellStack';
+import {BuyStack} from '../SellBuyStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -105,14 +104,9 @@ export const MainNavigator: React.FC = () => {
           headerShadowVisible: false,
         }}>
         <Stack.Screen
-          name={Screens.buyStack}
-          options={{title: 'Buy'}}
+          name={Screens.sellBuyStack}
+          options={{headerShown: false}}
           component={BuyStack}
-        />
-        <Stack.Screen
-          name={Screens.sellStack}
-          options={{title: 'Buy'}}
-          component={SellStack}
         />
       </Stack.Group>
     </Stack.Navigator>

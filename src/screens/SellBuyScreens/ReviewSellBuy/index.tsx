@@ -9,7 +9,7 @@ import {styles} from './styles';
 import {ReviewBuyForm} from '../../../forms';
 import {getPaymentName} from '@utilities';
 
-export const ReviewBuy: React.FC = () => {
+export const ReviewSellBuy: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
@@ -22,6 +22,7 @@ export const ReviewBuy: React.FC = () => {
 
   const {amountOz, paymentMethod, amount, data} = route.params;
   const {metal, spot} = data;
+  const {type} = route.params;
 
   const [minutes, setMinutes] = useState(3);
   const [seconds, setSeconds] = useState(0);
@@ -74,9 +75,12 @@ export const ReviewBuy: React.FC = () => {
         </TitleMedium>
       </View>
       <View style={styles.container}>
-        <TitleMedium style={styles.title}>You are Buying</TitleMedium>
+        <TitleMedium style={styles.title}>
+          You are {type === 'Buy' ? 'Buying' : 'Selling'}
+        </TitleMedium>
 
         <BuyingInfo
+          type={type}
           metal={metal}
           amount={amount}
           spot={spot}
@@ -84,7 +88,7 @@ export const ReviewBuy: React.FC = () => {
           paymentMethod={getPaymentName(paymentMethod)}
         />
 
-        <ReviewBuyForm />
+        <ReviewBuyForm operationType={type} />
       </View>
     </Screen>
   );

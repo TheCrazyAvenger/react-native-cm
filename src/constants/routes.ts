@@ -12,13 +12,12 @@ export enum Screens {
   pricesStack = 'pricesStack',
   prices = 'prices',
 
-  buyStack = 'buyStack',
+  sellBuyStack = 'sellBuyStack',
   chooseBuy = 'chooseBuy',
-  buySetup = 'buySetup',
-  reviewBuy = 'reviewBuy',
-  completeBuy = 'completeBuy',
+  sellBuySetup = 'sellBuySetup',
+  reviewSellBuy = 'reviewBuy',
+  completeSellBuy = 'completeSellBuy',
 
-  sellStack = 'sellStack',
   chooseSell = 'chooseSell',
 
   news = 'news',

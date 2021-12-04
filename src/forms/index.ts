@@ -12,6 +12,8 @@ export * from './AutoBuySetUpForm';
 export * from './buyForms/BuySetUpForm';
 export * from './buyForms/ReviewBuyForm';
 
+export * from './sellForms/SellSetUpForm';
+
 export * from './PriceAlertsSetUpForm';
 
 export * from './paymentMethodsForms/PaymentMethodsSetUpForm';

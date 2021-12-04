@@ -4,9 +4,9 @@ import {StatusBar} from 'react-native';
 import {ProductItem} from '@components';
 import {Screens} from '@constants';
 import {Screen} from '@ui';
-import {buy} from '@utilities';
+import {sell} from '@utilities';
 
-export const ChooseBuy: React.FC = () => {
+export const ChooseSell: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
@@ -17,7 +17,7 @@ export const ChooseBuy: React.FC = () => {
         translucent
         backgroundColor={'transparent'}
       />
-      {buy.map(item => (
+      {sell.map(item => (
         <ProductItem
           key={item.id}
           metal={item.metal}
@@ -26,8 +26,14 @@ export const ChooseBuy: React.FC = () => {
           premium={item.premium}
           storageFee={item.storageFee}
           spread={item.spread}
-          onPress={() => navigation.navigate(Screens.buySetup, {data: item})}
+          onPress={() =>
+            navigation.navigate(Screens.sellBuySetup, {
+              data: item,
+              type: 'Sell',
+            })
+          }
           style={{marginBottom: item.id === 4 ? 56 : 30}}
+          type="Sell"
         />
       ))}
     </Screen>

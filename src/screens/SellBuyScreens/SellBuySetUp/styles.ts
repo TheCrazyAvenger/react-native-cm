@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
   },
   info: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     alignItems: 'center',
 
     marginHorizontal: 10,

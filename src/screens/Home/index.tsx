@@ -42,7 +42,9 @@ export const Home: React.FC = () => {
             description="Build your portfolio with CyberMetals."
             backgroundColor="#C1D9FA"
             buttonTitle="Buy Now"
-            onPress={() => navigation.navigate(Screens.buyStack)}
+            onPress={() =>
+              navigation.navigate(Screens.sellBuyStack, {type: 'Buy'})
+            }
           />
         ) : null}
         {autoBuy.length === 0 ? (

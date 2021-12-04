@@ -14,6 +14,7 @@ export interface AuthState {
   cashBalance: number;
   legalAdress: {[key: string]: string | null | number};
   shippingAdress: {[key: string]: string | null | number};
+  ownedMetals: {[key: string]: number};
 }
 
 const initialState: AuthState = {
@@ -39,6 +40,12 @@ const initialState: AuthState = {
     state: null,
     postalCode: null,
   },
+  ownedMetals: {
+    Gold: 0,
+    Silver: 0,
+    Palladium: 0,
+    Platinum: 0,
+  },
 };
 
 export const authSlice = createSlice({
@@ -57,6 +64,7 @@ export const authSlice = createSlice({
         cashBalance,
         legalAdress,
         shippingAdress,
+        ownedMetals,
       } = action.payload;
       state.token = token;
       state.verified = verified;
@@ -68,6 +76,7 @@ export const authSlice = createSlice({
       state.cashBalance = cashBalance;
       state.legalAdress = legalAdress;
       state.shippingAdress = shippingAdress;
+      state.ownedMetals = ownedMetals;
     },
     changeName: (state, action: PayloadAction<{[key: string]: string}>) => {
       state.firstName = action.payload.firstName;
@@ -102,6 +111,7 @@ export const authSlice = createSlice({
           cashBalance,
           legalAdress,
           shippingAdress,
+          ownedMetals,
         } = action.payload;
 
         state.token = token;
@@ -114,6 +124,7 @@ export const authSlice = createSlice({
         state.cashBalance = cashBalance;
         state.legalAdress = legalAdress;
         state.shippingAdress = shippingAdress;
+        state.ownedMetals = ownedMetals;
       }
     });
     builder.addCase(
@@ -150,6 +161,12 @@ export const authSlice = createSlice({
         city: null,
         state: null,
         postalCode: null,
+      };
+      state.ownedMetals = {
+        Gold: 0,
+        Silver: 0,
+        Palladium: 0,
+        Platinum: 0,
       };
     });
   },

@@ -16,7 +16,7 @@ import {setLoading, updateCash} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
 import {addOperation} from '@store/slices/operationsSlice';
 
-export const ReviewBuyForm: React.FC = () => {
+export const ReviewBuyForm: React.FC<{operationType: string}> = ({operationType}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
@@ -64,8 +64,9 @@ export const ReviewBuyForm: React.FC = () => {
 
       await dispatch(setLoading(false));
 
-      navigation.push(Screens.completeBuy, {
+      navigation.push(Screens.completeSellBuy, {
         type: 'Success',
+        operationType,
         data: route.params.data,
         amount,
         frequency,
@@ -73,8 +74,9 @@ export const ReviewBuyForm: React.FC = () => {
         amountOz,
       });
     } catch (e) {
-      navigation.push(Screens.completeBuy, {
+      navigation.push(Screens.completeSellBuy, {
         type: 'Error',
+        operationType,
         data: route.params.data,
         amount,
         frequency,

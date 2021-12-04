@@ -7,29 +7,29 @@ import {styles} from './styles';
 import {FormInput, ItemPicker, PaymentMethodPicker} from '@components';
 import {Description, SubtitleMedium, TitleMedium, Error} from '@Typography';
 import {TextButton} from '@ui';
-import {buySchema} from '../..';
 import {Swiper} from '@assets/images/home';
 import {useAppSelector} from '@hooks';
-import {validateNumbers} from '@utilities';
+import {metals, validateNumbers} from '@utilities';
+import {sellSchema} from '../..';
 
-export const BuySetUpForm: React.FC = () => {
+export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
-  const cashBalance = useAppSelector(state => state.auth.cashBalance);
+  const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
   const paymentMethods = useAppSelector(
     state => state.paymentMethod.paymentMethods,
   );
   const legalAdress = useAppSelector(state => state.auth.legalAdress);
 
   const goToNext = (values: {[key: string]: string | number}) => {
-    const {amount, amountOz, frequency, paymentMethod} = values;
+    const {amount, amountOz, paymentMethod} = values;
 
     navigation.navigate(Screens.reviewSellBuy, {
       data: route.params.data,
-      tyep: 'Buy',
+      type: 'Sell',
       amount,
-      frequency,
+      frequency: null,
       paymentMethod,
       amountOz,
     });
@@ -37,11 +37,10 @@ export const BuySetUpForm: React.FC = () => {
 
   return (
     <Formik
-      validationSchema={buySchema}
+      validationSchema={sellSchema}
       initialValues={{
         amount: '',
         amountOz: '',
-        frequency: 'One Time Purchase',
         paymentMethod: 'cashBalance',
       }}
       onSubmit={values => goToNext(values)}>
@@ -97,9 +96,7 @@ export const BuySetUpForm: React.FC = () => {
               </View>
               <View style={{width: '47%'}}>
                 <FormInput
-                  onBlur={() => {
-                    setFieldTouched('amountOz', true);
-                  }}
+                  onBlur={() => setFieldTouched('amountOz', true)}
                   plaseholder="OZ"
                   onChangeText={handleChange('amountOz')}
                   onFocus={() => setFieldTouched('amountOz', false)}
@@ -117,23 +114,8 @@ export const BuySetUpForm: React.FC = () => {
               </View>
             </View>
 
-            <ItemPicker
-              label="Frequency"
-              items={[
-                {label: 'One-Time Purchase', value: 'One-Time Purchase'},
-                {label: 'Daily', value: 'Daily'},
-                {label: 'Weekly', value: 'Weekly'},
-                {label: 'Bi-weekly', value: 'Bi-weekly'},
-                {label: 'Monthly', value: 'Monthly'},
-              ]}
-              errorMessage={errors.frequency}
-              isTouched={touched.frequency}
-              value={values.frequency}
-              onChange={value => setFieldValue('frequency', value)}
-            />
-
             <PaymentMethodPicker
-              label="Payment Method"
+              label="Deposit to"
               onChange={(value: any) => setFieldValue('paymentMethod', value)}
             />
 
@@ -157,17 +139,21 @@ export const BuySetUpForm: React.FC = () => {
             <View style={{marginHorizontal: 10}}>
               <TextButton
                 style={{marginBottom: 20}}
-                title="Confirm Buy"
+                title={`Sell ${metal}`}
                 changeDisabledStyle={true}
                 disabledStyle={{
                   backgroundColor:
-                    cashBalance < +values.amount ? '#F39A9A' : '#C1D9FA',
+                    ownedMetals[metal] < +values.amountOz
+                      ? '#F39A9A'
+                      : '#C1D9FA',
                 }}
                 disabledTitle={
-                  cashBalance < +values.amount ? 'Insufficient Funds' : null
+                  ownedMetals[metal] < +values.amountOz
+                    ? 'Insufficient Holdings'
+                    : null
                 }
                 disabled={
-                  cashBalance < +values.amount
+                  ownedMetals[metal] < +values.amountOz
                     ? true
                     : paymentMethods[values.paymentMethod].length === 0 &&
                       values.paymentMethod !== 'cashBalance'
@@ -180,16 +166,6 @@ export const BuySetUpForm: React.FC = () => {
                 onPress={handleSubmit}
               />
               <TextButton title="Cancel" onPress={() => navigation.pop()} />
-              {values.paymentMethod === 'eCheck' && (
-                <View style={{marginTop: 20}}>
-                  <Description style={{color: colors.gray}}>
-                    Log in (Plaid) to your online Checking account for instant
-                    verification. We strongly encourage you to only link a
-                    Checking account, as linking a Savings account may result in
-                    processing delays and/or fees from your bank.
-                  </Description>
-                </View>
-              )}
             </View>
           </View>
         );

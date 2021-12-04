@@ -9,12 +9,11 @@ export * from './NullScreen';
 export * from './News';
 export * from './DetailsNews';
 
-export * from './BuyScreens/ChooseBuy';
-export * from './BuyScreens/BuySetUp';
-export * from './BuyScreens/ReviewBuy';
-export * from './BuyScreens/CompleteBuy';
-
-export * from './SellScreens/ChooseSell';
+export * from './SellBuyScreens/ChooseBuy';
+export * from './SellBuyScreens/SellBuySetUp';
+export * from './SellBuyScreens/ReviewSellBuy';
+export * from './SellBuyScreens/CompleteSellBuy';
+export * from './SellBuyScreens/ChooseSell';
 
 export * from './SettingsScreens/Settings';
 export * from './SettingsScreens/Refer';
