@@ -11,10 +11,16 @@ export const CheckBoxItem: React.FC<CheckBoxProps> = ({
   isTouched,
   children,
   style,
+  containerStyle,
 }) => {
   const errorCheckBox = error && isTouched ? colors.red : colors.primary;
   return (
-    <View style={{flexDirection: 'row', alignItems: 'flex-start'}}>
+    <View
+      style={{
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        ...containerStyle,
+      }}>
       <CheckBox
         containerStyle={{padding: 0, ...style}}
         checkedColor={colors.primary}

@@ -1,16 +1,11 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React from 'react';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {colors, Screens} from '@constants';
 import {styles} from './styles';
-import {
-  FormInput,
-  ItemPicker,
-  LoadingItem,
-  PaymentMethodPicker,
-} from '@components';
-import {Description, SubtitleMedium, TitleMedium} from '@Typography';
+import {FormInput, ItemPicker, PaymentMethodPicker} from '@components';
+import {Description, SubtitleMedium, TitleMedium, Error} from '@Typography';
 import {TextButton} from '@ui';
 import {buySchema} from '../..';
 import {Swiper} from '@assets/images/home';
@@ -25,6 +20,7 @@ export const BuySetUpForm: React.FC = () => {
   const paymentMethods = useAppSelector(
     state => state.paymentMethod.paymentMethods,
   );
+  const legalAdress = useAppSelector(state => state.auth.legalAdress);
 
   const goToNext = (values: {[key: string]: string | number}) => {
     const {amount, amountOz, frequency, paymentMethod} = values;
@@ -145,6 +141,16 @@ export const BuySetUpForm: React.FC = () => {
                 values.amount ? values.amount : 0
               }`}</TitleMedium>
             </View>
+
+            {legalAdress.city === null && (
+              <View style={styles.error}>
+                <Error>Please, indicate the Legal Address in your </Error>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(Screens.profile)}>
+                  <Error style={styles.profileError}>Profile.</Error>
+                </TouchableOpacity>
+              </View>
+            )}
 
             <View style={{marginHorizontal: 10}}>
               <TextButton

@@ -13,6 +13,11 @@ export const styles = StyleSheet.create({
   agreement: {
     color: colors.primary,
     fontSize: 15,
-    fontFamily: 'OpenSans-Semibold',
+    fontFamily: 'OpenSans-SemiBold',
+  },
+  title: {
+    fontFamily: 'OpenSans-Bold',
+    paddingHorizontal: 10,
+    marginBottom: 20,
   },
 });

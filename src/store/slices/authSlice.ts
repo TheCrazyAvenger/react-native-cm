@@ -12,6 +12,8 @@ export interface AuthState {
   verified: boolean;
   loading: boolean;
   cashBalance: number;
+  legalAdress: {[key: string]: string | null | number};
+  shippingAdress: {[key: string]: string | null | number};
 }
 
 const initialState: AuthState = {
@@ -25,6 +27,18 @@ const initialState: AuthState = {
   error: null,
   verified: false,
   loading: true,
+  legalAdress: {
+    streetAdress: null,
+    city: null,
+    state: null,
+    postalCode: null,
+  },
+  shippingAdress: {
+    streetAdress: null,
+    city: null,
+    state: null,
+    postalCode: null,
+  },
 };
 
 export const authSlice = createSlice({
@@ -41,6 +55,8 @@ export const authSlice = createSlice({
         password,
         mobile,
         cashBalance,
+        legalAdress,
+        shippingAdress,
       } = action.payload;
       state.token = token;
       state.verified = verified;
@@ -50,10 +66,17 @@ export const authSlice = createSlice({
       state.password = password;
       state.mobile = mobile;
       state.cashBalance = cashBalance;
+      state.legalAdress = legalAdress;
+      state.shippingAdress = shippingAdress;
     },
     changeName: (state, action: PayloadAction<{[key: string]: string}>) => {
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
+    },
+    setAdress: (state, action: PayloadAction<any>) => {
+      const {legalAdress, shippingAdress} = action.payload;
+      state.legalAdress = legalAdress;
+      state.shippingAdress = shippingAdress;
     },
     setVerified: (state, action: PayloadAction<boolean>) => {
       state.verified = action.payload;
@@ -77,6 +100,8 @@ export const authSlice = createSlice({
           password,
           mobile,
           cashBalance,
+          legalAdress,
+          shippingAdress,
         } = action.payload;
 
         state.token = token;
@@ -87,6 +112,8 @@ export const authSlice = createSlice({
         state.password = password;
         state.mobile = mobile;
         state.cashBalance = cashBalance;
+        state.legalAdress = legalAdress;
+        state.shippingAdress = shippingAdress;
       }
     });
     builder.addCase(
@@ -102,10 +129,38 @@ export const authSlice = createSlice({
     builder.addCase(logout.fulfilled, state => {
       state.token = null;
       state.userEmail = null;
+      state.cashBalance = 0;
+      state.firstName = '';
+      state.lastName = '';
+      state.password = '';
+      state.mobile = '';
+      state.token = null;
+      state.userEmail = null;
+      state.error = null;
+      state.verified = false;
+      state.loading = true;
+      state.legalAdress = {
+        streetAdress: null,
+        city: null,
+        state: null,
+        postalCode: null,
+      };
+      state.shippingAdress = {
+        streetAdress: null,
+        city: null,
+        state: null,
+        postalCode: null,
+      };
     });
   },
 });
-export const {authSucces, changeName, setVerified, setLoading, updateCash} =
-  authSlice.actions;
+export const {
+  authSucces,
+  changeName,
+  setVerified,
+  setLoading,
+  updateCash,
+  setAdress,
+} = authSlice.actions;
 
 export default authSlice.reducer;

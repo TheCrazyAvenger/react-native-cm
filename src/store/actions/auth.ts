@@ -21,6 +21,8 @@ export const getData = createAsyncThunk('auth/getData', async () => {
           token,
           verified,
           cashBalance,
+          legalAdress,
+          shippingAdress,
         } = data;
 
         if (
@@ -31,7 +33,9 @@ export const getData = createAsyncThunk('auth/getData', async () => {
           password === null &&
           verified === null &&
           mobile === null &&
-          cashBalance === null
+          cashBalance === null &&
+          legalAdress === null &&
+          shippingAdress === null
         ) {
           return {
             token: null,
@@ -42,6 +46,18 @@ export const getData = createAsyncThunk('auth/getData', async () => {
             mobile: '',
             verified: false,
             cashBalance: 0,
+            legalAdress: {
+              streetAdress: null,
+              city: null,
+              state: null,
+              postalCode: null,
+            },
+            shippingAdress: {
+              streetAdress: null,
+              city: null,
+              state: null,
+              postalCode: null,
+            },
           };
         } else {
           return {
@@ -53,6 +69,8 @@ export const getData = createAsyncThunk('auth/getData', async () => {
             verified,
             mobile,
             cashBalance,
+            legalAdress,
+            shippingAdress,
           };
         }
       });

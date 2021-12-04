@@ -43,4 +43,12 @@ export const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Bold',
     fontSize: 22,
   },
+  error: {
+    paddingHorizontal: 10,
+    marginBottom: 12,
+  },
+  profileError: {
+    fontFamily: 'OpenSans-SemiBold',
+    color: colors.primary,
+  },
 });

@@ -37,6 +37,7 @@ export type CheckBoxProps = {
   error: any;
   isTouched: any;
   style?: {[key: string]: number | string};
+  containerStyle?: {[key: string]: number | string};
 };
 
 export type SocialBlockProps = {
@@ -196,6 +197,7 @@ export type ItemPickerProps = {
   placeholderStyle?: {[key: string]: number | string};
   LeftIcon?: any;
   maxHeight?: number;
+  disabled?: boolean;
 };
 
 export type ModalWindowProps = {
