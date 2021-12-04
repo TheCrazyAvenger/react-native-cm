@@ -30,7 +30,7 @@ export const MenuModal: React.FC<MenuModalProps> = ({visible, onPress}) => {
             title="Sell"
             text="Sell your gold, silver, platinum or palladium"
             Image={SellMetal}
-            onPress={() => console.log(1)}
+            onPress={() => navigation.navigate(Screens.sellStack)}
           />
           <MenuModalItem
             title="Fund"

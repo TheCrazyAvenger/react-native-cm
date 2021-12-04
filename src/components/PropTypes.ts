@@ -152,6 +152,7 @@ export type ProductItemProps = {
   spread: number;
   textColor?: string;
   onPress: (...args: any) => void;
+  type?: string;
   style?: {[key: string]: number | string};
 };
 

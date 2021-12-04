@@ -17,6 +17,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
   onPress,
   price,
   style,
+  type,
 }) => (
   <View style={{...styles.container, ...style}}>
     <View style={styles.cardItem}>
@@ -91,7 +92,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
       </View>
     </View>
     <TextButton
-      title={`Buy ${metal}`}
+      title={`${type === 'Sell' ? 'Sell' : 'Buy'} ${metal}`}
       solid
       onPress={onPress}
       style={{marginTop: 20}}

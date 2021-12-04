@@ -18,6 +18,9 @@ export enum Screens {
   reviewBuy = 'reviewBuy',
   completeBuy = 'completeBuy',
 
+  sellStack = 'sellStack',
+  chooseSell = 'chooseSell',
+
   news = 'news',
   detailsNews = 'detailsNews',
 

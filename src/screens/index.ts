@@ -14,6 +14,8 @@ export * from './BuyScreens/BuySetUp';
 export * from './BuyScreens/ReviewBuy';
 export * from './BuyScreens/CompleteBuy';
 
+export * from './SellScreens/ChooseSell';
+
 export * from './SettingsScreens/Settings';
 export * from './SettingsScreens/Refer';
 export * from './SettingsScreens/Notifications';
