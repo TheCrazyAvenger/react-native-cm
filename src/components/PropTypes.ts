@@ -8,7 +8,8 @@ export type TextProps = {
 };
 
 export type NewsCardProps = {
-  size?: 'Full' | 'Small';
+  data: any;
+  isLoading: boolean;
   style?: {[key: string]: number | string};
 };
 

@@ -3,34 +3,28 @@ import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {NewsCardProps, ViewMoreButton, Wrapper} from '../..';
 import {colors, Screens} from '@constants';
-import {useAppSelector} from '@hooks';
 import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {getTime, removeTags} from '@utilities';
 import {LoadingItem} from '@components';
 
-export const NewsCard: React.FC<NewsCardProps> = ({size, style}) => {
+export const NewsCard: React.FC<NewsCardProps> = ({data, isLoading, style}) => {
   const navigation: any = useNavigation();
-
-  const news = useAppSelector(state => state.news.news);
-
-  const newsList = size === 'Full' ? news : news.slice(0, 4);
 
   return (
     <View style={{...styles.container, ...style}}>
-      {size === 'Full' ? null : (
-        <View style={{...styles.cardItem, marginBottom: 15}}>
-          <TitleMedium>Market News</TitleMedium>
-          {news.length !== 0 && (
-            <ViewMoreButton
-              style={{marginTop: 0}}
-              onPress={() => navigation.navigate(Screens.news)}
-            />
-          )}
-        </View>
-      )}
-      {news.length !== 0 ? (
-        newsList.map((item: any, i: number) => {
+      <View style={{...styles.cardItem, marginBottom: 15}}>
+        <TitleMedium>Market News</TitleMedium>
+        {data.length !== 0 && data.length <= 4 && (
+          <ViewMoreButton
+            style={{marginTop: 0}}
+            onPress={() => navigation.navigate(Screens.news)}
+          />
+        )}
+      </View>
+
+      {!isLoading ? (
+        data.map((item: any, i: number) => {
           const {id, title, body, created_at, user_update} = item;
 
           const {monthName, day, year} = getTime(created_at);
@@ -57,8 +51,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({size, style}) => {
                   {`${user_update} · ${monthName} ${day}, ${year}`}
                 </Description>
               </TouchableOpacity>
-              {i === news.length - 1 ? null : size === 'Small' &&
-                i === 3 ? null : (
+              {i !== data.length - 1 && (
                 <Wrapper style={{backgroundColor: colors.primary}} />
               )}
             </View>

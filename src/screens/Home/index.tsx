@@ -12,12 +12,16 @@ import {Screens} from '@constants';
 import {useAppSelector} from '@hooks';
 import {Screen} from '@ui';
 import {metals} from '@utilities';
+import {useGetNewsQuery} from '@api';
 
 export const Home: React.FC = () => {
   const navigation: any = useNavigation();
 
   const operations = useAppSelector(state => state.operations.operations);
   const autoBuy = useAppSelector(state => state.autoBuy.autoBuy);
+
+  // @ts-ignore
+  const {data = [], isLoading} = useGetNewsQuery();
 
   return (
     <Screen style={{paddingHorizontal: 0}}>
@@ -53,7 +57,7 @@ export const Home: React.FC = () => {
           />
         ) : null}
         <ActivityCard />
-        <NewsCard size="Small" />
+        <NewsCard data={data} isLoading={isLoading} />
       </Screen>
     </Screen>
   );

@@ -9,13 +9,16 @@ import {Facebook, LinkedIn, Twitter} from '@assets/images/news';
 import {tagStyles} from './tagStyles';
 import {SubtitleMedium, Title} from '@Typography';
 import {getTime, removeTags} from '@utilities';
-import {useGetNewsByIdMutation} from '@api';
+import {useGetNewsByIdMutation, useGetNewsQuery} from '@api';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {setLoading} from '@store/slices/authSlice';
 import Share from 'react-native-share';
 
 export const DetailsNews: React.FC = () => {
   const route: any = useRoute();
+
+  //@ts-ignore
+  const {data: newsData = [], isLoading} = useGetNewsQuery();
 
   const {id} = route.params;
 
@@ -98,7 +101,7 @@ export const DetailsNews: React.FC = () => {
             <LinkedIn />
           </TouchableOpacity>
         </View>
-        <NewsCard size="Small" />
+        <NewsCard data={newsData} isLoading={isLoading} />
       </View>
     </Screen>
   );
