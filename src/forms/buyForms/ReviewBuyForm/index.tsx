@@ -12,23 +12,33 @@ import {TextButton} from '@ui';
 import {reviewBuySchema} from '../..';
 import {getMonth} from '@utilities';
 import {useAppDispatch, useAppSelector} from '@hooks';
-import {setLoading, updateCash} from '@store/slices/authSlice';
+import {
+  setLoading,
+  updateCash,
+  updateOwnedMetals,
+} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
 import {addOperation} from '@store/slices/operationsSlice';
 
-export const ReviewBuyForm: React.FC<{operationType: string}> = ({operationType}) => {
+export const ReviewBuyForm: React.FC<{operationType: string}> = ({
+  operationType,
+}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
   const {amount, amountOz, frequency, paymentMethod, data} = route.params;
   const {metal} = data;
+  const {type} = route.params;
 
   const operations = useAppSelector(state => state.operations.operations);
   const loading = useAppSelector(state => state.auth.loading);
   const token = useAppSelector(state => state.auth.token);
   const cashBalance = useAppSelector(state => state.auth.cashBalance);
+  const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
 
   const dispatch = useAppDispatch();
+
+  // console.log(type);
 
   const buyGold = async () => {
     try {
@@ -37,25 +47,40 @@ export const ReviewBuyForm: React.FC<{operationType: string}> = ({operationType}
       const day = date.getDate();
       const year = date.getFullYear();
 
-      const id = `${Math.round(Math.random() * 1000000)}_buy`;
+      const id = `${Math.round(Math.random() * 1000000)}_${
+        type === 'Buy' ? 'buy' : 'sell'
+      }`;
 
       const data = {
-        type: `Bought ${metal}`,
+        type: `${type === 'Buy' ? 'Bought' : 'Sold'} ${metal}`,
         date: `${month} ${day}, ${year}`,
-        usd: `- $${amount}`,
+        usd: `${type === 'Buy' ? '-' : '+'} $${amount}`,
         oz: (+amount / 1887).toFixed(3),
-        image: 'buy',
+        image: `${type === 'Buy' ? 'buy' : 'sell'}`,
         id,
       };
 
       dispatch(setLoading(true));
+
+      const newAmount =
+        type === 'Buy'
+          ? ownedMetals[metal] + +amountOz
+          : ownedMetals[metal] - +amountOz;
+      await database()
+        .ref(`/users/${token}/ownedMetals/${metal}`)
+        .set(newAmount);
+      await dispatch(updateOwnedMetals({metal, newAmount}));
 
       await database().ref(`/users/${token}/operations/${id}`).set(data);
 
       await dispatch(addOperation(data));
 
       const newCashValue =
-        paymentMethod === 'cashBalance' ? cashBalance - +amount : cashBalance;
+        paymentMethod !== 'cashBalance'
+          ? cashBalance
+          : type === 'Buy'
+          ? cashBalance - +amount
+          : cashBalance + +amount;
 
       await database()
         .ref(`/users/${token}`)
@@ -74,6 +99,7 @@ export const ReviewBuyForm: React.FC<{operationType: string}> = ({operationType}
         amountOz,
       });
     } catch (e) {
+      await dispatch(setLoading(false));
       navigation.push(Screens.completeSellBuy, {
         type: 'Error',
         operationType,

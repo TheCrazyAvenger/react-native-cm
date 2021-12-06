@@ -84,7 +84,8 @@ export const CompleteSellBuy: React.FC = () => {
           />
         </View>
       </View>
-      {paymentMethod === 'eCheck' || paymentMethod === 'bankWire' ? (
+      {(paymentMethod === 'eCheck' || paymentMethod === 'bankWire') &&
+      operationType === 'Buy' ? (
         <View>
           <View style={{marginBottom: 20}}>
             <Subtitle style={styles.stepsTitle}>Next Steps</Subtitle>

@@ -27,7 +27,7 @@ export const BuySetUpForm: React.FC = () => {
 
     navigation.navigate(Screens.reviewSellBuy, {
       data: route.params.data,
-      tyep: 'Buy',
+      type: 'Buy',
       amount,
       frequency,
       paymentMethod,

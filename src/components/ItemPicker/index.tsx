@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
 import {Image, View} from 'react-native';
-import {ItemPickerProps, Wrapper} from '..';
+import {ItemPickerProps} from '..';
 import {Dropdown} from 'react-native-element-dropdown';
 import {colors} from '@constants';
 import {Description, SubtitleMedium, Error} from '@Typography';
 import {styles} from './styles';
-import {Text} from 'react-native-elements';
-import {useAppSelector} from '@hooks';
 
 export const ItemPicker: React.FC<ItemPickerProps> = ({
   label,

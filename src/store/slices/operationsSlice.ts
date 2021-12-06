@@ -2,17 +2,11 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {getOperations} from '../actions/operations';
 
 export interface OperationsState {
-  operations: {[key: string]: string | number} | any;
+  operations: any;
 }
 
 const initialState: OperationsState = {
-  operations: {
-    buy: [],
-    sell: [],
-    fund: [],
-    withdraw: [],
-    redeem: [],
-  },
+  operations: [],
 };
 
 export const operationsSlice = createSlice({
@@ -20,12 +14,11 @@ export const operationsSlice = createSlice({
   initialState,
   reducers: {
     addOperation: (state, action: PayloadAction<any>) =>
-      void state.operations[action.payload.image].push(action.payload),
+      void state.operations.push(action.payload),
     deleteOperation: (state, action: PayloadAction<any>) => {
-      console.log(action.payload.image);
-      state.operations[action.payload.image] = state.operations[
-        action.payload.image
-      ].filter((item: any) => item.id !== action.payload.id);
+      state.operations = state.operations.filter(
+        (item: any) => item.id !== action.payload.id,
+      );
     },
   },
   extraReducers: builder => {

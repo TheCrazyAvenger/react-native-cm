@@ -96,6 +96,11 @@ export const authSlice = createSlice({
     updateCash: (state, action: PayloadAction<number>) => {
       state.cashBalance = action.payload;
     },
+    updateOwnedMetals: (state, action: PayloadAction<any>) => {
+      const {metal, newAmount} = action.payload;
+
+      state.ownedMetals[metal] = newAmount;
+    },
   },
   extraReducers: builder => {
     builder.addCase(getData.fulfilled, (state, action: PayloadAction<any>) => {
@@ -178,6 +183,7 @@ export const {
   setLoading,
   updateCash,
   setAdress,
+  updateOwnedMetals,
 } = authSlice.actions;
 
 export default authSlice.reducer;

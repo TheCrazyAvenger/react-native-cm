@@ -16,21 +16,7 @@ export const getOperations = createAsyncThunk(
 
           const data = responce;
 
-          const operationsList: any = {
-            buy: [],
-            sell: [],
-            fund: [],
-            withdraw: [],
-            redeem: [],
-          };
-
-          Object.values(data).map((item: any) =>
-            [...item].map(operation => {
-              if (operation !== null)
-                return operationsList[operation.image].push(operation);
-            }),
-          );
-          return operationsList;
+          return [...Object.values(data)];
         });
     } catch (e) {
       console.log(e);
