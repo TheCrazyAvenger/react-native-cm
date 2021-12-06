@@ -16,6 +16,8 @@ export enum Screens {
   chooseFund = 'chooseFund',
   chooseWithdraw = 'chooseWithdraw',
   fundWithDrawSetUp = 'fundWithDrawSetUp',
+  reviewFundWithdraw = 'reviewFundWithdraw',
+  completeFundWithdraw = 'completeFundWithdraw',
 
   bankAccountStack = 'bankAccountStack',
   addBankAccount = 'addBankAccount',

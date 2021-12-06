@@ -19,6 +19,8 @@ export * from './fundWithdrawScreens/ChooseFund';
 export * from './fundWithdrawScreens/ChooseWithdraw';
 export * from './fundWithdrawScreens/FundWithDrawSetUp';
 export * from './fundWithdrawScreens/AddBankAccount';
+export * from './fundWithdrawScreens/ReviewFundWithdraw';
+export * from './fundWithdrawScreens/CompleteFundWithdraw';
 
 export * from './SettingsScreens/Settings';
 export * from './SettingsScreens/Refer';

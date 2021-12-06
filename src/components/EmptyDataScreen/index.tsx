@@ -10,6 +10,7 @@ export const EmptyDataScreen: React.FC<EmptyDataScreenProps> = ({
   title,
   text,
   buttonTitle,
+  descriptionStyle,
   onPress,
 }) => {
   return (
@@ -23,8 +24,10 @@ export const EmptyDataScreen: React.FC<EmptyDataScreenProps> = ({
         <ScrollView>
           <View style={styles.header}>
             <ShareRefer />
-            <Subtitle style={styles.title}>{title}</Subtitle>
-            <Description style={styles.description}>{text}</Description>
+            {title && <Subtitle style={styles.title}>{title}</Subtitle>}
+            <Description style={{...styles.description, ...descriptionStyle}}>
+              {text}
+            </Description>
           </View>
         </ScrollView>
         {buttonTitle && onPress && (

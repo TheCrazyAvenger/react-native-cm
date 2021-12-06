@@ -55,6 +55,7 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
         }}
         placeholderStyle={{
           ...styles.placeholderStyle,
+          ...placeholderStyle,
           color: value === '' ? colors.placeholder : colors.black,
         }}
         selectedTextStyle={{

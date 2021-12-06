@@ -10,11 +10,12 @@ export const FundWithdrawInfo: React.FC<FundWithdrawInfoProps> = ({
   amount,
   method,
   account,
+  type,
   style,
 }) => {
   return (
-    <View style={style}>
-      <View style={styles.info}>
+    <View>
+      <View style={{...styles.info, ...style}}>
         {cashBalance && (
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>
@@ -27,15 +28,19 @@ export const FundWithdrawInfo: React.FC<FundWithdrawInfoProps> = ({
         )}
         {amount && (
           <View style={styles.infoItem}>
-            <Description style={styles.infoTitle}>Amount</Description>
+            <Description style={styles.infoTitle}>
+              {type === 'Fund' ? 'Funding' : 'Amount'}
+            </Description>
             <SubtitleMedium style={styles.infoText}>
-              {`$${amount}`}
+              {`$${Number(amount).toFixed(2)}`}
             </SubtitleMedium>
           </View>
         )}
         {method && (
           <View style={styles.infoItem}>
-            <Description style={styles.infoTitle}>Method</Description>
+            <Description style={styles.infoTitle}>
+              {type === 'Fund' ? 'Payment' : ''} Method
+            </Description>
             <SubtitleMedium style={styles.infoText}>{method}</SubtitleMedium>
           </View>
         )}

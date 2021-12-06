@@ -5,8 +5,10 @@ import {
   AddBankAccount,
   ChooseFund,
   ChooseWithdraw,
+  CompleteFundWithdraw,
   FundWithDrawSetUp,
   PaymentMethodsSetUp,
+  ReviewFundWithdraw,
 } from '@screens';
 import {BackButton} from '../BackButton';
 import {styles} from './styles';
@@ -40,6 +42,14 @@ export const FundWithdrawStack: React.FC = () => {
       <Stack.Screen
         name={Screens.paymentMethodsSetUp}
         component={PaymentMethodsSetUp}
+      />
+      <Stack.Screen
+        name={Screens.reviewFundWithdraw}
+        component={ReviewFundWithdraw}
+      />
+      <Stack.Screen
+        name={Screens.completeFundWithdraw}
+        component={CompleteFundWithdraw}
       />
     </Stack.Navigator>
   );

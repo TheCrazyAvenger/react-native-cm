@@ -1,5 +1,6 @@
-import {PaymentItem} from '@components';
-import {Screens} from '@constants';
+import {EmptyDataScreen, PaymentItem} from '@components';
+import {colors, Screens} from '@constants';
+import {useAppSelector} from '@hooks';
 import {useNavigation} from '@react-navigation/core';
 import {Screen} from '@ui';
 import React from 'react';
@@ -8,6 +9,23 @@ import {styles} from './styles';
 
 export const ChooseFund: React.FC = () => {
   const navigation: any = useNavigation();
+
+  const paymentMethods = useAppSelector(
+    state => state.paymentMethod.paymentMethods,
+  );
+
+  if (
+    paymentMethods.bankWire.length === 0 ||
+    paymentMethods.eCheck.length === 0
+  ) {
+    return (
+      <EmptyDataScreen
+        descriptionStyle={{color: colors.black}}
+        text="There are no available payment methods.
+    Please call your CyberMetals Support Team at 855-903-3449"
+      />
+    );
+  }
 
   return (
     <Screen>

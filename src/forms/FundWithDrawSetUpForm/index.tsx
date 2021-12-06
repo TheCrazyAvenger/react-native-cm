@@ -1,14 +1,13 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
-import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {View} from 'react-native';
 import {colors, Screens} from '@constants';
 import {styles} from './styles';
-import {FormInput, ItemPicker, PaymentMethodPicker} from '@components';
-import {Description, SubtitleMedium, TitleMedium, Error} from '@Typography';
+import {FormInput, ItemPicker} from '@components';
+import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {TextButton} from '@ui';
-import {buySchema} from '..';
-import {Swiper} from '@assets/images/home';
+import {fundWithdrawSchema} from '..';
 import {useAppSelector} from '@hooks';
 import {numberWithCommas, validateNumbers} from '@utilities';
 
@@ -20,21 +19,29 @@ export const FundWithDrawSetUpForm: React.FC = () => {
     state => state.paymentMethod.paymentMethods,
   );
 
+  const [eCheck, setECheck] = useState(
+    //@ts-ignore
+    Object.values(paymentMethods.eCheck)[0].cardNumber,
+  );
+
   const {type, paymentMethod} = route.params;
 
   const goToNext = (values: {[key: string]: string | number}) => {
     const {amount} = values;
 
-    navigation.navigate(Screens.reviewSellBuy, {
+    navigation.navigate(Screens.reviewFundWithdraw, {
       amount,
+      type,
+      paymentMethod,
     });
   };
 
   return (
     <Formik
-      validationSchema={buySchema}
+      validationSchema={fundWithdrawSchema}
       initialValues={{
         amount: '',
+        paymentMethod: eCheck,
       }}
       onSubmit={values => goToNext(values)}>
       {({
@@ -50,7 +57,7 @@ export const FundWithDrawSetUpForm: React.FC = () => {
         return (
           <View>
             <FormInput
-              onBlur={async () => setFieldTouched('amount', true)}
+              onBlur={() => setFieldTouched('amount', true)}
               label="Amount"
               plaseholder="USD"
               keyboardType="numeric"
@@ -71,26 +78,40 @@ export const FundWithDrawSetUpForm: React.FC = () => {
             />
 
             {paymentMethod === 'eCheck' &&
-              paymentMethods[paymentMethod].length === 0 && (
-                <View>
-                  <Description style={styles.title}>Account</Description>
-                  <TextButton
-                    title="Link your bank account
+            paymentMethods[paymentMethod].length === 0 ? (
+              <View>
+                <Description style={styles.title}>Account</Description>
+                <TextButton
+                  title="Link your bank account
               with Plaid"
-                    style={{marginHorizontal: 10, paddingHorizontal: 50}}
-                    onPress={() => navigation.navigate(Screens.addBankAccount)}
-                  />
-                </View>
-              )}
-            {/* <PaymentMethodPicker
-              label="Payment Method"
-              onChange={(value: any) => setFieldValue('paymentMethod', value)}
-            /> */}
+                  style={{marginHorizontal: 10, paddingHorizontal: 50}}
+                  onPress={() => navigation.navigate(Screens.addBankAccount)}
+                />
+              </View>
+            ) : paymentMethod !== 'bankWire' ? (
+              <ItemPicker
+                labelStyle={{marginTop: 25}}
+                label="Account"
+                style={styles.eCheckPicker}
+                placeholderStyle={styles.pickerPlaceholder}
+                items={paymentMethods.eCheck.map((item: any) => ({
+                  label: item.cardNumber,
+                  value: item.cardNumber,
+                }))}
+                maxHeight={150}
+                value={eCheck}
+                onChange={value => {
+                  setECheck(value);
+                }}
+              />
+            ) : null}
 
             <View style={styles.price}>
               <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
               <TitleMedium style={styles.priceTitle}>{`$${
-                values.amount ? numberWithCommas(values.amount) : 0
+                values.amount
+                  ? numberWithCommas(Number(values.amount).toFixed(2))
+                  : 0
               }`}</TitleMedium>
             </View>
 
@@ -98,11 +119,14 @@ export const FundWithDrawSetUpForm: React.FC = () => {
               <TextButton
                 style={{marginBottom: 20}}
                 title="Continue"
+                disabled={
+                  !isValid && paymentMethods[paymentMethod].length === 0
+                }
                 solid
                 onPress={handleSubmit}
               />
               <TextButton title="Cancel" onPress={() => navigation.pop()} />
-              {paymentMethod === 'bankWire' && (
+              {paymentMethod === 'eCheck' && (
                 <View style={{marginTop: 20}}>
                   <Description style={{color: colors.gray}}>
                     Please note, if you fund your account with ACH/eCheck and

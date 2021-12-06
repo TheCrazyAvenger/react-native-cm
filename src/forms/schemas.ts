@@ -292,3 +292,18 @@ export const sellSchema = yup.object().shape({
 export const reviewBuySchema = yup.object().shape({
   checkBox: yup.boolean().required().oneOf([true]),
 });
+
+export const fundWithdrawSchema = yup.object().shape({
+  amount: yup
+    .number()
+    .required('Please enter Amount.')
+    .min(
+      100,
+      'Bank Wires have a minimum amount of $100.00 and a maximum amount of $500,000.00, please adjust your funding amount.',
+    )
+    .min(
+      500000,
+      'Bank Wires have a minimum amount of $100.00 and a maximum amount of $500,000.00, please adjust your funding amount.',
+    ),
+  paymentMethod: yup.string().required('Please enter Payment Method'),
+});
