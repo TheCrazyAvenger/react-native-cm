@@ -10,33 +10,21 @@ import {styles} from './styles';
 export const ActivityCard: React.FC = () => {
   const operations = useAppSelector(state => state.operations.operations);
 
-  const isData =
-    operations.buy.length > 0 ||
-    operations.sell.length > 0 ||
-    operations.fund.length > 0 ||
-    operations.withdraw.length > 0 ||
-    operations.redeem.length > 0
-      ? true
-      : false;
-
-  let operationsLength = 0;
-  Object.values(operations).map((item: any) =>
-    [...item].map(operation => {
-      if (operation !== null) return operationsLength++;
-    }),
-  );
+  const isData = operations.length > 0 ? true : false;
 
   return (
     <View style={styles.container}>
       <TitleMedium style={{marginBottom: 20}}>Recent Activity</TitleMedium>
       {isData ? (
-        [...Object.values(operations)].map((operation: any) => {
-          return operation.map((item: any, index: number) => {
-            const {type, date, usd, image, oz, id}: any = item;
+        operations
+          .slice(-5)
+          .reverse()
+          .map((operation: any, i: number) => {
+            const {type, date, usd, image, oz, id}: any = operation;
             const Image = getOperationImage(image);
 
             return (
-              <React.Fragment key={index}>
+              <React.Fragment key={id}>
                 <TouchableOpacity activeOpacity={0.7} style={styles.cardItem}>
                   <View style={styles.cardItem}>
                     <Image />
@@ -55,13 +43,12 @@ export const ActivityCard: React.FC = () => {
                     <Description>{oz ? `${oz} oz` : null}</Description>
                   </View>
                 </TouchableOpacity>
-                {index === operationsLength - 1 ? null : (
+                {i === 4 ? null : (
                   <Wrapper style={{backgroundColor: colors.primary}} />
                 )}
               </React.Fragment>
             );
-          });
-        })
+          })
       ) : (
         <SubtitleMedium>Empty</SubtitleMedium>
       )}

@@ -26,7 +26,9 @@ export const ChooseBuy: React.FC = () => {
           premium={item.premium}
           storageFee={item.storageFee}
           spread={item.spread}
-          onPress={() => navigation.navigate(Screens.buySetup, {data: item})}
+          onPress={() =>
+            navigation.navigate(Screens.sellBuySetup, {data: item, type: 'Buy'})
+          }
           style={{marginBottom: item.id === 4 ? 56 : 30}}
         />
       ))}

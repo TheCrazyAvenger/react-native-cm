@@ -9,13 +9,14 @@ import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import {cmCredentials} from '@utilities';
 
-export const CompleteBuy: React.FC = () => {
+export const CompleteSellBuy: React.FC = () => {
   const navigation: any = useNavigation();
 
   const route: any = useRoute();
 
   const {amountOz, paymentMethod, amount, data, type} = route.params;
   const {metal, spot} = data;
+  const {operationType} = route.params;
 
   return (
     <Screen>
@@ -26,7 +27,7 @@ export const CompleteBuy: React.FC = () => {
       />
       <View style={styles.container}>
         <TitleMedium style={styles.title}>
-          You Bought{' '}
+          You {operationType === 'Buy' ? 'Bought' : 'Sold'}{' '}
           {type === 'Success' ? (
             <Image
               source={require('../../../assets/images/settings/complete.png')}
@@ -37,6 +38,7 @@ export const CompleteBuy: React.FC = () => {
         </TitleMedium>
 
         <BuyingInfo
+          type={operationType}
           metal={metal}
           amount={amount}
           spot={spot}
@@ -65,7 +67,11 @@ export const CompleteBuy: React.FC = () => {
           <TextButton
             solid
             title={
-              type === 'Success' ? 'Buy Again' : 'Return to the Previous Screen'
+              type !== 'Success'
+                ? 'Return to the Previous Screen'
+                : operationType === 'Buy'
+                ? 'Buy Again'
+                : 'Sell Again'
             }
             style={{marginBottom: 15}}
             onPress={() =>
@@ -78,7 +84,8 @@ export const CompleteBuy: React.FC = () => {
           />
         </View>
       </View>
-      {paymentMethod === 'eCheck' || paymentMethod === 'bankWire' ? (
+      {(paymentMethod === 'eCheck' || paymentMethod === 'bankWire') &&
+      operationType === 'Buy' ? (
         <View>
           <View style={{marginBottom: 20}}>
             <Subtitle style={styles.stepsTitle}>Next Steps</Subtitle>
@@ -88,7 +95,7 @@ export const CompleteBuy: React.FC = () => {
                 ' Your required payment steps are indicated below.'}
             </SubtitleMedium>
           </View>
-          {paymentMethod === 'eCheck' && (
+          {paymentMethod === 'eCheck' && operationType === 'Buy' && (
             <View>
               <View
                 style={{paddingLeft: 15, paddingRight: 10, marginBottom: 20}}>
@@ -108,7 +115,7 @@ export const CompleteBuy: React.FC = () => {
               </SubtitleMedium>
             </View>
           )}
-          {paymentMethod === 'bankWire' && (
+          {paymentMethod === 'bankWire' && operationType === 'Buy' && (
             <View>
               <View style={{marginBottom: 20}}>
                 <SubtitleMedium

@@ -48,6 +48,12 @@ export const MobileVerSuccess: React.FC = () => {
               state: null,
               postalCode: null,
             },
+            ownedMetals: {
+              Gold: 0,
+              Silver: 0,
+              Palladium: 0,
+              Platinum: 0,
+            },
           });
 
         await AsyncStorage.setItem('token', JSON.stringify(uid));
@@ -61,6 +67,25 @@ export const MobileVerSuccess: React.FC = () => {
             lastName,
             password,
             mobile,
+            cashBalance: 1000,
+            legalAdress: {
+              streetAdress: null,
+              city: null,
+              state: null,
+              postalCode: null,
+            },
+            shippingAdress: {
+              streetAdress: null,
+              city: null,
+              state: null,
+              postalCode: null,
+            },
+            ownedMetals: {
+              Gold: 0,
+              Silver: 0,
+              Palladium: 0,
+              Platinum: 0,
+            },
           }),
         );
 

@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core';
 import React from 'react';
-import {Alert, Button, StatusBar, View} from 'react-native';
+import {StatusBar} from 'react-native';
 import {
   ActionsCard,
   ActivityCard,
@@ -32,17 +32,15 @@ export const Home: React.FC = () => {
           <MetalsCard key={item.metal} data={item} />
         ))}
 
-        {/* <View style={{marginTop: 50}}>
-          <Button onPress={onShare} title="Share" />
-        </View> */}
-
-        {operations.buy.length === 0 ? (
+        {operations.length === 0 ? (
           <ActionsCard
             title="Start Trading"
             description="Build your portfolio with CyberMetals."
             backgroundColor="#C1D9FA"
             buttonTitle="Buy Now"
-            onPress={() => navigation.navigate(Screens.buyStack)}
+            onPress={() =>
+              navigation.navigate(Screens.sellBuyStack, {type: 'Buy'})
+            }
           />
         ) : null}
         {autoBuy.length === 0 ? (

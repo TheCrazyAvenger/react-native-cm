@@ -49,15 +49,24 @@ export const PricesChart: React.FC<PricesChartProps> = ({
 
       <View style={styles.buttons}>
         <View style={{width: '47%'}}>
-          <TextButton title="Sell" onPress={() => console.log('Sell')} />
+          <TextButton
+            title="Sell"
+            onPress={() =>
+              navigation.navigate(Screens.sellBuyStack, {
+                metalType: chartMetal - 1,
+                type: 'Sell',
+              })
+            }
+          />
         </View>
         <View style={{width: '47%'}}>
           <TextButton
             title="Buy"
             solid
             onPress={() =>
-              navigation.navigate(Screens.buyStack, {
+              navigation.navigate(Screens.sellBuyStack, {
                 metalType: chartMetal - 1,
+                type: 'Buy',
               })
             }
           />

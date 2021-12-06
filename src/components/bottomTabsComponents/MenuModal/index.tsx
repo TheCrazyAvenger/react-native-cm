@@ -24,13 +24,23 @@ export const MenuModal: React.FC<MenuModalProps> = ({visible, onPress}) => {
             title="Buy"
             text="Buy gold, silver, platinum and palladium"
             Image={BuyMetal}
-            onPress={() => navigation.navigate(Screens.buyStack)}
+            onPress={() => {
+              navigation.navigate(Screens.sellBuyStack, {
+                type: 'Buy',
+              });
+              onPress();
+            }}
           />
           <MenuModalItem
             title="Sell"
             text="Sell your gold, silver, platinum or palladium"
             Image={SellMetal}
-            onPress={() => console.log(1)}
+            onPress={() => {
+              navigation.navigate(Screens.sellBuyStack, {
+                type: 'Sell',
+              });
+              onPress();
+            }}
           />
           <MenuModalItem
             title="Fund"

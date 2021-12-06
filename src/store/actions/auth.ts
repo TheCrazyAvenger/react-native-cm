@@ -23,6 +23,7 @@ export const getData = createAsyncThunk('auth/getData', async () => {
           cashBalance,
           legalAdress,
           shippingAdress,
+          ownedMetals,
         } = data;
 
         if (
@@ -35,7 +36,8 @@ export const getData = createAsyncThunk('auth/getData', async () => {
           mobile === null &&
           cashBalance === null &&
           legalAdress === null &&
-          shippingAdress === null
+          shippingAdress === null &&
+          ownedMetals === null
         ) {
           return {
             token: null,
@@ -58,6 +60,12 @@ export const getData = createAsyncThunk('auth/getData', async () => {
               state: null,
               postalCode: null,
             },
+            ownedMetals: {
+              Gold: 0,
+              Silver: 0,
+              Palladium: 0,
+              Platinum: 0,
+            },
           };
         } else {
           return {
@@ -71,6 +79,7 @@ export const getData = createAsyncThunk('auth/getData', async () => {
             cashBalance,
             legalAdress,
             shippingAdress,
+            ownedMetals,
           };
         }
       });

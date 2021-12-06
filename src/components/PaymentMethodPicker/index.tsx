@@ -20,6 +20,7 @@ import {Subtitle, SubtitleMedium} from '@Typography';
 
 export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
   onChange,
+  label,
 }) => {
   const navigation: any = useNavigation();
 
@@ -67,7 +68,7 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
       />
       <ItemPicker
         LeftIcon={getPaymentImage(paymentMethod)}
-        label="Payment Method"
+        label={label}
         style={styles.picker}
         placeholderStyle={styles.pickerPlaceholder}
         items={[

@@ -153,6 +153,7 @@ export type ProductItemProps = {
   spread: number;
   textColor?: string;
   onPress: (...args: any) => void;
+  type?: string;
   style?: {[key: string]: number | string};
 };
 
@@ -271,6 +272,7 @@ export type BuyingInfoProps = {
   spot: number;
   amountOz: string;
   style?: {[key: string]: number | string};
+  type: string;
 };
 
 export type OrderInfoProps = {
@@ -280,6 +282,7 @@ export type OrderInfoProps = {
 };
 
 export type PaymentMethodPickerProps = {
+  label: string;
   onChange: (value: any) => void;
 };
 
