@@ -18,6 +18,7 @@ import {PriceAlertsStack} from '../PriceAlertsStack';
 import {VerificationStack} from '../VerificationStack';
 import {PaymentMethodsStack} from '../PaymentMethodsStack';
 import {BuyStack} from '../SellBuyStack';
+import {FundWithdrawStack} from '@navigation/FundWithdrawStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -95,18 +96,15 @@ export const MainNavigator: React.FC = () => {
           options={{title: 'Storage Fees'}}
           component={StorageFees}
         />
-      </Stack.Group>
-      <Stack.Group
-        screenOptions={{
-          headerLeft: () => <BackButton />,
-          headerTitleAlign: 'center',
-          headerTitleStyle: styles.headerTitleStyle,
-          headerShadowVisible: false,
-        }}>
         <Stack.Screen
           name={Screens.sellBuyStack}
           options={{headerShown: false}}
           component={BuyStack}
+        />
+        <Stack.Screen
+          name={Screens.fundWithdrawStack}
+          options={{headerShown: false}}
+          component={FundWithdrawStack}
         />
       </Stack.Group>
     </Stack.Navigator>

@@ -16,6 +16,8 @@ export * from './sellForms/SellSetUpForm';
 
 export * from './PriceAlertsSetUpForm';
 
+export * from './FundWithDrawSetUpForm';
+
 export * from './paymentMethodsForms/PaymentMethodsSetUpForm';
 export * from './paymentMethodsForms/CardForm';
 export * from './paymentMethodsForms/BankForm';

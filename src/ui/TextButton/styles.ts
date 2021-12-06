@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     color: colors.white,
   },
   title: {
-    fontFamily: 'OpenSans-SemoBold',
+    fontFamily: 'OpenSans-SemiBold',
     fontSize: 16,
     color: colors.primary,
     lineHeight: 21.79,

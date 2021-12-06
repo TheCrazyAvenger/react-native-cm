@@ -12,6 +12,16 @@ export enum Screens {
   pricesStack = 'pricesStack',
   prices = 'prices',
 
+  fundWithdrawStack = 'fundWithdrawStack',
+  chooseFund = 'chooseFund',
+  chooseWithdraw = 'chooseWithdraw',
+  fundWithDrawSetUp = 'fundWithDrawSetUp',
+  reviewFundWithdraw = 'reviewFundWithdraw',
+  completeFundWithdraw = 'completeFundWithdraw',
+
+  bankAccountStack = 'bankAccountStack',
+  addBankAccount = 'addBankAccount',
+
   sellBuyStack = 'sellBuyStack',
   chooseBuy = 'chooseBuy',
   sellBuySetup = 'sellBuySetup',

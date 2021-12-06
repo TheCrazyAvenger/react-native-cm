@@ -10,10 +10,10 @@ export const OrderInfo: React.FC<OrderInfoProps> = ({order, status, style}) => {
 
   const hours = date.getHours();
   const minutes = date.getMinutes();
-  console.log(status);
+
   return (
-    <View style={style}>
-      <View style={styles.info}>
+    <View>
+      <View style={{...styles.info, ...style}}>
         <View style={styles.infoItem}>
           <Description style={styles.infoTitle}>Order</Description>
           <SubtitleMedium

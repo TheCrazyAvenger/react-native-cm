@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     flexWrap: 'wrap',
     marginHorizontal: 10,
+    marginBottom: 20,
   },
   infoItem: {
     marginBottom: 20,

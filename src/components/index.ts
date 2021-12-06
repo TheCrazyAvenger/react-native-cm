@@ -17,6 +17,9 @@ export * from './LoadingItem';
 export * from './PaymentMethodPicker';
 export * from './EmptyPaymentMethod';
 
+export * from './fundWithdrawComponents/PaymentItem';
+export * from './fundWithdrawComponents/FundWithdrawInfo';
+
 export * from './Wrapper';
 export * from './ModalWindow';
 

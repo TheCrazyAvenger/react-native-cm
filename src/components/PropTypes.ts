@@ -234,9 +234,10 @@ export type PriceAlertListItemProps = {
 };
 
 export type EmptyDataScreenProps = {
-  title: string;
+  title?: string;
   text: string;
   buttonTitle?: string;
+  descriptionStyle?: {[key: string]: number | string};
   onPress?: (...args: any) => void;
 };
 
@@ -297,4 +298,20 @@ export type CredentialsItemProps = {
   title: string;
   value: string;
   id: number;
+};
+
+export type PaymentItemProps = {
+  title: string;
+  buttonTitle: string;
+  image: string;
+  onPress: (...args: any) => void;
+};
+
+export type FundWithdrawInfoProps = {
+  cashBalance?: number;
+  amount?: string;
+  type?: string;
+  method?: string;
+  account?: string;
+  style?: {[key: string]: number | string};
 };

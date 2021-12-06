@@ -37,6 +37,10 @@ import CreditCard from './paymentMethods/creditCard.svg';
 import BankWire from './paymentMethods/bankWire.svg';
 import ACH from './paymentMethods/ach.svg';
 import PayPal from './paymentMethods/paypal.svg';
+import CreditCardBold from './paymentMethods/creditCardBold.svg';
+import BankWireBold from './paymentMethods/bankWireBold.svg';
+import ECheckBold from './paymentMethods/eCheckBold.svg';
+import PayPalBold from './paymentMethods/payPalBold.svg';
 
 import Warning from './paymentMethods/warning.svg';
 
@@ -79,6 +83,10 @@ export {
   BankWire,
   ACH,
   PayPal,
+  CreditCardBold,
+  BankWireBold,
+  ECheckBold,
+  PayPalBold,
   Warning,
   Visa,
   MasterCard,
