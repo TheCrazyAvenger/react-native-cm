@@ -40,7 +40,14 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
 
     await dispatch(setLoading(false));
 
-    navigation.pop();
+    if (
+      navigation.getState().routeNames[0] === 'chooseFund' &&
+      type === 'eCheck'
+    ) {
+      navigation.pop(2);
+    } else {
+      navigation.pop();
+    }
   };
 
   return (

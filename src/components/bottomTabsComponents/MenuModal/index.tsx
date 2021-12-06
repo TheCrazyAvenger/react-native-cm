@@ -46,13 +46,23 @@ export const MenuModal: React.FC<MenuModalProps> = ({visible, onPress}) => {
             title="Fund"
             text="Deposit your funds"
             Image={Fund}
-            onPress={() => console.log(1)}
+            onPress={() => {
+              navigation.navigate(Screens.fundWithdrawStack, {
+                type: 'Fund',
+              });
+              onPress();
+            }}
           />
           <MenuModalItem
             title="Withdraw"
             text="Widthdraw your funds"
             Image={Withdraw}
-            onPress={() => console.log(1)}
+            onPress={() => {
+              navigation.navigate(Screens.fundWithdrawStack, {
+                type: 'Withdraw',
+              });
+              onPress();
+            }}
           />
           <MenuModalItem
             title="Redeem"

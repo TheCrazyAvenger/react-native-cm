@@ -298,3 +298,18 @@ export type CredentialsItemProps = {
   value: string;
   id: number;
 };
+
+export type PaymentItemProps = {
+  title: string;
+  buttonTitle: string;
+  image: string;
+  onPress: (...args: any) => void;
+};
+
+export type FundWithdrawInfoProps = {
+  cashBalance?: number;
+  amount?: string;
+  method?: string;
+  account?: string;
+  style?: {[key: string]: number | string};
+};
