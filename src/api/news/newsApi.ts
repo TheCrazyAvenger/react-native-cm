@@ -6,10 +6,14 @@ export const newsApi = createApi({
     baseUrl: 'https://qa-backend.jmgoldx.com/api/',
   }),
   endpoints: builder => ({
-    getFullNews: builder.mutation({
+    getFullNews: builder.query({
       query: () => ({
-        method: 'GET',
         url: '/show-market-news',
+      }),
+    }),
+    getNews: builder.query({
+      query: () => ({
+        url: '/show-market-news?limit=4',
       }),
     }),
     getNewsById: builder.mutation({
@@ -21,4 +25,5 @@ export const newsApi = createApi({
   }),
 });
 
-export const {useGetFullNewsMutation, useGetNewsByIdMutation} = newsApi;
+export const {useGetFullNewsQuery, useGetNewsByIdMutation, useGetNewsQuery} =
+  newsApi;

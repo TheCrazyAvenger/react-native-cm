@@ -10,15 +10,12 @@ import {LoadingItem} from '../components';
 import {getOperations} from '../store/actions/operations';
 import {getAutoBuy} from '../store/actions/autoBuy';
 import {getPriceAlerts} from '../store/actions/priceAlerts';
-import {useGetFullNewsMutation} from '@api';
 import {addNews} from '@store/slices/newsSlice';
 import {getPaymentMethod} from '@store/actions/paymentMethod';
 
 export const AppNavigator: React.FC = () => {
   const token = useAppSelector(state => state.auth.token);
   const loading = useAppSelector(state => state.auth.loading);
-
-  const [getFullNews] = useGetFullNewsMutation();
 
   const dispatch = useAppDispatch();
 
@@ -31,15 +28,11 @@ export const AppNavigator: React.FC = () => {
       // await AsyncStorage.removeItem('@viewedOnboarding');
       await dispatch(getData());
 
-      //@ts-ignore
-      const news = await getFullNews();
-
       await dispatch(getOperations());
       await dispatch(getAutoBuy());
       await dispatch(getPriceAlerts());
       await dispatch(getPaymentMethod());
 
-      await dispatch(addNews(Object.values(news)[0]));
       if (value !== null) {
         setShowOnboarding(false);
         return dispatch(setLoading(false));
