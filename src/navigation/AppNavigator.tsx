@@ -10,7 +10,6 @@ import {LoadingItem} from '../components';
 import {getOperations} from '../store/actions/operations';
 import {getAutoBuy} from '../store/actions/autoBuy';
 import {getPriceAlerts} from '../store/actions/priceAlerts';
-import {addNews} from '@store/slices/newsSlice';
 import {getPaymentMethod} from '@store/actions/paymentMethod';
 
 export const AppNavigator: React.FC = () => {

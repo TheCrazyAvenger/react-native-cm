@@ -4,11 +4,15 @@ import {StatusBar, View} from 'react-native';
 import {HoldingsHeader, MetalsDetails, NewsCard, PriceGraph} from '@components';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
+import {useGetNewsQuery} from '@api';
 
 export const Holdings: React.FC = () => {
   const route: any = useRoute();
   const {id} = route.params;
   const [metalType, setMetalType] = useState(id);
+
+  //@ts-ignore
+  const {data: newsData = [], isLoading} = useGetNewsQuery();
 
   return (
     <Screen style={{paddingHorizontal: 0}}>
@@ -39,7 +43,7 @@ export const Holdings: React.FC = () => {
         </View>
         <PriceGraph id={metalType} />
 
-        <NewsCard />
+        <NewsCard data={newsData} isLoading={isLoading} />
       </Screen>
     </Screen>
   );
