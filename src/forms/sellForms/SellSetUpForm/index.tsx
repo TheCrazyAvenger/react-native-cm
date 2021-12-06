@@ -9,7 +9,7 @@ import {Description, SubtitleMedium, TitleMedium, Error} from '@Typography';
 import {TextButton} from '@ui';
 import {Swiper} from '@assets/images/home';
 import {useAppSelector} from '@hooks';
-import {metals, validateNumbers} from '@utilities';
+import {metals, numberWithCommas, validateNumbers} from '@utilities';
 import {sellSchema} from '../..';
 
 export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
@@ -122,7 +122,7 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
             <View style={styles.price}>
               <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
               <TitleMedium style={styles.priceTitle}>{`$${
-                values.amount ? values.amount : 0
+                values.amount ? numberWithCommas(values.amount) : 0
               }`}</TitleMedium>
             </View>
 

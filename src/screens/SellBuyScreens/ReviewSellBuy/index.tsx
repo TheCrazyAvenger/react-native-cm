@@ -21,7 +21,7 @@ export const ReviewSellBuy: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const {amountOz, paymentMethod, amount, data} = route.params;
-  const {metal, spot} = data;
+  const {name, spot} = data;
   const {type} = route.params;
 
   const [minutes, setMinutes] = useState(3);
@@ -81,7 +81,7 @@ export const ReviewSellBuy: React.FC = () => {
 
         <BuyingInfo
           type={type}
-          metal={metal}
+          metal={name}
           amount={amount}
           spot={spot}
           amountOz={amountOz}

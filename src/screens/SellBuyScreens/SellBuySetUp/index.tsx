@@ -13,7 +13,7 @@ export const SellBuySetUp: React.FC = () => {
 
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
 
-  const {metal, spot, premium, ask} = route.params.data;
+  const {name, spot, premium} = route.params.data;
   const {type} = route.params;
 
   return (
@@ -27,7 +27,7 @@ export const SellBuySetUp: React.FC = () => {
             <Description style={styles.infoTitle}>
               {type === 'Buy' ? 'Buying' : 'Selling'}
             </Description>
-            <SubtitleMedium>{metal}</SubtitleMedium>
+            <SubtitleMedium>{name}</SubtitleMedium>
           </View>
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>Spot</Description>
@@ -36,7 +36,7 @@ export const SellBuySetUp: React.FC = () => {
           {type === 'Sell' && (
             <View style={styles.infoItem}>
               <Description style={styles.infoTitle}>Total Owned</Description>
-              <SubtitleMedium>{`$${ownedMetals[metal]}/oz`}</SubtitleMedium>
+              <SubtitleMedium>{`$${ownedMetals[name]}/oz`}</SubtitleMedium>
             </View>
           )}
           <View style={styles.infoItem}>
@@ -45,10 +45,10 @@ export const SellBuySetUp: React.FC = () => {
           </View>
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>Your Price</Description>
-            <SubtitleMedium>{`$${ask}/oz`}</SubtitleMedium>
+            <SubtitleMedium>{`$${spot}/oz`}</SubtitleMedium>
           </View>
         </View>
-        {type === 'Buy' ? <BuySetUpForm /> : <SellSetUpForm metal={metal} />}
+        {type === 'Buy' ? <BuySetUpForm /> : <SellSetUpForm metal={name} />}
       </View>
     </Screen>
   );
