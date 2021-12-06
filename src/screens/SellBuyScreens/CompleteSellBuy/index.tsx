@@ -15,8 +15,10 @@ export const CompleteSellBuy: React.FC = () => {
   const route: any = useRoute();
 
   const {amountOz, paymentMethod, amount, data, type} = route.params;
-  const {metal, spot} = data;
+  const {name, spot, id} = data;
   const {operationType} = route.params;
+
+  console.log(id);
 
   return (
     <Screen>
@@ -39,7 +41,7 @@ export const CompleteSellBuy: React.FC = () => {
 
         <BuyingInfo
           type={operationType}
-          metal={metal}
+          metal={name}
           amount={amount}
           spot={spot}
           amountOz={amountOz}

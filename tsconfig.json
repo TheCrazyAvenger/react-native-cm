@@ -81,5 +81,7 @@
     "metro.config.js",
     "jest.config.js",
     "src/components/holdingsComponents/Chart/index.tsx"
-  ]
+  ],
+
+  "typeRoots": ["./src/types"]
 }

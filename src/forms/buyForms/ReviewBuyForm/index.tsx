@@ -27,7 +27,7 @@ export const ReviewBuyForm: React.FC<{operationType: string}> = ({
   const route: any = useRoute();
 
   const {amount, amountOz, frequency, paymentMethod, data} = route.params;
-  const {metal} = data;
+  const {name, id: metalId, spot} = data;
   const {type} = route.params;
 
   const operations = useAppSelector(state => state.operations.operations);
@@ -52,7 +52,7 @@ export const ReviewBuyForm: React.FC<{operationType: string}> = ({
       }`;
 
       const data = {
-        type: `${type === 'Buy' ? 'Bought' : 'Sold'} ${metal}`,
+        type: `${type === 'Buy' ? 'Bought' : 'Sold'} ${name}`,
         date: `${month} ${day}, ${year}`,
         usd: `${type === 'Buy' ? '-' : '+'} $${amount}`,
         oz: (+amount / 1887).toFixed(3),
@@ -60,16 +60,25 @@ export const ReviewBuyForm: React.FC<{operationType: string}> = ({
         id,
       };
 
+      const sellBuyBody = {
+        digital_product_id: metalId,
+        quantity: +amountOz,
+        user_payment_method_id: 13,
+        spot_price: spot,
+        customer_price: spot,
+        total: +amount,
+      };
+
       dispatch(setLoading(true));
 
       const newAmount =
         type === 'Buy'
-          ? ownedMetals[metal] + +amountOz
-          : ownedMetals[metal] - +amountOz;
+          ? ownedMetals[name] + +amountOz
+          : ownedMetals[name] - +amountOz;
       await database()
-        .ref(`/users/${token}/ownedMetals/${metal}`)
+        .ref(`/users/${token}/ownedMetals/${name}`)
         .set(newAmount);
-      await dispatch(updateOwnedMetals({metal, newAmount}));
+      await dispatch(updateOwnedMetals({name, newAmount}));
 
       await database().ref(`/users/${token}/operations/${id}`).set(data);
 
