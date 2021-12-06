@@ -10,7 +10,7 @@ import {TextButton} from '@ui';
 import {buySchema} from '../..';
 import {Swiper} from '@assets/images/home';
 import {useAppSelector} from '@hooks';
-import {validateNumbers} from '@utilities';
+import {numberWithCommas, validateNumbers} from '@utilities';
 
 export const BuySetUpForm: React.FC = () => {
   const navigation: any = useNavigation();
@@ -140,7 +140,7 @@ export const BuySetUpForm: React.FC = () => {
             <View style={styles.price}>
               <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
               <TitleMedium style={styles.priceTitle}>{`$${
-                values.amount ? values.amount : 0
+                values.amount ? numberWithCommas(values.amount) : 0
               }`}</TitleMedium>
             </View>
 

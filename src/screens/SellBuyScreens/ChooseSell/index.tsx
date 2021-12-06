@@ -1,14 +1,22 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {StatusBar} from 'react-native';
-import {ProductItem} from '@components';
+import {LoadingItem, ProductItem} from '@components';
 import {Screens} from '@constants';
 import {Screen} from '@ui';
 import {sell} from '@utilities';
+import {useGetDigitalProductsQuery} from '@api';
 
 export const ChooseSell: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
+
+  //@ts-ignore
+  const {data = [], isLoading} = useGetDigitalProductsQuery();
+
+  if (isLoading || data === []) {
+    return <LoadingItem />;
+  }
 
   return (
     <Screen style={{paddingVertical: 24}}>
@@ -17,14 +25,14 @@ export const ChooseSell: React.FC = () => {
         translucent
         backgroundColor={'transparent'}
       />
-      {sell.map(item => (
+      {data.data.map((item: any) => (
         <ProductItem
           key={item.id}
-          metal={item.metal}
-          price={item.ask}
-          vault={item.vault}
+          metal={item.name}
+          price={item.sell}
+          vault="JM Bullion"
           premium={item.premium}
-          storageFee={item.storageFee}
+          storageFee={item.storage_fee}
           spread={item.spread}
           onPress={() =>
             navigation.navigate(Screens.sellBuySetup, {

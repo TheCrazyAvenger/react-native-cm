@@ -8,6 +8,7 @@ import {styles} from './styles';
 import {Info} from '@assets/images/buy';
 import {Tooltip} from 'react-native-elements';
 import {useAppSelector} from '@hooks';
+import {numberWithCommas} from '@utilities';
 
 export const ProductItem: React.FC<ProductItemProps> = ({
   vault,
@@ -26,7 +27,9 @@ export const ProductItem: React.FC<ProductItemProps> = ({
     <View style={{...styles.container, ...style}}>
       <View style={styles.cardItem}>
         <Subtitle style={styles.cardTitle}>{metal}</Subtitle>
-        <Subtitle style={styles.cardTitle}>$ {price} USD</Subtitle>
+        <Subtitle style={styles.cardTitle}>{`$${numberWithCommas(
+          price,
+        )} USD`}</Subtitle>
       </View>
       {type === 'Sell' && (
         <View>

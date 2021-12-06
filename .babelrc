@@ -34,6 +34,12 @@
       }
     ],
     [
+      "module:react-native-dotenv",
+      {
+        "moduleName": "@env"
+      }
+    ],
+    [
       "@babel/plugin-transform-spread",
       {
         "loose": true
