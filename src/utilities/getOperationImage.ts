@@ -1,5 +1,4 @@
-import {Buy, Redeem, Sold, WithDraw} from '../assets/images/home';
-import {Fund} from '../assets/images/navigation';
+import {Buy, Deposit, Redeem, Sold, WithDraw} from '../assets/images/home';
 
 export const getOperationImage = (name: string) => {
   const metals = {
@@ -7,7 +6,7 @@ export const getOperationImage = (name: string) => {
     sell: Sold,
     withdraw: WithDraw,
     redeem: Redeem,
-    fund: Fund,
+    fund: Deposit,
   };
   //@ts-ignore
   return metals[name];

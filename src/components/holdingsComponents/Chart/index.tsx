@@ -50,17 +50,22 @@ export const Chart: React.FC<ChartProps> = ({
       <View
         style={{
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
           alignItems: 'center',
         }}>
         {time.map((item, i) => {
           const color = item.id === chartTime ? colors.primary : colors.black;
+          const fontFamily =
+            item.id === chartTime ? 'OpenSans-SemiBold' : 'OpenSans-Regular';
           return (
             <TouchableOpacity
               key={i}
+              style={{marginHorizontal: 12}}
               activeOpacity={0.7}
               onPress={() => setTime(item.id)}>
-              <SubtitleMedium style={{color}}>{item.time}</SubtitleMedium>
+              <SubtitleMedium style={{color, fontFamily}}>
+                {item.time}
+              </SubtitleMedium>
             </TouchableOpacity>
           );
         })}

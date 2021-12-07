@@ -2,7 +2,7 @@ import React from 'react';
 import {Image, View} from 'react-native';
 import {HoldingsHeaderProps, MetalPicker, Wrapper} from '../..';
 import {colors} from '@constants';
-import {metals} from '@utilities';
+import {getMetalsColor, metals, numberWithCommas} from '@utilities';
 import {
   DescriptionBold,
   Illustration,
@@ -10,18 +10,24 @@ import {
   TitleMedium,
 } from '@Typography';
 import {styles} from './styles';
+import {useAppSelector} from '@hooks';
+import {DownArrow, UpArrow} from '@assets/images/home';
 
 export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
   metalType,
   setMetal,
+  data,
 }) => {
-  const {price, ounce, ounceChange} = metals[metalType - 1];
+  const {name, buy, digitalMetal, id} = data[metalType - 1];
+  const {oneDayChange} = digitalMetal;
+
+  const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
 
   return (
     <View
       style={{
         ...styles.container,
-        backgroundColor: metals[metalType - 1].color,
+        backgroundColor: getMetalsColor(id),
       }}>
       <TitleMedium style={styles.title}>Holdings</TitleMedium>
       <MetalPicker currentMetal={metalType} onPress={setMetal} />
@@ -32,10 +38,10 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
             Balance:
           </SubtitleMedium>
           <TitleMedium style={{color: colors.white, fontSize: 18}}>
-            $ 850.40 USD
+            {`$${(ownedMetals[name] * 1887).toFixed(2)}`}
           </TitleMedium>
           <DescriptionBold style={{color: colors.white}}>
-            {ounce}
+            {`${numberWithCommas(Number(ownedMetals[name]).toFixed(3))} oz`}
           </DescriptionBold>
         </View>
         <View style={{alignItems: 'flex-end'}}>
@@ -60,19 +66,18 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
             Metal Price:
           </SubtitleMedium>
           <DescriptionBold style={{color: colors.white}}>
-            {price}
+            {`$${numberWithCommas(Number(buy).toFixed(2))}`}
           </DescriptionBold>
         </View>
         <View style={{alignItems: 'flex-end'}}>
           <SubtitleMedium style={{color: colors.white}}>Change:</SubtitleMedium>
           <View style={styles.change}>
             <DescriptionBold style={{color: colors.white}}>
-              {ounceChange}
+              {`$${numberWithCommas(Number(oneDayChange).toFixed(2))}`}
             </DescriptionBold>
-            <Image
-              style={{marginLeft: 6}}
-              source={require('../../../assets/images/home/upArrow.png')}
-            />
+            <View style={{marginLeft: 6}}>
+              {oneDayChange > 0 ? <UpArrow /> : <DownArrow />}
+            </View>
           </View>
         </View>
       </View>

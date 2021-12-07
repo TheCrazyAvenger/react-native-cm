@@ -1,10 +1,11 @@
 import {useNavigation} from '@react-navigation/core';
-import React from 'react';
-import {StatusBar} from 'react-native';
+import React, {useState} from 'react';
+import {StatusBar, View} from 'react-native';
 import {
   ActionsCard,
   ActivityCard,
   Header,
+  LoadingItem,
   MetalsCard,
   NewsCard,
 } from '@components';
@@ -12,7 +13,7 @@ import {Screens} from '@constants';
 import {useAppSelector} from '@hooks';
 import {Screen} from '@ui';
 import {metals} from '@utilities';
-import {useGetNewsQuery} from '@api';
+import {useGetDigitalProductsQuery, useGetNewsQuery} from '@api';
 
 export const Home: React.FC = () => {
   const navigation: any = useNavigation();
@@ -32,9 +33,12 @@ export const Home: React.FC = () => {
       />
       <Header />
       <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
-        {metals.map(item => (
-          <MetalsCard key={item.metal} data={item} />
-        ))}
+        <View>
+          <MetalsCard metalId={0} />
+          <MetalsCard metalId={1} />
+          <MetalsCard metalId={2} />
+          <MetalsCard metalId={3} />
+        </View>
 
         {operations.length === 0 ? (
           <ActionsCard

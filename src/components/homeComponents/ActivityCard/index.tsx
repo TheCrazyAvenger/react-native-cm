@@ -1,21 +1,39 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {ViewMoreButton, Wrapper} from '../..';
 import {colors} from '@constants';
-import {useAppSelector} from '@hooks';
+import {useAppDispatch, useAppSelector} from '@hooks';
 import {getColor, getOperationImage} from '@utilities';
 import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
+import {getOperations} from '@store/actions/operations';
+import {LoadingItem} from '@components';
 
 export const ActivityCard: React.FC = () => {
   const operations = useAppSelector(state => state.operations.operations);
+
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useAppDispatch();
+
+  const checkOperations = async () => {
+    setLoading(true);
+    await dispatch(getOperations());
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    checkOperations();
+  }, []);
 
   const isData = operations.length > 0 ? true : false;
 
   return (
     <View style={styles.container}>
       <TitleMedium style={{marginBottom: 20}}>Recent Activity</TitleMedium>
-      {isData ? (
+      {loading ? (
+        <LoadingItem />
+      ) : isData ? (
         operations
           .slice(-5)
           .reverse()
@@ -52,7 +70,9 @@ export const ActivityCard: React.FC = () => {
       ) : (
         <SubtitleMedium>Empty</SubtitleMedium>
       )}
-      {isData ? <ViewMoreButton onPress={() => console.log(1)} /> : null}
+      {!loading && isData ? (
+        <ViewMoreButton onPress={() => console.log(1)} />
+      ) : null}
     </View>
   );
 };
