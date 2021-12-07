@@ -68,7 +68,10 @@ export const MenuModal: React.FC<MenuModalProps> = ({visible, onPress}) => {
             title="Redeem"
             text="Redeem your holdings for physical metals"
             Image={Redeem}
-            onPress={() => console.log(1)}
+            onPress={() => {
+              navigation.navigate(Screens.reedemStack);
+              onPress();
+            }}
           />
         </View>
         <TouchableOpacity

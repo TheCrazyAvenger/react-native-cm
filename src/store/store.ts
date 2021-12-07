@@ -5,6 +5,7 @@ import autoBuySlice from './slices/autoBuySlice';
 import operationsSlice from './slices/operationsSlice';
 import paymentMethodsSlice from './slices/paymentMethodsSlice';
 import priceAlertSlice from './slices/priceAlertSlice';
+import reedemSlice from './slices/reedemSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     priceAlerts: priceAlertSlice,
     paymentMethod: paymentMethodsSlice,
     operations: operationsSlice,
+    reedem: reedemSlice,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(

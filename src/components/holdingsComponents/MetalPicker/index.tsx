@@ -10,15 +10,24 @@ export const MetalPicker: React.FC<MetalPickerProps> = ({
   currentMetal,
   onPress,
   colorfull = false,
+  markedColor,
+  showAll = false,
 }) => {
+  const allMetals = showAll
+    ? [{metal: 'All', id: 0, color: 'black'}, ...metals]
+    : metals;
+
   return (
     <View style={styles.container}>
-      {metals.map((item, i) => {
-        const isMarked = i + 1 === currentMetal ? styles.marked : null;
+      {allMetals.map((item, i) => {
+        const index = showAll === true ? i : i + 1;
+        const isMarked = index === currentMetal ? styles.marked : null;
         const isColorfull = !colorfull
           ? colors.white
           : isMarked
-          ? item.color
+          ? markedColor
+            ? markedColor
+            : item.color
           : colors.black;
 
         return (

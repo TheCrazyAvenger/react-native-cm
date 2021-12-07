@@ -1,6 +1,6 @@
 import {getMonth} from '@utilities';
 
-export const getTime = (dateString: string) => {
+export const getTime = (dateString: any) => {
   const date = new Date(dateString);
   const monthName = getMonth(date.getMonth());
   const day = date.getDate();

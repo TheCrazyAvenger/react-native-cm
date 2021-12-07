@@ -28,6 +28,10 @@ export enum Screens {
   reviewSellBuy = 'reviewBuy',
   completeSellBuy = 'completeSellBuy',
 
+  reedemStack = 'reedemStack',
+  catalog = 'catalog',
+  cart = 'cart',
+
   chooseSell = 'chooseSell',
 
   news = 'news',

@@ -63,3 +63,6 @@ export * from './LogInScreens/ForgotPassword';
 export * from './LogInScreens/ForgotPassSucces';
 export * from './LogInScreens/ForgotPassError';
 export * from './LogInScreens/ForgotPassDone';
+
+export * from './ReedemScreens/Catalog';
+export * from './ReedemScreens/Cart';

@@ -19,6 +19,7 @@ import {VerificationStack} from '../VerificationStack';
 import {PaymentMethodsStack} from '../PaymentMethodsStack';
 import {BuyStack} from '../SellBuyStack';
 import {FundWithdrawStack} from '@navigation/FundWithdrawStack';
+import {ReedemStack} from '@navigation/ReedemStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -105,6 +106,11 @@ export const MainNavigator: React.FC = () => {
           name={Screens.fundWithdrawStack}
           options={{headerShown: false}}
           component={FundWithdrawStack}
+        />
+        <Stack.Screen
+          name={Screens.reedemStack}
+          options={{headerShown: false}}
+          component={ReedemStack}
         />
       </Stack.Group>
     </Stack.Navigator>

@@ -29,3 +29,4 @@ export * from './validateNumbers';
 export * from './numberWithCommas';
 export * from './getPaymentName';
 export * from './getMetalsColor';
+export * from './getReedemImage';

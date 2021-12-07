@@ -140,7 +140,9 @@ export const BuySetUpForm: React.FC = () => {
             <View style={styles.price}>
               <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
               <TitleMedium style={styles.priceTitle}>{`$${
-                values.amount ? numberWithCommas(values.amount) : 0
+                values.amount
+                  ? numberWithCommas(Number(values.amount).toFixed(2))
+                  : 0
               }`}</TitleMedium>
             </View>
 
