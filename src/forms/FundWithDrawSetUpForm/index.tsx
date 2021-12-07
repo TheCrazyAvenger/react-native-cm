@@ -7,9 +7,11 @@ import {styles} from './styles';
 import {FormInput, ItemPicker} from '@components';
 import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {TextButton} from '@ui';
-import {fundWithdrawSchema} from '..';
+// import {fundWithdrawSchema} from '..';
 import {useAppSelector} from '@hooks';
 import {numberWithCommas, validateNumbers} from '@utilities';
+import * as yup from 'yup';
+import {fundWithdrawSchema} from '../schemas';
 
 export const FundWithDrawSetUpForm: React.FC = () => {
   const navigation: any = useNavigation();
@@ -66,7 +68,7 @@ export const FundWithDrawSetUpForm: React.FC = () => {
               onInput={() =>
                 setFieldValue('amount', validateNumbers(values.amount))
               }
-              errorStyle={{width: '180%'}}
+              errorStyle={{width: '90%'}}
               value={values.amount}
               errorMessage={errors.amount}
               isTouched={touched.amount}
