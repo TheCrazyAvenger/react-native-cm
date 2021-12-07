@@ -5,9 +5,13 @@ import {ActionsCard, Header, NewsCard, PricesGraph} from '@components';
 import {Screens} from '@constants';
 import {useAppSelector} from '@hooks';
 import {Screen} from '@ui';
+import {useGetNewsQuery} from '@api';
 
 export const Prices: React.FC = () => {
   const [metalType, setMetalType] = useState(1);
+
+  // @ts-ignore
+  const {data = [], isLoading} = useGetNewsQuery();
 
   const navigation: any = useNavigation();
   const priceAlerts = useAppSelector(state => state.priceAlerts.priceAlerts);
@@ -41,7 +45,7 @@ export const Prices: React.FC = () => {
             onPress={() => navigation.navigate(Screens.priceAlertsStack)}
           />
         ) : null}
-        <NewsCard size="Small" />
+        <NewsCard data={data} isLoading={isLoading} />
       </Screen>
     </Screen>
   );

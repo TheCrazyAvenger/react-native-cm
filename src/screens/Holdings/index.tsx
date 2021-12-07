@@ -1,14 +1,16 @@
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {StatusBar, View} from 'react-native';
 import {HoldingsHeader, MetalsDetails, NewsCard, PriceGraph} from '@components';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import {useGetNewsQuery} from '@api';
+import {Screens} from '@constants';
 
 export const Holdings: React.FC = () => {
+  const navigation: any = useNavigation();
   const route: any = useRoute();
-  const {id} = route.params;
+  const {id, data} = route.params;
   const [metalType, setMetalType] = useState(id);
 
   //@ts-ignore
@@ -21,15 +23,20 @@ export const Holdings: React.FC = () => {
         translucent
         backgroundColor={'transparent'}
       />
-      <HoldingsHeader metalType={metalType} setMetal={setMetalType} />
+      <HoldingsHeader
+        data={data.data}
+        metalType={metalType}
+        setMetal={setMetalType}
+      />
       <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
-        <MetalsDetails id={metalType} />
         <View style={styles.buttons}>
           <View>
             <TextButton
               title="Sell"
               style={styles.button}
-              onPress={() => console.log('Sell')}
+              onPress={() =>
+                navigation.navigate(Screens.sellBuyStack, {type: 'Sell'})
+              }
             />
           </View>
           <View>
@@ -37,11 +44,14 @@ export const Holdings: React.FC = () => {
               solid
               title="Buy"
               style={styles.button}
-              onPress={() => console.log('Buy')}
+              onPress={() =>
+                navigation.navigate(Screens.sellBuyStack, {type: 'Buy'})
+              }
             />
           </View>
         </View>
-        <PriceGraph id={metalType} />
+
+        <PriceGraph id={metalType} data={data.data} />
 
         <NewsCard data={newsData} isLoading={isLoading} />
       </Screen>

@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,14 +9,11 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
   cardItem: {
-    marginTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   cardTitle: {
-    marginBottom: 12,
-  },
-  price: {
-    fontFamily: 'OpenSans-SemiBold',
+    fontFamily: 'OpenSans-Bold',
   },
 });

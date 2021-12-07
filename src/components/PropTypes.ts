@@ -79,6 +79,10 @@ export type NotificationProps = {
 };
 
 export type MetalsCardProps = {
+  metalId: number;
+};
+
+export type MetalsItemProps = {
   data: any;
 };
 
@@ -110,6 +114,7 @@ export type MetalPickerProps = {
 
 export type HoldingsHeaderProps = {
   metalType: number;
+  data: any;
   setMetal: (id: number) => void;
 };
 

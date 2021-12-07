@@ -28,3 +28,4 @@ export * from './getTime';
 export * from './validateNumbers';
 export * from './numberWithCommas';
 export * from './getPaymentName';
+export * from './getMetalsColor';

@@ -39,6 +39,7 @@ export * from './homeComponents/MetalsCard';
 export * from './homeComponents/ActionsCard';
 export * from './homeComponents/ActivityCard';
 export * from './homeComponents/NewsCard';
+export * from './homeComponents/MetalsItem';
 
 export * from './holdingsComponents/MetalPicker';
 export * from './holdingsComponents/HoldingsHeader';
