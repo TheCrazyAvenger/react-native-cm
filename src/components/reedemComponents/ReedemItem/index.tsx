@@ -53,11 +53,10 @@ export const ReedemItem: React.FC<ReedemItemProps> = ({
           .values(),
       );
 
-      dispatch(setLoading(true));
       await dispatch(addCart(data));
-      dispatch(setLoading(false));
+      setQty(0);
     } catch (e) {
-      dispatch(setLoading(false));
+      setQty(0);
       console.log(e);
     }
   };

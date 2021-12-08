@@ -41,6 +41,8 @@ export const Cart: React.FC = () => {
     0,
   );
 
+
+  
   return (
     <Screen>
       <View style={styles.container}>
@@ -172,7 +174,14 @@ export const Cart: React.FC = () => {
               checkBox === false ||
               cashBalance < totalPrice + +shipping.split(' ')[1]
             }
-            onPress={() => console.log(1)}
+            onPress={() =>
+              navigation.navigate(Screens.reviewReedem, {
+                paymentMethod,
+                shippingMethod: shipping,
+                cart,
+                amount: totalPrice,
+              })
+            }
           />
           <TextButton
             title="Cancel"

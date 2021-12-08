@@ -65,5 +65,6 @@ export * from './paymentMethodsComponents/PaymentMethodsItem';
 export * from './reedemComponents/ReedemItem';
 export * from './reedemComponents/CartItem';
 export * from './reedemComponents/TaxItem';
+export * from './reedemComponents/ReedemInfo';
 
 export * from './PropTypes';

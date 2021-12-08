@@ -1,9 +1,12 @@
+import {ShareRefer} from '@assets/images/settings';
 import {LoadingItem, MetalPicker, ReedemItem, Wrapper} from '@components';
 import {colors} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {getReedem} from '@store/actions/reedem';
 import {setLoading} from '@store/slices/authSlice';
+import {TitleMedium} from '@Typography';
 import {Screen} from '@ui';
+import {metals} from '@utilities';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import {styles} from './styles';
@@ -34,6 +37,14 @@ export const Catalog: React.FC = () => {
     return <LoadingItem />;
   }
 
+  const reedemList = reedem.filter((item: any) => {
+    if (currentMetal === 0) {
+      return item;
+    } else {
+      return item.product_metal === metals[currentMetal - 1].metal;
+    }
+  });
+
   return (
     <Screen type="View">
       <View style={{marginTop: 15}}>
@@ -47,8 +58,8 @@ export const Catalog: React.FC = () => {
         <Wrapper style={{marginTop: 4, backgroundColor: colors.primary}} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.catalogList}>
-            {reedem &&
-              reedem.map((item: any, i: number) => (
+            {reedemList.length !== 0 ? (
+              reedemList.map((item: any, i: number) => (
                 <ReedemItem
                   key={i}
                   image={item.product_image}
@@ -59,7 +70,15 @@ export const Catalog: React.FC = () => {
                   date={item.presale_date}
                   onPress={() => console.log(1)}
                 />
-              ))}
+              ))
+            ) : (
+              <View style={styles.noAlerts}>
+                <ShareRefer />
+                <TitleMedium style={{fontFamily: 'OpenSans-Regular'}}>
+                  No data
+                </TitleMedium>
+              </View>
+            )}
           </View>
         </ScrollView>
       </View>

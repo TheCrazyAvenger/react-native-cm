@@ -66,3 +66,5 @@ export * from './LogInScreens/ForgotPassDone';
 
 export * from './ReedemScreens/Catalog';
 export * from './ReedemScreens/Cart';
+export * from './ReedemScreens/ReviewReedem';
+export * from './ReedemScreens/CompleteReedem';

@@ -1,7 +1,14 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '../../constants';
-import {Cart, Catalog, PaymentMethodsSetUp, Profile} from '@screens';
+import {
+  Cart,
+  Catalog,
+  CompleteReedem,
+  PaymentMethodsSetUp,
+  Profile,
+  ReviewReedem,
+} from '@screens';
 import {styles} from './styles';
 import {BackButton} from '../BackButton';
 import {TouchableOpacity, View} from 'react-native';
@@ -61,6 +68,16 @@ export const ReedemStack: React.FC = () => {
         name={Screens.profile}
         options={{title: 'Profile'}}
         component={Profile}
+      />
+      <Stack.Screen
+        name={Screens.reviewReedem}
+        options={{title: 'Redeeming Confirmation'}}
+        component={ReviewReedem}
+      />
+      <Stack.Screen
+        name={Screens.completeReedem}
+        options={{title: 'Redeeming Confirmation'}}
+        component={CompleteReedem}
       />
     </Stack.Navigator>
   );

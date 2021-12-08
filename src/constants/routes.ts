@@ -31,6 +31,8 @@ export enum Screens {
   reedemStack = 'reedemStack',
   catalog = 'catalog',
   cart = 'cart',
+  reviewReedem = 'reviewReedem',
+  completeReedem = 'completeReedem',
 
   chooseSell = 'chooseSell',
 

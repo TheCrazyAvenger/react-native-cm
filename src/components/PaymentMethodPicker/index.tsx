@@ -9,7 +9,7 @@ import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {useNavigation} from '@react-navigation/core';
 import {setLoading} from '@store/slices/authSlice';
-import {getCardImage, getPaymentImage} from '@utilities';
+import {getCardImage, getPaymentImage, numberWithCommas} from '@utilities';
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {PayPalForm} from '../../forms';
@@ -72,7 +72,12 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
         style={{...styles.picker, ...containerStyle}}
         placeholderStyle={styles.pickerPlaceholder}
         items={[
-          {label: `Cash Balance ($${cashBalance})`, value: 'cashBalance'},
+          {
+            label: `Cash Balance ($${numberWithCommas(
+              Number(cashBalance).toFixed(2),
+            )})`,
+            value: 'cashBalance',
+          },
           {label: 'Credit/Debit Card', value: 'creditCard'},
           {label: 'Bank Wire', value: 'bankWire'},
           {label: 'PayPal', value: 'payPal'},

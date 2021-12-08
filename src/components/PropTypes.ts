@@ -354,3 +354,10 @@ export type TaxItemProps = {
   shippingTax: number;
   total: number;
 };
+
+export type ReedemInfoProps = {
+  style?: {[key: string]: number | string};
+  cart: any;
+  paymentMethod: string;
+  shippingMethod: string;
+};

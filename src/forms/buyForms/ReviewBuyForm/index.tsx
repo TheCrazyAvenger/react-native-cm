@@ -20,9 +20,10 @@ import {
 import database from '@react-native-firebase/database';
 import {addOperation} from '@store/slices/operationsSlice';
 
-export const ReviewBuyForm: React.FC<{operationType: string}> = ({
-  operationType,
-}) => {
+export const ReviewBuyForm: React.FC<{
+  operationType: string;
+  onPress: (...args: any) => void;
+}> = ({operationType, onPress}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
@@ -98,6 +99,8 @@ export const ReviewBuyForm: React.FC<{operationType: string}> = ({
 
       await dispatch(setLoading(false));
 
+      onPress();
+
       navigation.push(Screens.completeSellBuy, {
         type: 'Success',
         operationType,
@@ -109,6 +112,7 @@ export const ReviewBuyForm: React.FC<{operationType: string}> = ({
       });
     } catch (e) {
       await dispatch(setLoading(false));
+      onPress();
       navigation.push(Screens.completeSellBuy, {
         type: 'Error',
         operationType,
