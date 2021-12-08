@@ -30,4 +30,11 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
+  pieInfo: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    left: '25%',
+    top: '31%',
+  },
 });

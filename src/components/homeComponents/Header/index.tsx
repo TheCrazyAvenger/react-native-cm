@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, View} from 'react-native';
 import {Wrapper} from '../..';
 import {colors} from '@constants';
@@ -6,14 +6,35 @@ import {Description, Illustration, Subtitle, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {Logo} from '@assets/images';
 import {useAppSelector} from '@hooks';
-import {numberWithCommas} from '@utilities';
+import {getGainsLosses, numberWithCommas} from '@utilities';
+import {useGetDigitalProductsQuery} from '@api';
 
 export const Header: React.FC = () => {
+  const [totalHoldings, setTotalHoldings] = useState(0);
+  const [totalPerfomance, setTotalPerfomance] = useState(0);
+
   const cashBalance = useAppSelector(state => state.auth.cashBalance);
+  const operations = useAppSelector(state => state.operations.operations);
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
 
-  const totalHoldings =
-    Object.values(ownedMetals).reduce((acc, next) => acc + next, 0) * 1887;
+  const {data = [], isLoading} =
+    // @ts-ignore
+    useGetDigitalProductsQuery();
+
+  useEffect(() => {
+    if (!isLoading && data !== []) {
+      const {gainsLosses, metalHoldings} = getGainsLosses(
+        data,
+        operations,
+        ownedMetals,
+      );
+      setTotalHoldings(metalHoldings);
+
+      setTotalPerfomance(
+        metalHoldings === 0 ? 0 : (gainsLosses / metalHoldings) * 100,
+      );
+    }
+  }, [data, operations]);
 
   return (
     <View style={styles.container}>
@@ -34,11 +55,20 @@ export const Header: React.FC = () => {
             Total Performance
           </Illustration>
           <View style={styles.perfomance}>
-            <Illustration style={styles.profit}>-4.76 %</Illustration>
-            <Image
-              style={{marginLeft: 6}}
-              source={require('../../../assets/images/home/downArrow.png')}
-            />
+            <Illustration style={styles.profit}>{`${numberWithCommas(
+              Number(totalPerfomance).toFixed(2),
+            )} %`}</Illustration>
+            {totalPerfomance >= 0 ? (
+              <Image
+                style={{marginLeft: 6}}
+                source={require('../../../assets/images/home/upArrow.png')}
+              />
+            ) : (
+              <Image
+                style={{marginLeft: 6}}
+                source={require('../../../assets/images/home/downArrow.png')}
+              />
+            )}
           </View>
         </View>
       </View>

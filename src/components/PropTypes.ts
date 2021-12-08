@@ -114,6 +114,11 @@ export type MetalPickerProps = {
   onPress: (id: number) => void;
 };
 
+export type OperationsPickerProps = {
+  currentOperation: number;
+  onPress: (id: number) => void;
+};
+
 export type HoldingsHeaderProps = {
   metalType: number;
   data: any;
@@ -314,6 +319,18 @@ export type PaymentItemProps = {
   buttonTitle: string;
   image: string;
   onPress: (...args: any) => void;
+};
+
+export type TransactionItemProps = {
+  product: string;
+  quantity: number;
+  total: string;
+  type: string;
+  list: any;
+  date: string;
+  onPress: (...args: any) => void;
+  id: number;
+  style?: {[key: string]: number | string};
 };
 
 export type FundWithdrawInfoProps = {

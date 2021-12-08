@@ -142,27 +142,12 @@ export const verificationSchema = yup.object().shape({
   mobile: yup
     .string()
     .required('Please enter your phone number')
-    .matches(/^\+[1-9]{1}[0-9]{3,14}$/, {message: 'Enter correct number'}),
-  address1: yup
-    .string()
-    .required('Please enter your Address 1')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
-  address2: yup
-    .string()
-    .required('Please enter your Address 2')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
-  city: yup
-    .string()
-    .required('Please enter your City')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
-  state: yup.string().required('Please enter your State'),
-  postalCode: yup
-    .number()
-    .min(5, 'At least 5 numbers')
-    .required('Please enter Postal Code'),
+    .matches(
+      /^[\\(]{0,1}([0-9]){3}[\\)]{0,1}[ ]?([^0-1]){1}([0-9]){2}[ ]?[-]?[ ]?([0-9]){4}[ ]*((x){0,1}([0-9]){1,5}){0,1}$/,
+      {
+        message: 'Enter correct number',
+      },
+    ),
 });
 
 export const documentsVerificationSchema = yup.object().shape({

@@ -53,6 +53,8 @@ export * from './portfolioComponents/MetalsInfo';
 export * from './settingsComponents/SettingsHeader';
 export * from './settingsComponents/MenuItem';
 export * from './settingsComponents/MenuItemSmall';
+export * from './settingsComponents/OperationsPicker';
+export * from './settingsComponents/TransactonItem';
 
 export * from './autoBuyComponents/ProductItem';
 export * from './autoBuyComponents/AutoBuyItem';

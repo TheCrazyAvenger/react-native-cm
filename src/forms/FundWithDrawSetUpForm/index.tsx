@@ -7,10 +7,8 @@ import {styles} from './styles';
 import {FormInput, ItemPicker} from '@components';
 import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {TextButton} from '@ui';
-// import {fundWithdrawSchema} from '..';
 import {useAppSelector} from '@hooks';
 import {numberWithCommas, validateNumbers} from '@utilities';
-import * as yup from 'yup';
 import {fundWithdrawSchema} from '../schemas';
 
 export const FundWithDrawSetUpForm: React.FC = () => {

@@ -35,8 +35,6 @@ export const getPaymentMethod = createAsyncThunk(
 
           return paymentMethodList;
         });
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   },
 );

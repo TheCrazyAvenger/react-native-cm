@@ -97,9 +97,9 @@ export const authSlice = createSlice({
       state.cashBalance = action.payload;
     },
     updateOwnedMetals: (state, action: PayloadAction<any>) => {
-      const {metal, newAmount} = action.payload;
+      const {name, newAmount} = action.payload;
 
-      state.ownedMetals[metal] = newAmount;
+      state.ownedMetals[name] = newAmount;
     },
   },
   extraReducers: builder => {

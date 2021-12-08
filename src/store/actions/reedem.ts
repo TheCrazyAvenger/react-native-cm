@@ -13,7 +13,5 @@ export const getReedem = createAsyncThunk('reedem/getReedem', async () => {
 
         return [...Object.values(data)].filter(item => item !== null);
       });
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 });

@@ -28,3 +28,5 @@ export * from './getPaymentName';
 export * from './getMetalsColor';
 export * from './getReedemImage';
 export * from './getShippingName';
+export * from './getGainsLosses';
+export * from './getTransactionName';

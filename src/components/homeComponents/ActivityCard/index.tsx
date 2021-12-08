@@ -1,16 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import {ViewMoreButton, Wrapper} from '../..';
-import {colors} from '@constants';
+import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {getColor, getOperationImage} from '@utilities';
 import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {getOperations} from '@store/actions/operations';
 import {LoadingItem} from '@components';
+import {useNavigation} from '@react-navigation/core';
 
 export const ActivityCard: React.FC = () => {
   const operations = useAppSelector(state => state.operations.operations);
+
+  const navigation: any = useNavigation();
 
   const [loading, setLoading] = useState(false);
 
@@ -43,7 +46,7 @@ export const ActivityCard: React.FC = () => {
 
             return (
               <React.Fragment key={id}>
-                <TouchableOpacity activeOpacity={0.7} style={styles.cardItem}>
+                <View style={styles.cardItem}>
                   <View style={styles.cardItem}>
                     <Image />
                     <View>
@@ -60,7 +63,7 @@ export const ActivityCard: React.FC = () => {
                     </SubtitleMedium>
                     <Description>{oz ? `${oz} oz` : null}</Description>
                   </View>
-                </TouchableOpacity>
+                </View>
                 {i === 4 ? null : (
                   <Wrapper style={{backgroundColor: colors.primary}} />
                 )}
@@ -71,7 +74,9 @@ export const ActivityCard: React.FC = () => {
         <SubtitleMedium>Empty</SubtitleMedium>
       )}
       {!loading && isData ? (
-        <ViewMoreButton onPress={() => console.log(1)} />
+        <ViewMoreButton
+          onPress={() => navigation.navigate(Screens.transactions)}
+        />
       ) : null}
     </View>
   );

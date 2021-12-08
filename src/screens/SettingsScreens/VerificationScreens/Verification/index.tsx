@@ -4,7 +4,7 @@ import {Screen} from '@ui';
 
 export const Verification: React.FC = () => {
   return (
-    <Screen style={{paddingHorizontal: 16}}>
+    <Screen type="View" style={{paddingHorizontal: 16}}>
       <VerificationForm />
     </Screen>
   );

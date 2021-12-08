@@ -73,10 +73,12 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
           <SubtitleMedium style={{color: colors.white}}>Change:</SubtitleMedium>
           <View style={styles.change}>
             <DescriptionBold style={{color: colors.white}}>
-              {`$${numberWithCommas(Number(oneDayChange).toFixed(2))}`}
+              {`${oneDayChange < 0 ? '-' : '+'}$${numberWithCommas(
+                Number(Math.abs(oneDayChange)).toFixed(2),
+              )}`}
             </DescriptionBold>
             <View style={{marginLeft: 6}}>
-              {oneDayChange > 0 ? <UpArrow /> : <DownArrow />}
+              {oneDayChange >= 0 ? <UpArrow /> : <DownArrow />}
             </View>
           </View>
         </View>

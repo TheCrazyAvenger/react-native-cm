@@ -108,15 +108,11 @@ export const loginHandler = createAsyncThunk('auth/loginHandler', async () => {
           };
         }
       });
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 });
 
 export const logout = createAsyncThunk('auth/logout', async () => {
   try {
     await AsyncStorage.removeItem('token');
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 });

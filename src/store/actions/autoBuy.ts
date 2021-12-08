@@ -18,7 +18,5 @@ export const getAutoBuy = createAsyncThunk('auth/getAutoBuy', async () => {
 
         return autoBuyList;
       });
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 });

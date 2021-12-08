@@ -25,17 +25,22 @@ export const VerificationComplete: React.FC = () => {
   const values = route.params?.values;
 
   const goToSettings = async () => {
-    dispatch(setLoading(true));
-    await AsyncStorage.setItem('verified', JSON.stringify(true));
+    try {
+      dispatch(setLoading(true));
+      await AsyncStorage.setItem('verified', JSON.stringify(true));
 
-    await database()
-      .ref('users/' + token)
-      .update({verified: true});
+      await database()
+        .ref('users/' + token)
+        .update({verified: true});
 
-    await dispatch(setVerified(true));
-    await dispatch(setLoading(false));
+      await dispatch(setVerified(true));
+      await dispatch(setLoading(false));
 
-    navigation.navigate(Screens.settings);
+      navigation.navigate(Screens.settings);
+    } catch (e) {
+      await dispatch(setLoading(false));
+      console.log(e);
+    }
   };
 
   if (loading) {

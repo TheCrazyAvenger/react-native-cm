@@ -28,8 +28,6 @@ export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
     postalCode: postalCodeShipping,
   }: any = shippingAdress;
 
-  console.log(legalAdress);
-
   return (
     <Formik
       validationSchema={profileSchema}

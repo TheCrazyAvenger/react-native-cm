@@ -1,38 +1,51 @@
 import React, {useState} from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, useWindowDimensions, View} from 'react-native';
 import {Description, DescriptionBold, TitleMedium} from '@Typography';
-import {PieChart} from 'react-native-svg-charts';
 import {styles} from './styles';
 import {colors} from '@constants';
-import {getColor, metals} from '@utilities';
+import {getColor, getMetalsColor, metals, numberWithCommas} from '@utilities';
+import {useAppSelector} from '@hooks';
+import {GainsLossesArrow} from '@assets/images/potfolio';
+import {VictoryPie} from 'victory-native';
 
-export const PortfolioHeader: React.FC = () => {
+export const PortfolioHeader: React.FC<{gainsLosses: number}> = ({
+  gainsLosses,
+}) => {
   const [graph, setGraph] = useState('pie');
-  const data: Array<number> = [];
+  const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
+  const cashBalance = useAppSelector(state => state.auth.cashBalance);
 
-  metals.map(item => data.push(item.owned));
+  const {width} = useWindowDimensions();
 
-  const commonOwned = parseFloat(
-    (data.reduce((acc, next) => (acc += next)) + 1084.1).toFixed(2),
+  const pieColors: any = [];
+
+  const commonOwned = numberWithCommas(
+    Number(
+      Object.values(ownedMetals).reduce(
+        (acc, next) => (acc += next * 1887),
+        0,
+      ) + cashBalance,
+    ).toFixed(2),
   );
 
-  const pieData = data
-    .filter(value => value > 0)
-    .map((value, index) => ({
-      value,
-      svg: {
-        fill: metals[index].color,
-      },
-      key: `pie-${index}`,
-    }));
+  const pieData: any = Object.keys(ownedMetals)
+    .filter(value => ownedMetals[value] > 0)
+    .map(value => {
+      pieColors.push(getMetalsColor(value));
+      return {
+        y: ownedMetals[value] * 1887,
+        x: ownedMetals,
+        label: ' ',
+      };
+    });
 
   pieData.push({
-    value: 1084,
-    svg: {
-      fill: colors.black,
-    },
-    key: `pie-${5}`,
+    x: 'Cash Balance',
+    y: cashBalance,
+    label: ' ',
   });
+
+  pieColors.push('black');
 
   return (
     <View style={styles.container}>
@@ -60,29 +73,39 @@ export const PortfolioHeader: React.FC = () => {
           </DescriptionBold>
         </TouchableOpacity>
       </View>
+
       {graph === 'pie' ? (
-        <PieChart
-          animate
-          style={{height: 200}}
-          innerRadius={90}
-          outerRadius={100}
-          data={pieData}>
-          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+        <View>
+          <VictoryPie
+            colorScale={pieColors}
+            origin={{y: 160, x: width / 2.25}}
+            innerRadius={130}
+            data={pieData}
+          />
+
+          <View style={styles.pieInfo}>
             <TitleMedium style={{color: colors.primary}}>
               $ {commonOwned} USD
             </TitleMedium>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Description style={{color: getColor(368.4)}}>
-                $368.40 USD
+              <Description style={{color: getColor(gainsLosses)}}>
+                {`${gainsLosses < 0 ? '-' : '+'}$${numberWithCommas(
+                  Number(Math.abs(gainsLosses)).toFixed(2),
+                )} USD`}
               </Description>
-              <Image
-                style={{marginLeft: 5}}
-                source={require('../../../assets/images/potfolio/upArrow.png')}
-              />
+              <View
+                style={{
+                  marginLeft: 5,
+                  transform: [{rotate: gainsLosses >= 0 ? '0deg' : '180deg'}],
+                }}>
+                <GainsLossesArrow fill={gainsLosses >= 0 ? 'green' : 'red'} />
+              </View>
             </View>
           </View>
-        </PieChart>
-      ) : null}
+        </View>
+      ) : (
+        <View style={{marginBottom: 100}} />
+      )}
     </View>
   );
 };
