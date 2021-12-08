@@ -1,12 +1,9 @@
 export * from './slides';
 export * from './passwordConditions';
 export * from './metals';
-export * from './activity';
 export * from './time';
 export * from './autoBuy';
 export * from './states';
-export * from './buy';
-export * from './sell';
 export * from './cookieLinks';
 export * from './cmCredentials';
 
@@ -29,3 +26,5 @@ export * from './validateNumbers';
 export * from './numberWithCommas';
 export * from './getPaymentName';
 export * from './getMetalsColor';
+export * from './getReedemImage';
+export * from './getShippingName';

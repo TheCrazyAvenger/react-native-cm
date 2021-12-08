@@ -9,7 +9,7 @@ import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {useNavigation} from '@react-navigation/core';
 import {setLoading} from '@store/slices/authSlice';
-import {getCardImage, getPaymentImage} from '@utilities';
+import {getCardImage, getPaymentImage, numberWithCommas} from '@utilities';
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {PayPalForm} from '../../forms';
@@ -21,6 +21,8 @@ import {Subtitle, SubtitleMedium} from '@Typography';
 export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
   onChange,
   label,
+  labelStyle,
+  containerStyle,
 }) => {
   const navigation: any = useNavigation();
 
@@ -33,10 +35,7 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
 
   const [paymentMethod, setPaymentMethod] = useState('cashBalance');
   const [visibleModal, setVisibleModal] = useState(false);
-  const [card, setCard] = useState(
-    //@ts-ignore
-    Object.values(paymentMethods.creditCard)[0].cardType,
-  );
+  const [card, setCard] = useState('');
 
   const onSubmit = async (values: any) => {
     dispatch(setLoading(true));
@@ -69,10 +68,16 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
       <ItemPicker
         LeftIcon={getPaymentImage(paymentMethod)}
         label={label}
-        style={styles.picker}
+        labelStyle={labelStyle}
+        style={{...styles.picker, ...containerStyle}}
         placeholderStyle={styles.pickerPlaceholder}
         items={[
-          {label: `Cash Balance ($${cashBalance})`, value: 'cashBalance'},
+          {
+            label: `Cash Balance ($${numberWithCommas(
+              Number(cashBalance).toFixed(2),
+            )})`,
+            value: 'cashBalance',
+          },
           {label: 'Credit/Debit Card', value: 'creditCard'},
           {label: 'Bank Wire', value: 'bankWire'},
           {label: 'PayPal', value: 'payPal'},
@@ -103,10 +108,10 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
       ) : (
         paymentMethod === 'creditCard' && (
           <ItemPicker
-            labelStyle={{marginTop: 25}}
+            labelStyle={{marginTop: 25, ...labelStyle}}
             LeftIcon={getCardImage(card)}
             label="Payment Method"
-            style={styles.cardPicker}
+            style={{...styles.cardPicker, ...containerStyle}}
             placeholderStyle={styles.pickerPlaceholder}
             items={paymentMethods.creditCard.map((item: any) => ({
               label: `Ending with ${item.cardNumber.slice(-4)}`,
@@ -124,7 +129,7 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
       paymentMethods[paymentMethod].length === 0 ? (
         <PayPalForm
           onSubmit={onSubmit}
-          style={{marginTop: 18}}
+          style={{marginTop: 18, ...containerStyle}}
           labelStyle={{marginBottom: 0}}
           type="payPal"
           label="PayPal"

@@ -14,20 +14,18 @@ export const ReviewSellBuy: React.FC = () => {
   const route: any = useRoute();
 
   const loading = useAppSelector(state => state.auth.loading);
-  const token = useAppSelector(state => state.auth.token);
 
   const [modalVisble, setModalVisible] = useState(false);
-
-  const dispatch = useAppDispatch();
 
   const {amountOz, paymentMethod, amount, data} = route.params;
   const {name, spot} = data;
   const {type} = route.params;
 
+  let myInterval: any = null;
   const [minutes, setMinutes] = useState(3);
   const [seconds, setSeconds] = useState(0);
   useEffect(() => {
-    let myInterval = setInterval(() => {
+    myInterval = setInterval(() => {
       if (seconds > 0) {
         setSeconds(seconds - 1);
       }
@@ -63,8 +61,8 @@ export const ReviewSellBuy: React.FC = () => {
         visible={modalVisble}
         confirmTitle="Update"
         onConfirm={() => {
-          setMinutes(3);
-          setSeconds(0);
+          setMinutes(0);
+          setSeconds(30);
           setModalVisible(false);
         }}
       />
@@ -88,7 +86,10 @@ export const ReviewSellBuy: React.FC = () => {
           paymentMethod={getPaymentName(paymentMethod)}
         />
 
-        <ReviewBuyForm operationType={type} />
+        <ReviewBuyForm
+          operationType={type}
+          onPress={() => clearInterval(myInterval)}
+        />
       </View>
     </Screen>
   );

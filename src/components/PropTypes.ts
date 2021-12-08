@@ -34,9 +34,9 @@ export type PaginationFooterProps = {
 
 export type CheckBoxProps = {
   value: any;
-  onPress: () => void;
-  error: any;
-  isTouched: any;
+  onPress?: () => void;
+  error?: any;
+  isTouched?: any;
   style?: {[key: string]: number | string};
   containerStyle?: {[key: string]: number | string};
 };
@@ -109,6 +109,8 @@ export type MenuModalItemProps = {
 export type MetalPickerProps = {
   currentMetal: number;
   colorfull?: boolean;
+  markedColor?: string;
+  showAll?: boolean;
   onPress: (id: number) => void;
 };
 
@@ -290,6 +292,8 @@ export type OrderInfoProps = {
 
 export type PaymentMethodPickerProps = {
   label: string;
+  containerStyle?: {[key: string]: number | string};
+  labelStyle?: {[key: string]: number | string};
   onChange: (value: any) => void;
 };
 
@@ -319,4 +323,41 @@ export type FundWithdrawInfoProps = {
   method?: string;
   account?: string;
   style?: {[key: string]: number | string};
+};
+
+export type ReedemItemProps = {
+  style?: {[key: string]: number | string};
+  image: string;
+  name: string;
+  price: number;
+  availability: string;
+  onSale: boolean;
+  date?: string;
+  onPress: (...args: any) => void;
+};
+
+export type CartItemProps = {
+  style?: {[key: string]: number | string};
+  image: string;
+  name: string;
+  price: number;
+  availability: string;
+  qty: number;
+  date?: string;
+};
+
+export type TaxItemProps = {
+  style?: {[key: string]: number | string};
+  subtotal: number;
+  salesTax: number;
+  shippingFee: string;
+  shippingTax: number;
+  total: number;
+};
+
+export type ReedemInfoProps = {
+  style?: {[key: string]: number | string};
+  cart: any;
+  paymentMethod: string;
+  shippingMethod: string;
 };
