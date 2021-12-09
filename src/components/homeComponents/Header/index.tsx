@@ -31,7 +31,7 @@ export const Header: React.FC = () => {
       setTotalHoldings(metalHoldings);
 
       setTotalPerfomance(
-        metalHoldings === 0 ? 0 : (gainsLosses / metalHoldings) * 100,
+        metalHoldings === 0 ? 0 : (gainsLosses / metalHoldings) * 1,
       );
     }
   }, [data, operations]);

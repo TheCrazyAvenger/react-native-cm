@@ -12,6 +12,7 @@ export const TextButton: React.FC<TextButtonProps> = ({
   disabledStyle,
   disabledTitle,
   titleStyle,
+  loading = false,
   changeDisabledStyle,
 }) => {
   const buttonStyle = [styles.buttonStyle, style, solid ? styles.solid : null];
@@ -30,6 +31,7 @@ export const TextButton: React.FC<TextButtonProps> = ({
       buttonStyle={[...buttonStyle, style]}
       titleStyle={[...titleStyles]}
       type="solid"
+      loading={loading}
       title={disabledTitle ? disabledTitle : title}
       touchSoundDisabled={false}
       onPress={onPress}

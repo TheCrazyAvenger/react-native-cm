@@ -12,10 +12,10 @@ import {Description} from '@Typography';
 export const IntroduceForm: React.FC = () => {
   const navigation: any = useNavigation();
 
-  const goToNext = (values: {[key: string]: string | boolean}) => {
+  const goToNext = (values: {[key: string]: any}) => {
     const {firstName, lastName} = values;
     navigation.push(Screens.email, {
-      values: {firstName, lastName},
+      values: {firstName: firstName.trim(), lastName: lastName.trim()},
     });
   };
 

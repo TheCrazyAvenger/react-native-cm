@@ -4,9 +4,13 @@ import {TextProps} from '../..';
 
 import {styles} from './styles';
 
-export const Error: React.FC<TextProps> = ({children, style}) => {
+export const Error: React.FC<TextProps> = ({
+  children,
+  style,
+  numberOfLines,
+}) => {
   return (
-    <Text numberOfLines={1} style={{...styles.default, ...style}}>
+    <Text numberOfLines={numberOfLines} style={{...styles.default, ...style}}>
       {children}
     </Text>
   );

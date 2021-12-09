@@ -33,7 +33,10 @@ export const ProductItem: React.FC<ProductItemProps> = ({
       </View>
       {type === 'Sell' && (
         <View>
-          <Description>Total Owned {ownedMetals[metal]} oz</Description>
+          <Description>
+            Total Owned{' '}
+            {numberWithCommas(Number(ownedMetals[metal]).toFixed(3))} oz
+          </Description>
         </View>
       )}
       <Wrapper style={{backgroundColor: colors.primary, marginVertical: 12}} />

@@ -136,9 +136,7 @@ export const authSlice = createSlice({
       loginHandler.fulfilled,
       (state, action: PayloadAction<any>) => {
         if (action.payload) {
-          const {mobile} = action.payload;
-
-          state.mobile = mobile;
+          state.mobile = action.payload;
         }
       },
     );

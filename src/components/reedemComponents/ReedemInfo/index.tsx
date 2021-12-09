@@ -29,7 +29,9 @@ export const ReedemInfo: React.FC<ReedemInfoProps> = ({
         <View style={styles.infoItem}>
           <Description style={styles.infoTitle}>Payment Method</Description>
           <SubtitleMedium style={styles.infoText}>
-            {getPaymentName(paymentMethod)}
+            {getPaymentName(paymentMethod)
+              ? getPaymentName(paymentMethod)
+              : paymentMethod}
           </SubtitleMedium>
         </View>
 

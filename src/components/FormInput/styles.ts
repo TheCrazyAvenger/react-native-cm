@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
   labelStyle: {
     fontFamily: 'OpenSans-Regular',
     marginBottom: 6,
+    fontSize: 14,
     fontWeight: '400',
     color: colors.gray,
   },
@@ -28,8 +29,8 @@ export const styles = StyleSheet.create({
     color: colors.red,
   },
   error: {
-    position: 'absolute',
-    left: 10,
-    top: 81,
+    marginTop: -15,
+    marginBottom: 16,
+    marginLeft: 10,
   },
 });

@@ -13,6 +13,7 @@ export * from './FormImagePicker';
 export * from './ImageInputList';
 export * from './ImageInput';
 export * from './LoadingItem';
+export * from './NumberPagination';
 
 export * from './PaymentMethodPicker';
 export * from './EmptyPaymentMethod';
@@ -68,5 +69,7 @@ export * from './reedemComponents/ReedemItem';
 export * from './reedemComponents/CartItem';
 export * from './reedemComponents/TaxItem';
 export * from './reedemComponents/ReedemInfo';
+
+export * from './transactionsComponents/TransactionsModal';
 
 export * from './PropTypes';

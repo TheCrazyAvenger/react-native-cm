@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {View} from 'react-native';
 import {ViewMoreButton, Wrapper} from '../..';
 import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
-import {getColor, getOperationImage} from '@utilities';
+import {getColor, getOperationImage, numberWithCommas} from '@utilities';
 import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {getOperations} from '@store/actions/operations';
@@ -29,29 +29,32 @@ export const ActivityCard: React.FC = () => {
     checkOperations();
   }, []);
 
-  const isData = operations.length > 0 ? true : false;
-
   return (
     <View style={styles.container}>
       <TitleMedium style={{marginBottom: 20}}>Recent Activity</TitleMedium>
       {loading ? (
         <LoadingItem />
-      ) : isData ? (
+      ) : operations.length > 0 ? (
         operations
-          .slice(-5)
-          .reverse()
+          .filter((item: any) => item.type)
+          .sort(
+            (item: any, next: any) =>
+              new Date(`${item.date}, ${item.time}`) <
+              new Date(`${next.date}, ${next.time}`),
+          )
+          .slice(0, 5)
           .map((operation: any, i: number) => {
-            const {type, date, usd, image, oz, id}: any = operation;
+            const {title, date, usd, total, image, oz, id}: any = operation;
             const Image = getOperationImage(image);
 
             return (
               <React.Fragment key={id}>
-                <View style={styles.cardItem}>
+                <View style={styles.cardContainer}>
                   <View style={styles.cardItem}>
                     <Image />
                     <View>
-                      <SubtitleMedium style={styles.type}>
-                        {type}
+                      <SubtitleMedium numberOfLines={1} style={styles.type}>
+                        {title}
                       </SubtitleMedium>
                       <Description>{date}</Description>
                     </View>
@@ -59,7 +62,9 @@ export const ActivityCard: React.FC = () => {
                   <View style={{alignItems: 'flex-end'}}>
                     <SubtitleMedium
                       style={{...styles.type, color: getColor(usd)}}>
-                      {usd}
+                      {`${
+                        usd.split(' ')[0] === '-' ? '-' : '+'
+                      } $${numberWithCommas(Number(total).toFixed(2))}`}
                     </SubtitleMedium>
                     <Description>{oz ? `${oz} oz` : null}</Description>
                   </View>
@@ -73,7 +78,7 @@ export const ActivityCard: React.FC = () => {
       ) : (
         <SubtitleMedium>Empty</SubtitleMedium>
       )}
-      {!loading && isData ? (
+      {!loading && operations.length > 0 ? (
         <ViewMoreButton
           onPress={() => navigation.navigate(Screens.transactions)}
         />

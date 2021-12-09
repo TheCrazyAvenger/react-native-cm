@@ -49,6 +49,9 @@ import MasterCard from './paymentMethods/masterCard.svg';
 import AmericanExpress from './paymentMethods/americanExpress.svg';
 import Discover from './paymentMethods/discover.svg';
 
+import LeftArrow from './leftArrow.svg';
+import RightArrow from './rightArrow.svg';
+
 export {
   Alerts,
   PaymentMethods,
@@ -92,4 +95,6 @@ export {
   MasterCard,
   AmericanExpress,
   Discover,
+  LeftArrow,
+  RightArrow,
 };

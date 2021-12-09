@@ -8,6 +8,7 @@ import {styles} from './styles';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Screens} from '@constants';
 import {TextButton} from '@ui';
+import auth from '@react-native-firebase/auth';
 
 export const EmailForm: React.FC = () => {
   const navigation: any = useNavigation();
@@ -15,16 +16,21 @@ export const EmailForm: React.FC = () => {
 
   const {type} = route.params;
   const {firstName, lastName, password} = route.params.values;
-  console.log(type);
 
-  const goToNext = (values: {[key: string]: string | boolean}) => {
+  const goToNext = (values: {[key: string]: string}) => {
+    const {email} = values;
     type
       ? navigation.push(Screens.emailVerification, {
-          values: {...values, firstName, lastName, password},
+          values: {
+            email: email.trim().toLowerCase(),
+            firstName,
+            lastName,
+            password,
+          },
         })
       : navigation.push(Screens.password, {
           type: 'SignUp',
-          values: {...values, ...route.params.values},
+          values: {email: email.trim().toLowerCase(), ...route.params.values},
         });
   };
 

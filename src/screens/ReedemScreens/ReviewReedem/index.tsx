@@ -12,7 +12,7 @@ import {SubtitleMedium, TitleMedium} from '@Typography';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
-import {getMonth, getPaymentName, numberWithCommas} from '@utilities';
+import {getMonth, getPaymentName, getTime, numberWithCommas} from '@utilities';
 import {setLoading, updateCash} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
 import {addOperation} from '@store/slices/operationsSlice';
@@ -59,17 +59,24 @@ export const ReviewReedem: React.FC = () => {
 
   const reedemHandler = async () => {
     try {
+      const order = Math.round(Math.random() * (10000 - 1) + 1);
       const date = new Date();
-      const month = getMonth(date.getMonth());
-      const day = date.getDate();
-      const year = date.getFullYear();
+      const {month, monthName, day, year, hours, minutes} = getTime(date);
 
       const id = `${Math.round(Math.random() * 1000000)}_reedem`;
 
       const data = {
-        type: `Redeemed Products`,
-        date: `${month} ${day}, ${year}`,
+        title: `Redeemed Products`,
+        type: 'Reedem',
+        localeDate: `${month}/${day}/${year}`,
+        date: `${monthName} ${day}, ${year}`,
+        time: `${hours}:${minutes < 10 ? '0' + minutes : minutes}`,
+        total: amount,
         usd: `- $${amount}`,
+        cart,
+        shippingMethod,
+        paymentMethod: getPaymentName(paymentMethod),
+        order,
         image: `redeem`,
         id,
       };
@@ -96,6 +103,7 @@ export const ReviewReedem: React.FC = () => {
         paymentMethod,
         shippingMethod,
         cart,
+        order,
         amount,
         type: 'Success',
       });
@@ -106,6 +114,7 @@ export const ReviewReedem: React.FC = () => {
         paymentMethod,
         shippingMethod,
         cart,
+        order: '-',
         amount,
         type: 'Error',
       });

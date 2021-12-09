@@ -3,7 +3,7 @@ import {TouchableOpacity, useWindowDimensions, View} from 'react-native';
 import {Description, DescriptionBold, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {colors} from '@constants';
-import {getColor, getMetalsColor, metals, numberWithCommas} from '@utilities';
+import {getColor, getMetalsColor, numberWithCommas} from '@utilities';
 import {useAppSelector} from '@hooks';
 import {GainsLossesArrow} from '@assets/images/potfolio';
 import {VictoryPie} from 'victory-native';

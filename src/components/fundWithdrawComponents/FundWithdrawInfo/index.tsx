@@ -22,7 +22,7 @@ export const FundWithdrawInfo: React.FC<FundWithdrawInfoProps> = ({
               Current Cash Balance
             </Description>
             <SubtitleMedium style={styles.infoText}>
-              {`$${numberWithCommas(cashBalance)} USD`}
+              {`$${numberWithCommas(Number(cashBalance).toFixed(2))} USD`}
             </SubtitleMedium>
           </View>
         )}
@@ -31,8 +31,9 @@ export const FundWithdrawInfo: React.FC<FundWithdrawInfoProps> = ({
             <Description style={styles.infoTitle}>
               {type === 'Fund' ? 'Funding' : 'Amount'}
             </Description>
+
             <SubtitleMedium style={styles.infoText}>
-              {`$${Number(amount).toFixed(2)}`}
+              {`$${numberWithCommas(Number(amount).toFixed(2))}`}
             </SubtitleMedium>
           </View>
         )}

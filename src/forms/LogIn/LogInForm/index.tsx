@@ -9,9 +9,10 @@ import {Screens} from '@constants';
 import {Description} from '@Typography';
 import {TextButton} from '@ui';
 
-export const LogInForm: React.FC<{onSubmit: (...args: any) => void}> = ({
-  onSubmit,
-}) => {
+export const LogInForm: React.FC<{
+  onSubmit: (...args: any) => void;
+  loading: boolean;
+}> = ({onSubmit, loading}) => {
   const [showPassword, setShowPassword] = useState(true);
   const navigation: any = useNavigation();
 
@@ -36,7 +37,7 @@ export const LogInForm: React.FC<{onSubmit: (...args: any) => void}> = ({
             <FormInput
               onBlur={() => setFieldTouched('email', true)}
               label="Email"
-              plaseholder="Your email"
+              plaseholder="Your Email"
               onChangeText={handleChange('email')}
               onFocus={() => setFieldTouched('email', false)}
               value={values.email}
@@ -47,7 +48,7 @@ export const LogInForm: React.FC<{onSubmit: (...args: any) => void}> = ({
             <FormInput
               onBlur={() => setFieldTouched('password', true)}
               label="Password"
-              plaseholder="Enter password"
+              plaseholder="Your Password"
               onChangeText={handleChange('password')}
               onFocus={() => setFieldTouched('password', false)}
               value={values.password}
@@ -73,6 +74,8 @@ export const LogInForm: React.FC<{onSubmit: (...args: any) => void}> = ({
           <TextButton
             title="Log in"
             solid
+            loading={loading}
+            disabled={loading}
             onPress={handleSubmit}
             style={{marginHorizontal: 10}}
           />

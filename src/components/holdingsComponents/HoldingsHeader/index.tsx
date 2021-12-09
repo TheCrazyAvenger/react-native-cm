@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Image, View} from 'react-native';
 import {HoldingsHeaderProps, MetalPicker, Wrapper} from '../..';
 import {colors} from '@constants';
-import {getMetalsColor, metals, numberWithCommas} from '@utilities';
+import {getMetalsColor, numberWithCommas} from '@utilities';
 import {
   DescriptionBold,
   Illustration,
@@ -21,7 +21,40 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
   const {name, buy, digitalMetal, id} = data[metalType - 1];
   const {oneDayChange} = digitalMetal;
 
+  const [gainsLosses, setGainLosses] = useState(0);
+  const [acquisitionCost, setAcquisitionCost] = useState(0);
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
+  const operations = useAppSelector(state => state.operations.operations);
+
+  const buyOperations = useMemo(
+    () =>
+      operations
+        .filter((item: any) =>
+          item.type === 'Buy' && item.product === name ? true : false,
+        )
+        .sort(
+          (item: any, next: any) =>
+            new Date(`${item.date}, ${item.time}`) >
+            new Date(`${next.date}, ${next.time}`),
+        ),
+    [operations],
+  );
+
+  const holdingsPriceAsk = ownedMetals[name] * buy;
+
+  useEffect(() => {
+    if (buyOperations[0]) {
+      setAcquisitionCost(
+        buyOperations[0].oz * buyOperations[0].usd.split('$')[1],
+      );
+    }
+    setGainLosses(holdingsPriceAsk - acquisitionCost);
+  }, [holdingsPriceAsk, acquisitionCost, buyOperations]);
+
+  const totalPerfomance = useMemo(
+    () => (gainsLosses / holdingsPriceAsk) * 1,
+    [gainsLosses, holdingsPriceAsk],
+  );
 
   return (
     <View
@@ -49,7 +82,9 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
             Total Performance
           </Illustration>
           <View style={styles.perfomance}>
-            <Illustration style={styles.profit}>0.00%</Illustration>
+            <Illustration style={styles.profit}>
+              {numberWithCommas(Number(totalPerfomance).toFixed(2))}%
+            </Illustration>
             <Image
               style={{marginLeft: 6}}
               source={require('../../../assets/images/home/upArrow.png')}

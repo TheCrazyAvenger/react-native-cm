@@ -19,4 +19,16 @@ export const tagStyles = {
     color: colors.black,
     lineHeight: 32.68,
   },
+  h4: {
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 20,
+    color: colors.black,
+    lineHeight: 32.68,
+  },
+  h5: {
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 16,
+    color: colors.black,
+    lineHeight: 32.68,
+  },
 };

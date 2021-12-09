@@ -106,6 +106,23 @@ export type MenuModalItemProps = {
   text: string;
 };
 
+export type TransactionsModalProps = {
+  visible: boolean;
+  date: string;
+  spot: number;
+  total: string;
+  cart: any;
+  shippingMethod: string;
+  product: string;
+  oz: number;
+  ozPrice?: number;
+  time: string;
+  type: string;
+  order: number;
+  paymentMethod: string;
+  onPress: () => void;
+};
+
 export type MetalPickerProps = {
   currentMetal: number;
   colorfull?: boolean;
@@ -284,7 +301,7 @@ export type BuyingInfoProps = {
   metal: string;
   amount: string;
   spot: number;
-  amountOz: string;
+  amountOz: string | number;
   style?: {[key: string]: number | string};
   type: string;
 };
@@ -292,6 +309,8 @@ export type BuyingInfoProps = {
 export type OrderInfoProps = {
   order: number | string;
   status: string;
+  date?: string;
+  time?: string;
   style?: {[key: string]: number | string};
 };
 
@@ -325,9 +344,18 @@ export type TransactionItemProps = {
   product: string;
   quantity: number;
   total: string;
+  cart: any;
+  shippingMethod: string;
   type: string;
   list: any;
+  localeDate: string;
   date: string;
+  spot: number;
+  time: string;
+  oz: number;
+  ozPrice?: number;
+  order: number;
+  paymentMethod: string;
   onPress: (...args: any) => void;
   id: number;
   style?: {[key: string]: number | string};
@@ -377,4 +405,15 @@ export type ReedemInfoProps = {
   cart: any;
   paymentMethod: string;
   shippingMethod: string;
+};
+
+export type NumberPaginationProps = {
+  style?: {[key: string]: number | string};
+  onPageChange: (...args: any) => void;
+  changeView: (...args: any) => void;
+  totalCount: number;
+  showView?: boolean;
+  siblingCount?: number;
+  currentPage: number;
+  pageSize: number;
 };

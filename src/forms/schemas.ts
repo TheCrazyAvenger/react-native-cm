@@ -3,39 +3,53 @@ import * as yup from 'yup';
 export const introduceSchema = yup.object().shape({
   firstName: yup
     .string()
-    .required('Please enter your First Name')
+    .required('Please enter your first name')
     .max(50, 'The field should be less than or equal to 50 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   lastName: yup
     .string()
-    .required('Please enter your Last Name')
+    .required('Please enter your last name')
     .max(50, 'The field should be less than or equal to 50 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   checkBox: yup.boolean().required().oneOf([true]),
 });
 
 export const emailSchema = yup.object().shape({
   email: yup
     .string()
-    .email()
-    .label('Email adress')
+    .email('Please check your email format')
     .required('Please enter your email')
-    .max(50, 'The field should be less than or equal to 50 symbols '),
+    .max(64, 'This field should be less than or equal to 64 symbols'),
 });
 
 export const passwordSchema = yup.object().shape({
   password: yup
     .string()
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
-      {message: 'All conditions must be met'},
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/,
+      {
+        message:
+          'The password must have at least eight characters with one uppercase letter, one lower case letter, one number (0-9), one symbol (e.g. !@#$%^&*) and no spaces',
+      },
     )
-    .required('Password is required')
+    .max(32, 'This field should be less than or equal to 32 symbols')
+    .required('Please enter your password')
     .notOneOf([yup.ref('currentPassword')], `Don't use your old password`),
   confirmPassword: yup
     .string()
-    .required('Confirm your password')
-    .oneOf([yup.ref('password')], 'Passwords does not match'),
+    .required(' Please confirm your password')
+    .oneOf(
+      [yup.ref('password')],
+      'The password and confirmation password do not match',
+    ),
 });
 
 export const mobileSchema = yup.object().shape({
@@ -52,20 +66,18 @@ export const mobileVerCodeSchema = yup.object().shape({
 export const logInSchema = yup.object().shape({
   email: yup
     .string()
-    .email()
-    .label('Email adress')
+    .email('Please check your email format')
     .required('Please enter your email')
-    .max(50, 'The field should be less than or equal to 50 symbols '),
-  password: yup.string().required('Password is required'),
+    .max(64, 'This field should be less than or equal to 64 symbols'),
+  password: yup.string().required('Please enter your password'),
 });
 
 export const forgotPassSchema = yup.object().shape({
   email: yup
     .string()
-    .email()
-    .label('Email adress')
+    .email('Please check your email format')
     .required('Please enter your email')
-    .max(50, 'The field should be less than or equal to 50 symbols '),
+    .max(64, 'This field should be less than or equal to 64 symbols'),
 });
 
 export const autoBuySchema = yup.object().shape({

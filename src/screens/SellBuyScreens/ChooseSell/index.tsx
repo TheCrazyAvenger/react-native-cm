@@ -4,7 +4,6 @@ import {StatusBar} from 'react-native';
 import {LoadingItem, ProductItem} from '@components';
 import {Screens} from '@constants';
 import {Screen} from '@ui';
-import {sell} from '@utilities';
 import {useGetDigitalProductsQuery} from '@api';
 
 export const ChooseSell: React.FC = () => {

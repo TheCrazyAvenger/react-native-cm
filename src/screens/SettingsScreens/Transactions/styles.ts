@@ -5,6 +5,6 @@ export const styles = StyleSheet.create({
   noAlerts: {
     width: '100%',
     alignItems: 'center',
-    marginTop: 100,
+    marginTop: '50%',
   },
 });

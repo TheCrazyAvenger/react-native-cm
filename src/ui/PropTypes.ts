@@ -6,6 +6,7 @@ export type ScreenProps = {
 export type TextButtonProps = {
   title: string;
   solid?: boolean;
+  loading?: boolean;
   onPress: () => void;
   style?: {[key: string]: number | string};
   disabled?: boolean;

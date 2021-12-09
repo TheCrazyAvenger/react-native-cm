@@ -24,11 +24,11 @@ export const styles = StyleSheet.create({
   topBorders: {
     borderTopStartRadius: 5,
     borderTopEndRadius: 5,
+    marginTop: 20,
   },
   bottomBorders: {
     borderBottomStartRadius: 5,
     borderBottomEndRadius: 5,
-    marginBottom: 20,
   },
   moreButton: {
     marginVertical: 10,

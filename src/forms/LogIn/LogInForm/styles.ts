@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     marginBottom: 25,
   },
   forgotPass: {
-    fontFamily: 'OpenSans-Semibold',
+    fontFamily: 'OpenSans-SemiBold',
     color: colors.primary,
     fontWeight: '600',
     paddingHorizontal: 10,

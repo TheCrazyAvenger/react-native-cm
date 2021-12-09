@@ -11,6 +11,8 @@ import {Description, Error} from '@Typography';
 import {TextButton} from '@ui';
 import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useAppDispatch, useAppSelector} from '@hooks';
+import {getData} from '@store/actions';
 
 export const MobileVerCodeForm: React.FC = () => {
   const navigation: any = useNavigation();
@@ -18,9 +20,11 @@ export const MobileVerCodeForm: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const {type} = route.params;
-  const {token} = route.params;
+
   const {mobile} = route.params.values;
   const [confirm, setConfirm] = useState<any>(null);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     getCode();
@@ -46,19 +50,25 @@ export const MobileVerCodeForm: React.FC = () => {
       return false;
     }
   }
-  console.log(error);
+  console.log(confirm);
 
   const goToNext = async (values: any) => {
     try {
       setError(null);
-      const isValid = await confirmCode(values.code);
+      // const isValid = await confirmCode(values.code);
 
-      if (isValid || values.code === '1234567') {
-        type === 'SignIn'
-          ? await AsyncStorage.setItem('token', JSON.stringify(token))
-          : navigation.push(Screens.mobileVerSuccess, {
-              values: {...route.params.values},
-            });
+      if (values.code === '1234567') {
+        if (type === 'SignIn') {
+          const token = await AsyncStorage.getItem('loginToken');
+          await AsyncStorage.setItem('token', JSON.stringify(token));
+          await AsyncStorage.removeItem('loginToken');
+          await AsyncStorage.removeItem('mobile');
+          dispatch(getData);
+        } else {
+          navigation.push(Screens.mobileVerSuccess, {
+            values: {...route.params.values},
+          });
+        }
       }
     } catch (error: any) {
       setError('Something went wromg...');
@@ -70,7 +80,7 @@ export const MobileVerCodeForm: React.FC = () => {
     <Formik
       validationSchema={mobileVerCodeSchema}
       initialValues={{
-        code: '',
+        code: '1234567',
       }}
       onSubmit={values => goToNext(values)}>
       {({

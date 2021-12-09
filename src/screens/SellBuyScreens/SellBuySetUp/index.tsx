@@ -6,6 +6,7 @@ import {BuySetUpForm, SellSetUpForm} from '../../../forms';
 import {Screen} from '@ui';
 import {styles} from './styles';
 import {useAppSelector} from '@hooks';
+import {numberWithCommas} from '@utilities';
 
 export const SellBuySetUp: React.FC = () => {
   const navigation: any = useNavigation();
@@ -36,7 +37,9 @@ export const SellBuySetUp: React.FC = () => {
           {type === 'Sell' && (
             <View style={styles.infoItem}>
               <Description style={styles.infoTitle}>Total Owned</Description>
-              <SubtitleMedium>{`$${ownedMetals[name]}/oz`}</SubtitleMedium>
+              <SubtitleMedium>{`$${numberWithCommas(
+                Number(ownedMetals[name]).toFixed(3),
+              )}/oz`}</SubtitleMedium>
             </View>
           )}
           <View style={styles.infoItem}>

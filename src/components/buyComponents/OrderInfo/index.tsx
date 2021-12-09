@@ -5,7 +5,13 @@ import {Description, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 import {colors} from '@constants';
 
-export const OrderInfo: React.FC<OrderInfoProps> = ({order, status, style}) => {
+export const OrderInfo: React.FC<OrderInfoProps> = ({
+  order,
+  date: orderDate,
+  time,
+  status,
+  style,
+}) => {
   const date = new Date();
 
   const hours = date.getHours();
@@ -27,16 +33,24 @@ export const OrderInfo: React.FC<OrderInfoProps> = ({order, status, style}) => {
         <View style={styles.infoItem}>
           <Description style={styles.infoTitle}>Order Date</Description>
 
-          <SubtitleMedium style={styles.infoText}>
-            {date.toLocaleDateString()}
-          </SubtitleMedium>
+          {orderDate ? (
+            <SubtitleMedium style={styles.infoText}>{orderDate}</SubtitleMedium>
+          ) : (
+            <SubtitleMedium style={styles.infoText}>
+              {date.toLocaleDateString()}
+            </SubtitleMedium>
+          )}
         </View>
         {status !== 'Error' && (
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>Time</Description>
-            <SubtitleMedium style={styles.infoText}>
-              {hours}:{minutes < 10 ? `0${minutes}` : minutes}
-            </SubtitleMedium>
+            {time ? (
+              <SubtitleMedium style={styles.infoText}>{time}</SubtitleMedium>
+            ) : (
+              <SubtitleMedium style={styles.infoText}>
+                {hours}:{minutes < 10 ? `0${minutes}` : minutes}
+              </SubtitleMedium>
+            )}
           </View>
         )}
 

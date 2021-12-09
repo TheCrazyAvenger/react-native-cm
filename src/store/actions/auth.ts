@@ -86,33 +86,27 @@ export const getData = createAsyncThunk('auth/getData', async () => {
   } catch (e) {}
 });
 
-export const loginHandler = createAsyncThunk('auth/loginHandler', async () => {
-  try {
-    let token: any = await AsyncStorage.getItem('token');
-
-    return await database()
-      .ref(`/users/${JSON.parse(token)}`)
-      .once('value')
-      .then(snapshot => {
-        const data: any = snapshot.val();
-
-        const {mobile} = data;
-
-        if (mobile === null) {
-          return {
-            mobile: '',
-          };
-        } else {
-          return {
-            mobile,
-          };
-        }
-      });
-  } catch (e) {}
-});
-
 export const logout = createAsyncThunk('auth/logout', async () => {
   try {
     await AsyncStorage.removeItem('token');
   } catch (e) {}
+});
+
+export const loginHandler = createAsyncThunk('auth/loginHandler', async () => {
+  try {
+    let token: any = await AsyncStorage.getItem('loginToken');
+
+    return await database()
+      .ref(`/users/${JSON.parse(token)}`)
+      .once('value')
+      .then(async snapshot => {
+        const data: any = snapshot.val();
+
+        const {mobile} = data;
+
+        await AsyncStorage.setItem('mobile', JSON.stringify(mobile));
+      });
+  } catch (e) {
+    await AsyncStorage.removeItem('loginToken');
+  }
 });

@@ -1,11 +1,11 @@
 export const getTransactionName = (id: any) => {
   const transactions: any = {
     0: 'All',
-    1: 'buy',
-    2: 'sell',
-    3: 'fund',
-    4: 'withdraw',
-    5: 'reedem',
+    1: 'Buy',
+    2: 'Sell',
+    3: 'Fund',
+    4: 'Withdraw',
+    5: 'Reedem',
   };
 
   return transactions[id];

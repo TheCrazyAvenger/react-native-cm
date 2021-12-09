@@ -43,8 +43,6 @@ export const PasswordForm: React.FC<{
   const [specReg, setSpecReg] = useState<string | null>(null);
   const [length, setLength] = useState<string | null>(null);
 
-  console.log(password);
-
   const goToNext = (values: {[key: string]: string | boolean | number}) => {
     const password = values.password;
 
@@ -118,7 +116,7 @@ export const PasswordForm: React.FC<{
               <FormInput
                 onBlur={() => setFieldTouched('password', true)}
                 label="Password"
-                plaseholder="Enter password"
+                plaseholder="Your Password"
                 onChangeText={handleChange('password')}
                 onInput={() => checkPassword(values.password)}
                 onFocus={() => setFieldTouched('password', false)}
@@ -156,7 +154,7 @@ export const PasswordForm: React.FC<{
               <FormInput
                 onBlur={() => setFieldTouched('confirmPassword', true)}
                 label="Confirm Password"
-                plaseholder="Confirm password"
+                plaseholder="Your Password Confirmation"
                 onChangeText={handleChange('confirmPassword')}
                 onFocus={() => setFieldTouched('confirmPassword', false)}
                 value={values.confirmPassword}

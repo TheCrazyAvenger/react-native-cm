@@ -56,7 +56,7 @@ export const Settings: React.FC = () => {
         Image={Transactions}
       />
       <MenuItem
-        title="Storage Fees"
+        title="Invoices"
         description="Edit name and view address detail"
         onPress={() => navigation.navigate(Screens.storageFees)}
         Image={StorageFees}

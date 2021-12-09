@@ -6,7 +6,7 @@ import {Description, Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
-import {getMonth, getPaymentName, numberWithCommas} from '@utilities';
+import {getMonth, getPaymentName, getTime, numberWithCommas} from '@utilities';
 import {setLoading, updateCash} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
 import {addOperation} from '@store/slices/operationsSlice';
@@ -27,18 +27,23 @@ export const ReviewFundWithdraw: React.FC = () => {
 
   const fundWithDraw = async () => {
     try {
+      const order = Math.round(Math.random() * (10000 - 1) + 1);
       const date = new Date();
-      const month = getMonth(date.getMonth());
-      const day = date.getDate();
-      const year = date.getFullYear();
+      const {month, monthName, day, year, hours, minutes} = getTime(date);
 
       const id = `${Math.round(Math.random() * 1000000)}_${
         type === 'Fund' ? 'fund' : 'withdraw'
       }`;
 
       const data = {
-        type: `${type === 'Fund' ? 'Fund' : 'Withdraw'} Cash`,
-        date: `${month} ${day}, ${year}`,
+        title: `${type === 'Fund' ? 'Fund' : 'Withdraw'} Cash`,
+        type: `${type === 'Fund' ? 'Fund' : 'Withdraw'}`,
+        localeDate: `${month}/${day}/${year}`,
+        date: `${monthName} ${day}, ${year}`,
+        total: amount,
+        order,
+        paymentMethod: getPaymentName(paymentMethod),
+        time: `${hours}:${minutes < 10 ? '0' + minutes : minutes}`,
         usd: `${type === 'Fund' ? '+' : '-'} $${amount}`,
         image: `${type === 'Fund' ? 'fund' : 'withdraw'}`,
         id,
@@ -65,6 +70,7 @@ export const ReviewFundWithdraw: React.FC = () => {
       navigation.push(Screens.completeFundWithdraw, {
         type: 'Success',
         amount,
+        order,
         paymentMethod,
         operationType: type === 'Fund' ? 'Fund' : 'Withdraw',
       });
@@ -73,6 +79,7 @@ export const ReviewFundWithdraw: React.FC = () => {
       navigation.push(Screens.completeFundWithdraw, {
         type: 'Error',
         amount,
+        order: '-',
         paymentMethod,
         operationType: type === 'Fund' ? 'Fund' : 'Withdraw',
       });

@@ -55,7 +55,9 @@ export const OperationsPicker: React.FC<OperationsPickerProps> = ({
           );
         })}
       </ScrollView>
-      <Wrapper style={{backgroundColor: colors.primary, marginTop: 0}} />
+      <Wrapper
+        style={{backgroundColor: colors.primary, marginTop: 0, marginBottom: 0}}
+      />
     </View>
   );
 };

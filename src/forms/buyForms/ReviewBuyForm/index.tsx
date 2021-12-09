@@ -10,7 +10,7 @@ import {SubtitleMedium} from '@Typography';
 import {TextButton} from '@ui';
 
 import {reviewBuySchema} from '../..';
-import {getMonth} from '@utilities';
+import {getMonth, getPaymentName, getTime} from '@utilities';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {
   setLoading,
@@ -28,7 +28,8 @@ export const ReviewBuyForm: React.FC<{
   const route: any = useRoute();
 
   const {amount, amountOz, frequency, paymentMethod, data} = route.params;
-  const {name, id: metalId, spot} = data;
+  const {name, id: metalId, spot, buy, sell} = data;
+
   const {type} = route.params;
 
   const operations = useAppSelector(state => state.operations.operations);
@@ -43,18 +44,26 @@ export const ReviewBuyForm: React.FC<{
 
   const buyGold = async () => {
     try {
+      const order = Math.round(Math.random() * (10000 - 1) + 1);
       const date = new Date();
-      const month = getMonth(date.getMonth());
-      const day = date.getDate();
-      const year = date.getFullYear();
+      const {month, monthName, day, year, hours, minutes} = getTime(date);
 
       const id = `${Math.round(Math.random() * 1000000)}_${
         type === 'Buy' ? 'buy' : 'sell'
       }`;
 
       const data = {
-        type: `${type === 'Buy' ? 'Bought' : 'Sold'} ${name}`,
-        date: `${month} ${day}, ${year}`,
+        title: `${type === 'Buy' ? 'Bought' : 'Sold'} ${name}`,
+        type: `${type === 'Buy' ? 'Buy' : 'Sell'}`,
+        product: name,
+        localeDate: `${month}/${day}/${year}`,
+        date: `${monthName} ${day}, ${year}`,
+        total: amount,
+        spot,
+        ozPrice: type === 'Buy' ? buy : sell,
+        order,
+        paymentMethod: getPaymentName(paymentMethod),
+        time: `${hours}:${minutes < 10 ? '0' + minutes : minutes}`,
         usd: `${type === 'Buy' ? '-' : '+'} $${amount}`,
         oz: (+amount / 1887).toFixed(3),
         image: `${type === 'Buy' ? 'buy' : 'sell'}`,
@@ -106,6 +115,7 @@ export const ReviewBuyForm: React.FC<{
         operationType,
         data: route.params.data,
         amount,
+        order,
         frequency,
         paymentMethod,
         amountOz,
@@ -118,6 +128,7 @@ export const ReviewBuyForm: React.FC<{
         operationType,
         data: route.params.data,
         amount,
+        order: '-',
         frequency,
         paymentMethod,
         amountOz,

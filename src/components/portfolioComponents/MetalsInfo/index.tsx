@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Image, View} from 'react-native';
 import {Wrapper} from '../..';
 import {colors} from '@constants';
@@ -19,16 +19,30 @@ export const MetalsInfo: React.FC<{
   const {name, buy} = data;
   const color = getMetalsColor(name);
 
-  const buyOperations = operations.filter((item: any) =>
-    item.image === 'buy' && item.type.split(' ')[1] === name ? true : false,
+  const buyOperations = useMemo(
+    () =>
+      operations
+        .filter((item: any) =>
+          item.type === 'Buy' && item.product === name ? true : false,
+        )
+        .sort(
+          (item: any, next: any) =>
+            new Date(`${item.date}, ${item.time}`) >
+            new Date(`${next.date}, ${next.time}`),
+        ),
+    [operations],
   );
 
   const holdingsPriceAsk = ownedMetals[name] * buy;
   // buyOperations.reduce((acc: number, next: any) => acc + +next.oz, 0) * buy;
 
-  const totalAcquisitionCost = buyOperations.reduce(
-    (acc: number, next: any) => acc + +next.oz * +next.usd.split('$')[1],
-    0,
+  const totalAcquisitionCost = useMemo(
+    () =>
+      buyOperations.reduce(
+        (acc: number, next: any) => acc + +next.oz * +next.total,
+        0,
+      ),
+    [buyOperations],
   );
 
   useEffect(() => {
@@ -38,7 +52,7 @@ export const MetalsInfo: React.FC<{
       );
     }
     setGainLosses(holdingsPriceAsk - acquisitionCost);
-  }, [holdingsPriceAsk, acquisitionCost]);
+  }, [holdingsPriceAsk, acquisitionCost, buyOperations]);
 
   const totalOwned = ownedMetals[name];
 

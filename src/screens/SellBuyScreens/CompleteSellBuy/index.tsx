@@ -14,7 +14,7 @@ export const CompleteSellBuy: React.FC = () => {
 
   const route: any = useRoute();
 
-  const {amountOz, paymentMethod, amount, data, type} = route.params;
+  const {amountOz, paymentMethod, amount, data, order, type} = route.params;
   const {name, spot, id} = data;
   const {operationType} = route.params;
 
@@ -50,11 +50,7 @@ export const CompleteSellBuy: React.FC = () => {
         <Wrapper style={{marginTop: 0, backgroundColor: colors.primary}} />
 
         <OrderInfo
-          order={
-            type === 'Success'
-              ? Math.round(Math.random() * (10000 - 1) + 1)
-              : '-'
-          }
+          order={order}
           status={
             type !== 'Success'
               ? 'Error'

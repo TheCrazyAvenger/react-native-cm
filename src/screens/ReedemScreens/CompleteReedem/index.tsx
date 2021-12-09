@@ -13,7 +13,8 @@ export const CompleteReedem: React.FC = () => {
 
   const route: any = useRoute();
 
-  const {shippingMethod, paymentMethod, cart, type, amount} = route.params;
+  const {shippingMethod, paymentMethod, cart, type, amount, order} =
+    route.params;
 
   return (
     <Screen>
@@ -52,11 +53,7 @@ export const CompleteReedem: React.FC = () => {
 
         <OrderInfo
           style={{marginHorizontal: 0, marginBottom: 20}}
-          order={
-            type === 'Success'
-              ? Math.round(Math.random() * (10000 - 1) + 1)
-              : '-'
-          }
+          order={order}
           status={type === 'Success' ? 'Awaiting Processing by JM' : 'Error'}
         />
 

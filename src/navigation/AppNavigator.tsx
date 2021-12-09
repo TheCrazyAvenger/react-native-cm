@@ -41,6 +41,7 @@ export const AppNavigator: React.FC = () => {
 
       return dispatch(setLoading(false));
     } catch (e) {
+      dispatch(setLoading(false));
       console.log(e);
     }
   };

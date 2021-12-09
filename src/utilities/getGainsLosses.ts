@@ -5,9 +5,15 @@ export const getGainsLosses = (
 ) => {
   const gainsLosses = data.data.reduce((acc: number, metal: any) => {
     const {name, buy} = metal;
-    const buyOperations = operations.filter((item: any) =>
-      item.image === 'buy' && item.type.split(' ')[1] === name ? true : false,
-    );
+    const buyOperations = operations
+      .filter((item: any) =>
+        item.type === 'Buy' && item.product === name ? true : false,
+      )
+      .sort(
+        (item: any, next: any) =>
+          new Date(`${item.date}, ${item.time}`) >
+          new Date(`${next.date}, ${next.time}`),
+      );
 
     const holdingsPriceAsk = ownedMetals[name] * buy;
     //   buyOperations.reduce((acc: number, next: any) => acc + +next.oz, 0) * buy;
@@ -15,8 +21,7 @@ export const getGainsLosses = (
     let acquisitionCost = 0;
 
     if (buyOperations[0]) {
-      acquisitionCost =
-        buyOperations[0].oz * buyOperations[0].usd.split('$')[1];
+      acquisitionCost = buyOperations[0].oz * +buyOperations[0].total;
     }
 
     return acc + holdingsPriceAsk - acquisitionCost;

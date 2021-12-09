@@ -4,6 +4,7 @@ import {BuyingInfoProps} from '../..';
 import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {useAppSelector} from '@hooks';
+import {numberWithCommas} from '@utilities';
 
 export const BuyingInfo: React.FC<BuyingInfoProps> = ({
   metal,
@@ -58,7 +59,9 @@ export const BuyingInfo: React.FC<BuyingInfoProps> = ({
       </View>
       <View style={styles.price}>
         <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
-        <TitleMedium style={styles.priceTitle}>{`$${amount}`}</TitleMedium>
+        <TitleMedium style={styles.priceTitle}>{`$${numberWithCommas(
+          Number(amount).toFixed(2),
+        )}`}</TitleMedium>
       </View>
     </View>
   );
