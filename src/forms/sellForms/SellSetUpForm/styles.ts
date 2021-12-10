@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   },
   amount: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
   price: {
@@ -50,5 +50,13 @@ export const styles = StyleSheet.create({
   profileError: {
     fontFamily: 'OpenSans-SemiBold',
     color: colors.primary,
+  },
+  inputLabel: {
+    color: colors.gray,
+    marginBottom: 6,
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 14,
+    fontWeight: '400',
+    marginHorizontal: 10,
   },
 });

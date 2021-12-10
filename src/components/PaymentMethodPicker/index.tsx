@@ -16,7 +16,7 @@ import {PayPalForm} from '../../forms';
 import {styles} from './styles';
 import database from '@react-native-firebase/database';
 import {addPaymentMethods} from '@store/slices/paymentMethodsSlice';
-import {Subtitle, SubtitleMedium} from '@Typography';
+import {SubtitleMedium} from '@Typography';
 
 export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
   onChange,

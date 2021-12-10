@@ -15,7 +15,7 @@ export const MetalsCard: React.FC<MetalsCardProps> = ({metalId}) => {
     useGetDigitalProductsQuery();
 
   return (
-    <View style={styles.container}>
+    <View style={{...styles.container, height: isLoading ? 188 : 'auto'}}>
       {data === [] || isLoading ? (
         <LoadingItem />
       ) : (

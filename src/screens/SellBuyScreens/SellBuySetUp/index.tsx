@@ -14,7 +14,7 @@ export const SellBuySetUp: React.FC = () => {
 
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
 
-  const {name, spot, premium} = route.params.data;
+  const {name, spot, premium, buy, sell} = route.params.data;
   const {type} = route.params;
 
   return (
@@ -37,9 +37,9 @@ export const SellBuySetUp: React.FC = () => {
           {type === 'Sell' && (
             <View style={styles.infoItem}>
               <Description style={styles.infoTitle}>Total Owned</Description>
-              <SubtitleMedium>{`$${numberWithCommas(
+              <SubtitleMedium>{`${numberWithCommas(
                 Number(ownedMetals[name]).toFixed(3),
-              )}/oz`}</SubtitleMedium>
+              )} oz`}</SubtitleMedium>
             </View>
           )}
           <View style={styles.infoItem}>
@@ -48,7 +48,9 @@ export const SellBuySetUp: React.FC = () => {
           </View>
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>Your Price</Description>
-            <SubtitleMedium>{`$${spot}/oz`}</SubtitleMedium>
+            <SubtitleMedium>{`$${
+              type === 'Buy' ? buy : sell
+            }/oz`}</SubtitleMedium>
           </View>
         </View>
         {type === 'Buy' ? <BuySetUpForm /> : <SellSetUpForm metal={name} />}

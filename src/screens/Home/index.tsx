@@ -1,19 +1,17 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React from 'react';
 import {StatusBar, View} from 'react-native';
 import {
   ActionsCard,
   ActivityCard,
   Header,
-  LoadingItem,
   MetalsCard,
   NewsCard,
 } from '@components';
 import {Screens} from '@constants';
 import {useAppSelector} from '@hooks';
 import {Screen} from '@ui';
-import {metals} from '@utilities';
-import {useGetDigitalProductsQuery, useGetNewsQuery} from '@api';
+import {useGetNewsQuery} from '@api';
 
 export const Home: React.FC = () => {
   const navigation: any = useNavigation();
@@ -40,7 +38,7 @@ export const Home: React.FC = () => {
           <MetalsCard metalId={3} />
         </View>
 
-        {operations.length === 0 ? (
+        {operations.filter((item: any) => item.type === 'Buy').length === 0 ? (
           <ActionsCard
             title="Start Trading"
             description="Build your portfolio with CyberMetals."

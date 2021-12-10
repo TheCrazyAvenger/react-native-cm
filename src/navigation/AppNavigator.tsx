@@ -5,7 +5,6 @@ import {useAppDispatch, useAppSelector} from '../hooks/hooks';
 import {getData} from '../store/actions';
 import {AuthStack} from './AuthStack';
 import {MainNavigator} from './MainNavigator';
-import {setLoading} from '../store/slices/authSlice';
 import {LoadingItem} from '../components';
 import {getOperations} from '../store/actions/operations';
 import {getAutoBuy} from '../store/actions/autoBuy';
@@ -14,14 +13,14 @@ import {getPaymentMethod} from '@store/actions/paymentMethod';
 
 export const AppNavigator: React.FC = () => {
   const token = useAppSelector(state => state.auth.token);
-  const loading = useAppSelector(state => state.auth.loading);
 
   const dispatch = useAppDispatch();
 
   const [showOnBoarding, setShowOnboarding] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   const checkOnboarding = async () => {
-    dispatch(setLoading(true));
+    setLoading(true);
     try {
       const value = await AsyncStorage.getItem('@viewedOnboarding');
       // await AsyncStorage.removeItem('@viewedOnboarding');
@@ -34,14 +33,14 @@ export const AppNavigator: React.FC = () => {
 
       if (value !== null) {
         setShowOnboarding(false);
-        return dispatch(setLoading(false));
+        return setLoading(false);
       }
 
       setShowOnboarding(true);
 
-      return dispatch(setLoading(false));
+      return setLoading(false);
     } catch (e) {
-      dispatch(setLoading(false));
+      setLoading(false);
       console.log(e);
     }
   };
@@ -52,7 +51,7 @@ export const AppNavigator: React.FC = () => {
 
   return (
     <NavigationContainer>
-      {token ? (
+      {token && !loading ? (
         <MainNavigator />
       ) : loading ? (
         <LoadingItem />

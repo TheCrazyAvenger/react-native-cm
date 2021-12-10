@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     color: colors.gray,
     marginBottom: 6,
     fontFamily: 'OpenSans-Regular',
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: '400',
     marginHorizontal: 10,
   },

@@ -82,9 +82,16 @@ export const forgotPassSchema = yup.object().shape({
 
 export const autoBuySchema = yup.object().shape({
   startDate: yup.string().required('Please enter Start Date'),
-  endDate: yup.string().label('End Date').required('Please enter End Date'),
+  endDate: yup
+    .string()
+    .notOneOf([yup.ref('startDate')], 'Start Date must come before End Date')
+    .label('End Date')
+    .required('Please enter End Date'),
   frequency: yup.string().required('Please enter Frequency'),
-  amount: yup.number().required('Please enter amount'),
+  amount: yup
+    .number()
+    .required('Please enter amount')
+    .min(1, 'Minimum purchase amount is .001 ounces.'),
 });
 
 export const priceAlertsSchema = yup.object().shape({
@@ -99,14 +106,22 @@ export const priceAlertsSchema = yup.object().shape({
 export const profileSchema = yup.object().shape({
   firstName: yup
     .string()
-    .required('Please enter your First Name')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter your first name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   lastName: yup
     .string()
-    .required('Please enter your Last Name')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter your last name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   legalStreetAdress: yup
     .string()
     .required('Please enter your Legal Adress')
@@ -142,14 +157,22 @@ export const profileSchema = yup.object().shape({
 export const verificationSchema = yup.object().shape({
   firstName: yup
     .string()
-    .required('Please enter your First Name')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter your first name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   lastName: yup
     .string()
-    .required('Please enter your Last Name')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter your last name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   dateOfBirth: yup.string().required('Please enter your Date of Birth'),
   mobile: yup
     .string()
@@ -157,7 +180,7 @@ export const verificationSchema = yup.object().shape({
     .matches(
       /^[\\(]{0,1}([0-9]){3}[\\)]{0,1}[ ]?([^0-1]){1}([0-9]){2}[ ]?[-]?[ ]?([0-9]){4}[ ]*((x){0,1}([0-9]){1,5}){0,1}$/,
       {
-        message: 'Enter correct number',
+        message: 'Please enter correct number',
       },
     ),
 });

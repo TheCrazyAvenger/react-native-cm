@@ -27,14 +27,14 @@ export const MetalsInfo: React.FC<{
         )
         .sort(
           (item: any, next: any) =>
-            new Date(`${item.date}, ${item.time}`) >
+            new Date(`${item.date}, ${item.time}`) <
             new Date(`${next.date}, ${next.time}`),
         ),
-    [operations],
+    [operations, data],
   );
 
-  const holdingsPriceAsk = ownedMetals[name] * buy;
-  // buyOperations.reduce((acc: number, next: any) => acc + +next.oz, 0) * buy;
+  const holdingsPriceAsk =
+    buyOperations.reduce((acc: number, next: any) => acc + +next.oz, 0) * buy;
 
   const totalAcquisitionCost = useMemo(
     () =>

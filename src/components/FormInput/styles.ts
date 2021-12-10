@@ -33,4 +33,9 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
     marginLeft: 10,
   },
+  leftPrefix: {
+    position: 'absolute',
+    top: 11,
+    left: 20,
+  },
 });

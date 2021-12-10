@@ -71,7 +71,7 @@ export const AutoBuy: React.FC = () => {
           onPress={() => navigation.navigate(Screens.chooseProduct)}
         />
       </View>
-      <Wrapper style={{backgroundColor: colors.paleBlue, marginTop: 44}} />
+      <Wrapper style={{backgroundColor: colors.primary, marginTop: 44}} />
       <View style={styles.activeSectionHeader}>
         <Subtitle style={styles.activeSectionTitle}>
           Active Auto Buy Transactions
@@ -84,10 +84,11 @@ export const AutoBuy: React.FC = () => {
       {autoBuy && (
         <View style={{marginBottom: 20}}>
           {autoBuy.map(
-            (item: any) =>
+            (item: any, i: number) =>
               item !== null && (
                 <AutoBuyItem
                   key={item.id}
+                  status={item.status}
                   id={item.id}
                   metal={item.metal}
                   amount={item.amount}

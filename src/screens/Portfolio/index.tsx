@@ -25,6 +25,8 @@ export const Portfolio: React.FC = () => {
     }
   }, [data, operations]);
 
+  if (isLoading) return <LoadingItem />;
+
   return (
     <Screen>
       <StatusBar

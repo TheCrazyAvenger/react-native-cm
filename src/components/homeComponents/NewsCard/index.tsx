@@ -40,7 +40,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({data, isLoading, style}) => {
         <View>
           {!isLoading ? (
             currentNewsData.map((item: any, i: number) => {
-              const {id, title, body, created_at, user_update} = item;
+              const {id, title, body, url, created_at, user_update} = item;
 
               const {monthName, day, year} = getTime(created_at);
 
@@ -53,6 +53,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({data, isLoading, style}) => {
                         id,
                         body,
                         title,
+                        url,
                         date: created_at,
                       })
                     }>

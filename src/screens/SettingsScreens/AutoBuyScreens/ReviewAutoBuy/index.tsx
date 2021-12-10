@@ -10,6 +10,7 @@ import {addAutoBuy, updateAutoBuy} from '@store/slices/autoBuySlice';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import database from '@react-native-firebase/database';
+import {getPaymentName, numberWithCommas} from '@utilities';
 
 export const ReviewAutoBuy: React.FC = () => {
   const navigation: any = useNavigation();
@@ -21,10 +22,16 @@ export const ReviewAutoBuy: React.FC = () => {
   const {type} = route.params;
   const dispatch = useAppDispatch();
 
-  const {metal, amount, endDate, frequency, paymentMethod, startDate, id} =
-    route.params;
-
-  const autoBuy = useAppSelector(state => state.autoBuy.autoBuy);
+  const {
+    metal,
+    amount,
+    endDate,
+    frequency,
+    paymentMethod,
+    startDate,
+    status,
+    id,
+  } = route.params;
 
   const goToNext = async () => {
     navigation.navigate(Screens.completeAutoBuy, {
@@ -34,6 +41,7 @@ export const ReviewAutoBuy: React.FC = () => {
       paymentMethod,
       startDate,
       endDate,
+      status,
       metal,
     });
 
@@ -43,6 +51,7 @@ export const ReviewAutoBuy: React.FC = () => {
       paymentMethod,
       startDate,
       endDate,
+      status,
       metal,
       id: type ? id : `${Math.round(Math.random() * 1000000)}_${metal}`,
     };
@@ -75,7 +84,7 @@ export const ReviewAutoBuy: React.FC = () => {
         </TitleMedium>
 
         <View style={styles.reviewItem}>
-          <View style={{marginRight: 36, marginBottom: 20}}>
+          <View style={styles.reviewInfo}>
             <Description style={{color: colors.gray, marginBottom: 4}}>
               Buying
             </Description>
@@ -83,30 +92,34 @@ export const ReviewAutoBuy: React.FC = () => {
               {metal}
             </SubtitleMedium>
           </View>
-          <View style={{marginRight: 36}}>
+          <View style={styles.reviewInfo}>
             <Description style={{color: colors.gray, marginBottom: 4}}>
               Amount
             </Description>
             <SubtitleMedium style={{fontFamily: 'OpenSans-SemiBold'}}>
-              $ {amount}
+              {`$${numberWithCommas(Number(amount).toFixed(2))}`}
             </SubtitleMedium>
           </View>
-          <View>
+          <View style={styles.reviewInfo}>
             <Description style={{color: colors.gray, marginBottom: 4}}>
               Payment Method
             </Description>
             <SubtitleMedium style={{fontFamily: 'OpenSans-SemiBold'}}>
-              {paymentMethod}: $54.80
+              {getPaymentName(paymentMethod)}
             </SubtitleMedium>
           </View>
         </View>
 
         <Wrapper
-          style={{backgroundColor: colors.primary, marginVertical: 20}}
+          style={{
+            backgroundColor: colors.primary,
+            marginTop: 0,
+            marginBottom: 20,
+          }}
         />
 
         <View style={styles.reviewItem}>
-          <View style={{marginRight: 36, marginBottom: 20}}>
+          <View style={styles.reviewInfo}>
             <Description style={{color: colors.gray, marginBottom: 4}}>
               Start Date
             </Description>
@@ -115,7 +128,7 @@ export const ReviewAutoBuy: React.FC = () => {
             </SubtitleMedium>
           </View>
           {endDate && (
-            <View style={{marginRight: 36}}>
+            <View style={styles.reviewInfo}>
               <Description style={{color: colors.gray, marginBottom: 4}}>
                 End Date
               </Description>
@@ -124,7 +137,7 @@ export const ReviewAutoBuy: React.FC = () => {
               </SubtitleMedium>
             </View>
           )}
-          <View>
+          <View style={styles.reviewInfo}>
             <Description style={{color: colors.gray, marginBottom: 4}}>
               Frequency
             </Description>

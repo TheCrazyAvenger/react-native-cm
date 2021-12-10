@@ -34,4 +34,9 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  tooltip: {
+    height: 'auto',
+    elevation: 3,
+    padding: 12,
+  },
 });

@@ -52,10 +52,12 @@ export type FormInputProps = {
   onFocus: any;
   onBlur: any;
   onInput?: any;
+  leftPrefix?: string;
   value: any;
   errorMessage?: any;
   isTouched: any;
   style?: {[key: string]: number | string};
+  inputStyle?: {[key: string]: number | string};
   containerStyle?: {[key: string]: number | string};
   secureTextEntry?: boolean;
   rightIcon?: any;
@@ -191,6 +193,7 @@ export type AutoBuyItemProps = {
   metal: string;
   amount: number;
   frequency: string;
+  status: string;
   paymentMethod: string;
   startDate: string;
   endDate: string;

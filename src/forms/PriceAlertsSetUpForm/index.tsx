@@ -19,7 +19,7 @@ export const PriceAlertsSetUpForm: React.FC<any> = ({metal, onSubmit}) => {
     <Formik
       validationSchema={priceAlertsSchema}
       initialValues={{
-        condition: type ? prevValues.condition : 'Decreases By',
+        condition: type ? prevValues.condition : 'Decreases By %',
         value: type ? prevValues.value : 0.5,
       }}
       onSubmit={values => onSubmit(values)}>
@@ -36,21 +36,38 @@ export const PriceAlertsSetUpForm: React.FC<any> = ({metal, onSubmit}) => {
           <View style={styles.container}>
             <View style={{marginBottom: 16}}>
               <SubtitleMedium style={{fontFamily: 'OpenSans-SemiBold'}}>
-                Alert me when 1 oz of {metal}
+                Notify me when 1 oz of {metal}
               </SubtitleMedium>
             </View>
 
             <ItemPicker
               style={{marginHorizontal: 0, width: '75%', marginBottom: 20}}
               value={values.condition}
+              maxHeight={340}
               items={[
                 {
                   label: 'Decreases By %',
-                  value: 'Decreases By',
+                  value: 'Decreases By %',
                 },
                 {
                   label: 'Increases By %',
-                  value: 'Increases By',
+                  value: 'Increases By %',
+                },
+                {
+                  label: 'Decreases By $',
+                  value: 'Decreases By $',
+                },
+                {
+                  label: 'Increases By $',
+                  value: 'Increases By $',
+                },
+                {
+                  label: 'Falls Below $',
+                  value: 'Falls Below $',
+                },
+                {
+                  label: 'Rises Above $',
+                  value: 'Rises Above $',
                 },
               ]}
               onChange={value => setFieldValue('condition', value)}

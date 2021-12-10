@@ -27,7 +27,7 @@ const initialState: AuthState = {
   userEmail: null,
   error: null,
   verified: false,
-  loading: true,
+  loading: false,
   legalAdress: {
     streetAdress: '',
     city: '',

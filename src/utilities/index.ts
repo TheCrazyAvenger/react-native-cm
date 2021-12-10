@@ -9,6 +9,7 @@ export * from './cmCredentials';
 
 export * from './secondsToTime';
 export * from './getNextYear';
+export * from './getNextDay';
 export * from './getColor';
 export * from './getMetalImage';
 export * from './cardNumberValidation';

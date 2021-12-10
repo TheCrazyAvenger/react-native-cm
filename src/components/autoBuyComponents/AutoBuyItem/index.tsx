@@ -7,12 +7,16 @@ import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {Description, Illustration, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
+import {getPaymentName, numberWithCommas} from '@utilities';
+import {Info} from '@assets/images/buy';
+import {Tooltip} from 'react-native-elements';
 
 export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
   metal,
   amount,
   frequency,
   paymentMethod,
+  status,
   startDate,
   endDate,
   style,
@@ -37,8 +41,8 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
 
   const containerStyle = [
     styles.container,
-    id === 1 ? styles.topBorders : null,
-    id === autoBuy.length ? styles.bottomBorders : null,
+    id === 0 ? styles.topBorders : null,
+    id === autoBuy.length - 1 ? styles.bottomBorders : null,
   ];
 
   const goToEdit = () => {
@@ -47,6 +51,7 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
       prevValues: {
         amount,
         metal,
+        status,
         frequency,
         paymentMethod,
         startDate,
@@ -80,7 +85,9 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
               <Description style={{color: colors.gray, marginBottom: 4}}>
                 Amount
               </Description>
-              <SubtitleMedium>$ {amount}</SubtitleMedium>
+              <SubtitleMedium>{`$${numberWithCommas(
+                Number(amount).toFixed(2),
+              )}`}</SubtitleMedium>
             </View>
           </View>
           <View style={styles.actionButtons}>
@@ -105,7 +112,7 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
             <Description style={{color: colors.gray, marginBottom: 4}}>
               Payment Method
             </Description>
-            <SubtitleMedium>{paymentMethod}</SubtitleMedium>
+            <SubtitleMedium>{getPaymentName(paymentMethod)}</SubtitleMedium>
           </View>
         </View>
 
@@ -143,7 +150,28 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
           <Description style={{color: colors.gray, marginBottom: 4}}>
             Status
           </Description>
-          <SubtitleMedium>{isExpiried ? 'Inactive' : 'Active'}</SubtitleMedium>
+          <View style={styles.row}>
+            <SubtitleMedium style={{marginRight: 5}}>
+              {isExpiried ? 'Inactive' : status}
+            </SubtitleMedium>
+            {/* 
+             //@ts-ignore*/}
+            <Tooltip
+              withPointer={false}
+              containerStyle={{...styles.tooltip, width: 200}}
+              backgroundColor={colors.white}
+              popover={
+                <Description>
+                  {isExpiried
+                    ? 'This Auto Buy has reached its end date. Please extend the end date or set up a new Auto Buy.'
+                    : status === 'Active'
+                    ? 'This is an active Auto Buy that will make automatic purchases based on the selected schedule.'
+                    : 'This Auto Buy is on hold. Choose Active in the dropdown menu to resume automatic purchases.'}
+                </Description>
+              }>
+              <Info />
+            </Tooltip>
+          </View>
         </View>
       </View>
     </>

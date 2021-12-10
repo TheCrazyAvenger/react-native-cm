@@ -12,9 +12,10 @@ import {
   ItemPicker,
   PaymentMethodPicker,
 } from '@components';
-import {getNextYear} from '@utilities';
-import {Description, TitleMedium} from '@Typography';
+import {getNextDay, getNextYear, validateNumbers} from '@utilities';
+import {Description, TitleMedium, Error} from '@Typography';
 import {TextButton} from '@ui';
+import * as yup from 'yup';
 
 export const AutoBuySetUpForm: React.FC = () => {
   const navigation: any = useNavigation();
@@ -23,13 +24,37 @@ export const AutoBuySetUpForm: React.FC = () => {
   const {type, prevValues} = route.params;
   const {data} = route.params;
 
+  const newDate = new Date();
+
+  const currentDate: any =
+    newDate.getHours() > 16
+      ? getNextDay(newDate)
+      : newDate.toLocaleDateString();
+
+  const schema =
+    type === 'Change'
+      ? autoBuySchema.concat(
+          yup.object().shape({
+            status: yup.string().required('Enter status'),
+          }),
+        )
+      : autoBuySchema;
+
   const goToNext = (values: {[key: string]: string | number | boolean}) => {
-    const {amount, checkBox, endDate, frequency, paymentMethod, startDate} =
-      values;
+    const {
+      amount,
+      checkBox,
+      endDate,
+      frequency,
+      status,
+      paymentMethod,
+      startDate,
+    } = values;
 
     navigation.navigate(Screens.reviewAutoBuy, {
       type: type ? type : null,
       amount,
+      status: type ? status : 'Active',
       frequency,
       paymentMethod,
       startDate,
@@ -41,16 +66,18 @@ export const AutoBuySetUpForm: React.FC = () => {
 
   return (
     <Formik
-      validationSchema={autoBuySchema}
+      validationSchema={schema}
       initialValues={{
-        startDate: type
-          ? prevValues.startDate
-          : `${new Date().toLocaleDateString()}`,
-        endDate: type ? prevValues.endDate : getNextYear(),
+        startDate: type ? prevValues.startDate : currentDate,
+        endDate:
+          type && prevValues.endDate
+            ? prevValues.endDate
+            : getNextDay(currentDate),
         frequency: type ? prevValues.frequency : 'Daily',
-        amount: type ? prevValues.amount : 100,
-        paymentMethod: type ? prevValues.paymentMethod : 'Cash Balance',
-        checkBox: type && prevValues.endDate ? false : !type ? false : true,
+        amount: type ? prevValues.amount : '',
+        paymentMethod: type ? prevValues.paymentMethod : 'cashBalance',
+        checkBox: type && prevValues.endDate ? false : true,
+        status: type && prevValues.status,
       }}
       onSubmit={values => goToNext(values)}>
       {({
@@ -62,11 +89,38 @@ export const AutoBuySetUpForm: React.FC = () => {
         setFieldTouched,
         setFieldValue,
       }) => {
+        const checkDate = (date: string, field: string) => {
+          if (new Date(date) < new Date(currentDate)) {
+            setFieldValue(field, new Date(currentDate).toLocaleDateString());
+          } else {
+            setFieldValue(field, date);
+          }
+          if (new Date(values.endDate) < new Date(values.startDate)) {
+            const currentDate = new Date(values.startDate);
+
+            setFieldValue('endDate', getNextDay(currentDate));
+          }
+        };
+
         return (
           <View style={styles.container}>
             <TitleMedium style={styles.mainTitle}>
-              Set Up Auto Buy {type ? 'Changes' : null}
+              {type ? 'Set Up Auto Buy Changes' : 'Set Up Auto Buy'}
             </TitleMedium>
+            {type && (
+              <ItemPicker
+                label="Status"
+                items={[
+                  {label: 'Active', value: 'Active'},
+                  {label: 'Paused', value: 'Paused'},
+                ]}
+                errorMessage={errors.status}
+                isTouched={touched.status}
+                value={values.status}
+                onChange={value => setFieldValue('status', value)}
+              />
+            )}
+
             <View style={styles.datePicker}>
               <View style={{width: '47%'}}>
                 <DatePicker
@@ -74,7 +128,9 @@ export const AutoBuySetUpForm: React.FC = () => {
                   isTouched={touched.startDate}
                   label="Start Date"
                   value={values.startDate}
-                  onConfirm={date => setFieldValue('startDate', date)}
+                  onConfirm={date => {
+                    checkDate(date, 'startDate');
+                  }}
                 />
               </View>
               <View style={{width: '47%'}}>
@@ -84,12 +140,13 @@ export const AutoBuySetUpForm: React.FC = () => {
                   label="End Date"
                   value={values.endDate}
                   disabled={values.checkBox}
-                  onConfirm={date => setFieldValue('endDate', date)}
+                  onConfirm={date => checkDate(date, 'endDate')}
                 />
                 <CheckBoxItem
                   value={values.checkBox}
                   isTouched={touched.checkBox}
                   error={errors.checkBox}
+                  containerStyle={{alignItems: 'center'}}
                   onPress={() => setFieldValue('checkBox', !values.checkBox)}
                   style={{marginLeft: 0, marginRight: 0}}>
                   <Description>No End Date</Description>
@@ -117,7 +174,12 @@ export const AutoBuySetUpForm: React.FC = () => {
             </Description>
             <FormInput
               onBlur={() => setFieldTouched('amount', true)}
-              plaseholder="Your amount ($)"
+              plaseholder="0.00"
+              leftPrefix="$"
+              onInput={() =>
+                setFieldValue('amount', validateNumbers(values.amount))
+              }
+              keyboardType="numeric"
               onChangeText={handleChange('amount')}
               onFocus={() => setFieldTouched('amount', false)}
               value={`${values.amount}`}
@@ -126,13 +188,15 @@ export const AutoBuySetUpForm: React.FC = () => {
             />
 
             <PaymentMethodPicker
+              label="Payment Method"
               onChange={(value: any) => setFieldValue('paymentMethod', value)}
             />
 
-            <View style={{marginHorizontal: 10}}>
+            <View style={{marginHorizontal: 10, marginTop: 30}}>
               <TextButton
                 style={{marginBottom: 20}}
                 title="Continue"
+                disabled={values.amount === ''}
                 solid
                 onPress={handleSubmit}
               />

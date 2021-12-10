@@ -55,11 +55,17 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
         setFieldValue,
       }) => {
         const getOz = () => {
-          return `${(+values.amount / 1887).toFixed(3)}`;
+          if (+values.amount > 0)
+            return `${(+values.amount / 1887).toFixed(3)}`;
         };
 
+        const getUsd = () => {
+          if (+values.amountOz > 0)
+            return `${(+values.amountOz * 1887).toFixed(2)}`;
+        };
         return (
           <View>
+            <Description style={styles.inputLabel}>Amount</Description>
             <View style={styles.amount}>
               <View style={{width: '47%'}}>
                 <FormInput
@@ -68,7 +74,6 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
                     setFieldTouched('amountOz', true);
                     await setFieldValue('amountOz', getOz());
                   }}
-                  label="Amount"
                   plaseholder="USD"
                   keyboardType="numeric"
                   onChangeText={handleChange('amount')}
@@ -82,6 +87,7 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
                   }}
                   errorStyle={{width: '180%'}}
                   value={values.amount}
+                  leftPrefix="$"
                   errorMessage={errors.amount}
                   isTouched={touched.amount}
                   rightIcon={() => (
@@ -91,20 +97,30 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
                   )}
                 />
               </View>
-              <View style={{marginBottom: 40}}>
+              <View style={{marginTop: 14}}>
                 <Swiper />
               </View>
               <View style={{width: '47%'}}>
                 <FormInput
-                  onBlur={() => setFieldTouched('amountOz', true)}
+                  onBlur={async () => {
+                    setFieldTouched('amount', true);
+                    setFieldTouched('amountOz', true);
+                    await setFieldValue('amount', getUsd());
+                  }}
                   plaseholder="OZ"
                   onChangeText={handleChange('amountOz')}
-                  onFocus={() => setFieldTouched('amountOz', false)}
+                  onFocus={() => {
+                    setFieldTouched('amount', false);
+                    setFieldTouched('amountOz', false);
+                  }}
+                  onInput={() => {
+                    setFieldValue('amountOz', validateNumbers(values.amountOz));
+                    setFieldValue('amount', getUsd());
+                  }}
                   value={values.amountOz}
                   isTouched={touched.amountOz}
                   errorMessage={errors.amountOz}
                   showError={false}
-                  disabled
                   rightIcon={() => (
                     <SubtitleMedium style={{color: colors.gray}}>
                       OZ

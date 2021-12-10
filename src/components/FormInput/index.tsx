@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {Input} from 'react-native-elements';
 import {FormInputProps} from '..';
-import {Error} from '@Typography';
+import {Error, SubtitleMedium} from '@Typography';
 import {colors} from '@constants';
 import {styles} from './styles';
 
@@ -22,6 +22,8 @@ export const FormInput: React.FC<FormInputProps> = ({
   leftIcon,
   onInput,
   disabled,
+  leftPrefix,
+  inputStyle,
   keyboardType = 'default',
   errorStyle,
   showError = true,
@@ -38,24 +40,38 @@ export const FormInput: React.FC<FormInputProps> = ({
 
   return (
     <View>
-      <Input
-        rightIcon={rightIcon}
-        onTouchStart={onFocus}
-        value={value}
-        label={label}
-        keyboardType={keyboardType}
-        onBlur={onBlur}
-        onTextInput={onInput}
-        secureTextEntry={secureTextEntry}
-        placeholder={plaseholder}
-        leftIcon={leftIcon}
-        onChangeText={onChangeText}
-        placeholderTextColor={colors.placeholder}
-        inputStyle={styles.inputStyle}
-        labelStyle={[...labelStyle, style]}
-        inputContainerStyle={[...inputContainerStyle]}
-        disabled={disabled ? true : false}
-      />
+      <View>
+        <Input
+          rightIcon={rightIcon}
+          onTouchStart={onFocus}
+          value={value}
+          label={label}
+          keyboardType={keyboardType}
+          onBlur={onBlur}
+          onTextInput={onInput}
+          secureTextEntry={secureTextEntry}
+          placeholder={plaseholder}
+          leftIcon={leftIcon}
+          onChangeText={onChangeText}
+          placeholderTextColor={colors.placeholder}
+          inputStyle={{...styles.inputStyle, ...inputStyle}}
+          labelStyle={[...labelStyle, style]}
+          inputContainerStyle={[
+            ...inputContainerStyle,
+            {paddingLeft: leftPrefix ? 15 : 10},
+          ]}
+          disabled={disabled ? true : false}
+        />
+        {leftPrefix && (
+          <SubtitleMedium
+            style={{
+              ...styles.leftPrefix,
+              color: value === '' ? colors.placeholder : colors.black,
+            }}>
+            {leftPrefix}
+          </SubtitleMedium>
+        )}
+      </View>
       {errorMessage && isTouched && showError && (
         <Error style={{...styles.error, ...errorStyle}}>{errorMessage}</Error>
       )}

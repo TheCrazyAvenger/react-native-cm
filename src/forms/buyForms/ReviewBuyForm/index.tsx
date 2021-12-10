@@ -1,29 +1,25 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
-import React from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-
 import {colors, Screens} from '@constants';
 import {styles} from './styles';
 import {CheckBoxItem, LoadingItem} from '@components';
 import {SubtitleMedium} from '@Typography';
 import {TextButton} from '@ui';
-
 import {reviewBuySchema} from '../..';
-import {getMonth, getPaymentName, getTime} from '@utilities';
+import {getPaymentName, getTime} from '@utilities';
 import {useAppDispatch, useAppSelector} from '@hooks';
-import {
-  setLoading,
-  updateCash,
-  updateOwnedMetals,
-} from '@store/slices/authSlice';
+import {updateCash, updateOwnedMetals} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
 import {addOperation} from '@store/slices/operationsSlice';
 
 export const ReviewBuyForm: React.FC<{
   operationType: string;
   onPress: (...args: any) => void;
-}> = ({operationType, onPress}) => {
+  updateLoading: (...args: any) => void;
+  loading: boolean;
+}> = ({operationType, onPress, updateLoading, loading}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
@@ -32,15 +28,11 @@ export const ReviewBuyForm: React.FC<{
 
   const {type} = route.params;
 
-  const operations = useAppSelector(state => state.operations.operations);
-  const loading = useAppSelector(state => state.auth.loading);
   const token = useAppSelector(state => state.auth.token);
   const cashBalance = useAppSelector(state => state.auth.cashBalance);
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
 
   const dispatch = useAppDispatch();
-
-  // console.log(type);
 
   const buyGold = async () => {
     try {
@@ -79,7 +71,7 @@ export const ReviewBuyForm: React.FC<{
         total: +amount,
       };
 
-      dispatch(setLoading(true));
+      updateLoading(true);
 
       const newAmount =
         type === 'Buy'
@@ -106,7 +98,7 @@ export const ReviewBuyForm: React.FC<{
         .update({cashBalance: newCashValue});
       await dispatch(updateCash(newCashValue));
 
-      await dispatch(setLoading(false));
+      await updateLoading(false);
 
       onPress();
 
@@ -121,7 +113,7 @@ export const ReviewBuyForm: React.FC<{
         amountOz,
       });
     } catch (e) {
-      await dispatch(setLoading(false));
+      await updateLoading(false);
       onPress();
       navigation.push(Screens.completeSellBuy, {
         type: 'Error',

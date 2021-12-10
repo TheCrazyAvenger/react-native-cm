@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import {StatusBar, View} from 'react-native';
 import {FundWithdrawInfo, LoadingItem} from '@components';
 import {Description, Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
@@ -7,7 +7,7 @@ import {useAppDispatch, useAppSelector} from '@hooks';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import {getMonth, getPaymentName, getTime, numberWithCommas} from '@utilities';
-import {setLoading, updateCash} from '@store/slices/authSlice';
+import {updateCash} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
 import {addOperation} from '@store/slices/operationsSlice';
 import {Screens} from '@constants';
@@ -16,7 +16,7 @@ export const ReviewFundWithdraw: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
-  const loading = useAppSelector(state => state.auth.loading);
+  const [loading, setLoading] = useState(false);
   const cashBalance = useAppSelector(state => state.auth.cashBalance);
   const token = useAppSelector(state => state.auth.token);
 
@@ -49,7 +49,7 @@ export const ReviewFundWithdraw: React.FC = () => {
         id,
       };
 
-      dispatch(setLoading(true));
+      setLoading(true);
 
       await database().ref(`/users/${token}/operations/${id}`).set(data);
 
@@ -65,7 +65,7 @@ export const ReviewFundWithdraw: React.FC = () => {
         .update({cashBalance: newCashValue});
       await dispatch(updateCash(newCashValue));
 
-      await dispatch(setLoading(false));
+      await setLoading(false);
 
       navigation.push(Screens.completeFundWithdraw, {
         type: 'Success',
@@ -75,7 +75,7 @@ export const ReviewFundWithdraw: React.FC = () => {
         operationType: type === 'Fund' ? 'Fund' : 'Withdraw',
       });
     } catch (e) {
-      await dispatch(setLoading(false));
+      await setLoading(false);
       navigation.push(Screens.completeFundWithdraw, {
         type: 'Error',
         amount,

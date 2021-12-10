@@ -20,7 +20,7 @@ export const DetailsNews: React.FC = () => {
   //@ts-ignore
   const {data: newsData = [], isLoading} = useGetNewsQuery();
 
-  const {id} = route.params;
+  const {url} = route.params;
 
   const loading = useAppSelector(state => state.auth.loading);
 
@@ -36,7 +36,7 @@ export const DetailsNews: React.FC = () => {
   const getNews = async () => {
     try {
       dispatch(setLoading(true));
-      await getNewsById(id);
+      await getNewsById(url);
       dispatch(setLoading(false));
     } catch (e) {
       console.log(e);

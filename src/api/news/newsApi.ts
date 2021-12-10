@@ -17,9 +17,9 @@ export const newsApi = createApi({
       }),
     }),
     getNewsById: builder.mutation({
-      query: id => ({
+      query: url => ({
         method: 'GET',
-        url: `/show-market-news-one?id=${id}`,
+        url: `/show-market-news-one?url=${url}`,
       }),
     }),
   }),

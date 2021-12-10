@@ -19,6 +19,9 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'flex-start',
+  },
+  reviewInfo: {
+    marginRight: 36,
     marginBottom: 20,
   },
 });

@@ -18,8 +18,6 @@ export const CompleteSellBuy: React.FC = () => {
   const {name, spot, id} = data;
   const {operationType} = route.params;
 
-  console.log(id);
-
   return (
     <Screen>
       <StatusBar

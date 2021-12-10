@@ -6,6 +6,7 @@ import {getMetalsColor, numberWithCommas} from '@utilities';
 import {
   DescriptionBold,
   Illustration,
+  Subtitle,
   SubtitleMedium,
   TitleMedium,
 } from '@Typography';
@@ -34,10 +35,10 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
         )
         .sort(
           (item: any, next: any) =>
-            new Date(`${item.date}, ${item.time}`) >
+            new Date(`${item.date}, ${item.time}`) <
             new Date(`${next.date}, ${next.time}`),
         ),
-    [operations],
+    [operations, metalType],
   );
 
   const holdingsPriceAsk = ownedMetals[name] * buy;
@@ -51,10 +52,8 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
     setGainLosses(holdingsPriceAsk - acquisitionCost);
   }, [holdingsPriceAsk, acquisitionCost, buyOperations]);
 
-  const totalPerfomance = useMemo(
-    () => (gainsLosses / holdingsPriceAsk) * 1,
-    [gainsLosses, holdingsPriceAsk],
-  );
+  const totalPerfomance =
+    holdingsPriceAsk === 0 ? 0 : (gainsLosses / holdingsPriceAsk) * 1;
 
   return (
     <View
@@ -67,28 +66,32 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
       <Wrapper style={{marginTop: 4}} />
       <View style={styles.headerItem}>
         <View>
-          <SubtitleMedium style={{color: colors.white}}>
-            Balance:
-          </SubtitleMedium>
-          <TitleMedium style={{color: colors.white, fontSize: 18}}>
+          <SubtitleMedium style={styles.headerText}>Balance:</SubtitleMedium>
+          <Subtitle style={styles.balance}>
             {`$${(ownedMetals[name] * 1887).toFixed(2)}`}
-          </TitleMedium>
-          <DescriptionBold style={{color: colors.white}}>
+          </Subtitle>
+          <DescriptionBold
+            style={{...styles.headerText, fontFamily: 'OpenSans-SemiBold'}}>
             {`${numberWithCommas(Number(ownedMetals[name]).toFixed(3))} oz`}
           </DescriptionBold>
         </View>
         <View style={{alignItems: 'flex-end'}}>
-          <Illustration style={{color: colors.white}}>
+          <Illustration style={styles.headerText}>
             Total Performance
           </Illustration>
           <View style={styles.perfomance}>
             <Illustration style={styles.profit}>
               {numberWithCommas(Number(totalPerfomance).toFixed(2))}%
             </Illustration>
-            <Image
-              style={{marginLeft: 6}}
-              source={require('../../../assets/images/home/upArrow.png')}
-            />
+            <View style={{marginLeft: 6}}>
+              {totalPerfomance >= 0 ? (
+                <Image
+                  source={require('../../../assets/images/home/upArrow.png')}
+                />
+              ) : (
+                <DownArrow />
+              )}
+            </View>
           </View>
         </View>
       </View>
@@ -97,23 +100,27 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
 
       <View style={styles.headerItem}>
         <View>
-          <SubtitleMedium style={{color: colors.white, marginBottom: 6}}>
+          <SubtitleMedium style={{...styles.headerText, marginBottom: 6}}>
             Metal Price:
           </SubtitleMedium>
-          <DescriptionBold style={{color: colors.white}}>
+          <DescriptionBold style={styles.headerText}>
             {`$${numberWithCommas(Number(buy).toFixed(2))}`}
           </DescriptionBold>
         </View>
         <View style={{alignItems: 'flex-end'}}>
-          <SubtitleMedium style={{color: colors.white}}>Change:</SubtitleMedium>
+          <SubtitleMedium style={styles.headerText}>Change:</SubtitleMedium>
           <View style={styles.change}>
-            <DescriptionBold style={{color: colors.white}}>
+            <DescriptionBold style={styles.headerText}>
               {`${oneDayChange < 0 ? '-' : '+'}$${numberWithCommas(
                 Number(Math.abs(oneDayChange)).toFixed(2),
               )}`}
             </DescriptionBold>
-            <View style={{marginLeft: 6}}>
-              {oneDayChange >= 0 ? <UpArrow /> : <DownArrow />}
+            <View
+              style={{
+                marginLeft: 6,
+                transform: [{rotate: oneDayChange >= 0 ? '0deg' : '180deg'}],
+              }}>
+              <UpArrow />
             </View>
           </View>
         </View>

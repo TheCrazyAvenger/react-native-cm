@@ -13,7 +13,7 @@ export const ReviewSellBuy: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
-  const loading = useAppSelector(state => state.auth.loading);
+  const [loading, setLoading] = useState(false);
 
   const [modalVisble, setModalVisible] = useState(false);
 
@@ -87,6 +87,8 @@ export const ReviewSellBuy: React.FC = () => {
         />
 
         <ReviewBuyForm
+          updateLoading={value => setLoading(value)}
+          loading={loading}
           operationType={type}
           onPress={() => clearInterval(myInterval)}
         />

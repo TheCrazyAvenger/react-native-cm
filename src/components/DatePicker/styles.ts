@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     marginBottom: 6,
     fontWeight: '400',
     color: colors.gray,
-    fontSize: 16,
+    fontSize: 14,
   },
   error: {
     position: 'absolute',

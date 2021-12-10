@@ -1,13 +1,12 @@
 import React from 'react';
 import {Formik} from 'formik';
 import {ScrollView, View} from 'react-native';
-import {DatePicker, FormInput, ItemPicker} from '@components';
+import {DatePicker, FormInput} from '@components';
 import {verificationSchema} from '../..';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {useAppDispatch} from '@hooks';
 import {TextButton} from '@ui';
-import {states} from '@utilities';
 import {Screens} from '@constants';
 
 export const VerificationForm: React.FC = () => {

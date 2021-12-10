@@ -62,7 +62,9 @@ export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
 
           <View style={{marginLeft: 8}}>
             <SubtitleMedium style={{fontFamily: 'OpenSans-Bold'}}>
-              {`${condition} ${value}%`}
+              {`${condition.split(' ').slice(0, 2).join(' ')} ${value}${
+                condition.split(' ')[2]
+              }`}
             </SubtitleMedium>
             <Illustration>
               Created on {date} {time}
