@@ -27,6 +27,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   keyboardType = 'default',
   errorStyle,
   showError = true,
+  autoFocus = false,
 }) => {
   const inputContainerStyle = [
     styles.inputContainerStyle,
@@ -47,6 +48,7 @@ export const FormInput: React.FC<FormInputProps> = ({
           value={value}
           label={label}
           keyboardType={keyboardType}
+          autoFocus={autoFocus}
           onBlur={onBlur}
           onTextInput={onInput}
           secureTextEntry={secureTextEntry}

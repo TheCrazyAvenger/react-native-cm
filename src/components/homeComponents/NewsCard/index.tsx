@@ -26,7 +26,6 @@ export const NewsCard: React.FC<NewsCardProps> = ({data, isLoading, style}) => {
         style={{
           ...styles.container,
           ...style,
-          marginBottom: data.length !== 0 && data.length <= 4 ? 100 : 0,
         }}>
         <View style={{...styles.cardItem, marginBottom: 15}}>
           <TitleMedium>Market News</TitleMedium>
@@ -78,6 +77,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({data, isLoading, style}) => {
           )}
         </View>
       </View>
+
       {data.length !== 0 && data.length > 4 && (
         <NumberPagination
           style={{marginBottom: 100}}

@@ -57,6 +57,11 @@ export const MobileVerSuccess: React.FC = () => {
               Palladium: 0,
               Platinum: 0,
             },
+            loginMethods: {
+              touchId: false,
+              faceId: false,
+              passcode: null,
+            },
           });
 
         await AsyncStorage.setItem('token', JSON.stringify(uid));
@@ -89,6 +94,16 @@ export const MobileVerSuccess: React.FC = () => {
               Silver: 0,
               Palladium: 0,
               Platinum: 0,
+            },
+            loginMethods: {
+              touchId: null,
+              faceId: null,
+              passcode: null,
+            },
+            notifications: {
+              transactions: false,
+              promotions: false,
+              marketNews: false,
             },
           }),
         );

@@ -13,6 +13,12 @@ export const tagStyles = {
     color: colors.black,
     lineHeight: 43.58,
   },
+  h2: {
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 26,
+    color: colors.black,
+    lineHeight: 43.58,
+  },
   h3: {
     fontFamily: 'OpenSans-Regular',
     fontSize: 24,

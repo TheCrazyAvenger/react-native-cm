@@ -7,25 +7,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(47, 128, 237, 0.3)',
     borderRadius: 5,
+    height: 444,
     marginBottom: 16,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 12,
-  },
-  cardItem: {
-    marginTop: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  itemTitle: {
-    color: colors.gray,
-    marginBottom: 5,
-  },
-  cardTitle: {
-    fontFamily: 'OpenSans-Bold',
   },
 });

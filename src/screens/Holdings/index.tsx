@@ -6,6 +6,7 @@ import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import {useGetNewsQuery} from '@api';
 import {Screens} from '@constants';
+import {getMetalsColor, metals} from '@utilities';
 
 export const Holdings: React.FC = () => {
   const navigation: any = useNavigation();

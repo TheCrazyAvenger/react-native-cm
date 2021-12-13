@@ -48,6 +48,7 @@ export enum Screens {
   cookiePolicy = 'cookiePolicy',
   transactions = 'transactions',
   storageFees = 'storageFees',
+  passcode = 'passcode',
 
   verificationStack = 'verificationStack',
   verification = 'verification',

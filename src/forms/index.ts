@@ -27,5 +27,6 @@ export * from './paymentMethodsForms/ECheckForm';
 export * from './Settings/ProfileForm';
 export * from './Settings/VerificationForm';
 export * from './Settings/DocumentsVerificationForm';
+export * from './Settings/PasscodeForm';
 
 export * from './schemas';

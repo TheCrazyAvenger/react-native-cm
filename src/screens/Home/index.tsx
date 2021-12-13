@@ -8,7 +8,7 @@ import {
   MetalsCard,
   NewsCard,
 } from '@components';
-import {Screens} from '@constants';
+import {colors, Screens} from '@constants';
 import {useAppSelector} from '@hooks';
 import {Screen} from '@ui';
 import {useGetNewsQuery} from '@api';
@@ -27,7 +27,7 @@ export const Home: React.FC = () => {
       <StatusBar
         barStyle="light-content"
         translucent
-        backgroundColor={'transparent'}
+        backgroundColor={colors.primary}
       />
       <Header />
       <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
@@ -60,6 +60,7 @@ export const Home: React.FC = () => {
         ) : null}
         <ActivityCard />
         <NewsCard data={data} isLoading={isLoading} />
+        <View style={{marginBottom: 100}} />
       </Screen>
     </Screen>
   );

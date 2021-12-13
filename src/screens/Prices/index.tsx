@@ -2,16 +2,20 @@ import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
 import {StatusBar} from 'react-native';
 import {ActionsCard, Header, NewsCard, PricesGraph} from '@components';
-import {Screens} from '@constants';
+import {colors, Screens} from '@constants';
 import {useAppSelector} from '@hooks';
 import {Screen} from '@ui';
-import {useGetNewsQuery} from '@api';
+import {useGetDigitalProductsQuery, useGetNewsQuery} from '@api';
 
 export const Prices: React.FC = () => {
   const [metalType, setMetalType] = useState(1);
 
   // @ts-ignore
   const {data = [], isLoading} = useGetNewsQuery();
+
+  const {data: metalsData = [], isLoading: isMetalLoading} =
+    //@ts-ignore
+    useGetDigitalProductsQuery();
 
   const navigation: any = useNavigation();
   const priceAlerts = useAppSelector(state => state.priceAlerts.priceAlerts);
@@ -29,11 +33,15 @@ export const Prices: React.FC = () => {
       <StatusBar
         barStyle="light-content"
         translucent
-        backgroundColor={'transparent'}
+        backgroundColor={colors.primary}
       />
       <Header />
       <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
-        <PricesGraph id={metalType} />
+        <PricesGraph
+          data={metalsData.data}
+          id={metalType}
+          isLoading={isMetalLoading}
+        />
         {isEmpty ? (
           <ActionsCard
             title="Create Price Alert"

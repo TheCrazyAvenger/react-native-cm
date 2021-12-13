@@ -66,6 +66,7 @@ export type FormInputProps = {
   disabled?: boolean;
   errorStyle?: {[key: string]: number | string};
   showError?: boolean;
+  autoFocus?: boolean;
 };
 
 export type PasswordItemProps = {
@@ -77,6 +78,8 @@ export type NotificationProps = {
   text: string;
   visible: boolean;
   onPress: any;
+  textStyle?: {[key: string]: number | string};
+  buttonColor?: 'white';
   style?: {[key: string]: number | string};
 };
 
@@ -167,6 +170,7 @@ export type MenuItemProps = {
   style?: {[key: string]: number | string};
   type?: 'switch';
   switchValue?: boolean;
+  disabledSwitch?: boolean;
 };
 
 export type MenuItemSmallProps = {

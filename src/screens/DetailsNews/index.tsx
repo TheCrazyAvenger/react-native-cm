@@ -1,6 +1,11 @@
 import {useRoute} from '@react-navigation/core';
 import React, {useEffect} from 'react';
-import {TouchableOpacity, useWindowDimensions, View} from 'react-native';
+import {
+  StatusBar,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import {LoadingItem, NewsCard} from '@components';
 import {Screen} from '@ui';
 import {styles} from './styles';
@@ -13,6 +18,7 @@ import {useGetNewsByIdMutation, useGetNewsQuery} from '@api';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {setLoading} from '@store/slices/authSlice';
 import Share from 'react-native-share';
+import {colors} from '@constants';
 
 export const DetailsNews: React.FC = () => {
   const route: any = useRoute();
@@ -69,6 +75,11 @@ export const DetailsNews: React.FC = () => {
 
   return (
     <Screen>
+      <StatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor={colors.white}
+      />
       <View style={styles.container}>
         {data.body && (
           <View style={styles.header}>

@@ -15,6 +15,8 @@ export interface AuthState {
   legalAdress: {[key: string]: string | null | number};
   shippingAdress: {[key: string]: string | null | number};
   ownedMetals: {[key: string]: number};
+  loginMethods: {[key: string]: string | null | boolean};
+  notifications: {[key: string]: boolean};
 }
 
 const initialState: AuthState = {
@@ -46,6 +48,16 @@ const initialState: AuthState = {
     Palladium: 0,
     Platinum: 0,
   },
+  loginMethods: {
+    touchId: false,
+    faceId: false,
+    passcode: null,
+  },
+  notifications: {
+    transactions: false,
+    promotions: false,
+    marketNews: false,
+  },
 };
 
 export const authSlice = createSlice({
@@ -65,6 +77,8 @@ export const authSlice = createSlice({
         legalAdress,
         shippingAdress,
         ownedMetals,
+        loginMethods,
+        notifications,
       } = action.payload;
       state.token = token;
       state.verified = verified;
@@ -77,6 +91,8 @@ export const authSlice = createSlice({
       state.legalAdress = legalAdress;
       state.shippingAdress = shippingAdress;
       state.ownedMetals = ownedMetals;
+      state.loginMethods = loginMethods;
+      state.notifications = notifications;
     },
     changeName: (state, action: PayloadAction<{[key: string]: string}>) => {
       state.firstName = action.payload.firstName;
@@ -101,6 +117,17 @@ export const authSlice = createSlice({
 
       state.ownedMetals[name] = newAmount;
     },
+    setPasscode: (state, action: PayloadAction<any>) => {
+      const {loginMethod, value} = action.payload;
+      state.loginMethods[loginMethod] = value;
+    },
+    deleteLoginMethod: (state, action: PayloadAction<any>) => {
+      state.loginMethods[action.payload] = null;
+    },
+    setNotification: (state, action: PayloadAction<any>) => {
+      const {notification, value} = action.payload;
+      state.notifications[notification] = value;
+    },
   },
   extraReducers: builder => {
     builder.addCase(getData.fulfilled, (state, action: PayloadAction<any>) => {
@@ -117,6 +144,8 @@ export const authSlice = createSlice({
           legalAdress,
           shippingAdress,
           ownedMetals,
+          loginMethods,
+          notifications,
         } = action.payload;
 
         state.token = token;
@@ -130,6 +159,8 @@ export const authSlice = createSlice({
         state.legalAdress = legalAdress;
         state.shippingAdress = shippingAdress;
         state.ownedMetals = ownedMetals;
+        state.loginMethods = loginMethods;
+        state.notifications = notifications;
       }
     });
     builder.addCase(
@@ -171,6 +202,16 @@ export const authSlice = createSlice({
         Palladium: 0,
         Platinum: 0,
       };
+      state.loginMethods = {
+        touchId: false,
+        faceId: false,
+        passcode: null,
+      };
+      state.notifications = {
+        transactions: false,
+        promotions: false,
+        marketNews: false,
+      };
     });
   },
 });
@@ -182,6 +223,9 @@ export const {
   updateCash,
   setAdress,
   updateOwnedMetals,
+  setPasscode,
+  deleteLoginMethod,
+  setNotification,
 } = authSlice.actions;
 
 export default authSlice.reducer;

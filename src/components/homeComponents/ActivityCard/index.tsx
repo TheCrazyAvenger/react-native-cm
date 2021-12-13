@@ -48,7 +48,7 @@ export const ActivityCard: React.FC = () => {
             const Image = getOperationImage(image);
 
             return (
-              <React.Fragment key={id}>
+              <View key={id}>
                 <View style={styles.cardContainer}>
                   <View style={styles.cardItem}>
                     <Image />
@@ -69,10 +69,11 @@ export const ActivityCard: React.FC = () => {
                     <Description>{oz ? `${oz} oz` : null}</Description>
                   </View>
                 </View>
-                {i === 4 ? null : (
+                {operations.length < 5 &&
+                operations.length === i + 1 ? null : i === 4 ? null : (
                   <Wrapper style={{backgroundColor: colors.primary}} />
                 )}
-              </React.Fragment>
+              </View>
             );
           })
       ) : (

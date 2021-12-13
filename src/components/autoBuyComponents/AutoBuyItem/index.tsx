@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {StatusBar, TouchableOpacity, View} from 'react-native';
 import {AutoBuyItemProps, ModalWindow} from '../..';
 import {Delete, Edit, Warning} from '@assets/images/settings';
 import {colors, Screens} from '@constants';
@@ -72,6 +72,7 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
         onCancel={() => setVisibleModal(false)}
         visible={visibleModal}
       />
+
       <View style={[...containerStyle, style]}>
         <View style={styles.cardHeader}>
           <View style={styles.cardItem}>

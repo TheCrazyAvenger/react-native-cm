@@ -10,6 +10,7 @@ import {getOperations} from '../store/actions/operations';
 import {getAutoBuy} from '../store/actions/autoBuy';
 import {getPriceAlerts} from '../store/actions/priceAlerts';
 import {getPaymentMethod} from '@store/actions/paymentMethod';
+import SplashScreen from 'react-native-splash-screen';
 
 export const AppNavigator: React.FC = () => {
   const token = useAppSelector(state => state.auth.token);
@@ -24,6 +25,12 @@ export const AppNavigator: React.FC = () => {
     try {
       const value = await AsyncStorage.getItem('@viewedOnboarding');
       // await AsyncStorage.removeItem('@viewedOnboarding');
+
+      if (value !== null) {
+        setShowOnboarding(false);
+        SplashScreen.hide();
+      }
+
       await dispatch(getData());
 
       await dispatch(getOperations());
@@ -31,15 +38,12 @@ export const AppNavigator: React.FC = () => {
       await dispatch(getPriceAlerts());
       await dispatch(getPaymentMethod());
 
-      if (value !== null) {
-        setShowOnboarding(false);
-        return setLoading(false);
-      }
-
       setShowOnboarding(true);
 
+      SplashScreen.hide();
       return setLoading(false);
     } catch (e) {
+      SplashScreen.hide();
       setLoading(false);
       console.log(e);
     }

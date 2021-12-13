@@ -16,7 +16,7 @@ export const MetalsInfo: React.FC<{
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
   const operations = useAppSelector(state => state.operations.operations);
 
-  const {name, buy} = data;
+  const {name, buy, ask} = data;
   const color = getMetalsColor(name);
 
   const buyOperations = useMemo(
@@ -33,8 +33,8 @@ export const MetalsInfo: React.FC<{
     [operations, data],
   );
 
-  const holdingsPriceAsk =
-    buyOperations.reduce((acc: number, next: any) => acc + +next.oz, 0) * buy;
+  const holdingsPriceAsk = ownedMetals[name] * buy;
+  // buyOperations.reduce((acc: number, next: any) => acc + +next.oz, 0) * buy;
 
   const totalAcquisitionCost = useMemo(
     () =>
@@ -47,9 +47,7 @@ export const MetalsInfo: React.FC<{
 
   useEffect(() => {
     if (buyOperations[0]) {
-      setAcquisitionCost(
-        buyOperations[0].oz * buyOperations[0].usd.split('$')[1],
-      );
+      setAcquisitionCost(buyOperations[0].oz * +buyOperations[0].total);
     }
     setGainLosses(holdingsPriceAsk - acquisitionCost);
   }, [holdingsPriceAsk, acquisitionCost, buyOperations]);

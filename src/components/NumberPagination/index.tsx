@@ -25,7 +25,7 @@ export const NumberPagination: React.FC<NumberPaginationProps> = ({
   });
 
   if (currentPage === 0 || paginationRange.length < 2) {
-    return null;
+    return <View style={{marginBottom: 20}} />;
   }
 
   const onNext = () => {

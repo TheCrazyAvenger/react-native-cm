@@ -1,13 +1,20 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StatusBar} from 'react-native';
-import {ProductItem} from '@components';
+import {LoadingItem, ProductItem} from '@components';
 import {Screens} from '@constants';
 import {Screen} from '@ui';
-import {autoBuy} from '@utilities';
+import {useGetDigitalProductsQuery} from '@api';
 
 export const ChooseProduct: React.FC = () => {
   const navigation: any = useNavigation();
+
+  //@ts-ignore
+  const {data = [], isLoading} = useGetDigitalProductsQuery();
+
+  if (isLoading || data === []) {
+    return <LoadingItem />;
+  }
 
   return (
     <Screen style={{paddingVertical: 24}}>
@@ -16,14 +23,14 @@ export const ChooseProduct: React.FC = () => {
         translucent
         backgroundColor={'transparent'}
       />
-      {autoBuy.map(item => (
+      {data.data.map((item: any) => (
         <ProductItem
           key={item.id}
-          metal={item.metal}
-          price={item.price}
-          vault={item.vault}
+          metal={item.name}
+          price={item.buy}
+          vault="JM Bullion"
           premium={item.premium}
-          storageFee={item.storageFee}
+          storageFee={item.storage_fee}
           spread={item.spread}
           onPress={() =>
             navigation.navigate(Screens.autoBuySetUp, {data: item})

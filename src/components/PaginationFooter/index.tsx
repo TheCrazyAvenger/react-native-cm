@@ -1,8 +1,9 @@
 import React from 'react';
 import {View} from 'react-native';
-import {PaginationFooterProps, Paginator} from '..';
+import {PaginationFooterProps} from '..';
 import {TextButton} from '@ui';
 import {styles} from './styles';
+import {Paginator} from '@components';
 
 export const PaginationFooter: React.FC<PaginationFooterProps> = ({
   data,
@@ -13,7 +14,7 @@ export const PaginationFooter: React.FC<PaginationFooterProps> = ({
 }) => {
   return (
     <View style={{...styles.footer, ...style}}>
-      {/* <Paginator data={data} currentIndex={currentIndex} /> */}
+      <Paginator data={data} currentIndex={currentIndex} />
       <TextButton
         title={title}
         solid

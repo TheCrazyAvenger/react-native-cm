@@ -9,6 +9,7 @@ import {Info} from '@assets/images/buy';
 import {Tooltip} from 'react-native-elements';
 import {useAppSelector} from '@hooks';
 import {numberWithCommas} from '@utilities';
+import {useRoute} from '@react-navigation/native';
 
 export const ProductItem: React.FC<ProductItemProps> = ({
   vault,
@@ -22,6 +23,8 @@ export const ProductItem: React.FC<ProductItemProps> = ({
   type,
 }) => {
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
+
+  const route: any = useRoute();
 
   return (
     <View style={{...styles.container, ...style}}>
@@ -69,7 +72,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
           <Illustration style={{fontSize: 14, marginBottom: 5}}>
             Premium
           </Illustration>
-          <SubtitleMedium>$ {premium}/oz</SubtitleMedium>
+          <SubtitleMedium>{`$${premium}/oz`}</SubtitleMedium>
         </View>
       </View>
 
@@ -87,7 +90,7 @@ export const ProductItem: React.FC<ProductItemProps> = ({
 
           <View style={styles.row}>
             <SubtitleMedium style={{marginRight: 5}}>
-              $ {spread}/oz
+              {`$${spread}/oz`}
             </SubtitleMedium>
             {/* 
           //@ts-ignore*/}

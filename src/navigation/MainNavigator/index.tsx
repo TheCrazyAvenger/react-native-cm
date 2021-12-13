@@ -1,16 +1,17 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Screens} from '../../constants';
+import {Screens} from '@constants';
 import {BottomTabs} from '../BottomTabs';
 import {
   CookiePolicy,
   Notifications,
+  Passcode,
   Password,
   Profile,
   Refer,
   StorageFees,
   Transactions,
-} from '../../screens';
+} from '@screens';
 import {styles} from './styles';
 import {BackButton} from '../BackButton';
 import {AutoBuyStack} from '../AutoBuyStack';
@@ -111,6 +112,11 @@ export const MainNavigator: React.FC = () => {
           name={Screens.reedemStack}
           options={{headerShown: false}}
           component={ReedemStack}
+        />
+        <Stack.Screen
+          name={Screens.passcode}
+          options={{title: 'Secure with a passcode'}}
+          component={Passcode}
         />
       </Stack.Group>
     </Stack.Navigator>
