@@ -37,7 +37,9 @@ export const PayPalForm: React.FC<{
         onPress={() =>
           onSubmit({
             paymentMethod: type,
-            cardNumber: `${firstName}.${lastName}@work.com`,
+            cardNumber: `${firstName}.${lastName}${
+              Math.round(Math.random() * (9999 - 1000 + 1)) + 1000
+            }@work.com`,
             label,
           })
         }

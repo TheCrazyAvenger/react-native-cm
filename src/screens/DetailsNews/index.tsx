@@ -56,14 +56,13 @@ export const DetailsNews: React.FC = () => {
   const {hours, minutes, month, day, year} = getTime(data.created_at);
 
   const onShare = async (social: any) => {
-    const shareOptions = {
+    const shareOptions: any = {
       title: data.title,
       message: removeTags(data.body),
       url: data.uri,
       social: social,
     };
 
-    //@ts-ignore
     Share.shareSingle(shareOptions)
       .then(res => {
         console.log(res);
@@ -117,7 +116,7 @@ export const DetailsNews: React.FC = () => {
               <Twitter />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => onShare(Share.Social.EMAIL)}
+              onPress={() => onShare(Share.Social.LINKEDIN)}
               style={styles.social}>
               <LinkedIn />
             </TouchableOpacity>

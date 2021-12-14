@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
   datePicker: {
     marginHorizontal: 10,
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
   buttons: {

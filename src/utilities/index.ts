@@ -31,3 +31,4 @@ export * from './getShippingName';
 export * from './getGainsLosses';
 export * from './getTransactionName';
 export * from './validatePasscode';
+export * from './cardInputValidation';

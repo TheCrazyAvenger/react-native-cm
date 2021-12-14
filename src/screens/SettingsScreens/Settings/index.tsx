@@ -31,7 +31,11 @@ import {logout} from '@store/actions';
 import {Screen} from '@ui';
 import {styles} from './styles';
 import {Linking} from 'react-native';
-import {deleteLoginMethod, setPasscode} from '@store/slices/authSlice';
+import {
+  deleteLoginMethod,
+  deletePasscode,
+  setPasscode,
+} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
 
 export const Settings: React.FC = () => {
@@ -60,11 +64,13 @@ export const Settings: React.FC = () => {
     }
   };
 
-  const removeLoginMethod = async (method: string) => {
+  const removeLoginMethod = async (method: string, value: boolean | null) => {
     try {
       setLoading(true);
-      await database().ref(`/users/${token}/loginMethods/${method}`).set(false);
-      await dispatch(deleteLoginMethod(method));
+      await database().ref(`/users/${token}/loginMethods/${method}`).set(value);
+      (await method) === 'passcode'
+        ? dispatch(deletePasscode(method))
+        : dispatch(deleteLoginMethod(method));
       await setLoading(false);
     } catch (e) {
       console.log(e);
@@ -176,7 +182,7 @@ When complete, navigate back to the CyberMetals app to proceed."
           description="Use your fingerprint to log into CyberMetals without having to type your password"
           onPress={() => {
             if (touchId) {
-              removeLoginMethod('touchId');
+              removeLoginMethod('touchId', false);
             } else {
               setTouchIdModal(true);
             }
@@ -191,7 +197,7 @@ When complete, navigate back to the CyberMetals app to proceed."
           description="Use your Face ID to log into CyberMetals without having to type your password"
           onPress={() => {
             if (faceId) {
-              removeLoginMethod('faceId');
+              removeLoginMethod('faceId', false);
             } else {
               setFaceIdModal(true);
             }
@@ -206,7 +212,7 @@ When complete, navigate back to the CyberMetals app to proceed."
           description="Set up a passcode to access CyberMetals without having to type your password"
           onPress={() =>
             loginMethods.passcode
-              ? dispatch(deleteLoginMethod('passcode'))
+              ? removeLoginMethod('passcode', null)
               : navigation.navigate(Screens.passcode)
           }
           Image={Passcode}

@@ -1,7 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StatusBar, View} from 'react-native';
-import {EmptyDataScreen, LoadingItem, PaymentMethodsItem} from '@components';
+import {
+  EmptyDataScreen,
+  LoadingItem,
+  Notification,
+  PaymentMethodsItem,
+} from '@components';
 import {Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {setLoading} from '@store/slices/authSlice';
@@ -12,6 +17,8 @@ import {deletePaymentMethods} from '@store/slices/paymentMethodsSlice';
 
 export const PaymentMethods: React.FC = () => {
   const navigation: any = useNavigation();
+  const [removeModal, setRemoveModal] = useState(false);
+  const [method, setMethod] = useState('');
 
   const dispatch = useAppDispatch();
 
@@ -34,6 +41,14 @@ export const PaymentMethods: React.FC = () => {
   const removeItem = async (type: string, id: number) => {
     await database().ref(`/users/${token}/paymentMethods/${id}`).remove();
     await dispatch(deletePaymentMethods({paymentMethod: type, id}));
+    await setMethod(
+      type === 'creditCard'
+        ? 'Credit Cart'
+        : type === 'payPal'
+        ? 'PayPal'
+        : 'bank account',
+    );
+    setRemoveModal(true);
   };
 
   if (loading) {
@@ -63,6 +78,12 @@ export const PaymentMethods: React.FC = () => {
 
   return (
     <Screen type="View">
+      <Notification
+        text={`The linked ${method} has been successfully removed from your CyberMetals account.`}
+        visible={removeModal}
+        style={{top: 0, paddingRight: 70}}
+        onPress={() => setRemoveModal(false)}
+      />
       <StatusBar
         barStyle="dark-content"
         translucent
@@ -78,6 +99,7 @@ export const PaymentMethods: React.FC = () => {
                   item !== null && (
                     <PaymentMethodsItem
                       key={item.id}
+                      fullName={item.fullName}
                       type={item.cardType ? item.cardType : 'Unknown'}
                       id={item.id}
                       expiring={

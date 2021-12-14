@@ -1,12 +1,14 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
-import React from 'react';
+import React, {useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import {styles} from './styles';
 import {FormInput, ItemPicker} from '@components';
 import {TextButton} from '@ui';
-import {states} from '@utilities';
+import {Error} from '@Typography';
+import {states, validatePasscode} from '@utilities';
 import {bankSchema} from '../..';
+import {useAppSelector} from '@hooks';
 
 export const BankForm: React.FC<{
   onSubmit: (...args: any) => void;
@@ -16,12 +18,18 @@ export const BankForm: React.FC<{
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
+  const paymentMethods = useAppSelector(
+    state => state.paymentMethod.paymentMethods,
+  );
+
+  const [error, setError] = useState<null | string>(null);
+
   return (
     <Formik
       validationSchema={bankSchema}
       initialValues={{
         name: '',
-        cardNumber: '',
+        routingNumber: '',
         accountNumber: '',
         accountType: 'Checking Account',
         accountName: '',
@@ -43,20 +51,36 @@ export const BankForm: React.FC<{
         values,
         errors,
         touched,
+        isValid,
         setFieldTouched,
         setFieldValue,
       }) => {
+        const checkAllAccounts = () => {
+          setError(null);
+          paymentMethods.bankWire.map(
+            (item: any) =>
+              item.routingNumber === values.routingNumber &&
+              item.accountNumber === values.accountNumber &&
+              setError(
+                'You have entered a bank account that is already linked. Please re-enter your bank information or visit my account > settings > payment methods to review your linked accounts',
+              ),
+          );
+        };
+
         return (
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={styles.container}>
             <FormInput
-              label="Name on Card"
+              label="Bank Name"
               plaseholder="Your Name on Card"
               onChangeText={handleChange('name')}
               onFocus={() => setFieldTouched('name', false)}
               value={values.name}
-              onBlur={() => setFieldTouched('name', true)}
+              onBlur={async () => {
+                await setFieldValue('name', values.name.trim());
+                setFieldTouched('name', true);
+              }}
               errorMessage={errors.name}
               isTouched={touched.name}
             />
@@ -64,28 +88,57 @@ export const BankForm: React.FC<{
             <FormInput
               label="Routing Number"
               plaseholder="Your Routing Number"
-              onChangeText={handleChange('cardNumber')}
-              onFocus={() => setFieldTouched('cardNumber', false)}
-              value={values.cardNumber}
-              onBlur={() => setFieldTouched('cardNumber', true)}
-              errorMessage={errors.cardNumber}
-              isTouched={touched.cardNumber}
+              onChangeText={handleChange('routingNumber')}
+              keyboardType="numeric"
+              onFocus={() => setFieldTouched('routingNumber', false)}
+              value={values.routingNumber}
+              onBlur={async () => {
+                await setFieldValue(
+                  'routingNumber',
+                  values.routingNumber.trim(),
+                );
+
+                await setFieldTouched('routingNumber', true);
+                checkAllAccounts();
+              }}
+              onInput={() =>
+                setFieldValue(
+                  'routingNumber',
+                  validatePasscode(values.routingNumber),
+                )
+              }
+              errorMessage={errors.routingNumber}
+              isTouched={touched.routingNumber}
             />
 
             <FormInput
               label="Account Number"
               plaseholder="Your Account Number"
+              keyboardType="numeric"
               onChangeText={handleChange('accountNumber')}
               onFocus={() => setFieldTouched('accountNumber', false)}
               value={values.accountNumber}
-              onBlur={() => setFieldTouched('accountNumber', true)}
+              onBlur={async () => {
+                await setFieldTouched('accountNumber', true);
+                checkAllAccounts();
+              }}
+              onInput={() =>
+                setFieldValue(
+                  'accountNumber',
+                  validatePasscode(values.accountNumber),
+                )
+              }
               errorMessage={errors.accountNumber}
               isTouched={touched.accountNumber}
             />
 
             <ItemPicker
               label="Type of Account"
-              items={[{label: 'Checking Account', value: 'Checking Account'}]}
+              items={[
+                {label: 'Checking Account', value: 'Checking Account'},
+                {label: 'Savings Account', value: 'Savings Account'},
+              ]}
+              maxHeight={120}
               value={values.accountType}
               onChange={value => setFieldValue('accountType', value)}
               errorMessage={errors.accountType}
@@ -94,7 +147,10 @@ export const BankForm: React.FC<{
 
             <FormInput
               label="Exact Account Name"
-              onBlur={() => setFieldTouched('accountName', true)}
+              onBlur={async () => {
+                await setFieldValue('accountName', values.accountName.trim());
+                setFieldTouched('accountName', true);
+              }}
               plaseholder="Your Exact Account Name"
               onChangeText={handleChange('accountName')}
               onFocus={() => setFieldTouched('accountName', false)}
@@ -105,7 +161,10 @@ export const BankForm: React.FC<{
 
             <FormInput
               label="Street Address"
-              onBlur={() => setFieldTouched('address', true)}
+              onBlur={async () => {
+                await setFieldValue('address', values.address.trim());
+                setFieldTouched('address', true);
+              }}
               plaseholder="Your Street Address"
               onChangeText={handleChange('address')}
               onFocus={() => setFieldTouched('address', false)}
@@ -116,7 +175,10 @@ export const BankForm: React.FC<{
 
             <FormInput
               label="City"
-              onBlur={() => setFieldTouched('city', true)}
+              onBlur={async () => {
+                await setFieldValue('city', values.city.trim());
+                setFieldTouched('city', true);
+              }}
               plaseholder="Your City"
               onChangeText={handleChange('city')}
               onFocus={() => setFieldTouched('city', false)}
@@ -140,13 +202,20 @@ export const BankForm: React.FC<{
                   errorStyle={{left: 0, top: 81}}
                 />
               </View>
-              <View style={{width: '43%'}}>
+              <View style={{width: '43%', marginTop: 4}}>
                 <FormInput
                   label="Postal Code"
                   onBlur={() => setFieldTouched('postalCode', true)}
                   plaseholder="Your Code"
+                  keyboardType="numeric"
                   onChangeText={handleChange('postalCode')}
                   onFocus={() => setFieldTouched('postalCode', false)}
+                  onInput={() =>
+                    setFieldValue(
+                      'postalCode',
+                      validatePasscode(values.postalCode),
+                    )
+                  }
                   value={values.postalCode}
                   errorMessage={errors.postalCode}
                   isTouched={touched.postalCode}
@@ -155,9 +224,16 @@ export const BankForm: React.FC<{
             </View>
 
             <View style={styles.buttons}>
+              {error && (
+                <Error style={{marginBottom: 32, textAlign: 'left'}}>
+                  {error}
+                </Error>
+              )}
+
               <TextButton
                 style={{marginBottom: 20}}
                 solid
+                disabled={!isValid || error}
                 title="Add"
                 onPress={handleSubmit}
               />

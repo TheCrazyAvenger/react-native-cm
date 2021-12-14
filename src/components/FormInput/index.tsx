@@ -26,6 +26,7 @@ export const FormInput: React.FC<FormInputProps> = ({
   inputStyle,
   keyboardType = 'default',
   errorStyle,
+  maxLength,
   showError = true,
   autoFocus = false,
 }) => {
@@ -47,6 +48,7 @@ export const FormInput: React.FC<FormInputProps> = ({
           onTouchStart={onFocus}
           value={value}
           label={label}
+          maxLength={maxLength}
           keyboardType={keyboardType}
           autoFocus={autoFocus}
           onBlur={onBlur}

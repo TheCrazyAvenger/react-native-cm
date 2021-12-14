@@ -36,7 +36,11 @@ export const PricesItem: React.FC<PricesItemProps> = ({data}) => {
         </View>
       </View>
       <Wrapper style={{marginTop: 8}} />
-      <PricesChart lineColor={getMetalsColor(id)} chartMetal={id} />
+      <PricesChart
+        lineColor={getMetalsColor(id)}
+        metalData={data}
+        chartMetal={id}
+      />
     </View>
   );
 };

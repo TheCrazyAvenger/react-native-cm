@@ -1,7 +1,12 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React, {useEffect, useRef, useState} from 'react';
-import {View} from 'react-native';
+import {
+  ScrollView,
+  TouchableNativeFeedback,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 import {styles} from './styles';
 import {reviewBuySchema} from '../..';
 import {validatePasscode} from '@utilities';
@@ -11,6 +16,7 @@ import {colors} from '@constants';
 import {setPasscode} from '@store/slices/authSlice';
 import {LoadingItem} from '@components';
 import database from '@react-native-firebase/database';
+import {TextButton} from '@ui';
 
 export const PasscodeForm: React.FC<{
   setError: (...args: any) => void;
@@ -83,7 +89,11 @@ export const PasscodeForm: React.FC<{
                     : colors.white;
 
                 return (
-                  <View key={i} style={{...styles.dot, backgroundColor}} />
+                  <TouchableWithoutFeedback
+                    onPress={() => autoFocus.current.focus()}
+                    key={i}>
+                    <View style={{...styles.dot, backgroundColor}} />
+                  </TouchableWithoutFeedback>
                 );
               })}
             </View>
@@ -107,14 +117,6 @@ export const PasscodeForm: React.FC<{
               }}
               value={isPassFull ? values.confirmPasscode : values.passcode}
             />
-            {/* <View>
-              <TextButton
-                solid
-                style={{marginBottom: 20}}
-                title="Show keyboard"
-                onPress={handleSubmit}
-              />
-            </View> */}
           </View>
         );
       }}

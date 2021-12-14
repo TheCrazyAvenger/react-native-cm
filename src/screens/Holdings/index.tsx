@@ -1,12 +1,11 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {HoldingsHeader, MetalsDetails, NewsCard, PriceGraph} from '@components';
+import {HoldingsHeader, NewsCard, PriceGraph} from '@components';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import {useGetNewsQuery} from '@api';
 import {Screens} from '@constants';
-import {getMetalsColor, metals} from '@utilities';
 
 export const Holdings: React.FC = () => {
   const navigation: any = useNavigation();
@@ -35,8 +34,12 @@ export const Holdings: React.FC = () => {
             <TextButton
               title="Sell"
               style={styles.button}
+              disabled={isLoading}
               onPress={() =>
-                navigation.navigate(Screens.sellBuyStack, {type: 'Sell'})
+                navigation.navigate(Screens.sellBuySetup, {
+                  data: data.data[metalType - 1],
+                  type: 'Sell',
+                })
               }
             />
           </View>
@@ -44,9 +47,13 @@ export const Holdings: React.FC = () => {
             <TextButton
               solid
               title="Buy"
+              disabled={isLoading}
               style={styles.button}
               onPress={() =>
-                navigation.navigate(Screens.sellBuyStack, {type: 'Buy'})
+                navigation.navigate(Screens.sellBuySetup, {
+                  data: data.data[metalType - 1],
+                  type: 'Buy',
+                })
               }
             />
           </View>
@@ -55,6 +62,7 @@ export const Holdings: React.FC = () => {
         <PriceGraph id={metalType} data={data.data} />
 
         <NewsCard data={newsData} isLoading={isLoading} />
+        <View style={{marginBottom: 100}} />
       </Screen>
     </Screen>
   );

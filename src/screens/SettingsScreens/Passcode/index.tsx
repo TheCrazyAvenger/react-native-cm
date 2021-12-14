@@ -40,7 +40,7 @@ export const Passcode: React.FC = () => {
         style={{top: 0, backgroundColor: '#EB5757', borderColor: '#EB5757'}}
         onPress={() => setErrorModal(false)}
       />
-      <Screen>
+      <Screen type="View">
         <StatusBar barStyle="dark-content" backgroundColor={'transparent'} />
         <TitleMedium style={styles.title}>
           {goToConfirm ? 'Confirm passcode' : 'Create a unique passcode'}

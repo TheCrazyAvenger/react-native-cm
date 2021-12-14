@@ -9,7 +9,7 @@ export type TextButtonProps = {
   loading?: boolean;
   onPress: () => void;
   style?: {[key: string]: number | string};
-  disabled?: boolean;
+  disabled?: any;
   disabledStyle?: {[key: string]: number | string};
   changeDisabledStyle?: boolean;
   disabledTitle?: string | null;

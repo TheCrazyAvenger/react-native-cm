@@ -4,9 +4,15 @@ import React, {useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import {styles} from './styles';
 import {DatePicker, FormInput, ItemPicker} from '@components';
-import {Subtitle} from '@Typography';
+import {Subtitle, Error} from '@Typography';
 import {TextButton} from '@ui';
-import {cardNumberValidation, setCard, states} from '@utilities';
+import {
+  cardInputValidation,
+  cardNumberValidation,
+  setCard,
+  states,
+  validatePasscode,
+} from '@utilities';
 import {cardSchema} from '../..';
 import {
   AmericanExpress,
@@ -14,6 +20,7 @@ import {
   MasterCard,
   Visa,
 } from '@assets/images/settings';
+import {useAppSelector} from '@hooks';
 
 export const CardForm: React.FC<{
   onSubmit: (...args: any) => void;
@@ -22,18 +29,24 @@ export const CardForm: React.FC<{
 }> = ({onSubmit, type, label}) => {
   const [cardType, setCardType] = useState<string | null>(null);
   const navigation: any = useNavigation();
+  const paymentMethods = useAppSelector(
+    state => state.paymentMethod.paymentMethods,
+  );
+  const firstName = useAppSelector(state => state.auth.firstName);
+  const lastName = useAppSelector(state => state.auth.lastName);
+  const [error, setError] = useState<null | string>(null);
   const route: any = useRoute();
 
   return (
     <Formik
       validationSchema={cardSchema}
       initialValues={{
-        name: '',
+        name: `${firstName.toUpperCase()} ${lastName.toUpperCase()}`,
         cardNumber: '',
         expirationDate: '',
         csc: '',
-        firstName: '',
-        lastName: '',
+        firstName: firstName,
+        lastName: lastName,
         address: '',
         city: '',
         state: '',
@@ -53,6 +66,7 @@ export const CardForm: React.FC<{
         handleSubmit,
         values,
         errors,
+        isValid,
         touched,
         setFieldTouched,
         setFieldValue,
@@ -60,6 +74,18 @@ export const CardForm: React.FC<{
         const checkType = () => {
           setCardType(setCard(values.cardNumber));
         };
+
+        const checkAllCards = () => {
+          setError(null);
+          paymentMethods.creditCard.map(
+            (item: any) =>
+              item.cardNumber === values.cardNumber &&
+              setError(
+                'You have entered a credit card that is already linked. Please re-enter your credit card information or visit my account > settings > payment methods to review your linked cards',
+              ),
+          );
+        };
+
         return (
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -71,7 +97,10 @@ export const CardForm: React.FC<{
               onChangeText={handleChange('name')}
               onFocus={() => setFieldTouched('name', false)}
               value={values.name}
-              onBlur={() => setFieldTouched('name', true)}
+              onBlur={async () => {
+                await setFieldValue('name', values.name.trim());
+                setFieldTouched('name', true);
+              }}
               errorMessage={errors.name}
               isTouched={touched.name}
             />
@@ -81,7 +110,15 @@ export const CardForm: React.FC<{
               plaseholder="Your Card Number"
               onChangeText={handleChange('cardNumber')}
               onFocus={() => setFieldTouched('cardNumber', false)}
-              onInput={checkType}
+              onInput={() => {
+                checkType();
+                setFieldValue(
+                  'cardNumber',
+                  cardInputValidation(values.cardNumber),
+                );
+              }}
+              maxLength={19}
+              keyboardType="numeric"
               value={values.cardNumber}
               onBlur={async () => {
                 setFieldTouched('cardNumber', true);
@@ -90,6 +127,7 @@ export const CardForm: React.FC<{
                   cardNumberValidation(values.cardNumber),
                 );
                 checkType();
+                checkAllCards();
               }}
               rightIcon={() =>
                 cardType === 'visa' ? (
@@ -123,8 +161,16 @@ export const CardForm: React.FC<{
               <View style={{marginLeft: 10, width: '50%'}}>
                 <FormInput
                   label="CSC"
-                  onBlur={() => setFieldTouched('csc', true)}
+                  onBlur={async () => {
+                    await setFieldValue('csc', values.csc.trim());
+                    setFieldTouched('csc', true);
+                  }}
                   plaseholder="Your CSC"
+                  keyboardType="numeric"
+                  onInput={() =>
+                    setFieldValue('csc', validatePasscode(values.csc))
+                  }
+                  maxLength={cardType === 'americanExpress' ? 4 : 3}
                   onChangeText={handleChange('csc')}
                   onFocus={() => setFieldTouched('csc', false)}
                   value={values.csc}
@@ -138,7 +184,10 @@ export const CardForm: React.FC<{
 
             <FormInput
               label="First Name"
-              onBlur={() => setFieldTouched('firstName', true)}
+              onBlur={async () => {
+                await setFieldValue('firstName', values.firstName.trim());
+                setFieldTouched('firstName', true);
+              }}
               plaseholder="Your First Name"
               onChangeText={handleChange('firstName')}
               onFocus={() => setFieldTouched('firstName', false)}
@@ -149,7 +198,10 @@ export const CardForm: React.FC<{
 
             <FormInput
               label="Last Name"
-              onBlur={() => setFieldTouched('lastName', true)}
+              onBlur={async () => {
+                await setFieldValue('lastName', values.lastName.trim());
+                setFieldTouched('lastName', true);
+              }}
               plaseholder="Your Last Name"
               onChangeText={handleChange('lastName')}
               onFocus={() => setFieldTouched('lastName', false)}
@@ -160,7 +212,10 @@ export const CardForm: React.FC<{
 
             <FormInput
               label="Street Address"
-              onBlur={() => setFieldTouched('address', true)}
+              onBlur={async () => {
+                await setFieldValue('address', values.address.trim());
+                setFieldTouched('address', true);
+              }}
               plaseholder="Your Street Address"
               onChangeText={handleChange('address')}
               onFocus={() => setFieldTouched('address', false)}
@@ -171,7 +226,10 @@ export const CardForm: React.FC<{
 
             <FormInput
               label="City"
-              onBlur={() => setFieldTouched('city', true)}
+              onBlur={async () => {
+                await setFieldValue('city', values.city.trim());
+                setFieldTouched('city', true);
+              }}
               plaseholder="Your City"
               onChangeText={handleChange('city')}
               onFocus={() => setFieldTouched('city', false)}
@@ -195,11 +253,21 @@ export const CardForm: React.FC<{
                   errorStyle={{left: 0, top: 81}}
                 />
               </View>
-              <View style={{width: '43%'}}>
+              <View style={{width: '43%', marginTop: 4}}>
                 <FormInput
                   label="Postal Code"
-                  onBlur={() => setFieldTouched('postalCode', true)}
+                  onBlur={async () => {
+                    await setFieldValue('postalCode', values.postalCode.trim());
+                    setFieldTouched('postalCode', true);
+                  }}
+                  onInput={() =>
+                    setFieldValue(
+                      'postalCode',
+                      validatePasscode(values.postalCode),
+                    )
+                  }
                   plaseholder="Your Postal Code"
+                  keyboardType="numeric"
                   onChangeText={handleChange('postalCode')}
                   onFocus={() => setFieldTouched('postalCode', false)}
                   value={values.postalCode}
@@ -211,19 +279,34 @@ export const CardForm: React.FC<{
 
             <FormInput
               label="Phone"
-              onBlur={() => setFieldTouched('phone', true)}
+              onBlur={async () => {
+                await setFieldValue('phone', values.phone.trim());
+                setFieldTouched('phone', true);
+              }}
               plaseholder="Your Phone"
               onChangeText={handleChange('phone')}
               onFocus={() => setFieldTouched('phone', false)}
               value={values.phone}
+              keyboardType="phone-pad"
               errorMessage={errors.phone}
               isTouched={touched.phone}
             />
 
             <View style={styles.buttons}>
+              {error && (
+                <Error style={{marginBottom: 32, textAlign: 'left'}}>
+                  {error}
+                </Error>
+              )}
               <TextButton
                 style={{marginBottom: 20}}
                 solid
+                disabled={
+                  error ||
+                  !isValid ||
+                  cardType === 'Unknown' ||
+                  (cardType === 'americanExpress' && values.csc.length < 4)
+                }
                 title="Add"
                 onPress={handleSubmit}
               />

@@ -24,10 +24,6 @@ export const NumberPagination: React.FC<NumberPaginationProps> = ({
     pageSize,
   });
 
-  if (currentPage === 0 || paginationRange.length < 2) {
-    return <View style={{marginBottom: 20}} />;
-  }
-
   const onNext = () => {
     onPageChange(currentPage + 1);
   };
@@ -79,45 +75,51 @@ export const NumberPagination: React.FC<NumberPaginationProps> = ({
           </TouchableOpacity>
         </View>
       )}
-      <View style={styles.paginationContainer}>
-        <View>
-          <TouchableOpacity
-            style={{marginRight: 7}}
-            onPress={onPrevious}
-            disabled={currentPage === 1}>
-            <LeftArrow />
-          </TouchableOpacity>
-        </View>
-        {paginationRange.map((pageNumber: any) => {
-          return (
+      {currentPage === 0 || paginationRange.length < 2 ? (
+        <View style={{marginBottom: 20}} />
+      ) : (
+        <View style={styles.paginationContainer}>
+          <View>
             <TouchableOpacity
-              key={pageNumber}
-              style={styles.dot}
-              onPress={() => onPageChange(pageNumber)}>
-              <Subtitle
-                style={{
-                  fontFamily:
-                    pageNumber === currentPage
-                      ? 'OpenSans-SemiBold'
-                      : 'OpenSans-Regular',
-                  color:
-                    pageNumber === currentPage ? colors.primary : colors.black,
-                }}>
-                {pageNumber}
-              </Subtitle>
+              style={{marginRight: 7}}
+              onPress={onPrevious}
+              disabled={currentPage === 1}>
+              <LeftArrow />
             </TouchableOpacity>
-          );
-        })}
+          </View>
+          {paginationRange.map((pageNumber: any) => {
+            return (
+              <TouchableOpacity
+                key={pageNumber}
+                style={styles.dot}
+                onPress={() => onPageChange(pageNumber)}>
+                <Subtitle
+                  style={{
+                    fontFamily:
+                      pageNumber === currentPage
+                        ? 'OpenSans-SemiBold'
+                        : 'OpenSans-Regular',
+                    color:
+                      pageNumber === currentPage
+                        ? colors.primary
+                        : colors.black,
+                  }}>
+                  {pageNumber}
+                </Subtitle>
+              </TouchableOpacity>
+            );
+          })}
 
-        <View>
-          <TouchableOpacity
-            style={{marginLeft: 7}}
-            onPress={onNext}
-            disabled={currentPage === lastPage}>
-            <RightArrow />
-          </TouchableOpacity>
+          <View>
+            <TouchableOpacity
+              style={{marginLeft: 7}}
+              onPress={onNext}
+              disabled={currentPage === lastPage}>
+              <RightArrow />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      )}
     </View>
   );
 };

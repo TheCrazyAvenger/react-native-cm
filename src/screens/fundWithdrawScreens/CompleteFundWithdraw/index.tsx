@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, StatusBar, View} from 'react-native';
 import {
   CredentialsItem,
@@ -20,6 +20,13 @@ export const CompleteFundWithdraw: React.FC = () => {
   const route: any = useRoute();
 
   const {paymentMethod, amount, type, operationType, order} = route.params;
+
+  useEffect(() => {
+    navigation.setOptions({
+      title:
+        type === 'Fund' ? 'Funding Confirmation' : 'Withdrawing Confirmation',
+    });
+  }, []);
 
   const totalAmount = amount - amount * 0.1;
 

@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
-import React, {useState} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import {BankForm, CardForm, paymentMethodSchema, PayPalForm} from '../..';
 import {ItemPicker} from '@components';
@@ -32,11 +32,22 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
 
     const id = `${Math.round(Math.random() * 1000000)}_${paymentMethod}`;
 
-    await database()
-      .ref(`/users/${token}/paymentMethods/${id}`)
-      .set({...values, id});
+    const data = {
+      fullName:
+        paymentMethod === 'creditCard'
+          ? `Ending with ${values.cardNumber.split('').splice(-4).join('')}`
+          : paymentMethod === 'bankWire' || paymentMethod === 'eCheck'
+          ? `${values.name.toUpperCase()} ${values.accountType.toUpperCase()} ending with ${values.accountNumber.slice(
+              -4,
+            )}`
+          : values.cardNumber,
+      ...values,
+      id,
+    };
 
-    await dispatch(addPaymentMethods({...values, id}));
+    await database().ref(`/users/${token}/paymentMethods/${id}`).set(data);
+
+    await dispatch(addPaymentMethods(data));
 
     await dispatch(setLoading(false));
 

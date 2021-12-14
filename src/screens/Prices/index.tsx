@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import {ActionsCard, Header, NewsCard, PricesGraph} from '@components';
 import {colors, Screens} from '@constants';
 import {useAppSelector} from '@hooks';
@@ -54,6 +54,7 @@ export const Prices: React.FC = () => {
           />
         ) : null}
         <NewsCard data={data} isLoading={isLoading} />
+        <View style={{marginBottom: 100}} />
       </Screen>
     </Screen>
   );

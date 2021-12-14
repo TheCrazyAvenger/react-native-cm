@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StatusBar, View} from 'react-native';
 import {FundWithdrawInfo, LoadingItem} from '@components';
 import {Description, Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
@@ -24,6 +24,13 @@ export const ReviewFundWithdraw: React.FC = () => {
 
   const {paymentMethod, amount} = route.params;
   const {type} = route.params;
+
+  useEffect(() => {
+    navigation.setOptions({
+      title:
+        type === 'Fund' ? 'Funding Confirmation' : 'Withdrawing Confirmation',
+    });
+  }, []);
 
   const fundWithDraw = async () => {
     try {

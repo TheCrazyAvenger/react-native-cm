@@ -122,6 +122,9 @@ export const authSlice = createSlice({
       state.loginMethods[loginMethod] = value;
     },
     deleteLoginMethod: (state, action: PayloadAction<any>) => {
+      state.loginMethods[action.payload] = false;
+    },
+    deletePasscode: (state, action: PayloadAction<any>) => {
       state.loginMethods[action.payload] = null;
     },
     setNotification: (state, action: PayloadAction<any>) => {
@@ -226,6 +229,7 @@ export const {
   setPasscode,
   deleteLoginMethod,
   setNotification,
+  deletePasscode,
 } = authSlice.actions;
 
 export default authSlice.reducer;

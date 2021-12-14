@@ -34,6 +34,12 @@ export const ReviewReedem: React.FC = () => {
   const [modalVisble, setModalVisible] = useState(false);
 
   useEffect(() => {
+    navigation.setOptions({
+      title: 'Redeeming Confirmation',
+    });
+  }, []);
+
+  useEffect(() => {
     myInterval = setInterval(() => {
       if (seconds > 0) {
         setSeconds(seconds - 1);

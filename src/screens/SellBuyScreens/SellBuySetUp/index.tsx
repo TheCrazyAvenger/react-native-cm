@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {BuySetUpForm, SellSetUpForm} from '../../../forms';
@@ -16,6 +16,10 @@ export const SellBuySetUp: React.FC = () => {
 
   const {name, spot, premium, buy, sell} = route.params.data;
   const {type} = route.params;
+
+  useEffect(() => {
+    navigation.setOptions({title: type});
+  }, []);
 
   return (
     <Screen>

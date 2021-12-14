@@ -7,6 +7,7 @@ import {
   getCardImage,
   getCardType,
   getPaymentImage,
+  getPaymentName,
   setExpiring,
 } from '@utilities';
 
@@ -17,6 +18,7 @@ export const PaymentMethodsItem: React.FC<PaymentMethodsItemProps> = ({
   paymentMethod,
   cardNumber,
   expiring,
+  fullName,
   type,
   id,
   style,
@@ -38,11 +40,7 @@ export const PaymentMethodsItem: React.FC<PaymentMethodsItemProps> = ({
         title="Remove Payment Method"
         text={`Are you sure you want to remove linked ${
           type ? getCardType(type) : ''
-        } ${paymentMethod} ${
-          paymentMethod === 'payPal' || paymentMethod === 'eCheck'
-            ? cardNumber
-            : `ending with ${cardNumber.split('').splice(-4).join('')}`
-        }?`}
+        } ${getPaymentName(paymentMethod)} ${fullName}?`}
         confirmTitle="Remove"
         cancelTitle="Cancel"
         onConfirm={() => onRemove(paymentMethod, id)}
@@ -69,13 +67,9 @@ export const PaymentMethodsItem: React.FC<PaymentMethodsItemProps> = ({
                   <CardImage />
                 </View>
               )}
-              {cardNumber && (
-                <Illustration style={{marginRight: 10}}>
-                  {paymentMethod === 'payPal' || paymentMethod === 'eCheck'
-                    ? cardNumber
-                    : `Ending with ${cardNumber.split('').splice(-4).join('')}`}
-                </Illustration>
-              )}
+
+              <Illustration style={{marginRight: 10}}>{fullName}</Illustration>
+
               {isExpiried && (
                 <Illustration style={{color: colors.red}}>
                   Expired {expiring}

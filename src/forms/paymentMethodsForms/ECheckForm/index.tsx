@@ -15,9 +15,6 @@ export const ECheckForm: React.FC<{
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
-  const firstName = useAppSelector(state => state.auth.firstName);
-  const lastName = useAppSelector(state => state.auth.lastName);
-
   return (
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -40,7 +37,14 @@ export const ECheckForm: React.FC<{
           onPress={() =>
             onSubmit({
               paymentMethod: type,
-              cardNumber: 'CHASE CHECKING ACCOUNT ending with 1234',
+              name: `CHASE`,
+              accountNumber: `${Math.round(
+                Math.random() * (9999 - 1000 + 1) + 1000,
+              )}`,
+              accountType:
+                Math.round(Math.random() * (10 + 1)) > 5
+                  ? 'CHECKING ACCOUNT'
+                  : 'SAVING ACCOUNT',
               label,
             })
           }

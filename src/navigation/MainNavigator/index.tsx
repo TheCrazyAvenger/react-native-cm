@@ -3,12 +3,18 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '@constants';
 import {BottomTabs} from '../BottomTabs';
 import {
+  ChooseBuy,
+  ChooseSell,
+  CompleteSellBuy,
   CookiePolicy,
   Notifications,
   Passcode,
   Password,
+  PaymentMethodsSetUp,
   Profile,
   Refer,
+  ReviewSellBuy,
+  SellBuySetUp,
   StorageFees,
   Transactions,
 } from '@screens';
@@ -117,6 +123,26 @@ export const MainNavigator: React.FC = () => {
           name={Screens.passcode}
           options={{title: 'Secure with a passcode'}}
           component={Passcode}
+        />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={{
+          headerLeft: () => <BackButton />,
+          headerTitleAlign: 'center',
+          headerTitleStyle: styles.headerTitleStyle,
+          headerShadowVisible: false,
+        }}>
+        <Stack.Screen name={Screens.chooseSell} component={ChooseSell} />
+        <Stack.Screen name={Screens.chooseBuy} component={ChooseBuy} />
+        <Stack.Screen name={Screens.sellBuySetup} component={SellBuySetUp} />
+        <Stack.Screen name={Screens.reviewSellBuy} component={ReviewSellBuy} />
+        <Stack.Screen
+          name={Screens.completeSellBuy}
+          component={CompleteSellBuy}
+        />
+        <Stack.Screen
+          name={Screens.paymentMethodsSetUp}
+          component={PaymentMethodsSetUp}
         />
       </Stack.Group>
     </Stack.Navigator>

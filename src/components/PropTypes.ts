@@ -65,6 +65,7 @@ export type FormInputProps = {
   keyboardType?: any;
   disabled?: boolean;
   errorStyle?: {[key: string]: number | string};
+  maxLength?: number;
   showError?: boolean;
   autoFocus?: boolean;
 };
@@ -160,6 +161,7 @@ export type PricesItemProps = {
 export type PricesChartProps = {
   chartMetal: number;
   lineColor: any;
+  metalData: any;
 };
 
 export type MenuItemProps = {
@@ -297,6 +299,7 @@ export type PaymentMethodsItemProps = {
   cardNumber: string;
   id: number;
   expiring: string;
+  fullName: string;
   style?: {[key: string]: number | string};
   label: string;
   onRemove: (...args: any) => void;

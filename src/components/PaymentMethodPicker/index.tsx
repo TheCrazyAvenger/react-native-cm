@@ -10,7 +10,7 @@ import {useAppDispatch, useAppSelector} from '@hooks';
 import {useNavigation} from '@react-navigation/core';
 import {setLoading} from '@store/slices/authSlice';
 import {getCardImage, getPaymentImage, numberWithCommas} from '@utilities';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {PayPalForm} from '../../forms';
 import {styles} from './styles';
@@ -35,7 +35,16 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
 
   const [paymentMethod, setPaymentMethod] = useState('cashBalance');
   const [visibleModal, setVisibleModal] = useState(false);
-  const [card, setCard] = useState('');
+  const [card, setCard] = useState(
+    paymentMethods.creditCard.length > 0
+      ? paymentMethods.creditCard[0].fullName
+      : '',
+  );
+
+  useEffect(() => {
+    paymentMethods.creditCard.length > 0 &&
+      setCard(paymentMethods.creditCard[0].fullName);
+  }, [paymentMethods]);
 
   const onSubmit = async (values: any) => {
     dispatch(setLoading(true));
@@ -114,7 +123,7 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
             style={{...styles.cardPicker, ...containerStyle}}
             placeholderStyle={styles.pickerPlaceholder}
             items={paymentMethods.creditCard.map((item: any) => ({
-              label: `Ending with ${item.cardNumber.slice(-4)}`,
+              label: item.fullName,
               value: item.cardType,
             }))}
             maxHeight={150}

@@ -197,52 +197,66 @@ export const paymentMethodSchema = yup.object().shape({
 export const cardSchema = yup.object().shape({
   name: yup
     .string()
-    .required('Please enter your Name on Card')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter the name on your card')
+    .max(100, '“This field should be less than or equal to 100 symbols”')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   cardNumber: yup
     .string()
-    .required('Please enter your Card Number')
+    .required('Please enter your card number')
     .label('Card Number')
     .max(19)
-    .matches(/[0-9] /, 'Please enter correct number'),
+    .matches(/[0-9] /, 'Please enter a valid card number'),
   firstName: yup
     .string()
-    .required('Please enter your First Name')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter your first name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   lastName: yup
     .string()
-    .required('Please enter your Last Name')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter your last name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   expirationDate: yup.string().required('Please enter your Date'),
   csc: yup
     .string()
-    .label('CSC')
     .required('Please enter your CSC')
-    .matches(/[0-9]{3}/, 'Please enter correct CSC'),
+    .matches(/^[0-9]+$/, 'Please enter a valid CSC')
+    .min(3, 'The field should contain at least 3 symbols')
+    .max(4, 'The field should be less than or equal to 4 symbols '),
+
   address: yup
     .string()
-    .required('Please enter your Address')
+    .required('Please enter your street address')
     .min(2, 'This field should contain at least 2 symbols'),
   city: yup
     .string()
-    .required('Please enter your City')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
+    .required('Please enter your city')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
     .min(2, 'This field should contain at least 2 symbols'),
-  state: yup.string().required('Please enter your State'),
+  state: yup.string().required('Please enter your state'),
   postalCode: yup
     .string()
-    .matches(/[0-9]{5}/, 'Please enter correct code')
-    .required('Please enter Code'),
+    .matches(/[0-9]{5}/, 'Please enter a valid postal code')
+    .required('Please enter your postal code'),
   phone: yup
     .string()
     .required('Please enter your phone number')
     .matches(
       /^[\\(]{0,1}([0-9]){3}[\\)]{0,1}[ ]?([^0-1]){1}([0-9]){2}[ ]?[-]?[ ]?([0-9]){4}[ ]*((x){0,1}([0-9]){1,5}){0,1}$/,
       {
-        message: 'Enter correct number',
+        message: 'Please check your mobile number format',
       },
     ),
 });
@@ -250,39 +264,40 @@ export const cardSchema = yup.object().shape({
 export const bankSchema = yup.object().shape({
   name: yup
     .string()
-    .required('Please enter your Name on Card')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
+    .required('Please enter your bank name')
+    .max(100, 'The field should be less than or equal to 100 symbols ')
     .min(2, 'This field should contain at least 2 symbols'),
-  cardNumber: yup
+  routingNumber: yup
     .string()
-    .required('Please enter your Card Number')
+    .required('Please enter your routing number')
     .label('Number')
-    .matches(/[0-9]{4}/, 'Please enter correct number'),
+    .matches(/^[0-9]+$/, 'Please enter a valid routing number')
+    .min(2, 'This field should contain at least 2 symbols'),
   accountNumber: yup
     .string()
-    .required('Please enter your Card Number')
-    .max(8)
-    .label('Number')
-    .matches(/[0-9]{8}/, 'Please enter correct number'),
-  accountType: yup.string().required('Please enter your State'),
+    .required('Please enter your account number')
+    .matches(/^[0-9]+$/, 'Please enter a valid account number')
+    .min(2, 'This field should contain at least 2 symbols'),
+  accountType: yup.string().required('Please enter your account type'),
   accountName: yup
     .string()
-    .required('Please enter Exact Account Name')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter your exact account name')
+    .min(2, 'This field should contain at least 2 symbols')
+    .max(100, 'The field should be less than or equal to 100 symbols '),
   address: yup
     .string()
-    .required('Please enter your Address')
+    .required('PPlease enter your street address')
     .min(2, 'This field should contain at least 2 symbols'),
   city: yup
     .string()
-    .required('Please enter your City')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
+    .required('Please enter your city')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
     .min(2, 'This field should contain at least 2 symbols'),
-  state: yup.string().required('Please enter your State'),
+  state: yup.string().required('Please enter your state'),
   postalCode: yup
     .string()
-    .matches(/[0-9]{5}/, 'Please enter correct code')
-    .required('Please enter Code'),
+    .matches(/[0-9]{5}/, 'Please enter a valid postal code')
+    .required('Please enter your postal code'),
 });
 
 export const buySchema = yup.object().shape({

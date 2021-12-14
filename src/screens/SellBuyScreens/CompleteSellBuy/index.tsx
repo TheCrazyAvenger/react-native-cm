@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, StatusBar, View} from 'react-native';
 import {BuyingInfo, CredentialsItem, OrderInfo, Wrapper} from '@components';
 import {Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
@@ -17,6 +17,15 @@ export const CompleteSellBuy: React.FC = () => {
   const {amountOz, paymentMethod, amount, data, order, type} = route.params;
   const {name, spot, id} = data;
   const {operationType} = route.params;
+
+  useEffect(() => {
+    navigation.setOptions({
+      title:
+        operationType === 'Sell'
+          ? 'Selling Confirmation'
+          : 'Buying Confirmation',
+    });
+  }, []);
 
   return (
     <Screen>

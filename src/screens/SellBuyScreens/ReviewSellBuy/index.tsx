@@ -21,6 +21,12 @@ export const ReviewSellBuy: React.FC = () => {
   const {name, spot} = data;
   const {type} = route.params;
 
+  useEffect(() => {
+    navigation.setOptions({
+      title: type === 'Sell' ? 'Selling Confirmation' : 'Buying Confirmation',
+    });
+  }, []);
+
   let myInterval: any = null;
   const [minutes, setMinutes] = useState(3);
   const [seconds, setSeconds] = useState(0);

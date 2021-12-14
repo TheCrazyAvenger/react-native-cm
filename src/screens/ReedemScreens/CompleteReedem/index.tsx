@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, StatusBar, View} from 'react-native';
 import {OrderInfo, ReedemInfo, TaxItem, Wrapper} from '@components';
 import {SubtitleMedium, TitleMedium} from '@Typography';
@@ -12,6 +12,12 @@ export const CompleteReedem: React.FC = () => {
   const navigation: any = useNavigation();
 
   const route: any = useRoute();
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: 'Redeeming Confirmation',
+    });
+  }, []);
 
   const {shippingMethod, paymentMethod, cart, type, amount, order} =
     route.params;

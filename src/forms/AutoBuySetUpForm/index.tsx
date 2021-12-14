@@ -2,7 +2,6 @@ import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import {autoBuySchema} from '..';
 import {Screens} from '@constants';
 import {styles} from './styles';
 import {
@@ -16,6 +15,20 @@ import {getNextDay, getNextYear, validateNumbers} from '@utilities';
 import {Description, TitleMedium, Error} from '@Typography';
 import {TextButton} from '@ui';
 import * as yup from 'yup';
+
+const autoBuySchema = yup.object().shape({
+  startDate: yup.string().required('Please enter Start Date'),
+  endDate: yup
+    .string()
+    .notOneOf([yup.ref('startDate')], 'Start Date must come before End Date')
+    .label('End Date')
+    .required('Please enter End Date'),
+  frequency: yup.string().required('Please enter Frequency'),
+  amount: yup
+    .number()
+    .required('Please enter amount')
+    .min(1, 'Minimum purchase amount is .001 ounces.'),
+});
 
 export const AutoBuySetUpForm: React.FC = () => {
   const navigation: any = useNavigation();
@@ -59,7 +72,7 @@ export const AutoBuySetUpForm: React.FC = () => {
       paymentMethod,
       startDate,
       endDate: !checkBox ? endDate : null,
-      metal: type ? prevValues.metal : data.metal,
+      metal: type ? prevValues.metal : data.name,
       id: type ? prevValues.id : null,
     });
   };
@@ -95,7 +108,10 @@ export const AutoBuySetUpForm: React.FC = () => {
           } else {
             setFieldValue(field, date);
           }
-          if (new Date(values.endDate) < new Date(values.startDate)) {
+          if (
+            new Date(date) <= new Date(values.startDate) &&
+            field === 'endDate'
+          ) {
             const currentDate = new Date(values.startDate);
 
             setFieldValue('endDate', getNextDay(currentDate));

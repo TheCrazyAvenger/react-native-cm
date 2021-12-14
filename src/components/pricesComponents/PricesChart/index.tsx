@@ -25,6 +25,7 @@ const Shadow: React.FC = ({line, lineColor}: {line: any; lineColor: any}) => (
 export const PricesChart: React.FC<PricesChartProps> = ({
   chartMetal,
   lineColor,
+  metalData,
 }) => {
   const navigation: any = useNavigation();
 
@@ -52,8 +53,8 @@ export const PricesChart: React.FC<PricesChartProps> = ({
           <TextButton
             title="Sell"
             onPress={() =>
-              navigation.navigate(Screens.sellBuyStack, {
-                metalType: chartMetal - 1,
+              navigation.navigate(Screens.sellBuySetup, {
+                data: metalData,
                 type: 'Sell',
               })
             }
@@ -64,8 +65,8 @@ export const PricesChart: React.FC<PricesChartProps> = ({
             title="Buy"
             solid
             onPress={() =>
-              navigation.navigate(Screens.sellBuyStack, {
-                metalType: chartMetal - 1,
+              navigation.navigate(Screens.sellBuySetup, {
+                data: metalData,
                 type: 'Buy',
               })
             }

@@ -26,23 +26,24 @@ export const AppNavigator: React.FC = () => {
       const value = await AsyncStorage.getItem('@viewedOnboarding');
       // await AsyncStorage.removeItem('@viewedOnboarding');
 
-      if (value !== null) {
+      if (value === null) {
+        setShowOnboarding(true);
+        return SplashScreen.hide();
+      } else {
+        await dispatch(getData());
+
+        await dispatch(getOperations());
+        await dispatch(getAutoBuy());
+        await dispatch(getPriceAlerts());
+        await dispatch(getPaymentMethod());
+
         setShowOnboarding(false);
+
         SplashScreen.hide();
+        return setLoading(false);
       }
-
-      await dispatch(getData());
-
-      await dispatch(getOperations());
-      await dispatch(getAutoBuy());
-      await dispatch(getPriceAlerts());
-      await dispatch(getPaymentMethod());
-
-      setShowOnboarding(true);
-
-      SplashScreen.hide();
-      return setLoading(false);
     } catch (e) {
+      setShowOnboarding(true);
       SplashScreen.hide();
       setLoading(false);
       console.log(e);
