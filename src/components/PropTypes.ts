@@ -48,10 +48,12 @@ export type SocialBlockProps = {
 export type FormInputProps = {
   label?: string;
   plaseholder: string;
-  onChangeText: any;
-  onFocus: any;
-  onBlur: any;
-  onInput?: any;
+  onChangeText: (...args: any) => void;
+  onFocus: (...args: any) => void;
+  onBlur: (...args: any) => void;
+  onInput?: (...args: any) => void;
+  onContentSizeChange?: (...args: any) => void;
+  height?: number;
   leftPrefix?: string;
   value: any;
   errorMessage?: any;
@@ -67,6 +69,7 @@ export type FormInputProps = {
   errorStyle?: {[key: string]: number | string};
   maxLength?: number;
   showError?: boolean;
+  multiline?: boolean;
   autoFocus?: boolean;
 };
 

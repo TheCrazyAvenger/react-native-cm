@@ -5,6 +5,7 @@ import {PricesItem} from '../PricesItem';
 import {PricesPaginator} from '../PricesPaginator';
 import {styles} from './styles';
 import {LoadingItem} from '@components';
+import {Subtitle} from '@Typography';
 
 export const PricesGraph: React.FC<{
   id: number;
@@ -24,7 +25,7 @@ export const PricesGraph: React.FC<{
 
   return (
     <View>
-      {data && !isLoading ? (
+      {data ? (
         <View>
           <FlatList
             data={data}
@@ -48,9 +49,13 @@ export const PricesGraph: React.FC<{
           />
           <PricesPaginator data={data} currentIndex={currentIndex} />
         </View>
-      ) : (
+      ) : isLoading ? (
         <View style={styles.container}>
           <LoadingItem />
+        </View>
+      ) : (
+        <View style={styles.container}>
+          <Subtitle>No data</Subtitle>
         </View>
       )}
     </View>

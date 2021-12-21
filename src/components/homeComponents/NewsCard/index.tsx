@@ -3,7 +3,7 @@ import React, {useMemo, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {NewsCardProps, NumberPagination, ViewMoreButton, Wrapper} from '../..';
 import {colors, Screens} from '@constants';
-import {Description, SubtitleMedium, TitleMedium} from '@Typography';
+import {Description, Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {getTime, removeTags} from '@utilities';
 import {LoadingItem} from '@components';
@@ -37,7 +37,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({data, isLoading, style}) => {
           )}
         </View>
         <View>
-          {!isLoading ? (
+          {data.length !== 0 ? (
             currentNewsData.map((item: any, i: number) => {
               const {id, title, body, url, created_at, user_update} = item;
 
@@ -72,8 +72,12 @@ export const NewsCard: React.FC<NewsCardProps> = ({data, isLoading, style}) => {
                 </View>
               );
             })
+          ) : isLoading ? (
+            <View style={{height: 24}}>
+              <LoadingItem />
+            </View>
           ) : (
-            <LoadingItem />
+            <Subtitle>Empty</Subtitle>
           )}
         </View>
       </View>

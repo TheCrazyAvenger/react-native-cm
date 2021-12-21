@@ -6,18 +6,24 @@ import {Screens} from '@constants';
 import {styles} from './styles';
 import {useGetDigitalProductsQuery} from '@api';
 import {LoadingItem} from '@components';
+import {Subtitle} from '@Typography';
 
 export const MetalsCard: React.FC<MetalsCardProps> = ({metalId}) => {
   const navigation: any = useNavigation();
 
-  const {data = [], isLoading} =
+  const {data = [], isLoading, error} =
     // @ts-ignore
     useGetDigitalProductsQuery();
 
   return (
-    <View style={{...styles.container, height: isLoading ? 188 : 'auto'}}>
+    <View
+      style={{...styles.container, height: isLoading || error ? 188 : 'auto'}}>
       {data === [] || isLoading ? (
         <LoadingItem />
+      ) : error ? (
+        <View style={styles.noData}>
+          <Subtitle>No data</Subtitle>
+        </View>
       ) : (
         <TouchableOpacity
           activeOpacity={0.7}

@@ -134,7 +134,7 @@ export const authSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(getData.fulfilled, (state, action: PayloadAction<any>) => {
-      if (action.payload) {
+      if (action.payload.data) {
         const {
           token,
           userEmail,
@@ -149,7 +149,7 @@ export const authSlice = createSlice({
           ownedMetals,
           loginMethods,
           notifications,
-        } = action.payload;
+        } = action.payload.data;
 
         state.token = token;
         state.verified = verified;
@@ -164,6 +164,9 @@ export const authSlice = createSlice({
         state.ownedMetals = ownedMetals;
         state.loginMethods = loginMethods;
         state.notifications = notifications;
+      }
+      if (action.payload.error) {
+        state.error = action.payload.error;
       }
     });
     builder.addCase(

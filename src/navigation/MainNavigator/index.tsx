@@ -6,6 +6,7 @@ import {
   ChooseBuy,
   ChooseSell,
   CompleteSellBuy,
+  ContactUs,
   CookiePolicy,
   Notifications,
   Passcode,
@@ -123,6 +124,11 @@ export const MainNavigator: React.FC = () => {
           name={Screens.passcode}
           options={{title: 'Secure with a passcode'}}
           component={Passcode}
+        />
+        <Stack.Screen
+          name={Screens.contactUs}
+          options={{title: 'Contact Us'}}
+          component={ContactUs}
         />
       </Stack.Group>
       <Stack.Group

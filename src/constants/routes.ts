@@ -49,6 +49,7 @@ export enum Screens {
   transactions = 'transactions',
   storageFees = 'storageFees',
   passcode = 'passcode',
+  contactUs = 'contactUs',
 
   verificationStack = 'verificationStack',
   verification = 'verification',

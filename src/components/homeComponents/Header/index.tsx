@@ -17,12 +17,14 @@ export const Header: React.FC = () => {
   const operations = useAppSelector(state => state.operations.operations);
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
 
-  const {data = [], isLoading} =
+  const {data = [], isLoading, error} =
     // @ts-ignore
     useGetDigitalProductsQuery();
 
+  console.log(error);
+
   useEffect(() => {
-    if (!isLoading && data !== []) {
+    if (!isLoading && data !== [] && !error) {
       const {gainsLosses, metalHoldings} = getGainsLosses(
         data,
         operations,

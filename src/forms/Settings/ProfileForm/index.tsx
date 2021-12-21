@@ -78,7 +78,6 @@ export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
                 plaseholder="Your First Name"
                 onChangeText={handleChange('firstName')}
                 onFocus={() => setFieldTouched('firstName', false)}
-                onInput={() => values.checkBox}
                 value={values.firstName}
                 errorMessage={errors.firstName}
                 isTouched={touched.firstName}

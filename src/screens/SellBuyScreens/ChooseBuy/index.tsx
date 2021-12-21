@@ -1,7 +1,7 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React from 'react';
 import {StatusBar} from 'react-native';
-import {LoadingItem, ProductItem} from '@components';
+import {EmptyDataScreen, LoadingItem, ProductItem} from '@components';
 import {Screens} from '@constants';
 import {Screen} from '@ui';
 import {useGetDigitalProductsQuery} from '@api';
@@ -11,10 +11,21 @@ export const ChooseBuy: React.FC = () => {
   const route: any = useRoute();
 
   //@ts-ignore
-  const {data = [], isLoading} = useGetDigitalProductsQuery();
+  const {data = [], isLoading, error} = useGetDigitalProductsQuery();
 
   if (isLoading || data === []) {
     return <LoadingItem />;
+  }
+
+  if (error) {
+    return (
+      <EmptyDataScreen
+        title="No data"
+        text="Please refresh page"
+        buttonTitle="Refresh"
+        onPress={() => navigation.replace(Screens.chooseBuy)}
+      />
+    );
   }
 
   return (

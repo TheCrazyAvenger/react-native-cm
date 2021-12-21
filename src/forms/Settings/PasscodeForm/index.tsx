@@ -43,7 +43,7 @@ export const PasscodeForm: React.FC<{
         .set(passcode);
       await dispatch(setPasscode({loginMethod: 'passcode', value: passcode}));
       await setLoading(false);
-      navigation.goBack();
+      navigation.goBack({passcode: true});
     } catch (e) {
       console.log(e);
     }

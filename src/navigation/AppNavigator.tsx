@@ -14,6 +14,9 @@ import SplashScreen from 'react-native-splash-screen';
 
 export const AppNavigator: React.FC = () => {
   const token = useAppSelector(state => state.auth.token);
+  const error = useAppSelector(state => state.auth.error);
+
+  console.log(error);
 
   const dispatch = useAppDispatch();
 
@@ -51,6 +54,7 @@ export const AppNavigator: React.FC = () => {
   };
 
   useEffect(() => {
+    SplashScreen.hide();
     checkOnboarding();
   }, []);
 

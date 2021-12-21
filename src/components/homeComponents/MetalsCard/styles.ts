@@ -16,4 +16,9 @@ export const styles = StyleSheet.create({
   cardTitle: {
     fontFamily: 'OpenSans-Bold',
   },
+  noData: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

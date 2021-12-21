@@ -17,7 +17,6 @@ export const MobileVerSuccess: React.FC = () => {
   const dispatch = useAppDispatch();
   const [error, setError] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
-  console.log(route.params.values);
 
   const goToNext = async () => {
     const {email, mobile, password, firstName, lastName} = route.params.values;

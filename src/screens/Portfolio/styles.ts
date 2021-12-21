@@ -12,4 +12,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  noData: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 150,
+  },
 });

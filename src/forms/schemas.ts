@@ -336,3 +336,38 @@ export const fundWithdrawSchema = yup.object().shape({
     .max(500000, 'Maximum amount is $500,000.00'),
   paymentMethod: yup.string().required('Please enter Payment Method'),
 });
+
+export const contactUsSchema = yup.object().shape({
+  firstName: yup
+    .string()
+    .required('Please enter your first name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
+  lastName: yup
+    .string()
+    .required('Please enter your last name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
+  email: yup
+    .string()
+    .email('Please check your email format')
+    .required('Please enter your email')
+    .max(64, 'This field should be less than or equal to 64 symbols'),
+  mobile: yup
+    .string()
+    .required('Please enter your phone number')
+    .matches(/^\+[1-9]{1}[0-9]{3,14}$/, {message: 'Enter correct number'}),
+  message: yup
+    .string()
+    .required('Please enter your message')
+    .max(250, 'The field should be less than or equal to 10 symbols ')
+    .min(10, 'This field should contain at least 10 symbols'),
+});

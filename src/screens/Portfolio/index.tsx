@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {LoadingItem, MetalsInfo, PortfolioHeader} from '@components';
+import {LoadingItem, MetalsInfo, PortfolioHeader, Wrapper} from '@components';
 import {Subtitle} from '@Typography';
 import {Screen} from '@ui';
 import {styles} from './styles';
 import {useGetDigitalProductsQuery} from '@api';
 import {useAppSelector} from '@hooks';
 import {getGainsLosses, numberWithCommas} from '@utilities';
+import {colors} from '@constants';
 
 export const Portfolio: React.FC = () => {
   const cashBalance = useAppSelector(state => state.auth.cashBalance);
@@ -14,12 +15,12 @@ export const Portfolio: React.FC = () => {
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
   const [gainsLosses, setGainsLosses] = useState(0);
 
-  const {data = [], isLoading} =
+  const {data = [], isLoading, error} =
     // @ts-ignore
     useGetDigitalProductsQuery();
 
   useEffect(() => {
-    if (!isLoading && data !== []) {
+    if (!isLoading && data !== [] && !error) {
       const {gainsLosses} = getGainsLosses(data, operations, ownedMetals);
       setGainsLosses(gainsLosses);
     }
@@ -39,6 +40,13 @@ export const Portfolio: React.FC = () => {
       <View style={{marginTop: -80}}>
         {data === [] || isLoading ? (
           <LoadingItem />
+        ) : error ? (
+          <View>
+            <View style={styles.noData}>
+              <Subtitle>No data</Subtitle>
+            </View>
+            <Wrapper style={{backgroundColor: colors.primary, marginTop: 0}} />
+          </View>
         ) : (
           data.data.map((item: any) => (
             <MetalsInfo key={item.name} data={item} />

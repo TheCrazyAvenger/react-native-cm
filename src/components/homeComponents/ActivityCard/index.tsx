@@ -4,7 +4,7 @@ import {ViewMoreButton, Wrapper} from '../..';
 import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {getColor, getOperationImage, numberWithCommas} from '@utilities';
-import {Description, SubtitleMedium, TitleMedium} from '@Typography';
+import {Description, Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {getOperations} from '@store/actions/operations';
 import {LoadingItem} from '@components';
@@ -33,7 +33,9 @@ export const ActivityCard: React.FC = () => {
     <View style={styles.container}>
       <TitleMedium style={{marginBottom: 20}}>Recent Activity</TitleMedium>
       {loading ? (
-        <LoadingItem />
+        <View style={{height: 24}}>
+          <LoadingItem />
+        </View>
       ) : operations.length > 0 ? (
         operations
           .filter((item: any) => item.type)
@@ -77,7 +79,7 @@ export const ActivityCard: React.FC = () => {
             );
           })
       ) : (
-        <SubtitleMedium>Empty</SubtitleMedium>
+        <Subtitle>Empty</Subtitle>
       )}
       {!loading && operations.length > 0 ? (
         <ViewMoreButton

@@ -4,7 +4,7 @@ import {BASE_URL} from '@env';
 export const productsApi = createApi({
   reducerPath: 'productsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: BASE_URL,
+    baseUrl: 'https://qa-backend.jmgoldx.com/api/',
   }),
   endpoints: builder => ({
     getDigitalProducts: builder.query({

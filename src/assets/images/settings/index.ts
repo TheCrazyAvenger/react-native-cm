@@ -52,6 +52,9 @@ import Discover from './paymentMethods/discover.svg';
 import LeftArrow from './leftArrow.svg';
 import RightArrow from './rightArrow.svg';
 
+import Mail from './mail.svg';
+import PhoneCall from './phoneCall.svg';
+
 export {
   Alerts,
   PaymentMethods,
@@ -97,4 +100,6 @@ export {
   Discover,
   LeftArrow,
   RightArrow,
+  Mail,
+  PhoneCall,
 };

@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Platform, StatusBar, TouchableOpacity} from 'react-native';
 import {
   Alerts,
@@ -255,7 +255,7 @@ When complete, navigate back to the CyberMetals app to proceed."
         />
         <MenuItemSmall
           title="Contact Us"
-          onPress={() => console.log('Go to Contact Us')}
+          onPress={() => navigation.navigate(Screens.contactUs)}
         />
         <MenuItemSmall title="FAQ" onPress={() => console.log('Go to FAQ')} />
         <MenuItemSmall
