@@ -30,6 +30,7 @@ export const LogInForm: React.FC<{
         values,
         errors,
         touched,
+        isValid,
         setFieldTouched,
       }) => (
         <View style={styles.container}>
@@ -75,7 +76,7 @@ export const LogInForm: React.FC<{
             title="Log in"
             solid
             loading={loading}
-            disabled={loading}
+            disabled={loading || !isValid}
             onPress={handleSubmit}
             style={{marginHorizontal: 10}}
           />

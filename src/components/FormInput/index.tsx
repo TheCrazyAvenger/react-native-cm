@@ -76,6 +76,7 @@ export const FormInput: React.FC<FormInputProps> = ({
             style={{
               ...styles.leftPrefix,
               color: value === '' ? colors.placeholder : colors.black,
+              top: label ? 38 : 13,
             }}>
             {leftPrefix}
           </SubtitleMedium>

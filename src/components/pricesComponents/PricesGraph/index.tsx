@@ -1,11 +1,9 @@
 import React, {useRef, useState} from 'react';
 import {Animated, FlatList, View} from 'react-native';
-import {metals} from '@utilities';
 import {PricesItem} from '../PricesItem';
 import {PricesPaginator} from '../PricesPaginator';
 import {styles} from './styles';
-import {LoadingItem} from '@components';
-import {Subtitle} from '@Typography';
+import {EmptyDataScreen, LoadingItem} from '@components';
 
 export const PricesGraph: React.FC<{
   id: number;
@@ -55,7 +53,7 @@ export const PricesGraph: React.FC<{
         </View>
       ) : (
         <View style={styles.container}>
-          <Subtitle>No data</Subtitle>
+          <EmptyDataScreen style={{marginTop: 160}} title="No data" />
         </View>
       )}
     </View>

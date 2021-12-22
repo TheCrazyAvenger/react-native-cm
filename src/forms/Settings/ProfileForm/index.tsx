@@ -10,9 +10,10 @@ import {Description, Subtitle} from '@Typography';
 import {states} from '@utilities';
 import {colors} from '@constants';
 
-export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
-  onSubmit,
-}) => {
+export const ProfileForm: React.FC<{
+  onSubmit: (...args: any) => void;
+  loading: boolean;
+}> = ({onSubmit, loading}) => {
   const email = useAppSelector(state => state.auth.userEmail);
   const firstName = useAppSelector(state => state.auth.firstName);
   const lastName = useAppSelector(state => state.auth.lastName);
@@ -51,6 +52,7 @@ export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
         handleSubmit,
         values,
         errors,
+        isValid,
         touched,
         setFieldValue,
         setFieldTouched,
@@ -225,6 +227,8 @@ export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
             <TextButton
               title="Save Changes"
               solid
+              loading={loading}
+              disabled={!isValid || loading}
               style={{marginBottom: 25}}
               onPress={handleSubmit}
             />

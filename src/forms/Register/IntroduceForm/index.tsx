@@ -34,6 +34,7 @@ export const IntroduceForm: React.FC = () => {
         values,
         errors,
         touched,
+        isValid,
         setFieldTouched,
         setFieldValue,
       }) => {
@@ -84,6 +85,7 @@ export const IntroduceForm: React.FC = () => {
             <PaginationFooter
               data={slides}
               currentIndex={0}
+              disabled={!isValid}
               onPress={handleSubmit}
               title="Continue"
               style={styles.footer}

@@ -1,6 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {LoadingItem, MetalsInfo, PortfolioHeader, Wrapper} from '@components';
+import {
+  EmptyDataScreen,
+  LoadingItem,
+  MetalsInfo,
+  PortfolioHeader,
+  Wrapper,
+} from '@components';
 import {Subtitle} from '@Typography';
 import {Screen} from '@ui';
 import {styles} from './styles';
@@ -43,7 +49,7 @@ export const Portfolio: React.FC = () => {
         ) : error ? (
           <View>
             <View style={styles.noData}>
-              <Subtitle>No data</Subtitle>
+              <EmptyDataScreen style={{marginTop: 20}} title="No data" />
             </View>
             <Wrapper style={{backgroundColor: colors.primary, marginTop: 0}} />
           </View>

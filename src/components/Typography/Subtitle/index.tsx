@@ -4,6 +4,18 @@ import {TextProps} from '../..';
 
 import {styles} from './styles';
 
-export const Subtitle: React.FC<TextProps> = ({children, style}) => {
-  return <Text style={{...styles.default, ...style}}>{children}</Text>;
+export const Subtitle: React.FC<TextProps> = ({
+  children,
+  style,
+  numberOfLines,
+  onPress,
+}) => {
+  return (
+    <Text
+      numberOfLines={numberOfLines}
+      onPress={onPress}
+      style={{...styles.default, ...style}}>
+      {children}
+    </Text>
+  );
 };

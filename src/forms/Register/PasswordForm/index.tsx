@@ -14,7 +14,8 @@ import * as yup from 'yup';
 
 export const PasswordForm: React.FC<{
   changePassword?: (password: any) => void;
-}> = ({changePassword}) => {
+  loading?: boolean;
+}> = ({changePassword, loading}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
@@ -80,7 +81,7 @@ export const PasswordForm: React.FC<{
         handleSubmit,
         values,
         errors,
-
+        isValid,
         touched,
         setFieldTouched,
       }) => {
@@ -181,12 +182,14 @@ export const PasswordForm: React.FC<{
             {type === 'SignIn' ? (
               <TextButton
                 title="Reset Password"
+                disabled={!isValid}
                 style={{marginVertical: 25}}
                 solid
                 onPress={handleSubmit}
               />
             ) : type === 'Change' ? (
               <TextButton
+                disabled={!isValid || loading}
                 title="Save changes"
                 style={{marginVertical: 25}}
                 solid
@@ -195,6 +198,7 @@ export const PasswordForm: React.FC<{
             ) : (
               <PaginationFooter
                 data={slides}
+                disabled={!isValid}
                 currentIndex={2}
                 onPress={handleSubmit}
                 title="Continue"

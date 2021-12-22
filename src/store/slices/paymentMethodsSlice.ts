@@ -28,6 +28,15 @@ export const paymentMethodsSlice = createSlice({
         action.payload.paymentMethod
       ].filter((item: any) => item.id !== action.payload.id);
     },
+    cleanPaymentMethods: state => {
+      state.paymentMethods = {
+        cashBalance: [],
+        creditCard: [],
+        bankWire: [],
+        payPal: [],
+        eCheck: [],
+      };
+    },
   },
   extraReducers: builder => {
     builder.addCase(
@@ -40,7 +49,7 @@ export const paymentMethodsSlice = createSlice({
     );
   },
 });
-export const {addPaymentMethods, deletePaymentMethods} =
+export const {addPaymentMethods, deletePaymentMethods, cleanPaymentMethods} =
   paymentMethodsSlice.actions;
 
 export default paymentMethodsSlice.reducer;

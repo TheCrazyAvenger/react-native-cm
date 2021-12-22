@@ -8,7 +8,7 @@ import {
   TaxItem,
   Wrapper,
 } from '../..';
-import {colors} from '@constants';
+import {colors, Screens} from '@constants';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {TransactionsModalProps} from '../..';
@@ -152,7 +152,19 @@ export const TransactionsModal: React.FC<TransactionsModalProps> = ({
                 title={`${type} Again`}
                 style={{marginBottom: 15}}
                 onPress={() =>
-                  type === 'Success' ? navigation.pop(3) : navigation.pop(1)
+                  type === 'Buy'
+                    ? navigation.navigate(Screens.sellBuyStack, {type: 'Buy'})
+                    : type === 'Sell'
+                    ? navigation.navigate(Screens.sellBuyStack, {type: 'Sell'})
+                    : type === 'Fund'
+                    ? navigation.navigate(Screens.fundWithdrawStack, {
+                        type: 'Fund',
+                      })
+                    : type === 'Withdraw'
+                    ? navigation.navigate(Screens.fundWithdrawStack, {
+                        type: 'Withdraw',
+                      })
+                    : navigation.navigate(Screens.reedemStack)
                 }
               />
               <TextButton title="Go Back to Transactions" onPress={onPress} />

@@ -53,7 +53,7 @@ export const PaymentMethodsItem: React.FC<PaymentMethodsItemProps> = ({
             <Image />
           </View>
 
-          <View style={{marginLeft: 12}}>
+          <View style={{marginLeft: 12, width: '80%'}}>
             <View style={styles.row}>
               <SubtitleMedium
                 style={{fontFamily: 'OpenSans-Bold', marginRight: 5}}>
@@ -68,7 +68,9 @@ export const PaymentMethodsItem: React.FC<PaymentMethodsItemProps> = ({
                 </View>
               )}
 
-              <Illustration style={{marginRight: 10}}>{fullName}</Illustration>
+              <Illustration numberOfLines={2} style={{paddingRight: 10}}>
+                {fullName}
+              </Illustration>
 
               {isExpiried && (
                 <Illustration style={{color: colors.red}}>

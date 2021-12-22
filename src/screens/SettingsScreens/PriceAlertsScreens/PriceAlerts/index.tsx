@@ -23,7 +23,7 @@ import {TitleMedium} from '@Typography';
 export const PriceAlerts: React.FC = () => {
   const navigation: any = useNavigation();
   const priceAlerts = useAppSelector(state => state.priceAlerts.priceAlerts);
-  const loading = useAppSelector(state => state.auth.loading);
+  const [loading, setLoading] = useState(false);
   const token = useAppSelector(state => state.auth.token);
   const [metalType, setMetalType] = useState(1);
 
@@ -34,9 +34,14 @@ export const PriceAlerts: React.FC = () => {
   }, []);
 
   const getList = async () => {
-    dispatch(setLoading(true));
-    await dispatch(getPriceAlerts());
-    dispatch(setLoading(false));
+    try {
+      setLoading(true);
+      await dispatch(getPriceAlerts());
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      console.log(e);
+    }
   };
 
   const removeItem = async (data: any) => {
@@ -117,7 +122,9 @@ export const PriceAlerts: React.FC = () => {
         title="Create Price Alert"
         solid
         style={{marginBottom: 25}}
-        onPress={() => navigation.navigate(Screens.choosePriceAlert)}
+        onPress={() =>
+          navigation.navigate(Screens.priceAlertSetUp, {id: metalType})
+        }
       />
     </Screen>
   );

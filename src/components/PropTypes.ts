@@ -5,6 +5,7 @@ export type OnboardingItemProps = {
 export type TextProps = {
   style?: {[key: string]: number | string};
   numberOfLines?: number;
+  onPress?: (...args: any) => void;
 };
 
 export type NewsCardProps = {
@@ -30,6 +31,7 @@ export type PaginationFooterProps = {
   onPress: () => void;
   title: string;
   style?: {[key: string]: number | string};
+  disabled?: boolean;
 };
 
 export type CheckBoxProps = {
@@ -89,6 +91,9 @@ export type NotificationProps = {
 
 export type MetalsCardProps = {
   metalId: number;
+  data: any;
+  isLoading: boolean;
+  error: any;
 };
 
 export type MetalsItemProps = {
@@ -276,10 +281,11 @@ export type PriceAlertListItemProps = {
 
 export type EmptyDataScreenProps = {
   title?: string;
-  text: string;
+  text?: string;
   buttonTitle?: string;
   descriptionStyle?: {[key: string]: number | string};
   onPress?: (...args: any) => void;
+  style?: {[key: string]: number | string};
 };
 
 export type FormImagePickerProps = {

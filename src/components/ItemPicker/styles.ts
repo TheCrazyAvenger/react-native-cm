@@ -24,7 +24,6 @@ export const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Regular',
     marginBottom: 6,
     fontWeight: '400',
-    color: colors.gray,
     fontSize: 14,
   },
   item: {
@@ -40,9 +39,8 @@ export const styles = StyleSheet.create({
     borderColor: colors.red,
   },
   error: {
-    position: 'absolute',
-    left: 10,
-    top: 75,
+    marginLeft: 10,
+    marginTop: 10,
   },
   textItem: {
     flex: 1,

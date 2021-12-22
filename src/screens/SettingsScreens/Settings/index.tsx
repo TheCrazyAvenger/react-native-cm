@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Platform, StatusBar, TouchableOpacity} from 'react-native';
 import {
   Alerts,
@@ -37,6 +37,11 @@ import {
   setPasscode,
 } from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
+import {cleanAutoBuy} from '@store/slices/autoBuySlice';
+import {cleanOperations} from '@store/slices/operationsSlice';
+import {cleanPaymentMethods} from '@store/slices/paymentMethodsSlice';
+import {cleanPriceAlerts} from '@store/slices/priceAlertSlice';
+import {cleanCart} from '@store/slices/reedemSlice';
 
 export const Settings: React.FC = () => {
   const [touchIdModal, setTouchIdModal] = useState(false);
@@ -277,7 +282,15 @@ When complete, navigate back to the CyberMetals app to proceed."
           onPress={() => console.log('Go to Share')}
         />
 
-        <TouchableOpacity onPress={() => dispatch(logout())}>
+        <TouchableOpacity
+          onPress={async () => {
+            await dispatch(cleanAutoBuy());
+            await dispatch(cleanOperations());
+            await dispatch(cleanPaymentMethods());
+            await dispatch(cleanPriceAlerts());
+            await dispatch(cleanCart());
+            dispatch(logout());
+          }}>
           <SubtitleMedium style={{color: colors.primary}}>
             Log out
           </SubtitleMedium>

@@ -11,7 +11,8 @@ export const ECheckForm: React.FC<{
   onSubmit: (...args: any) => void;
   type: string;
   label: string;
-}> = ({onSubmit, type, label}) => {
+  loading: boolean;
+}> = ({onSubmit, type, label, loading}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
@@ -34,6 +35,8 @@ export const ECheckForm: React.FC<{
       <View style={styles.buttons}>
         <TextButton
           solid
+          loading={loading}
+          disabled={loading}
           onPress={() =>
             onSubmit({
               paymentMethod: type,

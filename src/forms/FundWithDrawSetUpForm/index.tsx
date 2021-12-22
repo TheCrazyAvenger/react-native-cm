@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {colors, Screens} from '@constants';
 import {styles} from './styles';
@@ -20,9 +20,13 @@ export const FundWithDrawSetUpForm: React.FC = () => {
   );
 
   const [eCheck, setECheck] = useState(
-    //@ts-ignore
-    Object.values(paymentMethods.eCheck)[0].cardNumber,
+    paymentMethods.eCheck.length > 0 ? paymentMethods.eCheck[0].fullName : '',
   );
+
+  useEffect(() => {
+    paymentMethods.eCheck.length > 0 &&
+      setECheck(paymentMethods.eCheck[0].fullName);
+  }, [paymentMethods]);
 
   const {type, paymentMethod} = route.params;
 
@@ -59,6 +63,7 @@ export const FundWithDrawSetUpForm: React.FC = () => {
             <FormInput
               onBlur={() => setFieldTouched('amount', true)}
               label="Amount"
+              leftPrefix="$"
               plaseholder="USD"
               keyboardType="numeric"
               onChangeText={handleChange('amount')}
@@ -85,26 +90,46 @@ export const FundWithDrawSetUpForm: React.FC = () => {
                   title="Link your bank account
               with Plaid"
                   style={{marginHorizontal: 10, paddingHorizontal: 50}}
-                  onPress={() => navigation.navigate(Screens.addBankAccount)}
+                  onPress={() =>
+                    navigation.navigate(Screens.paymentMethodsSetUp, {
+                      type: 'eCheckAdd',
+                    })
+                  }
                 />
               </View>
-            ) : paymentMethod !== 'bankWire' ? (
+            ) : paymentMethod === 'bankWire' &&
+              paymentMethods[paymentMethod].length === 0 ? (
+              <View>
+                <Description style={styles.title}>Account</Description>
+                <TextButton
+                  title="Add Bank Wire"
+                  style={{marginHorizontal: 10, paddingHorizontal: 50}}
+                  onPress={() =>
+                    navigation.navigate(Screens.paymentMethodsSetUp, {
+                      type: 'bankWire',
+                    })
+                  }
+                />
+              </View>
+            ) : (
               <ItemPicker
                 labelStyle={{marginTop: 25}}
                 label="Account"
                 style={styles.eCheckPicker}
                 placeholderStyle={styles.pickerPlaceholder}
-                items={paymentMethods.eCheck.map((item: any) => ({
-                  label: item.cardNumber,
-                  value: item.cardNumber,
+                items={paymentMethods[paymentMethod].map((item: any) => ({
+                  label: item.fullName,
+                  value: item.fullName,
                 }))}
+                errorMessage={errors.paymentMethod}
+                isTouched={touched.paymentMethod}
                 maxHeight={150}
-                value={eCheck}
+                value={values.paymentMethod}
                 onChange={value => {
-                  setECheck(value);
+                  setFieldValue('paymentMethod', value);
                 }}
               />
-            ) : null}
+            )}
 
             <View style={styles.price}>
               <TitleMedium style={styles.priceTitle}>Total</TitleMedium>

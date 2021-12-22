@@ -44,7 +44,7 @@ export const ForgotPassSucces: React.FC = () => {
           style={{marginVertical: 25}}
           onPress={() => navigation.navigate(Screens.welcome)}
         />
-        <TextButton
+        {/* <TextButton
           title="Go to Error Page(Dev)"
           onPress={() => navigation.navigate(Screens.forgotPassError)}
         />
@@ -55,7 +55,7 @@ export const ForgotPassSucces: React.FC = () => {
               type: 'SignIn',
             })
           }
-        />
+        /> */}
       </View>
     </Screen>
   );

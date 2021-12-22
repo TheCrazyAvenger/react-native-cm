@@ -129,10 +129,6 @@ export const ReviewBuyForm: React.FC<{
     }
   };
 
-  if (loading) {
-    return <LoadingItem />;
-  }
-
   return (
     <Formik
       validationSchema={reviewBuySchema}
@@ -164,7 +160,8 @@ export const ReviewBuyForm: React.FC<{
             <View>
               <TextButton
                 solid
-                disabled={values.checkBox === false}
+                loading={loading}
+                disabled={values.checkBox === false || loading}
                 style={{marginBottom: 20}}
                 title="Confirm Buy"
                 onPress={handleSubmit}

@@ -1,10 +1,10 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useEffect, useState} from 'react';
-import {StatusBar, TouchableOpacity, View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import {AutoBuyItemProps, ModalWindow} from '../..';
 import {Delete, Edit, Warning} from '@assets/images/settings';
 import {colors, Screens} from '@constants';
-import {useAppDispatch, useAppSelector} from '@hooks';
+import {useAppSelector} from '@hooks';
 import {Description, Illustration, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 import {getPaymentName, numberWithCommas} from '@utilities';
@@ -36,8 +36,6 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
       if (today > expiringDate) setIsExpiried(true);
     }
   }, []);
-
-  const dispatch = useAppDispatch();
 
   const containerStyle = [
     styles.container,

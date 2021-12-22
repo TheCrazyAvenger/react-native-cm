@@ -26,7 +26,8 @@ export const CardForm: React.FC<{
   onSubmit: (...args: any) => void;
   type: string;
   label: string;
-}> = ({onSubmit, type, label}) => {
+  loading: boolean;
+}> = ({onSubmit, type, label, loading}) => {
   const [cardType, setCardType] = useState<string | null>(null);
   const navigation: any = useNavigation();
   const paymentMethods = useAppSelector(
@@ -301,9 +302,11 @@ export const CardForm: React.FC<{
               <TextButton
                 style={{marginBottom: 20}}
                 solid
+                loading={loading}
                 disabled={
                   error ||
                   !isValid ||
+                  loading ||
                   cardType === 'Unknown' ||
                   (cardType === 'americanExpress' && values.csc.length < 4)
                 }

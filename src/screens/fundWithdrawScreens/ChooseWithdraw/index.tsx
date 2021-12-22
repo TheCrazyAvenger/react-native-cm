@@ -15,7 +15,7 @@ export const ChooseWithdraw: React.FC = () => {
   );
 
   if (
-    paymentMethods.bankWire.length === 0 ||
+    paymentMethods.bankWire.length === 0 &&
     paymentMethods.eCheck.length === 0
   ) {
     return (

@@ -1,12 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation, useRoute} from '@react-navigation/core';
-import React from 'react';
+import React, {useState} from 'react';
 import {ScrollView, StatusBar, View} from 'react-native';
 import {VerificationComplete as VerComplete} from '@assets/images/settings';
 import {Subtitle, SubtitleMedium} from '@Typography';
 import {Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
-import {setLoading, setVerified} from '@store/slices/authSlice';
+import {setVerified} from '@store/slices/authSlice';
 import {Screen, TextButton} from '@ui';
 import database from '@react-native-firebase/database';
 import {styles} from './styles';
@@ -18,7 +18,7 @@ export const VerificationComplete: React.FC = () => {
 
   const verifed = useAppSelector(state => state.auth.verified);
   const token = useAppSelector(state => state.auth.token);
-  const loading = useAppSelector(state => state.auth.loading);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -26,7 +26,7 @@ export const VerificationComplete: React.FC = () => {
 
   const goToSettings = async () => {
     try {
-      dispatch(setLoading(true));
+      setLoading(true);
       await AsyncStorage.setItem('verified', JSON.stringify(true));
 
       await database()
@@ -34,11 +34,11 @@ export const VerificationComplete: React.FC = () => {
         .update({verified: true});
 
       await dispatch(setVerified(true));
-      await dispatch(setLoading(false));
+      await setLoading(false);
 
       navigation.navigate(Screens.settings);
     } catch (e) {
-      await dispatch(setLoading(false));
+      await setLoading(false);
       console.log(e);
     }
   };
@@ -75,6 +75,8 @@ export const VerificationComplete: React.FC = () => {
         </ScrollView>
         <TextButton
           title="Back to Settings"
+          loading={loading}
+          disabled={loading}
           style={{marginBottom: 25}}
           solid
           onPress={goToSettings}

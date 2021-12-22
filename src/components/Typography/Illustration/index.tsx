@@ -8,9 +8,13 @@ export const Illustration: React.FC<TextProps> = ({
   children,
   style,
   numberOfLines,
+  onPress,
 }) => {
   return (
-    <Text numberOfLines={numberOfLines} style={{...styles.default, ...style}}>
+    <Text
+      numberOfLines={numberOfLines}
+      onPress={onPress}
+      style={{...styles.default, ...style}}>
       {children}
     </Text>
   );

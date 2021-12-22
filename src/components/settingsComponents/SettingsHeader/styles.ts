@@ -7,13 +7,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 49,
-
-    flexWrap: 'wrap',
   },
   userName: {
     fontFamily: 'OpenSans-Bold',
     color: colors.primary,
-    maxWidth: '80%',
+    fontSize: 22,
+    maxWidth: '100%',
   },
   verified: {
     borderWidth: 1,

@@ -11,7 +11,7 @@ import {
 import {colors, Screens} from '@constants';
 import {useAppSelector} from '@hooks';
 import {Screen} from '@ui';
-import {useGetNewsQuery} from '@api';
+import {useGetDigitalProductsQuery, useGetNewsQuery} from '@api';
 
 export const Home: React.FC = () => {
   const navigation: any = useNavigation();
@@ -21,6 +21,10 @@ export const Home: React.FC = () => {
 
   // @ts-ignore
   const {data = [], isLoading} = useGetNewsQuery();
+
+  const {data: metalsData = [], isLoading: isMetalsLoading, error} =
+    // @ts-ignore
+    useGetDigitalProductsQuery();
 
   return (
     <Screen style={{paddingHorizontal: 0}}>
@@ -32,10 +36,30 @@ export const Home: React.FC = () => {
       <Header />
       <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
         <View>
-          <MetalsCard metalId={0} />
-          <MetalsCard metalId={1} />
-          <MetalsCard metalId={2} />
-          <MetalsCard metalId={3} />
+          <MetalsCard
+            data={metalsData}
+            isLoading={isMetalsLoading}
+            error={error}
+            metalId={0}
+          />
+          <MetalsCard
+            data={metalsData}
+            isLoading={isMetalsLoading}
+            error={error}
+            metalId={0}
+          />
+          <MetalsCard
+            data={metalsData}
+            isLoading={isMetalsLoading}
+            error={error}
+            metalId={0}
+          />
+          <MetalsCard
+            data={metalsData}
+            isLoading={isMetalsLoading}
+            error={error}
+            metalId={0}
+          />
         </View>
 
         {operations.filter((item: any) => item.type === 'Buy').length === 0 ? (

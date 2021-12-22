@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {View} from 'react-native';
-import {ViewMoreButton, Wrapper} from '../..';
+import {EmptyDataScreen, ViewMoreButton, Wrapper} from '../..';
 import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {getColor, getOperationImage, numberWithCommas} from '@utilities';
@@ -32,11 +32,7 @@ export const ActivityCard: React.FC = () => {
   return (
     <View style={styles.container}>
       <TitleMedium style={{marginBottom: 20}}>Recent Activity</TitleMedium>
-      {loading ? (
-        <View style={{height: 24}}>
-          <LoadingItem />
-        </View>
-      ) : operations.length > 0 ? (
+      {operations.length > 0 ? (
         operations
           .filter((item: any) => item.type)
           .sort(
@@ -78,8 +74,12 @@ export const ActivityCard: React.FC = () => {
               </View>
             );
           })
+      ) : loading ? (
+        <View style={{height: 251}}>
+          <LoadingItem />
+        </View>
       ) : (
-        <Subtitle>Empty</Subtitle>
+        <EmptyDataScreen style={{marginTop: 50}} title="No recent activity" />
       )}
       {!loading && operations.length > 0 ? (
         <ViewMoreButton

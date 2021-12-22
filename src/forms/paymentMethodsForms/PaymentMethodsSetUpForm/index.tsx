@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
-import React from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import {BankForm, CardForm, paymentMethodSchema, PayPalForm} from '../..';
 import {ItemPicker} from '@components';
@@ -8,7 +8,6 @@ import {useAppDispatch, useAppSelector} from '@hooks';
 import {styles} from './styles';
 import database from '@react-native-firebase/database';
 import {addPaymentMethods} from '@store/slices/paymentMethodsSlice';
-import {setLoading} from '@store/slices/authSlice';
 import {getPaymentImage} from '@utilities';
 import {ECheckForm} from '../ECheckForm';
 
@@ -17,16 +16,15 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
   const route: any = useRoute();
 
   const token = useAppSelector(state => state.auth.token);
-  const paymentMethods = useAppSelector(
-    state => state.paymentMethod.paymentMethods,
-  );
+
+  const [loading, setLoading] = useState(false);
 
   const {type} = route.params;
 
   const dispatch = useAppDispatch();
 
   const onSubmit = async (values: any) => {
-    dispatch(setLoading(true));
+    setLoading(true);
 
     const {paymentMethod} = values;
 
@@ -49,64 +47,65 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
 
     await dispatch(addPaymentMethods(data));
 
-    await dispatch(setLoading(false));
+    await setLoading(false);
 
-    if (
-      navigation.getState().routeNames[0] === 'chooseFund' &&
-      type === 'eCheck'
-    ) {
-      navigation.pop(2);
-    } else {
-      navigation.pop();
-    }
+    navigation.pop();
   };
 
   return (
     <Formik
       validationSchema={paymentMethodSchema}
       initialValues={{
-        paymentMethod: type,
+        paymentMethod: type === 'eCheckAdd' ? 'eCheck' : type,
       }}
       onSubmit={values => onSubmit(values)}>
-      {({
-        values,
-        errors,
-        touched,
-
-        setFieldValue,
-      }) => {
+      {({values, errors, touched, setFieldValue}) => {
         return (
           <View style={styles.container}>
-            <ItemPicker
-              LeftIcon={getPaymentImage(values.paymentMethod)}
-              label="Payment Method"
-              items={[
-                {label: 'Credit/Debit Card', value: 'creditCard'},
-                {label: 'Bank Wire', value: 'bankWire'},
-                {label: 'PayPal', value: 'payPal'},
-                {label: 'ACH/eCheck', value: 'eCheck'},
-              ]}
-              errorMessage={errors.paymentMethod}
-              isTouched={touched.paymentMethod}
-              value={values.paymentMethod}
-              onChange={value => setFieldValue('paymentMethod', value)}
-            />
+            {type === 'eCheckAdd' ? null : (
+              <ItemPicker
+                LeftIcon={getPaymentImage(values.paymentMethod)}
+                label="Payment Method"
+                items={[
+                  {label: 'Credit/Debit Card', value: 'creditCard'},
+                  {label: 'Bank Wire', value: 'bankWire'},
+                  {label: 'PayPal', value: 'payPal'},
+                  {label: 'ACH/eCheck', value: 'eCheck'},
+                ]}
+                errorMessage={errors.paymentMethod}
+                isTouched={touched.paymentMethod}
+                value={values.paymentMethod}
+                onChange={value => setFieldValue('paymentMethod', value)}
+              />
+            )}
             {values.paymentMethod === 'creditCard' && (
               <CardForm
                 onSubmit={onSubmit}
+                loading={loading}
                 type="creditCard"
                 label="Credit/Debit Card"
               />
             )}
             {values.paymentMethod === 'bankWire' && (
-              <BankForm onSubmit={onSubmit} type="bankWire" label="Bank Wire" />
+              <BankForm
+                onSubmit={onSubmit}
+                loading={loading}
+                type="bankWire"
+                label="Bank Wire"
+              />
             )}
             {values.paymentMethod === 'payPal' && (
-              <PayPalForm onSubmit={onSubmit} type="payPal" label="PayPal" />
+              <PayPalForm
+                onSubmit={onSubmit}
+                loading={loading}
+                type="payPal"
+                label="PayPal"
+              />
             )}
             {values.paymentMethod === 'eCheck' && (
               <ECheckForm
                 onSubmit={onSubmit}
+                loading={loading}
                 type="eCheck"
                 label="ACH/eCheck"
               />

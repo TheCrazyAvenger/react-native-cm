@@ -21,4 +21,5 @@ export type SocialButtonProps = {
   onPress: () => void;
   style?: {[key: string]: number | string};
   borderColor: string;
+  disabled?: boolean;
 };

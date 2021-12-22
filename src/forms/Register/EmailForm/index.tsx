@@ -46,6 +46,7 @@ export const EmailForm: React.FC = () => {
         handleSubmit,
         values,
         errors,
+        isValid,
         touched,
         setFieldTouched,
       }) => (
@@ -73,6 +74,7 @@ export const EmailForm: React.FC = () => {
             <PaginationFooter
               data={slides}
               currentIndex={1}
+              disabled={!isValid}
               onPress={handleSubmit}
               title="Continue"
               style={styles.footer}

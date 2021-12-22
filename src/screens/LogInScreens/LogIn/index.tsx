@@ -27,16 +27,13 @@ export const LogIn: React.FC = () => {
       await auth()
         .signInWithEmailAndPassword(userEmail, password)
         .then(async data => {
-          await AsyncStorage.setItem('token', JSON.stringify(data.user.uid));
+          // await AsyncStorage.setItem('token', JSON.stringify(data.user.uid));
           setLoading(false);
-          await dispatch(getData());
 
-          // const mobile = await AsyncStorage.getItem('mobile');
-          // navigation.navigate(Screens.mobileVerCode, {
-          //   type: 'SignIn',
-          //   code: '1234567',
-          //   values: {mobile},
-          // });
+          navigation.navigate(Screens.mobileVerCode, {
+            type: 'SignIn',
+            token: data.user.uid.toString(),
+          });
         })
         .catch(error => {
           if (error.code === 'auth/user-not-found') {

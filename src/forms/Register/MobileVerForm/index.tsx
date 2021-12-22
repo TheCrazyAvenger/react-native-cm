@@ -16,6 +16,7 @@ export const MobileVerForm: React.FC = () => {
     navigation.push(Screens.mobileVerCode, {
       type: 'SignUp',
       values: {...values, ...route.params.values},
+      token: null,
     });
   };
 
@@ -31,6 +32,7 @@ export const MobileVerForm: React.FC = () => {
         handleSubmit,
         values,
         errors,
+        isValid,
         touched,
         setFieldTouched,
       }) => (
@@ -50,6 +52,7 @@ export const MobileVerForm: React.FC = () => {
           <PaginationFooter
             data={slides}
             currentIndex={4}
+            disabled={!isValid}
             onPress={handleSubmit}
             title="Continue"
             style={styles.footer}

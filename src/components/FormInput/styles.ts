@@ -35,7 +35,7 @@ export const styles = StyleSheet.create({
   },
   leftPrefix: {
     position: 'absolute',
-    top: 11,
+
     left: 20,
   },
 });

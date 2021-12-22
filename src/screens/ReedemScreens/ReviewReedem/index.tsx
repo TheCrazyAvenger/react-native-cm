@@ -22,7 +22,7 @@ export const ReviewReedem: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
-  const loading = useAppSelector(state => state.auth.loading);
+  const [loading, setLoading] = useState(false);
   const cashBalance = useAppSelector(state => state.auth.cashBalance);
   const token = useAppSelector(state => state.auth.token);
 
@@ -87,7 +87,7 @@ export const ReviewReedem: React.FC = () => {
         id,
       };
 
-      dispatch(setLoading(true));
+      setLoading(true);
 
       await database().ref(`/users/${token}/operations/${id}`).set(data);
 
@@ -101,7 +101,7 @@ export const ReviewReedem: React.FC = () => {
         .update({cashBalance: newCashValue});
       await dispatch(updateCash(newCashValue));
 
-      await dispatch(setLoading(false));
+      await setLoading(false);
 
       clearInterval(myInterval);
 
@@ -114,7 +114,7 @@ export const ReviewReedem: React.FC = () => {
         type: 'Success',
       });
     } catch (e) {
-      await dispatch(setLoading(false));
+      await setLoading(false);
       clearInterval(myInterval);
       navigation.navigate(Screens.completeReedem, {
         paymentMethod,
@@ -128,10 +128,6 @@ export const ReviewReedem: React.FC = () => {
       console.log(e);
     }
   };
-
-  if (loading) {
-    return <LoadingItem />;
-  }
 
   return (
     <Screen>
@@ -195,7 +191,8 @@ export const ReviewReedem: React.FC = () => {
         <View>
           <TextButton
             solid
-            disabled={checkBox === false}
+            loading={loading}
+            disabled={checkBox === false || loading}
             style={{marginBottom: 20}}
             title="Confirm Redemption"
             onPress={reedemHandler}

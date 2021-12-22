@@ -20,6 +20,9 @@ export const operationsSlice = createSlice({
         (item: any) => item.id !== action.payload.id,
       );
     },
+    cleanOperations: state => {
+      state.operations = [];
+    },
   },
   extraReducers: builder => {
     builder.addCase(
@@ -32,6 +35,7 @@ export const operationsSlice = createSlice({
     );
   },
 });
-export const {addOperation, deleteOperation} = operationsSlice.actions;
+export const {addOperation, deleteOperation, cleanOperations} =
+  operationsSlice.actions;
 
 export default operationsSlice.reducer;

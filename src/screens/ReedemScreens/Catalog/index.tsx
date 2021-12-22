@@ -55,7 +55,13 @@ export const Catalog: React.FC = () => {
           markedColor={colors.primary}
           showAll={true}
         />
-        <Wrapper style={{marginTop: 4, backgroundColor: colors.primary}} />
+        <Wrapper
+          style={{
+            marginTop: 4,
+            marginBottom: 0,
+            backgroundColor: colors.primary,
+          }}
+        />
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.catalogList}>
             {reedemList.length !== 0 ? (

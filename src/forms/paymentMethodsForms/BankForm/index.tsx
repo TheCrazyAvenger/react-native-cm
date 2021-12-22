@@ -14,7 +14,8 @@ export const BankForm: React.FC<{
   onSubmit: (...args: any) => void;
   type: string;
   label: string;
-}> = ({onSubmit, type, label}) => {
+  loading: boolean;
+}> = ({onSubmit, type, label, loading}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
@@ -233,7 +234,8 @@ export const BankForm: React.FC<{
               <TextButton
                 style={{marginBottom: 20}}
                 solid
-                disabled={!isValid || error}
+                loading={loading}
+                disabled={!isValid || error || loading}
                 title="Add"
                 onPress={handleSubmit}
               />

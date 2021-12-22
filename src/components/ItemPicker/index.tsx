@@ -38,7 +38,7 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
         <Description
           style={{
             ...labelStyle,
-            ...(errorMessage && isTouched ? styles.errorLabel : null),
+            color: errorMessage && isTouched ? colors.red : colors.gray,
             ...styles.label,
             marginBottom: 6,
             marginHorizontal: 10,

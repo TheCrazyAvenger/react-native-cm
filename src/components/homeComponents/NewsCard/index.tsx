@@ -1,7 +1,13 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useMemo, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
-import {NewsCardProps, NumberPagination, ViewMoreButton, Wrapper} from '../..';
+import {
+  EmptyDataScreen,
+  NewsCardProps,
+  NumberPagination,
+  ViewMoreButton,
+  Wrapper,
+} from '../..';
 import {colors, Screens} from '@constants';
 import {Description, Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
@@ -73,11 +79,11 @@ export const NewsCard: React.FC<NewsCardProps> = ({data, isLoading, style}) => {
               );
             })
           ) : isLoading ? (
-            <View style={{height: 24}}>
+            <View style={{height: 251}}>
               <LoadingItem />
             </View>
           ) : (
-            <Subtitle>Empty</Subtitle>
+            <EmptyDataScreen style={{marginTop: 50}} title="No news" />
           )}
         </View>
       </View>

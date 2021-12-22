@@ -16,11 +16,13 @@ export const SettingsHeader: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{marginBottom: 25}}>
+      <View style={{marginBottom: 25, maxWidth: '70%'}}>
         <TitleMedium numberOfLines={1} style={styles.userName}>
           {firstName} {lastName}
         </TitleMedium>
-        <Description style={{color: colors.primary}}>{email}</Description>
+        <Description numberOfLines={1} style={{color: colors.primary}}>
+          {email}
+        </Description>
       </View>
       <TouchableOpacity
         activeOpacity={0.7}

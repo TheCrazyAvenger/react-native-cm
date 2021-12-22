@@ -10,6 +10,7 @@ export const PaginationFooter: React.FC<PaginationFooterProps> = ({
   currentIndex,
   onPress,
   title,
+  disabled,
   style,
 }) => {
   return (
@@ -18,6 +19,7 @@ export const PaginationFooter: React.FC<PaginationFooterProps> = ({
       <TextButton
         title={title}
         solid
+        disabled={disabled}
         onPress={onPress}
         style={styles.nextButton}
       />

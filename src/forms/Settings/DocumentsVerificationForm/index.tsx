@@ -29,7 +29,7 @@ export const DocumentsVerificationForm: React.FC = () => {
         documents: [],
       }}
       onSubmit={values => saveChanges(values)}>
-      {({handleSubmit, values, errors, touched, setFieldValue}) => {
+      {({handleSubmit, values, errors, touched, isValid, setFieldValue}) => {
         return (
           <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -78,6 +78,7 @@ export const DocumentsVerificationForm: React.FC = () => {
             <TextButton
               title="Continue"
               solid
+              disabled={!isValid}
               style={{marginBottom: 25}}
               onPress={handleSubmit}
             />

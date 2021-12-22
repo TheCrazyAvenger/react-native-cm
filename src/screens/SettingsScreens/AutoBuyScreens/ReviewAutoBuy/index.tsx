@@ -1,11 +1,10 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React from 'react';
+import React, {useState} from 'react';
 import {StatusBar, View} from 'react-native';
 import {LoadingItem, Wrapper} from '@components';
 import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
-import {setLoading} from '@store/slices/authSlice';
 import {addAutoBuy, updateAutoBuy} from '@store/slices/autoBuySlice';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
@@ -16,7 +15,7 @@ export const ReviewAutoBuy: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
-  const loading = useAppSelector(state => state.auth.loading);
+  const [loading, setLoading] = useState(false);
   const token = useAppSelector(state => state.auth.token);
 
   const {type} = route.params;
@@ -34,42 +33,43 @@ export const ReviewAutoBuy: React.FC = () => {
   } = route.params;
 
   const goToNext = async () => {
-    navigation.navigate(Screens.completeAutoBuy, {
-      type: type ? type : null,
-      amount,
-      frequency,
-      paymentMethod,
-      startDate,
-      endDate,
-      status,
-      metal,
-    });
+    try {
+      navigation.navigate(Screens.completeAutoBuy, {
+        type: type ? type : null,
+        amount,
+        frequency,
+        paymentMethod,
+        startDate,
+        endDate,
+        status,
+        metal,
+      });
 
-    const data = {
-      amount,
-      frequency,
-      paymentMethod,
-      startDate,
-      endDate,
-      status,
-      metal,
-      id: type ? id : `${Math.round(Math.random() * 1000000)}_${metal}`,
-    };
+      const data = {
+        amount,
+        frequency,
+        paymentMethod,
+        startDate,
+        endDate,
+        status,
+        metal,
+        id: type ? id : `${Math.round(Math.random() * 1000000)}_${metal}`,
+      };
 
-    dispatch(setLoading(true));
+      setLoading(true);
 
-    await database().ref(`/users/${token}/autoBuy/${data.id}`).set(data);
-    if (type) {
-      await dispatch(updateAutoBuy(data));
-    } else {
-      await dispatch(addAutoBuy(data));
+      await database().ref(`/users/${token}/autoBuy/${data.id}`).set(data);
+      if (type) {
+        await dispatch(updateAutoBuy(data));
+      } else {
+        await dispatch(addAutoBuy(data));
+      }
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      console.log(e);
     }
-    dispatch(setLoading(false));
   };
-
-  if (loading) {
-    return <LoadingItem />;
-  }
 
   return (
     <Screen>
@@ -160,6 +160,8 @@ export const ReviewAutoBuy: React.FC = () => {
         <View>
           <TextButton
             solid
+            loading={loading}
+            disabled={loading}
             style={{marginBottom: 20}}
             title="Confirm Auto Buy"
             onPress={() => goToNext()}

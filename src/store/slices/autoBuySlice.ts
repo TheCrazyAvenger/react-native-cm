@@ -30,6 +30,9 @@ export const autoBuySlice = createSlice({
         }),
       ];
     },
+    cleanAutoBuy: state => {
+      state.autoBuy = [];
+    },
   },
   extraReducers: builder => {
     builder.addCase(
@@ -42,6 +45,7 @@ export const autoBuySlice = createSlice({
     );
   },
 });
-export const {addAutoBuy, deleteAutoBuy, updateAutoBuy} = autoBuySlice.actions;
+export const {addAutoBuy, deleteAutoBuy, updateAutoBuy, cleanAutoBuy} =
+  autoBuySlice.actions;
 
 export default autoBuySlice.reducer;

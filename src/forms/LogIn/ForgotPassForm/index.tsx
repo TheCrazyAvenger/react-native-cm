@@ -28,6 +28,7 @@ export const ForgotPassForm: React.FC = () => {
         values,
         errors,
         touched,
+        isValid,
         setFieldTouched,
       }) => (
         <View style={styles.container}>
@@ -46,6 +47,7 @@ export const ForgotPassForm: React.FC = () => {
           <TextButton
             title="Reset Password"
             solid
+            disabled={!isValid}
             onPress={handleSubmit}
             style={styles.footer}
           />

@@ -14,18 +14,13 @@ export const PayPalForm: React.FC<{
   style?: {[key: string]: number | string};
   labelStyle?: {[key: string]: number | string};
   screen?: string;
-}> = ({onSubmit, type, label, style, labelStyle, screen}) => {
+  loading: boolean;
+}> = ({onSubmit, type, label, style, labelStyle, screen, loading}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
   const firstName = useAppSelector(state => state.auth.firstName);
   const lastName = useAppSelector(state => state.auth.lastName);
-
-  const loading = useAppSelector(state => state.auth.loading);
-
-  if (loading) {
-    return <LoadingItem />;
-  }
 
   return (
     <View style={{...styles.container, ...style}}>
@@ -43,6 +38,7 @@ export const PayPalForm: React.FC<{
             label,
           })
         }
+        disabled={loading}
         style={{...styles.button, ...labelStyle}}
         borderColor="#F6C657"
       />

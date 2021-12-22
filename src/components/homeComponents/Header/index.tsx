@@ -21,8 +21,6 @@ export const Header: React.FC = () => {
     // @ts-ignore
     useGetDigitalProductsQuery();
 
-  console.log(error);
-
   useEffect(() => {
     if (!isLoading && data !== [] && !error) {
       const {gainsLosses, metalHoldings} = getGainsLosses(

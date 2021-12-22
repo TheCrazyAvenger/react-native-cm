@@ -61,6 +61,11 @@ export const MobileVerSuccess: React.FC = () => {
               faceId: false,
               passcode: null,
             },
+            notifications: {
+              transactions: false,
+              promotions: false,
+              marketNews: false,
+            },
           });
 
         await AsyncStorage.setItem('token', JSON.stringify(uid));

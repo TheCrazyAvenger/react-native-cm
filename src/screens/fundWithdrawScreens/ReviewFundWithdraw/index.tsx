@@ -94,10 +94,6 @@ export const ReviewFundWithdraw: React.FC = () => {
     }
   };
 
-  if (loading) {
-    return <LoadingItem />;
-  }
-
   return (
     <Screen>
       <StatusBar
@@ -145,6 +141,8 @@ export const ReviewFundWithdraw: React.FC = () => {
         <View>
           <TextButton
             solid
+            loading={loading}
+            disabled={loading}
             style={{marginBottom: 20}}
             title={`Confirm ${type === 'Fund' ? 'Deposit' : 'Withdraw'}`}
             onPress={fundWithDraw}

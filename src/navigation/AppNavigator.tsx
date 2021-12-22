@@ -16,8 +16,6 @@ export const AppNavigator: React.FC = () => {
   const token = useAppSelector(state => state.auth.token);
   const error = useAppSelector(state => state.auth.error);
 
-  console.log(error);
-
   const dispatch = useAppDispatch();
 
   const [showOnBoarding, setShowOnboarding] = useState(true);
@@ -33,20 +31,18 @@ export const AppNavigator: React.FC = () => {
         setShowOnboarding(true);
         return SplashScreen.hide();
       } else {
-        await dispatch(getData());
-
-        await dispatch(getOperations());
-        await dispatch(getAutoBuy());
-        await dispatch(getPriceAlerts());
-        await dispatch(getPaymentMethod());
-
         setShowOnboarding(false);
-
-        SplashScreen.hide();
-        return setLoading(false);
       }
+      await dispatch(getData());
+
+      await dispatch(getOperations());
+      await dispatch(getAutoBuy());
+      await dispatch(getPriceAlerts());
+      await dispatch(getPaymentMethod());
+
+      SplashScreen.hide();
+      return setLoading(false);
     } catch (e) {
-      setShowOnboarding(true);
       SplashScreen.hide();
       setLoading(false);
       console.log(e);
