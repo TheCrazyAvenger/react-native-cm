@@ -11,7 +11,7 @@ export const getGainsLosses = (
       )
       .sort(
         (item: any, next: any) =>
-          new Date(`${item.date}, ${item.time}`) >
+          new Date(`${item.date}, ${item.time}`) <
           new Date(`${next.date}, ${next.time}`),
       );
 
@@ -24,7 +24,7 @@ export const getGainsLosses = (
       acquisitionCost = buyOperations[0].oz * +buyOperations[0].total;
     }
 
-    return acc + holdingsPriceAsk - acquisitionCost;
+    return acc + holdingsPriceAsk - acquisitionCost * ownedMetals[name];
   }, 0);
 
   const metalHoldings = data.data.reduce((acc: number, metal: any) => {

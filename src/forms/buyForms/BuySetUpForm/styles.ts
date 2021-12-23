@@ -59,4 +59,8 @@ export const styles = StyleSheet.create({
     fontWeight: '400',
     marginHorizontal: 10,
   },
+  errorLink: {
+    color: colors.primary,
+    fontFamily: 'OpenSans-SemiBold',
+  },
 });

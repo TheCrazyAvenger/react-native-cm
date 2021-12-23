@@ -4,7 +4,7 @@ import {colors} from '../../../constants';
 export const styles = StyleSheet.create({
   container: {
     marginTop: 20,
-    marginBottom: 25,
+    marginBottom: 20,
     padding: 20,
     paddingVertical: 15,
     borderWidth: 1,
@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 30,
+    marginBottom: 20,
   },
   priceTitle: {
     fontFamily: 'OpenSans-Bold',

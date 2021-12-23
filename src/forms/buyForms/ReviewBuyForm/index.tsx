@@ -23,7 +23,8 @@ export const ReviewBuyForm: React.FC<{
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
-  const {amount, amountOz, frequency, paymentMethod, data} = route.params;
+  const {amount, amountOz, frequency, paymentMethod, data, account} =
+    route.params;
   const {name, id: metalId, spot, buy, sell} = data;
 
   const {type} = route.params;
@@ -54,6 +55,7 @@ export const ReviewBuyForm: React.FC<{
         spot,
         ozPrice: type === 'Buy' ? buy : sell,
         order,
+        account,
         paymentMethod: getPaymentName(paymentMethod),
         time: `${hours}:${minutes < 10 ? '0' + minutes : minutes}`,
         usd: `${type === 'Buy' ? '-' : '+'} $${amount}`,
@@ -107,6 +109,7 @@ export const ReviewBuyForm: React.FC<{
         operationType,
         data: route.params.data,
         amount,
+        account,
         order,
         frequency,
         paymentMethod,
@@ -120,6 +123,7 @@ export const ReviewBuyForm: React.FC<{
         operationType,
         data: route.params.data,
         amount,
+        account,
         order: '-',
         frequency,
         paymentMethod,
@@ -145,16 +149,15 @@ export const ReviewBuyForm: React.FC<{
               value={values.checkBox}
               isTouched={touched.checkBox}
               onPress={() => setFieldValue('checkBox', !values.checkBox)}
-              error={errors.checkBox}>
+              error={errors.checkBox}
+              style={{marginLeft: 0}}>
               <View style={{marginBottom: 20}}>
-                <SubtitleMedium style={{width: '85%', color: checkBoxError}}>
-                  I agree with the
-                </SubtitleMedium>
-                <TouchableOpacity style={{width: '95%'}}>
+                <SubtitleMedium style={{width: '65%', color: checkBoxError}}>
+                  I agree with the{' '}
                   <SubtitleMedium style={styles.terms}>
                     CyberMetals Terms and Conditions.
                   </SubtitleMedium>
-                </TouchableOpacity>
+                </SubtitleMedium>
               </View>
             </CheckBoxItem>
             <View>
@@ -163,7 +166,7 @@ export const ReviewBuyForm: React.FC<{
                 loading={loading}
                 disabled={values.checkBox === false || loading}
                 style={{marginBottom: 20}}
-                title="Confirm Buy"
+                title={`Confirm ${type === 'Buy' ? 'Buy' : 'Sell'}`}
                 onPress={handleSubmit}
               />
               <TextButton

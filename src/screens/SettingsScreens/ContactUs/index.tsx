@@ -31,10 +31,6 @@ export const ContactUs: React.FC = () => {
     }
   };
 
-  if (loading) {
-    return <LoadingItem />;
-  }
-
   return (
     <Screen style={{paddingHorizontal: 16}}>
       <View style={styles.header}>
@@ -52,7 +48,7 @@ export const ContactUs: React.FC = () => {
           to many commonly asked questions.
         </SubtitleMedium>
       </View>
-      <ContactUsForm onSubmit={sendMessage} error={error} />
+      <ContactUsForm loading={loading} onSubmit={sendMessage} error={error} />
 
       <Wrapper style={styles.line} />
       <View style={styles.info}>

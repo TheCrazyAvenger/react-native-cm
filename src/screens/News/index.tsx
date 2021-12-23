@@ -1,5 +1,5 @@
 import React from 'react';
-import {NewsCard} from '@components';
+import {EmptyDataScreen, LoadingItem, NewsCard} from '@components';
 import {Screen} from '@ui';
 import {useGetFullNewsQuery} from '@api';
 import {colors} from '@constants';
@@ -9,6 +9,10 @@ export const News: React.FC = () => {
   //@ts-ignore
   const {data = [], isLoading} = useGetFullNewsQuery();
 
+  if (isLoading) {
+    return <LoadingItem />;
+  }
+
   return (
     <Screen>
       <StatusBar
@@ -16,7 +20,12 @@ export const News: React.FC = () => {
         translucent
         backgroundColor={colors.white}
       />
-      <NewsCard data={data} isLoading={isLoading} style={{marginTop: 25}} />
+
+      {data.length !== 0 ? (
+        <NewsCard data={data} isLoading={isLoading} style={{marginTop: 25}} />
+      ) : (
+        <EmptyDataScreen title="No news" />
+      )}
     </Screen>
   );
 };

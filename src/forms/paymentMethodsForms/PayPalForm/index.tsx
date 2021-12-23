@@ -14,7 +14,7 @@ export const PayPalForm: React.FC<{
   style?: {[key: string]: number | string};
   labelStyle?: {[key: string]: number | string};
   screen?: string;
-  loading: boolean;
+  loading?: boolean;
 }> = ({onSubmit, type, label, style, labelStyle, screen, loading}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();

@@ -28,6 +28,8 @@ export const Cart: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
+  const [account, setAccount] = useState('');
+
   const [paymentMethod, setPaymentMethod] = useState('cashBalance');
   const [shipping, setShipping] = useState('baseShipping 7.99');
   const [checkBox, setCheckbox] = useState(false);
@@ -41,8 +43,6 @@ export const Cart: React.FC = () => {
     0,
   );
 
-
-  
   return (
     <Screen>
       <View style={styles.container}>
@@ -103,6 +103,7 @@ export const Cart: React.FC = () => {
           style={{backgroundColor: colors.primary, marginVertical: 24}}
         />
         <PaymentMethodPicker
+          setPaymentType={value => setAccount(value)}
           label="Payment Method"
           containerStyle={{marginHorizontal: 0}}
           labelStyle={{marginLeft: 0}}
@@ -157,12 +158,12 @@ export const Cart: React.FC = () => {
               <Illustration style={styles.error}>
                 Please, indicate the Shipping Address in your
               </Illustration>
-              <TouchableOpacity
-                onPress={() => navigation.navigate(Screens.profile)}>
-                <Illustration style={{color: colors.primary}}>
-                  Profile.
-                </Illustration>
-              </TouchableOpacity>
+
+              <Illustration
+                onPress={() => navigation.navigate(Screens.profile)}
+                style={styles.shippingText}>
+                Profile.
+              </Illustration>
             </View>
           )}
           <TextButton

@@ -16,7 +16,7 @@ export const ReviewSellBuy: React.FC = () => {
 
   const [modalVisble, setModalVisible] = useState(false);
 
-  const {amountOz, paymentMethod, amount, data} = route.params;
+  const {amountOz, paymentMethod, amount, data, account} = route.params;
   const {name, spot} = data;
   const {type} = route.params;
 
@@ -49,10 +49,6 @@ export const ReviewSellBuy: React.FC = () => {
     };
   });
 
-  if (loading) {
-    return <LoadingItem />;
-  }
-
   return (
     <Screen>
       <StatusBar
@@ -66,8 +62,8 @@ export const ReviewSellBuy: React.FC = () => {
         visible={modalVisble}
         confirmTitle="Update"
         onConfirm={() => {
-          setMinutes(0);
-          setSeconds(30);
+          setMinutes(3);
+          setSeconds(0);
           setModalVisible(false);
         }}
       />
@@ -87,6 +83,7 @@ export const ReviewSellBuy: React.FC = () => {
           metal={name}
           amount={amount}
           spot={spot}
+          account={account}
           amountOz={amountOz}
           paymentMethod={getPaymentName(paymentMethod)}
         />

@@ -36,7 +36,9 @@ export const SellBuySetUp: React.FC = () => {
           </View>
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>Spot</Description>
-            <SubtitleMedium>{`$${spot}/oz`}</SubtitleMedium>
+            <SubtitleMedium>{`$${numberWithCommas(
+              Number(spot),
+            )}/oz`}</SubtitleMedium>
           </View>
           {type === 'Sell' && (
             <View style={styles.infoItem}>
@@ -52,9 +54,9 @@ export const SellBuySetUp: React.FC = () => {
           </View>
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>Your Price</Description>
-            <SubtitleMedium>{`$${
-              type === 'Buy' ? buy : sell
-            }/oz`}</SubtitleMedium>
+            <SubtitleMedium>{`$${numberWithCommas(
+              Number(type === 'Buy' ? buy : sell),
+            )}/oz`}</SubtitleMedium>
           </View>
         </View>
         {type === 'Buy' ? <BuySetUpForm /> : <SellSetUpForm metal={name} />}

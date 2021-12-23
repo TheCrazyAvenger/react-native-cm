@@ -14,11 +14,12 @@ import {getPriceAlerts} from '@store/actions/priceAlerts';
 import {setLoading} from '@store/slices/authSlice';
 import {deletePriceAlerts} from '@store/slices/priceAlertSlice';
 import {Screen, TextButton} from '@ui';
-import {metals} from '@utilities';
+import {getMetal, metals} from '@utilities';
 import database from '@react-native-firebase/database';
 import {ShareRefer} from '@assets/images/settings';
 import {styles} from './styles';
 import {TitleMedium} from '@Typography';
+import {useGetDigitalProductsQuery} from '@api';
 
 export const PriceAlerts: React.FC = () => {
   const navigation: any = useNavigation();
@@ -49,7 +50,10 @@ export const PriceAlerts: React.FC = () => {
     await dispatch(deletePriceAlerts({metal: data.metal, id: data.id}));
   };
 
-  if (loading) {
+  //@ts-ignore
+  const {data = [], isLoading, error} = useGetDigitalProductsQuery();
+
+  if (loading || isLoading || data === []) {
     return <LoadingItem />;
   }
 
@@ -103,6 +107,9 @@ export const PriceAlerts: React.FC = () => {
                   date={item.date}
                   time={item.time}
                   id={item.id}
+                  keyId={getMetal(item.metal) + 1}
+                  error={error}
+                  data={data.data}
                   color={item.color}
                   value={item.value}
                   onRemove={removeItem}
@@ -119,11 +126,15 @@ export const PriceAlerts: React.FC = () => {
         )}
       </ScrollView>
       <TextButton
-        title="Create Price Alert"
+        title={error ? 'No data' : 'Create Price Alert'}
         solid
+        disabled={error}
         style={{marginBottom: 25}}
         onPress={() =>
-          navigation.navigate(Screens.priceAlertSetUp, {id: metalType})
+          navigation.navigate(Screens.priceAlertSetUp, {
+            id: metalType,
+            data: data.data,
+          })
         }
       />
     </Screen>

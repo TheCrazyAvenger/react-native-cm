@@ -59,10 +59,14 @@ export const ProfileForm: React.FC<{
       }) => {
         const changeFields = () => {
           if (!values.checkBox) {
-            setFieldValue('shippingStreetAdress', values.legalStreetAdress);
-            setFieldValue('shippingCity', values.legalCity);
-            setFieldValue('shippingState', values.legalState);
-            setFieldValue('shippingCode', values.legalCode);
+            values.shippingStreetAdress !== values.legalStreetAdress &&
+              setFieldValue('shippingStreetAdress', values.legalStreetAdress);
+            values.shippingCity !== values.legalCity &&
+              setFieldValue('shippingCity', values.legalCity);
+            values.shippingState !== values.legalState &&
+              setFieldValue('shippingState', values.legalState);
+            values.shippingCode !== values.legalCode &&
+              setFieldValue('shippingCode', values.legalCode);
             setDisabled(true);
           } else {
             setDisabled(false);
@@ -229,7 +233,7 @@ export const ProfileForm: React.FC<{
               solid
               loading={loading}
               disabled={!isValid || loading}
-              style={{marginBottom: 25}}
+              style={{marginBottom: 25, marginHorizontal: 10}}
               onPress={handleSubmit}
             />
           </View>

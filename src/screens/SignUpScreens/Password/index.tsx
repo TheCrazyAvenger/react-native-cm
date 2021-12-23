@@ -19,6 +19,7 @@ export const Password: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const token = useAppSelector(state => state.auth.token);
 
   const {type} = route.params;
@@ -31,9 +32,17 @@ export const Password: React.FC = () => {
       await database().ref(`/users/${token}`).update({password});
 
       await dispatch(getData());
-
+      await setLoading(false);
       navigation.pop();
-    } catch (e) {
+    } catch (e: any) {
+      if (e.code === 'auth/requires-recent-login') {
+        setError(
+          'This operation is sensitive and requires recent authentication. Log in again before retrying this request.',
+        );
+      } else {
+        setError(e);
+      }
+      setLoading(false);
       console.log(e);
     }
   };
@@ -68,7 +77,11 @@ export const Password: React.FC = () => {
             )}
           </View>
         )}
-        <PasswordForm changePassword={changePassword} loading={loading} />
+        <PasswordForm
+          error={error}
+          changePassword={changePassword}
+          loading={loading}
+        />
       </Screen>
     </KeyboardAvoidingView>
   );

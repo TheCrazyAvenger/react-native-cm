@@ -19,7 +19,8 @@ export const CompleteFundWithdraw: React.FC = () => {
 
   const route: any = useRoute();
 
-  const {paymentMethod, amount, type, operationType, order} = route.params;
+  const {paymentMethod, amount, type, operationType, order, account} =
+    route.params;
 
   useEffect(() => {
     navigation.setOptions({
@@ -27,8 +28,6 @@ export const CompleteFundWithdraw: React.FC = () => {
         type === 'Fund' ? 'Funding Confirmation' : 'Withdrawing Confirmation',
     });
   }, []);
-
-  const totalAmount = amount - amount * 0.1;
 
   return (
     <Screen>
@@ -51,8 +50,9 @@ export const CompleteFundWithdraw: React.FC = () => {
 
         <FundWithdrawInfo
           style={{marginHorizontal: 0}}
-          type={type}
+          type={operationType}
           amount={amount}
+          account={account}
           method={getPaymentName(paymentMethod)}
         />
 
@@ -82,7 +82,9 @@ export const CompleteFundWithdraw: React.FC = () => {
         <View style={styles.price}>
           <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
           <TitleMedium style={styles.priceTitle}>{`$${numberWithCommas(
-            Number(totalAmount).toFixed(2),
+            Number(
+              operationType === 'Fund' ? +amount : amount - amount * 0.1,
+            ).toFixed(2),
           )}`}</TitleMedium>
         </View>
         <Wrapper style={{marginTop: 0, backgroundColor: colors.primary}} />

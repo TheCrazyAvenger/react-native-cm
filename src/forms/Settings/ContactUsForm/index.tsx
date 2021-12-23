@@ -11,7 +11,8 @@ import {Error} from '@Typography';
 export const ContactUsForm: React.FC<{
   onSubmit: (...args: any) => void;
   error: null | string;
-}> = ({onSubmit, error}) => {
+  loading: boolean;
+}> = ({onSubmit, error, loading}) => {
   const email = useAppSelector(state => state.auth.userEmail);
   const firstName = useAppSelector(state => state.auth.firstName);
   const lastName = useAppSelector(state => state.auth.lastName);
@@ -36,6 +37,7 @@ export const ContactUsForm: React.FC<{
         values,
         errors,
         touched,
+        isValid,
         setFieldTouched,
       }) => {
         return (
@@ -100,7 +102,13 @@ export const ContactUsForm: React.FC<{
             <View style={styles.button}>
               {error && <Error>{error}</Error>}
 
-              <TextButton title="Send" solid onPress={handleSubmit} />
+              <TextButton
+                loading={loading}
+                disabled={!isValid || loading}
+                title="Send"
+                solid
+                onPress={handleSubmit}
+              />
             </View>
           </View>
         );

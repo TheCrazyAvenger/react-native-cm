@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
 import {CheckBox} from 'react-native-elements';
 import {CheckBoxProps} from '..';
 import {colors} from '@constants';
@@ -15,12 +15,14 @@ export const CheckBoxItem: React.FC<CheckBoxProps> = ({
 }) => {
   const errorCheckBox = error && isTouched ? colors.red : colors.primary;
   return (
-    <View
+    <TouchableOpacity
       style={{
         flexDirection: 'row',
         alignItems: 'flex-start',
         ...containerStyle,
-      }}>
+      }}
+      activeOpacity={1}
+      onPress={onPress}>
       <CheckBox
         containerStyle={{padding: 0, ...style}}
         checkedColor={colors.primary}
@@ -29,6 +31,6 @@ export const CheckBoxItem: React.FC<CheckBoxProps> = ({
         onPress={onPress}
       />
       {children}
-    </View>
+    </TouchableOpacity>
   );
 };

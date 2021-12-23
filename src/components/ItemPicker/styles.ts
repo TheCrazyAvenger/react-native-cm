@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
   selectedTextStyle: {
     fontSize: 16,
     color: colors.black,
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'OpenSans-SemiBold',
   },
   label: {
     fontFamily: 'OpenSans-Regular',

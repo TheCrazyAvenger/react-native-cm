@@ -177,12 +177,7 @@ export const verificationSchema = yup.object().shape({
   mobile: yup
     .string()
     .required('Please enter your phone number')
-    .matches(
-      /^[\\(]{0,1}([0-9]){3}[\\)]{0,1}[ ]?([^0-1]){1}([0-9]){2}[ ]?[-]?[ ]?([0-9]){4}[ ]*((x){0,1}([0-9]){1,5}){0,1}$/,
-      {
-        message: 'Please enter correct number',
-      },
-    ),
+    .matches(/^\+[1-9]{1}[0-9]{3,14}$/, {message: 'Enter correct number'}),
 });
 
 export const documentsVerificationSchema = yup.object().shape({
@@ -331,9 +326,15 @@ export const reviewBuySchema = yup.object().shape({
 export const fundWithdrawSchema = yup.object().shape({
   amount: yup
     .number()
-    .required('Please enter Amount.')
-    .min(100, 'Minimum amount is $100.00')
-    .max(500000, 'Maximum amount is $500,000.00'),
+    .required('Please enter amount.')
+    .min(
+      100,
+      'Bank Wires have a minimum amount of $100.00 and a maximum amount of $500,000.00, please adjust your funding amount.',
+    )
+    .max(
+      500000,
+      'Bank Wires have a minimum amount of $100.00 and a maximum amount of $500,000.00, please adjust your funding amount.',
+    ),
   paymentMethod: yup.string().required('Please enter Payment Method'),
 });
 

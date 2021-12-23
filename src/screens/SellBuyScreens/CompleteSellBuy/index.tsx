@@ -7,14 +7,15 @@ import {colors, Screens} from '@constants';
 import {Screen, TextButton} from '@ui';
 
 import {styles} from './styles';
-import {cmCredentials} from '@utilities';
+import {cmCredentials, getPaymentName} from '@utilities';
 
 export const CompleteSellBuy: React.FC = () => {
   const navigation: any = useNavigation();
 
   const route: any = useRoute();
 
-  const {amountOz, paymentMethod, amount, data, order, type} = route.params;
+  const {amountOz, paymentMethod, amount, data, order, type, account} =
+    route.params;
   const {name, spot, id} = data;
   const {operationType} = route.params;
 
@@ -51,8 +52,9 @@ export const CompleteSellBuy: React.FC = () => {
           metal={name}
           amount={amount}
           spot={spot}
+          account={account}
           amountOz={amountOz}
-          paymentMethod={paymentMethod}
+          paymentMethod={getPaymentName(paymentMethod)}
         />
         <Wrapper style={{marginTop: 0, backgroundColor: colors.primary}} />
 

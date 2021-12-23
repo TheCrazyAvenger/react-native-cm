@@ -48,7 +48,7 @@ export const TaxItem: React.FC<TaxItemProps> = ({
             ? numberWithCommas(
                 Number(total + +shippingFee.split(' ')[1]).toFixed(2),
               )
-            : 0
+            : numberWithCommas(Number(+shippingFee.split(' ')[1]).toFixed(2))
         }`}</TitleMedium>
       </View>
     </View>

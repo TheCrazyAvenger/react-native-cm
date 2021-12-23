@@ -68,27 +68,38 @@ export const Transactions: React.FC = () => {
 
       <Screen>
         {operationsList.length !== 0 ? (
-          currentOperationsData.map((item: any, i: number) => (
-            <TransactonItem
-              key={item.id}
-              product={item.product}
-              quantity={item.oz}
-              total={item.total}
-              type={item.type}
-              cart={item.cart}
-              shippingMethod={item.shippingMethod}
-              oz={item.oz}
-              paymentMethod={item.paymentMethod}
-              spot={item.spot}
-              time={item.time}
-              order={item.order}
-              date={item.date}
-              localeDate={item.localeDate}
-              list={operationsList}
-              id={i}
-              onPress={() => console.log(1)}
+          <View>
+            {currentOperationsData.map((item: any, i: number) => (
+              <TransactonItem
+                key={item.id}
+                product={item.product}
+                quantity={item.oz}
+                total={item.total}
+                type={item.type}
+                account={item.account}
+                cart={item.cart}
+                shippingMethod={item.shippingMethod}
+                oz={item.oz}
+                paymentMethod={item.paymentMethod}
+                spot={item.spot}
+                time={item.time}
+                order={item.order}
+                date={item.date}
+                localeDate={item.localeDate}
+                list={operationsList}
+                id={i}
+                onPress={() => console.log(1)}
+              />
+            ))}
+            <NumberPagination
+              currentPage={currentPage}
+              totalCount={operationsList.length}
+              pageSize={pageSize}
+              showView={currentOperationsData.length > pageSize ? true : false}
+              onPageChange={page => setCurrentPage(page)}
+              changeView={(view: number) => setPageSize(view)}
             />
-          ))
+          </View>
         ) : (
           <View style={styles.noAlerts}>
             <ShareRefer />
@@ -97,13 +108,6 @@ export const Transactions: React.FC = () => {
             </TitleMedium>
           </View>
         )}
-        <NumberPagination
-          currentPage={currentPage}
-          totalCount={operationsList.length}
-          pageSize={pageSize}
-          onPageChange={page => setCurrentPage(page)}
-          changeView={(view: number) => setPageSize(view)}
-        />
       </Screen>
     </View>
   );

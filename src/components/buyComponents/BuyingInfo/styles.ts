@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',
-    marginHorizontal: 10,
   },
   infoItem: {
     marginBottom: 20,
@@ -22,10 +21,12 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 20,
-    marginHorizontal: 10,
   },
   priceTitle: {
     fontFamily: 'OpenSans-Bold',
     fontSize: 22,
+  },
+  account: {
+    fontFamily: 'OpenSans-SemiBold',
   },
 });

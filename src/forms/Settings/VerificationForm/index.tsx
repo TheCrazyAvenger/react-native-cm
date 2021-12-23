@@ -5,7 +5,7 @@ import {DatePicker, FormInput} from '@components';
 import {verificationSchema} from '../..';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/core';
-import {useAppDispatch} from '@hooks';
+import {useAppDispatch, useAppSelector} from '@hooks';
 import {TextButton} from '@ui';
 import {Screens} from '@constants';
 
@@ -13,6 +13,10 @@ export const VerificationForm: React.FC = () => {
   const navigation: any = useNavigation();
 
   const dispatch = useAppDispatch();
+
+  const firstName = useAppSelector(state => state.auth.firstName);
+  const lastName = useAppSelector(state => state.auth.lastName);
+  const mobile = useAppSelector(state => state.auth.mobile);
 
   const saveChanges = async (values: {[key: string]: any}) => {
     navigation.navigate(Screens.documentsVerification, {values});
@@ -22,10 +26,10 @@ export const VerificationForm: React.FC = () => {
     <Formik
       validationSchema={verificationSchema}
       initialValues={{
-        firstName: '',
-        lastName: '',
+        firstName,
+        lastName,
         dateOfBirth: '',
-        mobile: '',
+        mobile,
       }}
       onSubmit={values => saveChanges(values)}>
       {({
@@ -34,6 +38,7 @@ export const VerificationForm: React.FC = () => {
         values,
         errors,
         touched,
+        isValid,
         setFieldTouched,
         setFieldValue,
       }) => {
@@ -64,10 +69,10 @@ export const VerificationForm: React.FC = () => {
                 errorMessage={errors.dateOfBirth}
                 isTouched={touched.dateOfBirth}
                 label="Date of Birth"
+                labelStyle={{paddingLeft: 10}}
                 value={values.dateOfBirth}
                 onConfirm={date => setFieldValue('dateOfBirth', date)}
                 style={styles.datePicker}
-                errorStyle={styles.dateError}
                 showIcon={false}
               />
               <FormInput
@@ -84,6 +89,7 @@ export const VerificationForm: React.FC = () => {
             <TextButton
               title="Continue"
               solid
+              disabled={!isValid}
               style={{marginBottom: 25, marginHorizontal: 9}}
               onPress={handleSubmit}
             />

@@ -1,7 +1,7 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {FundWithdrawInfo, LoadingItem} from '@components';
+import {FundWithdrawInfo, LoadingItem, WithdrawTaxItem} from '@components';
 import {Description, Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {Screen, TextButton} from '@ui';
@@ -22,8 +22,7 @@ export const ReviewFundWithdraw: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const {paymentMethod, amount} = route.params;
-  const {type} = route.params;
+  const {paymentMethod, amount, account, type} = route.params;
 
   useEffect(() => {
     navigation.setOptions({
@@ -49,6 +48,12 @@ export const ReviewFundWithdraw: React.FC = () => {
         date: `${monthName} ${day}, ${year}`,
         total: amount,
         order,
+        account:
+          type === 'Fund' && paymentMethod === 'eCheck'
+            ? account
+            : type === 'Withdraw'
+            ? account
+            : null,
         paymentMethod: getPaymentName(paymentMethod),
         time: `${hours}:${minutes < 10 ? '0' + minutes : minutes}`,
         usd: `${type === 'Fund' ? '+' : '-'} $${amount}`,
@@ -64,8 +69,8 @@ export const ReviewFundWithdraw: React.FC = () => {
 
       const newCashValue =
         type === 'Fund'
-          ? cashBalance + +amount
-          : cashBalance - (+amount - +amount * 0.1);
+          ? cashBalance + (+amount - +amount * 0.0299)
+          : cashBalance - +amount;
 
       await database()
         .ref(`/users/${token}`)
@@ -76,8 +81,9 @@ export const ReviewFundWithdraw: React.FC = () => {
 
       navigation.push(Screens.completeFundWithdraw, {
         type: 'Success',
-        amount,
+        amount: type === 'Fund' ? +amount - +amount * 0.0299 : +amount,
         order,
+        account,
         paymentMethod,
         operationType: type === 'Fund' ? 'Fund' : 'Withdraw',
       });
@@ -85,8 +91,9 @@ export const ReviewFundWithdraw: React.FC = () => {
       await setLoading(false);
       navigation.push(Screens.completeFundWithdraw, {
         type: 'Error',
-        amount,
+        amount: type === 'Fund' ? +amount - +amount * 0.0299 : +amount,
         order: '-',
+        account,
         paymentMethod,
         operationType: type === 'Fund' ? 'Fund' : 'Withdraw',
       });
@@ -111,13 +118,25 @@ export const ReviewFundWithdraw: React.FC = () => {
           style={{marginHorizontal: 0}}
           type={type}
           amount={amount}
+          account={account}
           method={getPaymentName(paymentMethod)}
         />
+
+        {type === 'Withdraw' && (
+          <WithdrawTaxItem
+            style={{paddingHorizontal: 0, marginTop: 0}}
+            amount={amount}
+          />
+        )}
 
         <View style={styles.price}>
           <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
           <TitleMedium style={styles.priceTitle}>{`$${numberWithCommas(
-            Number(amount).toFixed(2),
+            Number(
+              type === 'Fund'
+                ? +amount - +amount * 0.0299
+                : +amount - +amount * 0.1,
+            ).toFixed(2),
           )}`}</TitleMedium>
         </View>
 

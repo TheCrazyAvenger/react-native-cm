@@ -14,14 +14,11 @@ export const BuyingInfo: React.FC<BuyingInfoProps> = ({
   amount,
   style,
   type,
+  account,
 }) => {
-  const paymentMethods = useAppSelector(
-    state => state.paymentMethod.paymentMethods,
-  );
-
   return (
-    <View style={style}>
-      <View style={styles.info}>
+    <View>
+      <View style={{...styles.info, ...style}}>
         <View style={styles.infoItem}>
           <Description style={styles.infoTitle}>
             {type === 'Buy' ? 'Buying' : 'Selling'}
@@ -48,14 +45,12 @@ export const BuyingInfo: React.FC<BuyingInfoProps> = ({
             {paymentMethod}
           </SubtitleMedium>
         </View>
-        {paymentMethod === 'PayPal' && (
+        {account && paymentMethod !== 'Cash Balance' ? (
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>Account</Description>
-            <SubtitleMedium style={styles.infoText}>
-              {paymentMethods.payPal[0].cardNumber}
-            </SubtitleMedium>
+            <SubtitleMedium style={styles.account}>{account}</SubtitleMedium>
           </View>
-        )}
+        ) : null}
       </View>
       <View style={styles.price}>
         <TitleMedium style={styles.priceTitle}>Total</TitleMedium>

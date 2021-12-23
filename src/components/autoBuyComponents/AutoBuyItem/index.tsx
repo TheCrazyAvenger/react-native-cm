@@ -21,6 +21,7 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
   endDate,
   style,
   id,
+  keyId,
   onRemove,
 }) => {
   const [visibleModal, setVisibleModal] = useState(false);
@@ -39,8 +40,8 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
 
   const containerStyle = [
     styles.container,
-    id === 0 ? styles.topBorders : null,
-    id === autoBuy.length - 1 ? styles.bottomBorders : null,
+    keyId === 0 ? styles.topBorders : null,
+    keyId === autoBuy.length - 1 ? styles.bottomBorders : null,
   ];
 
   const goToEdit = () => {

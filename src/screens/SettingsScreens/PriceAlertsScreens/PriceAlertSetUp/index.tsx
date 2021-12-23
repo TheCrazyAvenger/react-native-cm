@@ -8,7 +8,7 @@ import {PriceAlertsSetUpForm} from '../../../../forms';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {addAlert, updatePriceAlerts} from '@store/slices/priceAlertSlice';
 import {Screen} from '@ui';
-import {getMetal, getMetalImage, metals} from '@utilities';
+import {getMetal, getMetalImage, metals, numberWithCommas} from '@utilities';
 import {styles} from './styles';
 import database from '@react-native-firebase/database';
 
@@ -20,7 +20,7 @@ export const PriceAlertSetUp: React.FC = () => {
   const token = useAppSelector(state => state.auth.token);
   const dispatch = useAppDispatch();
 
-  const {id, type, prevValues} = route.params;
+  const {id, type, prevValues, data} = route.params;
 
   const metalType = metals[type ? getMetal(prevValues.metal) : id - 1];
 
@@ -87,9 +87,9 @@ export const PriceAlertSetUp: React.FC = () => {
           </View>
 
           <View>
-            {/* <SubtitleMedium style={{...styles.title, color: colors.black}}>
-              {price}
-            </SubtitleMedium> */}
+            <SubtitleMedium style={{...styles.title, color: colors.black}}>
+              {`$${numberWithCommas(Number(data[id - 1].buy).toFixed(2))} USD`}
+            </SubtitleMedium>
           </View>
         </View>
         <Wrapper

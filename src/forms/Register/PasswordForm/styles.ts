@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     borderRadius: 50,
   },
   footer: {
-    marginVertical: 25,
+    marginBottom: 25,
     paddingHorizontal: 10,
   },
 });

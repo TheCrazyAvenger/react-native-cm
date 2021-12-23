@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {colors, Screens} from '@constants';
 import {styles} from './styles';
@@ -20,7 +20,16 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
   const paymentMethods = useAppSelector(
     state => state.paymentMethod.paymentMethods,
   );
+
+  const [error, setError] = useState(false);
+
   const legalAdress = useAppSelector(state => state.auth.legalAdress);
+
+  const [account, setAccount] = useState('');
+
+  useEffect(() => {
+    legalAdress.city === '' ? setError(true) : setError(false);
+  }, [legalAdress]);
 
   const goToNext = (values: {[key: string]: string | number}) => {
     const {amount, amountOz, paymentMethod} = values;
@@ -29,6 +38,7 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
       data: route.params.data,
       type: 'Sell',
       amount,
+      account,
       frequency: null,
       paymentMethod,
       amountOz,
@@ -67,7 +77,7 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
           <View>
             <Description style={styles.inputLabel}>Amount</Description>
             <View style={styles.amount}>
-              <View style={{width: '47%'}}>
+              <View style={{width: '49%'}}>
                 <FormInput
                   onBlur={async () => {
                     setFieldTouched('amount', true);
@@ -97,10 +107,10 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
                   )}
                 />
               </View>
-              <View style={{marginTop: 14}}>
+              <View style={{marginTop: 14, marginHorizontal: -15}}>
                 <Swiper />
               </View>
-              <View style={{width: '47%'}}>
+              <View style={{width: '49%'}}>
                 <FormInput
                   onBlur={async () => {
                     setFieldTouched('amount', true);
@@ -131,6 +141,7 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
             </View>
 
             <PaymentMethodPicker
+              setPaymentType={value => setAccount(value)}
               label="Deposit to"
               onChange={(value: any) => setFieldValue('paymentMethod', value)}
             />
@@ -138,21 +149,24 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
             <View style={styles.price}>
               <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
               <TitleMedium style={styles.priceTitle}>{`$${
-                values.amount ? numberWithCommas(values.amount) : 0
+                values.amount
+                  ? numberWithCommas(Number(values.amount).toFixed(2))
+                  : '0.00'
               }`}</TitleMedium>
             </View>
 
-            {legalAdress.city === null && (
-              <View style={styles.error}>
-                <Error>Please, indicate the Legal Address in your </Error>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate(Screens.profile)}>
-                  <Error style={styles.profileError}>Profile.</Error>
-                </TouchableOpacity>
-              </View>
-            )}
-
             <View style={{marginHorizontal: 10}}>
+              {error && (
+                <Error style={{marginBottom: 12}}>
+                  Please{' '}
+                  <Error
+                    onPress={() => navigation.navigate(Screens.profile)}
+                    style={styles.errorLink}>
+                    provide your Legal Address
+                  </Error>{' '}
+                  in order to initiate this transaction.
+                </Error>
+              )}
               <TextButton
                 style={{marginBottom: 20}}
                 title={`Sell ${metal}`}
@@ -175,6 +189,8 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
                       values.paymentMethod !== 'cashBalance'
                     ? true
                     : !isValid
+                    ? true
+                    : error
                     ? true
                     : false
                 }

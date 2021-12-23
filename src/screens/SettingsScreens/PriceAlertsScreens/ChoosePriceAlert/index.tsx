@@ -1,15 +1,34 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StatusBar, View} from 'react-native';
-import {PriceAlertItem} from '@components';
+import {EmptyDataScreen, LoadingItem, PriceAlertItem} from '@components';
 import {SubtitleMedium} from '@Typography';
 import {Screens} from '@constants';
 import {Screen} from '@ui';
 import {metals} from '@utilities';
 import {styles} from './styles';
+import {useGetDigitalProductsQuery} from '@api';
 
 export const ChoosePriceAlert: React.FC = () => {
   const navigation: any = useNavigation();
+
+  //@ts-ignore
+  const {data = [], isLoading, error} = useGetDigitalProductsQuery();
+
+  if (isLoading || data === []) {
+    return <LoadingItem />;
+  }
+
+  if (error) {
+    return (
+      <EmptyDataScreen
+        title="No data"
+        text="Please refresh page"
+        buttonTitle="Refresh"
+        onPress={() => navigation.replace(Screens.choosePriceAlert)}
+      />
+    );
+  }
 
   return (
     <Screen>
@@ -35,6 +54,7 @@ export const ChoosePriceAlert: React.FC = () => {
           onPress={() =>
             navigation.navigate(Screens.priceAlertSetUp, {
               id: item.id,
+              data: data.data,
             })
           }
         />

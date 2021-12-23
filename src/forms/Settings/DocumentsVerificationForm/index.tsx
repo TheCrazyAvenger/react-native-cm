@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Formik} from 'formik';
 import {ScrollView, View} from 'react-native';
 import {FormImagePicker, ItemPicker} from '@components';
@@ -14,6 +14,8 @@ export const DocumentsVerificationForm: React.FC = () => {
   const route: any = useRoute();
 
   const {values: prevValues} = route.params;
+
+  const [error, setError] = useState<null | string>(null);
 
   const saveChanges = async (values: {[key: string]: any}) => {
     navigation.navigate(Screens.verificationComplete, {
@@ -65,7 +67,10 @@ export const DocumentsVerificationForm: React.FC = () => {
                         ? colors.red
                         : colors.primary,
                   }}>
-                  <FormImagePicker name="documents" />
+                  <FormImagePicker
+                    // setError={value => setError(value)}
+                    name="documents"
+                  />
                 </View>
                 {errors.documents && touched.documents ? (
                   <Error style={styles.error}>{errors.documents}</Error>
@@ -75,6 +80,7 @@ export const DocumentsVerificationForm: React.FC = () => {
               </View>
             </ScrollView>
 
+            {error && <Error>{error}</Error>}
             <TextButton
               title="Continue"
               solid

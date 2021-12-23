@@ -46,19 +46,19 @@ export const Home: React.FC = () => {
             data={metalsData}
             isLoading={isMetalsLoading}
             error={error}
-            metalId={0}
+            metalId={1}
           />
           <MetalsCard
             data={metalsData}
             isLoading={isMetalsLoading}
             error={error}
-            metalId={0}
+            metalId={2}
           />
           <MetalsCard
             data={metalsData}
             isLoading={isMetalsLoading}
             error={error}
-            metalId={0}
+            metalId={3}
           />
         </View>
 

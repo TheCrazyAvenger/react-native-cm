@@ -59,4 +59,8 @@ export const styles = StyleSheet.create({
   pickerPlaceholder: {
     fontFamily: 'OpenSans-SemiBold',
   },
+  shippingText: {
+    color: colors.primary,
+    fontFamily: 'OpenSans-SemiBold',
+  },
 });

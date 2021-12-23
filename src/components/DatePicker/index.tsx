@@ -27,6 +27,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
 
   const dateStyle = {
     ...styles.date,
+    ...style,
     borderColor: disabled ? '#DEDEDE' : colors.placeholder,
   };
 
@@ -48,7 +49,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   };
 
   return (
-    <View style={style}>
+    <View style={{marginBottom: 25}}>
       {label && (
         <Description
           style={{

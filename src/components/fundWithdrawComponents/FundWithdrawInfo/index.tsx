@@ -40,14 +40,16 @@ export const FundWithdrawInfo: React.FC<FundWithdrawInfoProps> = ({
         {method && (
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>
-              {type === 'Fund' ? 'Payment' : ''} Method
+              {type === 'Fund' ? 'Payment ' : ''}Method
             </Description>
             <SubtitleMedium style={styles.infoText}>{method}</SubtitleMedium>
           </View>
         )}
-        {account && (
+        {account && !(type === 'Fund' && method === 'Bank Wire') && (
           <View style={styles.infoItem}>
-            <Description style={styles.infoTitle}>To account</Description>
+            <Description style={styles.infoTitle}>
+              {type === 'Fund' ? 'Account' : 'To account'}
+            </Description>
             <SubtitleMedium style={styles.infoText}>{account}</SubtitleMedium>
           </View>
         )}

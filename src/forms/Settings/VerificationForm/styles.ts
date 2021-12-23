@@ -8,11 +8,7 @@ export const styles = StyleSheet.create({
   },
 
   datePicker: {
-    marginBottom: 25,
     marginHorizontal: 10,
-  },
-  dateError: {
-    left: 0,
-    top: 75,
+    height: 50,
   },
 });

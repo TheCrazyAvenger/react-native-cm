@@ -67,7 +67,7 @@ export const FormInput: React.FC<FormInputProps> = ({
           multiline={multiline}
           inputContainerStyle={[
             ...inputContainerStyle,
-            {paddingLeft: leftPrefix ? 15 : 10, height},
+            {paddingLeft: leftPrefix ? 15 : 10, height: height ? height : 45},
           ]}
           disabled={disabled ? true : false}
         />
@@ -76,7 +76,7 @@ export const FormInput: React.FC<FormInputProps> = ({
             style={{
               ...styles.leftPrefix,
               color: value === '' ? colors.placeholder : colors.black,
-              top: label ? 38 : 13,
+              top: label ? 36 : 11,
             }}>
             {leftPrefix}
           </SubtitleMedium>

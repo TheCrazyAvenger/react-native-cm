@@ -124,6 +124,7 @@ export type TransactionsModalProps = {
   visible: boolean;
   date: string;
   spot: number;
+  account: string;
   total: string;
   cart: any;
   shippingMethod: string;
@@ -213,6 +214,7 @@ export type AutoBuyItemProps = {
   endDate: string;
   style?: {[key: string]: number | string};
   id: number;
+  keyId: number;
   onRemove: (...args: any) => void;
 };
 
@@ -232,6 +234,7 @@ export type DatePickerProps = {
 
 export type ItemPickerProps = {
   style?: {[key: string]: number | string};
+  textStyle?: {[key: string]: number | string};
   label?: string;
   value: string;
   errorMessage?: any;
@@ -272,6 +275,9 @@ export type PriceAlertListItemProps = {
   condition: string;
   date: string;
   id: number;
+  keyId: number;
+  error: any;
+  data: any;
   time: string;
   color: string;
   value: number;
@@ -294,13 +300,13 @@ export type FormImagePickerProps = {
 
 export type ImageInputProps = {
   uri?: string | null;
-  onChange: any;
+  onChange: (...args: any) => void;
 };
 
 export type ImageInputListProps = {
   uris: Array<string> | [];
-  onAdd: any;
-  onRemove: any;
+  onAdd: (...args: any) => void;
+  onRemove: (...args: any) => void;
 };
 
 export type PaymentMethodsItemProps = {
@@ -323,6 +329,7 @@ export type BuyingInfoProps = {
   amountOz: string | number;
   style?: {[key: string]: number | string};
   type: string;
+  account?: string;
 };
 
 export type OrderInfoProps = {
@@ -338,6 +345,7 @@ export type PaymentMethodPickerProps = {
   containerStyle?: {[key: string]: number | string};
   labelStyle?: {[key: string]: number | string};
   onChange: (value: any) => void;
+  setPaymentType: (value: any) => void;
 };
 
 export type EmptyPaymentMethodProps = {
@@ -369,6 +377,7 @@ export type TransactionItemProps = {
   list: any;
   localeDate: string;
   date: string;
+  account: string;
   spot: number;
   time: string;
   oz: number;
@@ -435,4 +444,9 @@ export type NumberPaginationProps = {
   siblingCount?: number;
   currentPage: number;
   pageSize: number;
+};
+
+export type WithdrawTaxItemProps = {
+  style?: {[key: string]: number | string};
+  amount: string | number;
 };

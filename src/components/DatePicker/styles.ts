@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     marginBottom: 6,
   },
   date: {
+    height: 45,
     padding: 10,
     flexDirection: 'row',
     borderWidth: 1,
@@ -23,9 +24,8 @@ export const styles = StyleSheet.create({
     fontSize: 14,
   },
   error: {
-    position: 'absolute',
-    left: 10,
-    top: 81,
+    marginLeft: 10,
+    marginTop: 10,
   },
   errorInput: {
     borderColor: colors.red,

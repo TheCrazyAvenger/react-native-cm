@@ -3,7 +3,7 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 export const newsApi = createApi({
   reducerPath: 'newsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://qa-backend.jmgoldx.com/api/',
+    baseUrl: 'https://dev-backend.cybermetals.com/api',
   }),
   endpoints: builder => ({
     getFullNews: builder.query({

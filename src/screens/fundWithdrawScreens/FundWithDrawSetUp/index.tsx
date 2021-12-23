@@ -14,7 +14,7 @@ export const FundWithDrawSetUp: React.FC = () => {
 
   const cashBalance = useAppSelector(state => state.auth.cashBalance);
 
-  const {type, paymentMethod} = route.params;
+  const {type} = route.params;
 
   return (
     <Screen>

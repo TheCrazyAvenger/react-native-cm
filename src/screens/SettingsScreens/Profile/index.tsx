@@ -59,7 +59,7 @@ export const Profile: React.FC = () => {
   };
 
   return (
-    <Screen type="View">
+    <Screen style={{paddingHorizontal: 16}} type="View">
       <ProfileForm loading={loading} onSubmit={saveChanges} />
     </Screen>
   );

@@ -22,7 +22,10 @@ export const PasscodeForm: React.FC<{
   setError: (...args: any) => void;
   onChange: (...args: any) => void;
   setLoading: (...args: any) => void;
-}> = ({onChange, setLoading, setError}) => {
+  setNotify: (...args: any) => void;
+  error: boolean;
+  notify: boolean;
+}> = ({onChange, setLoading, setError, setNotify, notify, error}) => {
   const autoFocus: any = useRef(null);
   const navigation: any = useNavigation();
 
@@ -106,6 +109,8 @@ export const PasscodeForm: React.FC<{
                 isPassFull ? 'confirmPasscode' : 'passcode',
               )}
               onTextInput={async () => {
+                notify && setNotify(false);
+                error && setError(false);
                 await setFieldValue(
                   isPassFull ? 'confirmPasscode' : 'passcode',
                   validatePasscode(

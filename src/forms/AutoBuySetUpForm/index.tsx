@@ -1,6 +1,6 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
-import React from 'react';
+import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {Screens} from '@constants';
 import {styles} from './styles';
@@ -38,6 +38,8 @@ export const AutoBuySetUpForm: React.FC = () => {
   const {data} = route.params;
 
   const newDate = new Date();
+
+  const [account, setAccount] = useState('');
 
   const currentDate: any =
     newDate.getHours() > 16
@@ -154,6 +156,7 @@ export const AutoBuySetUpForm: React.FC = () => {
                   errorMessage={errors.endDate}
                   isTouched={touched.endDate}
                   label="End Date"
+                  style={{marginBottom: -25}}
                   value={values.endDate}
                   disabled={values.checkBox}
                   onConfirm={date => checkDate(date, 'endDate')}
@@ -204,6 +207,7 @@ export const AutoBuySetUpForm: React.FC = () => {
             />
 
             <PaymentMethodPicker
+              setPaymentType={value => setAccount(value)}
               label="Payment Method"
               onChange={(value: any) => setFieldValue('paymentMethod', value)}
             />

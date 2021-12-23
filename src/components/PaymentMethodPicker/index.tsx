@@ -1,11 +1,10 @@
-import {CashBalance} from '@assets/images/settings';
 import {
   EmptyPaymentMethod,
   ItemPicker,
   ModalWindow,
   PaymentMethodPickerProps,
 } from '@components';
-import {colors, Screens} from '@constants';
+import {Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {useNavigation} from '@react-navigation/core';
 import {setLoading} from '@store/slices/authSlice';
@@ -23,6 +22,7 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
   label,
   labelStyle,
   containerStyle,
+  setPaymentType,
 }) => {
   const navigation: any = useNavigation();
 
@@ -40,11 +40,39 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
       ? paymentMethods.creditCard[0].fullName
       : '',
   );
+  const [bankWire, setBankWire] = useState(
+    paymentMethods.bankWire.length > 0
+      ? paymentMethods.bankWire[0].fullName
+      : '',
+  );
+  const [eCheck, setEcheck] = useState(
+    paymentMethods.eCheck.length > 0 ? paymentMethods.eCheck[0].fullName : '',
+  );
 
   useEffect(() => {
     paymentMethods.creditCard.length > 0 &&
       setCard(paymentMethods.creditCard[0].fullName);
+    paymentMethods.bankWire.length > 0 &&
+      setBankWire(paymentMethods.bankWire[0].fullName);
+    paymentMethods.eCheck.length > 0 &&
+      setEcheck(paymentMethods.eCheck[0].fullName);
+
+    setPaymentType(
+      paymentMethods[paymentMethod].length > 0
+        ? paymentMethods[paymentMethod][0].fullName
+        : '',
+    );
   }, [paymentMethods]);
+
+  useEffect(() => {
+    setPaymentType(
+      paymentMethods.payPal.length > 0 && paymentMethod === 'payPal'
+        ? paymentMethods.payPal[0].cardNumber
+        : paymentMethods[paymentMethod].length > 0
+        ? paymentMethods[paymentMethod][0].fullName
+        : '',
+    );
+  }, [paymentMethod]);
 
   const onSubmit = async (values: any) => {
     dispatch(setLoading(true));
@@ -112,28 +140,51 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
           />
         )}
       {paymentMethod === 'creditCard' &&
-      paymentMethods[paymentMethod].length === 0 ? (
-        <EmptyPaymentMethod title="Add a Credit/Debit Card" type="creditCard" />
-      ) : (
-        paymentMethod === 'creditCard' && (
-          <ItemPicker
-            labelStyle={{marginTop: 25, ...labelStyle}}
-            LeftIcon={getCardImage(card)}
-            label="Payment Method"
-            style={{...styles.cardPicker, ...containerStyle}}
-            placeholderStyle={styles.pickerPlaceholder}
-            items={paymentMethods.creditCard.map((item: any) => ({
-              label: item.fullName,
-              value: item.cardType,
-            }))}
-            maxHeight={150}
-            value={card}
-            onChange={value => {
-              setCard(value);
-            }}
+        paymentMethods[paymentMethod].length === 0 && (
+          <EmptyPaymentMethod
+            title="Add a Credit/Debit Card"
+            type="creditCard"
           />
-        )
-      )}
+        )}
+      {(paymentMethod === 'creditCard' ||
+        paymentMethod === 'eCheck' ||
+        paymentMethod === 'bankWire') &&
+      paymentMethods[paymentMethod].length > 0 ? (
+        <ItemPicker
+          labelStyle={{marginTop: 25, ...labelStyle}}
+          LeftIcon={getCardImage(card)}
+          label="Account"
+          style={{...styles.cardPicker, ...containerStyle}}
+          placeholderStyle={styles.pickerPlaceholder}
+          items={paymentMethods[paymentMethod].map((item: any) => ({
+            label: item.fullName,
+            value: item.fullName,
+          }))}
+          textStyle={{
+            fontSize:
+              paymentMethod === 'eCheck' || paymentMethod === 'bankWire'
+                ? 13.5
+                : 16,
+          }}
+          maxHeight={150}
+          value={
+            paymentMethod === 'creditCard'
+              ? card
+              : paymentMethod === 'bankWire'
+              ? bankWire
+              : eCheck
+          }
+          onChange={value => {
+            paymentMethod === 'creditCard'
+              ? setCard(value)
+              : paymentMethod === 'bankWire'
+              ? setBankWire(value)
+              : setEcheck(value);
+
+            setPaymentType(value);
+          }}
+        />
+      ) : null}
       {paymentMethod === 'payPal' &&
       paymentMethods[paymentMethod].length === 0 ? (
         <PayPalForm

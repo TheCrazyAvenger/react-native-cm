@@ -90,6 +90,7 @@ export const AutoBuy: React.FC = () => {
                   key={item.id}
                   status={item.status}
                   id={item.id}
+                  keyId={i}
                   metal={item.metal}
                   amount={item.amount}
                   frequency={item.frequency}

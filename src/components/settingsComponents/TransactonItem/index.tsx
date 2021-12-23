@@ -22,6 +22,7 @@ export const TransactonItem: React.FC<TransactionItemProps> = ({
   ozPrice,
   oz,
   id,
+  account,
   list,
   localeDate,
   style,
@@ -41,6 +42,7 @@ export const TransactonItem: React.FC<TransactionItemProps> = ({
         visible={modalVisible}
         date={localeDate}
         spot={spot}
+        account={account}
         total={total}
         cart={cart}
         shippingMethod={shippingMethod}

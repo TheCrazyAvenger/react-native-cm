@@ -18,6 +18,9 @@ export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
   time,
   color,
   value,
+  keyId,
+  data,
+  error,
   id,
   style,
   onRemove,
@@ -40,6 +43,8 @@ export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
         condition,
         id,
       },
+      id: keyId,
+      data,
     });
   };
 
@@ -72,9 +77,11 @@ export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
           </View>
         </View>
         <View style={styles.actionButtons}>
-          <TouchableOpacity onPress={goToEdit}>
-            <Edit />
-          </TouchableOpacity>
+          {!error && (
+            <TouchableOpacity onPress={goToEdit}>
+              <Edit />
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             style={{marginLeft: 15}}
             onPress={() => setVisibleModal(true)}>

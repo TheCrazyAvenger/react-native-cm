@@ -11,11 +11,13 @@ import {colors, Screens} from '@constants';
 import {TextButton} from '@ui';
 import {useAppSelector} from '@hooks';
 import * as yup from 'yup';
+import {Error} from '@Typography';
 
 export const PasswordForm: React.FC<{
   changePassword?: (password: any) => void;
   loading?: boolean;
-}> = ({changePassword, loading}) => {
+  error?: any;
+}> = ({changePassword, loading, error}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
@@ -178,33 +180,36 @@ export const PasswordForm: React.FC<{
                 }
               />
             </ScrollView>
-
-            {type === 'SignIn' ? (
-              <TextButton
-                title="Reset Password"
-                disabled={!isValid}
-                style={{marginVertical: 25}}
-                solid
-                onPress={handleSubmit}
-              />
-            ) : type === 'Change' ? (
-              <TextButton
-                disabled={!isValid || loading}
-                title="Save changes"
-                style={{marginVertical: 25}}
-                solid
-                onPress={handleSubmit}
-              />
-            ) : (
-              <PaginationFooter
-                data={slides}
-                disabled={!isValid}
-                currentIndex={2}
-                onPress={handleSubmit}
-                title="Continue"
-                style={styles.footer}
-              />
-            )}
+            <View style={{marginTop: 25}}>
+              {error && <Error style={{marginBottom: 12}}>{error}</Error>}
+              {type === 'SignIn' ? (
+                <TextButton
+                  title="Reset Password"
+                  disabled={!isValid}
+                  style={{marginBottom: 25}}
+                  solid
+                  onPress={handleSubmit}
+                />
+              ) : type === 'Change' ? (
+                <TextButton
+                  disabled={!isValid || loading}
+                  title="Save changes"
+                  loading={loading}
+                  style={{marginBottom: 25}}
+                  solid
+                  onPress={handleSubmit}
+                />
+              ) : (
+                <PaginationFooter
+                  data={slides}
+                  disabled={!isValid}
+                  currentIndex={2}
+                  onPress={handleSubmit}
+                  title="Continue"
+                  style={styles.footer}
+                />
+              )}
+            </View>
           </View>
         );
       }}

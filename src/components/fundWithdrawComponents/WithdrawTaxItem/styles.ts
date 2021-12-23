@@ -2,9 +2,13 @@ import {StyleSheet} from 'react-native';
 import {colors} from '../../../constants';
 
 export const styles = StyleSheet.create({
-  noAlerts: {
-    width: '100%',
+  subPriceTitle: {
+    color: colors.gray,
+  },
+  subPrice: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginTop: '65%',
+    justifyContent: 'space-between',
+    marginBottom: 12,
   },
 });

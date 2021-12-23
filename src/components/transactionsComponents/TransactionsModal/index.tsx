@@ -6,6 +6,7 @@ import {
   OrderInfo,
   ReedemInfo,
   TaxItem,
+  WithdrawTaxItem,
   Wrapper,
 } from '../..';
 import {colors, Screens} from '@constants';
@@ -27,6 +28,7 @@ export const TransactionsModal: React.FC<TransactionsModalProps> = ({
   time,
   order,
   total,
+  account,
   oz,
   paymentMethod,
   onPress,
@@ -59,46 +61,43 @@ export const TransactionsModal: React.FC<TransactionsModalProps> = ({
                 metal={product}
                 amount={total}
                 spot={spot}
+                account={account}
                 amountOz={oz}
                 paymentMethod={paymentMethod}
               />
             ) : null}
             {type === 'Fund' || type === 'Withdraw' ? (
-              <FundWithdrawInfo
-                style={{marginHorizontal: 0}}
-                type={type}
-                amount={total}
-                method={paymentMethod}
-              />
+              <View>
+                <FundWithdrawInfo
+                  style={{marginHorizontal: 0}}
+                  type={type}
+                  account={account}
+                  amount={total}
+                  method={paymentMethod}
+                />
+                {type === 'Fund' && (
+                  <View style={styles.price}>
+                    <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
+                    <TitleMedium
+                      style={styles.priceTitle}>{`$${numberWithCommas(
+                      Number(+total).toFixed(2),
+                    )}`}</TitleMedium>
+                  </View>
+                )}
+              </View>
             ) : null}
 
             {type === 'Withdraw' && (
               <View>
-                <View>
-                  <View style={styles.subPrice}>
-                    <SubtitleMedium style={styles.subPriceTitle}>
-                      Sub total
-                    </SubtitleMedium>
-                    <SubtitleMedium
-                      style={styles.subPriceTitle}>{`$${numberWithCommas(
-                      Number(total).toFixed(2),
-                    )}`}</SubtitleMedium>
-                  </View>
-                  <View style={styles.subPrice}>
-                    <SubtitleMedium style={styles.subPriceTitle}>
-                      Fee 10%
-                    </SubtitleMedium>
-                    <SubtitleMedium
-                      style={styles.subPriceTitle}>{`$${numberWithCommas(
-                      Number(+total * 0.1).toFixed(2),
-                    )}`}</SubtitleMedium>
-                  </View>
-                </View>
+                <WithdrawTaxItem
+                  style={{paddingHorizontal: 0}}
+                  amount={total}
+                />
 
                 <View style={styles.price}>
                   <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
                   <TitleMedium style={styles.priceTitle}>{`$${numberWithCommas(
-                    Number(total).toFixed(2),
+                    Number(+total - +total * 0.1).toFixed(2),
                   )}`}</TitleMedium>
                 </View>
               </View>

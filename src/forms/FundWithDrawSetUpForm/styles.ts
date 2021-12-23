@@ -3,11 +3,10 @@ import {colors} from '../../constants';
 
 export const styles = StyleSheet.create({
   price: {
-    marginTop: 18,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 30,
+    marginVertical: 20,
     marginHorizontal: 10,
   },
   eCheckPicker: {
@@ -28,5 +27,14 @@ export const styles = StyleSheet.create({
   priceTitle: {
     fontFamily: 'OpenSans-Bold',
     fontSize: 22,
+  },
+  subPriceTitle: {
+    color: colors.gray,
+  },
+  subPrice: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 12,
   },
 });

@@ -50,6 +50,9 @@ export const Passcode: React.FC = () => {
           setError={value => setErrorModal(value)}
           setLoading={value => setLoading(value)}
           onChange={value => setPasscode(value)}
+          setNotify={setPasscodeModal}
+          notify={passcodeModal}
+          error={errorModal}
         />
       </Screen>
     </>

@@ -34,7 +34,6 @@ export const MetalsInfo: React.FC<{
   );
 
   const holdingsPriceAsk = ownedMetals[name] * buy;
-  // buyOperations.reduce((acc: number, next: any) => acc + +next.oz, 0) * buy;
 
   const totalAcquisitionCost = useMemo(
     () =>
@@ -47,7 +46,9 @@ export const MetalsInfo: React.FC<{
 
   useEffect(() => {
     if (buyOperations[0]) {
-      setAcquisitionCost(buyOperations[0].oz * +buyOperations[0].total);
+      setAcquisitionCost(
+        buyOperations[0].oz * +buyOperations[0].total * ownedMetals[name],
+      );
     }
     setGainLosses(holdingsPriceAsk - acquisitionCost);
   }, [holdingsPriceAsk, acquisitionCost, buyOperations]);
