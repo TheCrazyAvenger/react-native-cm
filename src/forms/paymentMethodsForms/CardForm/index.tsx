@@ -37,6 +37,8 @@ export const CardForm: React.FC<{
   const lastName = useAppSelector(state => state.auth.lastName);
   const [error, setError] = useState<null | string>(null);
   const route: any = useRoute();
+  const legalAdress = useAppSelector(state => state.auth.legalAdress);
+  const {streetAdress, city, state, postalCode}: any = legalAdress;
 
   return (
     <Formik
@@ -48,10 +50,10 @@ export const CardForm: React.FC<{
         csc: '',
         firstName: firstName,
         lastName: lastName,
-        address: '',
-        city: '',
-        state: '',
-        postalCode: '',
+        address: streetAdress,
+        city,
+        state,
+        postalCode,
         phone: '',
       }}
       onSubmit={values =>

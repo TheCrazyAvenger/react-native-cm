@@ -19,7 +19,7 @@ export const CompleteReedem: React.FC = () => {
     });
   }, []);
 
-  const {shippingMethod, paymentMethod, cart, type, amount, order} =
+  const {shippingMethod, paymentMethod, cart, type, amount, order, account} =
     route.params;
 
   return (
@@ -45,6 +45,7 @@ export const CompleteReedem: React.FC = () => {
           paymentMethod={paymentMethod}
           shippingMethod={shippingMethod}
           cart={cart}
+          account={account}
         />
 
         <TaxItem

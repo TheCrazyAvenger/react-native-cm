@@ -106,9 +106,7 @@ export const EmailVerification: React.FC = () => {
             follow the instructions in the email to complete the registration
             process.
           </Description>
-          {error && (
-            <Error style={{marginHorizontal: 10, marginTop: 10}}>{error}</Error>
-          )}
+          {error && <Error style={{marginTop: 10}}>{error}</Error>}
         </ScrollView>
         <View style={styles.buttons}>
           {seconds > 0 ? (

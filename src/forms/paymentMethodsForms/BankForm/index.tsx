@@ -22,6 +22,8 @@ export const BankForm: React.FC<{
   const paymentMethods = useAppSelector(
     state => state.paymentMethod.paymentMethods,
   );
+  const legalAdress = useAppSelector(state => state.auth.legalAdress);
+  const {streetAdress, city, state, postalCode}: any = legalAdress;
 
   const [error, setError] = useState<null | string>(null);
 
@@ -34,10 +36,10 @@ export const BankForm: React.FC<{
         accountNumber: '',
         accountType: 'Checking Account',
         accountName: '',
-        address: '',
-        city: '',
-        state: '',
-        postalCode: '',
+        address: streetAdress,
+        city,
+        state,
+        postalCode,
       }}
       onSubmit={values =>
         onSubmit({

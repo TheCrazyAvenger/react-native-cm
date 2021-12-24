@@ -32,29 +32,30 @@ export const SellBuySetUp: React.FC = () => {
             <Description style={styles.infoTitle}>
               {type === 'Buy' ? 'Buying' : 'Selling'}
             </Description>
-            <SubtitleMedium>{name}</SubtitleMedium>
+            <SubtitleMedium style={styles.infoText}>{name}</SubtitleMedium>
           </View>
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>Spot</Description>
-            <SubtitleMedium>{`$${numberWithCommas(
+            <SubtitleMedium style={styles.infoText}>{`$${numberWithCommas(
               Number(spot),
             )}/oz`}</SubtitleMedium>
           </View>
           {type === 'Sell' && (
             <View style={styles.infoItem}>
               <Description style={styles.infoTitle}>Total Owned</Description>
-              <SubtitleMedium>{`${numberWithCommas(
+              <SubtitleMedium style={styles.infoText}>{`${numberWithCommas(
                 Number(ownedMetals[name]).toFixed(3),
               )} oz`}</SubtitleMedium>
             </View>
           )}
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>Premium</Description>
-            <SubtitleMedium>{`+$${premium}/oz`}</SubtitleMedium>
+            <SubtitleMedium
+              style={styles.infoText}>{`+$${premium}/oz`}</SubtitleMedium>
           </View>
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>Your Price</Description>
-            <SubtitleMedium>{`$${numberWithCommas(
+            <SubtitleMedium style={styles.infoText}>{`$${numberWithCommas(
               Number(type === 'Buy' ? buy : sell),
             )}/oz`}</SubtitleMedium>
           </View>

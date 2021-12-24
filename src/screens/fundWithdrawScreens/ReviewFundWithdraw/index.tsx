@@ -46,7 +46,7 @@ export const ReviewFundWithdraw: React.FC = () => {
         type: `${type === 'Fund' ? 'Fund' : 'Withdraw'}`,
         localeDate: `${month}/${day}/${year}`,
         date: `${monthName} ${day}, ${year}`,
-        total: amount,
+        total: type === 'Fund' ? +amount - +amount * 0.0299 : +amount,
         order,
         account:
           type === 'Fund' && paymentMethod === 'eCheck'
@@ -79,7 +79,7 @@ export const ReviewFundWithdraw: React.FC = () => {
 
       await setLoading(false);
 
-      navigation.push(Screens.completeFundWithdraw, {
+      navigation.replace(Screens.completeFundWithdraw, {
         type: 'Success',
         amount: type === 'Fund' ? +amount - +amount * 0.0299 : +amount,
         order,
@@ -89,7 +89,7 @@ export const ReviewFundWithdraw: React.FC = () => {
       });
     } catch (e) {
       await setLoading(false);
-      navigation.push(Screens.completeFundWithdraw, {
+      navigation.replace(Screens.completeFundWithdraw, {
         type: 'Error',
         amount: type === 'Fund' ? +amount - +amount * 0.0299 : +amount,
         order: '-',

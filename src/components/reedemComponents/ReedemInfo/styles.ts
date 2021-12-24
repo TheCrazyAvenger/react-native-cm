@@ -28,4 +28,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'OpenSans-SemiBold',
     width: '75%',
   },
+  account: {
+    fontFamily: 'OpenSans-SemiBold',
+  },
 });

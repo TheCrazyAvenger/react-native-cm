@@ -1,6 +1,12 @@
 import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
-import {Platform, StatusBar, TouchableOpacity} from 'react-native';
+import {
+  Alert,
+  Platform,
+  Share,
+  StatusBar,
+  TouchableOpacity,
+} from 'react-native';
 import {
   Alerts,
   Autobuy,
@@ -57,6 +63,17 @@ export const Settings: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const navigation: any = useNavigation();
+
+  const shareApp = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          'React Native | A framework for building native apps using React',
+      });
+    } catch (error: any) {
+      Alert.alert(error.message);
+    }
+  };
 
   const createLoginMethod = async (value: boolean, method: string) => {
     try {
@@ -277,10 +294,7 @@ When complete, navigate back to the CyberMetals app to proceed."
           title="Rate us on the App Store"
           onPress={() => console.log('Go to Rate us on the App Store')}
         />
-        <MenuItemSmall
-          title="Share"
-          onPress={() => console.log('Go to Share')}
-        />
+        <MenuItemSmall title="Share" onPress={shareApp} />
 
         <TouchableOpacity
           onPress={async () => {

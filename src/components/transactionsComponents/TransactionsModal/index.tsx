@@ -109,6 +109,7 @@ export const TransactionsModal: React.FC<TransactionsModalProps> = ({
                   paymentMethod={paymentMethod}
                   shippingMethod={shippingMethod}
                   cart={cart}
+                  account={account}
                 />
 
                 <TaxItem

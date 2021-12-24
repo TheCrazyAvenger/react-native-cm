@@ -190,6 +190,8 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
                     ? true
                     : !isValid
                     ? true
+                    : account === '' && values.paymentMethod !== 'cashBalance'
+                    ? true
                     : error
                     ? true
                     : false

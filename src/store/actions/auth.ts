@@ -109,7 +109,8 @@ export const getData = createAsyncThunk('auth/getData', async () => {
             error: null,
           };
         }
-      });
+      })
+      .catch(e => console.log(e));
   } catch (e) {}
 });
 

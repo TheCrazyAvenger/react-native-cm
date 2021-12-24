@@ -1,49 +1,35 @@
 {
   "project_info": {
-    "project_number": "151533539517",
-    "project_id": "react-native-cm",
-    "storage_bucket": "react-native-cm.appspot.com"
+    "project_number": "807007186340",
+    "firebase_url": "https://cyber-metals-default-rtdb.firebaseio.com",
+    "project_id": "cyber-metals",
+    "storage_bucket": "cyber-metals.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:151533539517:android:621f86aea19740d80127d4",
+        "mobilesdk_app_id": "1:807007186340:android:ad89c2e9b12587ac44e531",
         "android_client_info": {
           "package_name": "com.cybermetals"
         }
       },
       "oauth_client": [
         {
-          "client_id": "151533539517-bule69gl1r576s2b7rf6n9kpba981qig.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.cybermetals",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
-          }
-        },
-        {
-          "client_id": "151533539517-78foonv86g2dpub046lp1pdvpdp1ft3r.apps.googleusercontent.com",
+          "client_id": "807007186340-9bamuop561el0agvdv0na7ckiu5ret66.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCu9xON7HsY2wMWp2lErkqGLCoeY60r8Ng"
+          "current_key": "AIzaSyByqTmBJhUTNM3wFgSQiTrAAxikmEJh9N0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "151533539517-78foonv86g2dpub046lp1pdvpdp1ft3r.apps.googleusercontent.com",
+              "client_id": "807007186340-9bamuop561el0agvdv0na7ckiu5ret66.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "151533539517-77gvgeqb6iqb0ruvdj3r497lmup92vqb.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.cybermetals"
-              }
             }
           ]
         }

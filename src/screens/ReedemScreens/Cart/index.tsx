@@ -136,7 +136,7 @@ export const Cart: React.FC = () => {
         />
 
         <View>
-          {shippingAdress.city !== '' && (
+          {shippingAdress.city !== '' && cart.length > 0 ? (
             <CheckBoxItem
               value={checkBox}
               style={{marginLeft: 0}}
@@ -152,7 +152,7 @@ export const Cart: React.FC = () => {
                 </Description>
               </View>
             </CheckBoxItem>
-          )}
+          ) : null}
           {shippingAdress.city === '' && (
             <View style={{marginBottom: 12}}>
               <Illustration style={styles.error}>
@@ -169,9 +169,18 @@ export const Cart: React.FC = () => {
           <TextButton
             solid
             title="Checkout"
+            changeDisabledStyle={true}
+            disabledStyle={{
+              backgroundColor:
+                cashBalance < +totalPrice ? '#F39A9A' : '#C1D9FA',
+            }}
+            disabledTitle={
+              cashBalance < +totalPrice ? 'Insufficient Funds' : null
+            }
             disabled={
               shippingAdress.city === '' ||
               cart.length === 0 ||
+              (account === '' && paymentMethod !== 'cashBalance') ||
               checkBox === false ||
               cashBalance < totalPrice + +shipping.split(' ')[1]
             }
@@ -180,6 +189,7 @@ export const Cart: React.FC = () => {
                 paymentMethod,
                 shippingMethod: shipping,
                 cart,
+                account,
                 amount: totalPrice,
               })
             }

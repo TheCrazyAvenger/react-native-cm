@@ -26,8 +26,6 @@ export const BuySetUpForm: React.FC = () => {
   const legalAdress = useAppSelector(state => state.auth.legalAdress);
   const [account, setAccount] = useState('');
 
-  console.log(account);
-
   useEffect(() => {
     legalAdress.city === '' ? setError(true) : setError(false);
   }, [legalAdress]);
@@ -45,6 +43,8 @@ export const BuySetUpForm: React.FC = () => {
       amountOz,
     });
   };
+
+  console.log(account);
 
   return (
     <Formik
@@ -220,6 +220,8 @@ export const BuySetUpForm: React.FC = () => {
                       values.paymentMethod !== 'cashBalance'
                     ? true
                     : !isValid
+                    ? true
+                    : account === '' && values.paymentMethod !== 'cashBalance'
                     ? true
                     : error
                     ? true

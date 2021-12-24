@@ -27,6 +27,7 @@ export * from './numberWithCommas';
 export * from './getPaymentName';
 export * from './getMetalsColor';
 export * from './getReedemImage';
+export * from './getCardName';
 export * from './getShippingName';
 export * from './getGainsLosses';
 export * from './getTransactionName';

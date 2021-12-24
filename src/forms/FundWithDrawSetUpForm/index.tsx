@@ -18,6 +18,7 @@ export const FundWithDrawSetUpForm: React.FC = () => {
   const paymentMethods = useAppSelector(
     state => state.paymentMethod.paymentMethods,
   );
+  const cashBalance = useAppSelector(state => state.auth.cashBalance);
 
   const [eCheck, setECheck] = useState(
     paymentMethods.eCheck.length > 0 ? paymentMethods.eCheck[0].fullName : '',
@@ -130,6 +131,7 @@ export const FundWithDrawSetUpForm: React.FC = () => {
                 errorMessage={errors.paymentMethod}
                 isTouched={touched.paymentMethod}
                 maxHeight={150}
+                textStyle={{fontSize: 13, maxWidth: '85%'}}
                 value={values.paymentMethod}
                 onChange={value => {
                   setFieldValue('paymentMethod', value);
@@ -162,8 +164,22 @@ export const FundWithDrawSetUpForm: React.FC = () => {
               <TextButton
                 style={{marginBottom: 20}}
                 title="Continue"
+                changeDisabledStyle={true}
+                disabledStyle={{
+                  backgroundColor:
+                    type === 'Withdraw' && cashBalance < +values.amount
+                      ? '#F39A9A'
+                      : '#C1D9FA',
+                }}
+                disabledTitle={
+                  type === 'Withdraw' && cashBalance < +values.amount
+                    ? 'Insufficient Funds'
+                    : null
+                }
                 disabled={
-                  !isValid || paymentMethods[paymentMethod].length === 0
+                  !isValid ||
+                  paymentMethods[paymentMethod].length === 0 ||
+                  (type === 'Withdraw' && cashBalance < +values.amount)
                 }
                 solid
                 onPress={handleSubmit}

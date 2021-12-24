@@ -12,6 +12,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   dot: {
-    marginHorizontal: 7,
+    marginHorizontal: 5,
+  },
+  viewDot: {
+    marginHorizontal: 5,
   },
 });

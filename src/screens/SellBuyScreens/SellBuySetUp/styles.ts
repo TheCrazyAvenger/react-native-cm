@@ -15,6 +15,9 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     marginHorizontal: 10,
   },
+  infoText: {
+    fontFamily: 'OpenSans-SemiBold',
+  },
   info: {
     flexDirection: 'row',
     flexWrap: 'wrap',

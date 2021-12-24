@@ -104,7 +104,7 @@ export const ReviewBuyForm: React.FC<{
 
       onPress();
 
-      navigation.push(Screens.completeSellBuy, {
+      navigation.replace(Screens.completeSellBuy, {
         type: 'Success',
         operationType,
         data: route.params.data,
@@ -118,7 +118,7 @@ export const ReviewBuyForm: React.FC<{
     } catch (e) {
       await updateLoading(false);
       onPress();
-      navigation.push(Screens.completeSellBuy, {
+      navigation.replace(Screens.completeSellBuy, {
         type: 'Error',
         operationType,
         data: route.params.data,
@@ -163,8 +163,34 @@ export const ReviewBuyForm: React.FC<{
             <View>
               <TextButton
                 solid
+                changeDisabledStyle={true}
+                disabledStyle={{
+                  backgroundColor:
+                    (type === 'Buy' &&
+                      paymentMethod === 'cashBalance' &&
+                      cashBalance < +amount) ||
+                    (type === 'Sell' && ownedMetals[name] < +amountOz)
+                      ? '#F39A9A'
+                      : '#C1D9FA',
+                }}
+                disabledTitle={
+                  type === 'Buy' &&
+                  paymentMethod === 'cashBalance' &&
+                  cashBalance < +amount
+                    ? 'Insufficient Funds'
+                    : type === 'Sell' && ownedMetals[name] < +amountOz
+                    ? 'Insufficient Holdings'
+                    : null
+                }
                 loading={loading}
-                disabled={values.checkBox === false || loading}
+                disabled={
+                  values.checkBox === false ||
+                  loading ||
+                  (type === 'Buy' &&
+                    paymentMethod === 'cashBalance' &&
+                    cashBalance < +amount) ||
+                  (type === 'Sell' && ownedMetals[name] < +amountOz)
+                }
                 style={{marginBottom: 20}}
                 title={`Confirm ${type === 'Buy' ? 'Buy' : 'Sell'}`}
                 onPress={handleSubmit}

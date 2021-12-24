@@ -40,41 +40,49 @@ export const NumberPagination: React.FC<NumberPaginationProps> = ({
         ...style,
         justifyContent: showView ? 'space-between' : 'flex-end',
       }}>
-      {showView && (
+      {currentPage === 0 || paginationRange.length < 2 ? (
+        <View style={{marginBottom: 20}} />
+      ) : showView ? (
         <View style={styles.paginationContainer}>
-          <Subtitle>View:</Subtitle>
-          <TouchableOpacity style={styles.dot} onPress={() => changeView(10)}>
-            <Subtitle
+          <SubtitleMedium>View:</SubtitleMedium>
+          <TouchableOpacity
+            style={styles.viewDot}
+            onPress={() => changeView(10)}>
+            <SubtitleMedium
               style={{
                 fontFamily:
                   pageSize === 10 ? 'OpenSans-SemiBold' : 'OpenSans-Regular',
                 color: pageSize === 10 ? colors.primary : colors.black,
               }}>
               10
-            </Subtitle>
+            </SubtitleMedium>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.dot} onPress={() => changeView(25)}>
-            <Subtitle
+          <TouchableOpacity
+            style={styles.viewDot}
+            onPress={() => changeView(25)}>
+            <SubtitleMedium
               style={{
                 fontFamily:
                   pageSize === 25 ? 'OpenSans-SemiBold' : 'OpenSans-Regular',
                 color: pageSize === 25 ? colors.primary : colors.black,
               }}>
               25
-            </Subtitle>
+            </SubtitleMedium>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.dot} onPress={() => changeView(50)}>
-            <Subtitle
+          <TouchableOpacity
+            style={styles.viewDot}
+            onPress={() => changeView(50)}>
+            <SubtitleMedium
               style={{
                 fontFamily:
                   pageSize === 50 ? 'OpenSans-SemiBold' : 'OpenSans-Regular',
                 color: pageSize === 50 ? colors.primary : colors.black,
               }}>
               50
-            </Subtitle>
+            </SubtitleMedium>
           </TouchableOpacity>
         </View>
-      )}
+      ) : null}
       {currentPage === 0 || paginationRange.length < 2 ? (
         <View style={{marginBottom: 20}} />
       ) : (
@@ -87,10 +95,10 @@ export const NumberPagination: React.FC<NumberPaginationProps> = ({
               <LeftArrow />
             </TouchableOpacity>
           </View>
-          {paginationRange.map((pageNumber: any) => {
+          {paginationRange.map((pageNumber: any, i: number) => {
             return (
               <TouchableOpacity
-                key={pageNumber}
+                key={i}
                 style={styles.dot}
                 onPress={() => onPageChange(pageNumber)}>
                 <Subtitle

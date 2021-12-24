@@ -433,6 +433,7 @@ export type ReedemInfoProps = {
   cart: any;
   paymentMethod: string;
   shippingMethod: string;
+  account: string;
 };
 
 export type NumberPaginationProps = {

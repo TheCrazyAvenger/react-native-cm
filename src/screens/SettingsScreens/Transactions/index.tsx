@@ -95,7 +95,7 @@ export const Transactions: React.FC = () => {
               currentPage={currentPage}
               totalCount={operationsList.length}
               pageSize={pageSize}
-              showView={currentOperationsData.length > pageSize ? true : false}
+              showView={true}
               onPageChange={page => setCurrentPage(page)}
               changeView={(view: number) => setPageSize(view)}
             />

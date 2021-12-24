@@ -3,7 +3,6 @@ import {View} from 'react-native';
 import {BuyingInfoProps} from '../..';
 import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
-import {useAppSelector} from '@hooks';
 import {numberWithCommas} from '@utilities';
 
 export const BuyingInfo: React.FC<BuyingInfoProps> = ({

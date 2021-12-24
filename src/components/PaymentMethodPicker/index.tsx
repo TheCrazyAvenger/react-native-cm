@@ -8,7 +8,12 @@ import {Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {useNavigation} from '@react-navigation/core';
 import {setLoading} from '@store/slices/authSlice';
-import {getCardImage, getPaymentImage, numberWithCommas} from '@utilities';
+import {
+  getCardImage,
+  getCardName,
+  getPaymentImage,
+  numberWithCommas,
+} from '@utilities';
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {PayPalForm} from '../../forms';
@@ -35,6 +40,7 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
 
   const [paymentMethod, setPaymentMethod] = useState('cashBalance');
   const [visibleModal, setVisibleModal] = useState(false);
+
   const [card, setCard] = useState(
     paymentMethods.creditCard.length > 0
       ? paymentMethods.creditCard[0].fullName
@@ -49,16 +55,37 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
     paymentMethods.eCheck.length > 0 ? paymentMethods.eCheck[0].fullName : '',
   );
 
+  let creditCardsLength = 0;
+
+  const creditCards = paymentMethods.creditCard.filter((item: any) =>
+    new Date('01/' + item.expirationDate) > new Date() ? true : false,
+  );
+
+  paymentMethods.creditCard.length > 0 &&
+    paymentMethods.creditCard.map(
+      (item: any) =>
+        new Date('01/' + item.expirationDate) > new Date() &&
+        creditCardsLength++,
+    );
+
   useEffect(() => {
     paymentMethods.creditCard.length > 0 &&
-      setCard(paymentMethods.creditCard[0].fullName);
+      creditCards.length > 0 &&
+      setCard(creditCards[0].fullName);
     paymentMethods.bankWire.length > 0 &&
       setBankWire(paymentMethods.bankWire[0].fullName);
     paymentMethods.eCheck.length > 0 &&
       setEcheck(paymentMethods.eCheck[0].fullName);
 
     setPaymentType(
-      paymentMethods[paymentMethod].length > 0
+      paymentMethod === 'creditCard' && creditCardsLength === 0
+        ? ''
+        : paymentMethod === 'creditCard' &&
+          creditCardsLength > 0 &&
+          paymentMethods[paymentMethod].length > 0 &&
+          creditCards.length > 0
+        ? creditCards[0].fullName
+        : paymentMethods[paymentMethod].length > 0
         ? paymentMethods[paymentMethod][0].fullName
         : '',
     );
@@ -68,6 +95,13 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
     setPaymentType(
       paymentMethods.payPal.length > 0 && paymentMethod === 'payPal'
         ? paymentMethods.payPal[0].cardNumber
+        : paymentMethod === 'creditCard' && creditCardsLength === 0
+        ? ''
+        : paymentMethod === 'creditCard' &&
+          creditCardsLength > 0 &&
+          paymentMethods[paymentMethod].length > 0 &&
+          creditCards.length > 0
+        ? creditCards[0].fullName
         : paymentMethods[paymentMethod].length > 0
         ? paymentMethods[paymentMethod][0].fullName
         : '',
@@ -106,6 +140,7 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
         LeftIcon={getPaymentImage(paymentMethod)}
         label={label}
         labelStyle={labelStyle}
+        textStyle={{fontFamily: 'OpenSans-SemiBold'}}
         style={{...styles.picker, ...containerStyle}}
         placeholderStyle={styles.pickerPlaceholder}
         items={[
@@ -139,31 +174,37 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
             onPress={() => setVisibleModal(true)}
           />
         )}
-      {paymentMethod === 'creditCard' &&
-        paymentMethods[paymentMethod].length === 0 && (
-          <EmptyPaymentMethod
-            title="Add a Credit/Debit Card"
-            type="creditCard"
-          />
-        )}
-      {(paymentMethod === 'creditCard' ||
+      {(paymentMethod === 'creditCard' &&
+        paymentMethods[paymentMethod].length === 0) ||
+      (paymentMethod === 'creditCard' && creditCardsLength === 0) ? (
+        <EmptyPaymentMethod title="Add a Credit/Debit Card" type="creditCard" />
+      ) : null}
+      {((paymentMethod === 'creditCard' && creditCardsLength > 0) ||
         paymentMethod === 'eCheck' ||
         paymentMethod === 'bankWire') &&
       paymentMethods[paymentMethod].length > 0 ? (
         <ItemPicker
           labelStyle={{marginTop: 25, ...labelStyle}}
-          LeftIcon={getCardImage(card)}
           label="Account"
           style={{...styles.cardPicker, ...containerStyle}}
           placeholderStyle={styles.pickerPlaceholder}
-          items={paymentMethods[paymentMethod].map((item: any) => ({
-            label: item.fullName,
-            value: item.fullName,
-          }))}
+          items={paymentMethods[paymentMethod]
+            .filter((item: any) =>
+              new Date('01/' + item.expirationDate) > new Date() &&
+              creditCardsLength > 0
+                ? true
+                : paymentMethod !== 'creditCard'
+                ? true
+                : false,
+            )
+            .map((item: any) => ({
+              label: item.fullName,
+              value: item.fullName,
+            }))}
           textStyle={{
             fontSize:
               paymentMethod === 'eCheck' || paymentMethod === 'bankWire'
-                ? 13.5
+                ? 13
                 : 16,
           }}
           maxHeight={150}

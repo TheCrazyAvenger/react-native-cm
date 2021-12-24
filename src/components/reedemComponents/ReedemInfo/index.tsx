@@ -10,6 +10,7 @@ export const ReedemInfo: React.FC<ReedemInfoProps> = ({
   cart,
   shippingMethod,
   style,
+  account,
 }) => {
   return (
     <View style={style}>
@@ -41,6 +42,13 @@ export const ReedemInfo: React.FC<ReedemInfoProps> = ({
             {getShippingName(shippingMethod.split(' ')[0])}
           </SubtitleMedium>
         </View>
+
+        {account && paymentMethod !== 'Cash Balance' ? (
+          <View style={styles.infoItem}>
+            <Description style={styles.infoTitle}>Account</Description>
+            <SubtitleMedium style={styles.account}>{account}</SubtitleMedium>
+          </View>
+        ) : null}
       </View>
     </View>
   );

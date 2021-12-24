@@ -5,9 +5,24 @@ import {Description, Title} from '@Typography';
 import {Screens} from '@constants';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
+import Share from 'react-native-share';
 
 export const ForgotPassSucces: React.FC = () => {
   const navigation: any = useNavigation();
+
+  const onShare = async (social: any) => {
+    const shareOptions: any = {
+      social: Share.Social.EMAIL,
+    };
+
+    Share.shareSingle(shareOptions)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        err && console.log(err);
+      });
+  };
 
   return (
     <Screen type="View">
@@ -29,7 +44,7 @@ export const ForgotPassSucces: React.FC = () => {
             If you still have not received it, please review the email address
             for accuracy and resubmit your request. For further assistance,
             contact us at{' '}
-            <Description style={styles.email}>
+            <Description onPress={onShare} style={styles.email}>
               support@cybermetals.com.
             </Description>
           </Description>

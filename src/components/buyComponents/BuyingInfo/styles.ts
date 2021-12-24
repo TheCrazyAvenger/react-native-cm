@@ -15,7 +15,9 @@ export const styles = StyleSheet.create({
     color: colors.gray,
     marginBottom: 4,
   },
-  infoText: {},
+  infoText: {
+    fontFamily: 'OpenSans-SemiBold',
+  },
   price: {
     flexDirection: 'row',
     alignItems: 'center',

@@ -40,6 +40,7 @@ export const PaymentMethods: React.FC = () => {
 
   const removeItem = async (type: string, id: number) => {
     await database().ref(`/users/${token}/paymentMethods/${id}`).remove();
+
     await dispatch(deletePaymentMethods({paymentMethod: type, id}));
     await setMethod(
       type === 'creditCard'

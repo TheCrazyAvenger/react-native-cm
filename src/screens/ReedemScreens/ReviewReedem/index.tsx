@@ -1,22 +1,17 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {StatusBar, TouchableOpacity, View} from 'react-native';
-import {
-  CheckBoxItem,
-  LoadingItem,
-  ModalWindow,
-  ReedemInfo,
-  TaxItem,
-} from '@components';
+import {CheckBoxItem, ModalWindow, ReedemInfo, TaxItem} from '@components';
 import {SubtitleMedium, TitleMedium} from '@Typography';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
-import {getMonth, getPaymentName, getTime, numberWithCommas} from '@utilities';
-import {setLoading, updateCash} from '@store/slices/authSlice';
+import {getPaymentName, getTime} from '@utilities';
+import {updateCash} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
 import {addOperation} from '@store/slices/operationsSlice';
 import {Screens} from '@constants';
+import {cleanCart} from '@store/slices/reedemSlice';
 
 export const ReviewReedem: React.FC = () => {
   const navigation: any = useNavigation();
@@ -29,8 +24,8 @@ export const ReviewReedem: React.FC = () => {
   const [checkBox, setCheckbox] = useState(false);
 
   let myInterval: any = null;
-  const [minutes, setMinutes] = useState(3);
-  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(10);
   const [modalVisble, setModalVisible] = useState(false);
 
   useEffect(() => {
@@ -61,7 +56,7 @@ export const ReviewReedem: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const {paymentMethod, shippingMethod, amount, cart} = route.params;
+  const {paymentMethod, shippingMethod, amount, cart, account} = route.params;
 
   const reedemHandler = async () => {
     try {
@@ -80,6 +75,7 @@ export const ReviewReedem: React.FC = () => {
         total: amount,
         usd: `- $${amount}`,
         cart,
+        account,
         shippingMethod,
         paymentMethod: getPaymentName(paymentMethod),
         order,
@@ -103,24 +99,28 @@ export const ReviewReedem: React.FC = () => {
 
       await setLoading(false);
 
-      clearInterval(myInterval);
+      await clearInterval(myInterval);
 
-      navigation.navigate(Screens.completeReedem, {
+      await dispatch(cleanCart());
+
+      navigation.replace(Screens.completeReedem, {
         paymentMethod,
         shippingMethod,
         cart,
         order,
+        account,
         amount,
         type: 'Success',
       });
     } catch (e) {
       await setLoading(false);
       clearInterval(myInterval);
-      navigation.navigate(Screens.completeReedem, {
+      navigation.replace(Screens.completeReedem, {
         paymentMethod,
         shippingMethod,
         cart,
         order: '-',
+        account,
         amount,
         type: 'Error',
       });
@@ -163,6 +163,7 @@ export const ReviewReedem: React.FC = () => {
           paymentMethod={paymentMethod}
           shippingMethod={shippingMethod}
           cart={cart}
+          account={account}
         />
 
         <TaxItem
@@ -191,8 +192,13 @@ export const ReviewReedem: React.FC = () => {
         <View>
           <TextButton
             solid
+            changeDisabledStyle={true}
+            disabledStyle={{
+              backgroundColor: cashBalance < +amount ? '#F39A9A' : '#C1D9FA',
+            }}
+            disabledTitle={cashBalance < +amount ? 'Insufficient Funds' : null}
             loading={loading}
-            disabled={checkBox === false || loading}
+            disabled={checkBox === false || loading || cashBalance < +amount}
             style={{marginBottom: 20}}
             title="Confirm Redemption"
             onPress={reedemHandler}
