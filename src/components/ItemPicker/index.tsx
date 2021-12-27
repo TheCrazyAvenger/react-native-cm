@@ -86,13 +86,9 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
         }
         renderRightIcon={() =>
           !showArrow ? null : isFocus ? (
-            <Image
-              source={require('../../assets/images/settings/upIcon.png')}
-            />
+            <Image source={require('@assets/images/settings/upIcon.png')} />
           ) : (
-            <Image
-              source={require('../../assets/images/settings/downIcon.png')}
-            />
+            <Image source={require('@assets/images/settings/downIcon.png')} />
           )
         }
         renderItem={renderItem}

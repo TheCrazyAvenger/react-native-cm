@@ -33,7 +33,7 @@ export const Prices: React.FC = () => {
       <StatusBar
         barStyle="light-content"
         translucent
-        backgroundColor={colors.primary}
+        backgroundColor={'transparent'}
       />
       <Header />
       <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>

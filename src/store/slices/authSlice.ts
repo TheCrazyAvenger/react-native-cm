@@ -16,6 +16,7 @@ export interface AuthState {
   shippingAdress: {[key: string]: string | null | number};
   ownedMetals: {[key: string]: number};
   loginMethods: {[key: string]: string | null | boolean};
+  passcodeSetup: boolean;
   notifications: {[key: string]: boolean};
 }
 
@@ -53,6 +54,7 @@ const initialState: AuthState = {
     faceId: false,
     passcode: null,
   },
+  passcodeSetup: false,
   notifications: {
     transactions: false,
     promotions: false,
@@ -103,6 +105,9 @@ export const authSlice = createSlice({
       state.legalAdress = legalAdress;
       state.shippingAdress = shippingAdress;
     },
+    setLegalAdress: (state, action: PayloadAction<any>) => {
+      state.legalAdress = action.payload;
+    },
     setVerified: (state, action: PayloadAction<boolean>) => {
       state.verified = action.payload;
     },
@@ -120,6 +125,9 @@ export const authSlice = createSlice({
     setPasscode: (state, action: PayloadAction<any>) => {
       const {loginMethod, value} = action.payload;
       state.loginMethods[loginMethod] = value;
+    },
+    setPasscodeSetup: (state, action: PayloadAction<any>) => {
+      state.passcodeSetup = action.payload;
     },
     deleteLoginMethod: (state, action: PayloadAction<any>) => {
       state.loginMethods[action.payload] = false;
@@ -228,11 +236,13 @@ export const {
   setLoading,
   updateCash,
   setAdress,
+  setLegalAdress,
   updateOwnedMetals,
   setPasscode,
   deleteLoginMethod,
   setNotification,
   deletePasscode,
+  setPasscodeSetup,
 } = authSlice.actions;
 
 export default authSlice.reducer;

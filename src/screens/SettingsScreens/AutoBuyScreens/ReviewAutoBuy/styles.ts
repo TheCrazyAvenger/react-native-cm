@@ -15,13 +15,4 @@ export const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Regular',
     marginBottom: 20,
   },
-  reviewItem: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
-  },
-  reviewInfo: {
-    marginRight: 36,
-    marginBottom: 20,
-  },
 });

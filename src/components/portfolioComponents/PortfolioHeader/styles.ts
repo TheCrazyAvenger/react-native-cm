@@ -34,7 +34,25 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     justifyContent: 'center',
-    left: '25%',
-    top: '31%',
+    left: 0,
+    top: -70,
+    bottom: 0,
+    right: 0,
+  },
+  emptyData: {
+    marginTop: 20,
+    backgroundColor: colors.primary,
+    marginBottom: 70,
+  },
+  title: {
+    marginTop: 20,
+    textAlign: 'center',
+    fontFamily: 'OpenSans-Bold',
+  },
+  description: {
+    marginTop: 20,
+    textAlign: 'center',
+    color: colors.gray,
+    paddingHorizontal: 50,
   },
 });

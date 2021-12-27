@@ -16,6 +16,8 @@ export const FundWithDrawSetUp: React.FC = () => {
 
   const {type} = route.params;
 
+  console.log(cashBalance);
+
   return (
     <Screen>
       <View style={styles.container}>

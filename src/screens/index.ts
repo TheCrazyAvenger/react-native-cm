@@ -14,6 +14,7 @@ export * from './SellBuyScreens/SellBuySetUp';
 export * from './SellBuyScreens/ReviewSellBuy';
 export * from './SellBuyScreens/CompleteSellBuy';
 export * from './SellBuyScreens/ChooseSell';
+export * from './SellBuyScreens/Billing';
 
 export * from './fundWithdrawScreens/ChooseFund';
 export * from './fundWithdrawScreens/ChooseWithdraw';
@@ -32,6 +33,7 @@ export * from './SettingsScreens/Passcode';
 export * from './SettingsScreens/ContactUs';
 
 export * from './SettingsScreens/VerificationScreens/Verification';
+export * from './SettingsScreens/VerificationScreens/VerificationInfo';
 export * from './SettingsScreens/VerificationScreens/DocumentsVerification';
 export * from './SettingsScreens/VerificationScreens/VerificationComplete';
 

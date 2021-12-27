@@ -1,11 +1,12 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
-import React, {useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View} from 'react-native';
 import {
   Description,
   Illustration,
   SubtitleMedium,
   TitleMedium,
+  Error,
 } from '@Typography';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
@@ -36,12 +37,19 @@ export const Cart: React.FC = () => {
 
   const cashBalance = useAppSelector(state => state.auth.cashBalance);
   const shippingAdress = useAppSelector(state => state.auth.shippingAdress);
+  const verified = useAppSelector(state => state.auth.verified);
   const cart = useAppSelector(state => state.reedem.cart);
 
   let totalPrice = cart.reduce(
     (acc: number, next: any) => acc + next.price * next.qty,
     0,
   );
+
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    !verified ? setError(true) : setError(false);
+  }, [verified]);
 
   return (
     <Screen>
@@ -105,6 +113,7 @@ export const Cart: React.FC = () => {
         <PaymentMethodPicker
           setPaymentType={value => setAccount(value)}
           label="Payment Method"
+          accountStyle={{marginHorizontal: 0}}
           containerStyle={{marginHorizontal: 0}}
           labelStyle={{marginLeft: 0}}
           onChange={value => setPaymentMethod(value)}
@@ -136,7 +145,7 @@ export const Cart: React.FC = () => {
         />
 
         <View>
-          {shippingAdress.city !== '' && cart.length > 0 ? (
+          {shippingAdress.city !== '' && cart.length > 0 && !error ? (
             <CheckBoxItem
               value={checkBox}
               style={{marginLeft: 0}}
@@ -153,52 +162,68 @@ export const Cart: React.FC = () => {
               </View>
             </CheckBoxItem>
           ) : null}
-          {shippingAdress.city === '' && (
-            <View style={{marginBottom: 12}}>
-              <Illustration style={styles.error}>
-                Please, indicate the Shipping Address in your
-              </Illustration>
+          {error ? (
+            <Error style={{marginBottom: 12}}>
+              Your account is not yet verified. You must complete the account{' '}
+              <Error
+                onPress={() => navigation.navigate(Screens.verificationStack)}
+                style={styles.errorLink}>
+                verification
+              </Error>{' '}
+              process before requesting delivery of physical precious metals.
+            </Error>
+          ) : (
+            shippingAdress.city === '' && (
+              <View style={{marginBottom: 12}}>
+                <Illustration style={styles.error}>
+                  Please, indicate the Shipping Address in your
+                </Illustration>
 
-              <Illustration
-                onPress={() => navigation.navigate(Screens.profile)}
-                style={styles.shippingText}>
-                Profile.
-              </Illustration>
-            </View>
+                <Illustration
+                  onPress={() => navigation.navigate(Screens.profile)}
+                  style={styles.shippingText}>
+                  Profile.
+                </Illustration>
+              </View>
+            )
           )}
-          <TextButton
-            solid
-            title="Checkout"
-            changeDisabledStyle={true}
-            disabledStyle={{
-              backgroundColor:
-                cashBalance < +totalPrice ? '#F39A9A' : '#C1D9FA',
-            }}
-            disabledTitle={
-              cashBalance < +totalPrice ? 'Insufficient Funds' : null
-            }
-            disabled={
-              shippingAdress.city === '' ||
-              cart.length === 0 ||
-              (account === '' && paymentMethod !== 'cashBalance') ||
-              checkBox === false ||
-              cashBalance < totalPrice + +shipping.split(' ')[1]
-            }
-            onPress={() =>
-              navigation.navigate(Screens.reviewReedem, {
-                paymentMethod,
-                shippingMethod: shipping,
-                cart,
-                account,
-                amount: totalPrice,
-              })
-            }
-          />
-          <TextButton
-            title="Cancel"
-            style={{marginTop: 15}}
-            onPress={() => navigation.goBack()}
-          />
+
+          <View>
+            <TextButton
+              solid
+              title="Checkout"
+              changeDisabledStyle={true}
+              disabledStyle={{
+                backgroundColor:
+                  cashBalance < +totalPrice ? '#F39A9A' : '#C1D9FA',
+              }}
+              disabledTitle={
+                cashBalance < +totalPrice ? 'Insufficient Funds' : null
+              }
+              disabled={
+                shippingAdress.city === '' ||
+                cart.length === 0 ||
+                (account === '' && paymentMethod !== 'cashBalance') ||
+                checkBox === false ||
+                cashBalance < totalPrice + +shipping.split(' ')[1] ||
+                error
+              }
+              onPress={() =>
+                navigation.navigate(Screens.reviewReedem, {
+                  paymentMethod,
+                  shippingMethod: shipping,
+                  cart,
+                  account,
+                  amount: totalPrice,
+                })
+              }
+            />
+            <TextButton
+              title="Cancel"
+              style={{marginTop: 15}}
+              onPress={() => navigation.goBack()}
+            />
+          </View>
         </View>
       </View>
     </Screen>

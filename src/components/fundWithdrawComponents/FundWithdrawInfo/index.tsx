@@ -16,7 +16,7 @@ export const FundWithdrawInfo: React.FC<FundWithdrawInfoProps> = ({
   return (
     <View>
       <View style={{...styles.info, ...style}}>
-        {cashBalance && (
+        {cashBalance! >= 0 ? (
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>
               Current Cash Balance
@@ -25,7 +25,7 @@ export const FundWithdrawInfo: React.FC<FundWithdrawInfoProps> = ({
               {`$${numberWithCommas(Number(cashBalance).toFixed(2))} USD`}
             </SubtitleMedium>
           </View>
-        )}
+        ) : null}
         {amount && (
           <View style={styles.infoItem}>
             <Description style={styles.infoTitle}>

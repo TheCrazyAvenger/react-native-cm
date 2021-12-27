@@ -56,13 +56,13 @@ export const PaymentMethodsSetUpForm: React.FC = () => {
     <Formik
       validationSchema={paymentMethodSchema}
       initialValues={{
-        paymentMethod: type === 'eCheckAdd' ? 'eCheck' : type,
+        paymentMethod: type.split(' ')[1] === 'Add' ? type.split(' ')[0] : type,
       }}
       onSubmit={values => onSubmit(values)}>
       {({values, errors, touched, setFieldValue}) => {
         return (
           <View style={styles.container}>
-            {type === 'eCheckAdd' ? null : (
+            {type.split(' ')[1] === 'Add' ? null : (
               <ItemPicker
                 LeftIcon={getPaymentImage(values.paymentMethod)}
                 label="Payment Method"

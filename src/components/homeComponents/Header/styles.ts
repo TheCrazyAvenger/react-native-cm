@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
   },
   headerItem: {
     flexDirection: 'row',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
   perfomance: {
@@ -25,5 +26,12 @@ export const styles = StyleSheet.create({
     color: colors.black,
     fontFamily: 'OpenSans-Bold',
     fontSize: 13,
+  },
+  headerText: {
+    color: colors.white,
+  },
+  value: {
+    color: colors.white,
+    lineHeight: 18,
   },
 });

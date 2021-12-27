@@ -8,12 +8,7 @@ import {Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {useNavigation} from '@react-navigation/core';
 import {setLoading} from '@store/slices/authSlice';
-import {
-  getCardImage,
-  getCardName,
-  getPaymentImage,
-  numberWithCommas,
-} from '@utilities';
+import {getPaymentImage, numberWithCommas} from '@utilities';
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {PayPalForm} from '../../forms';
@@ -28,6 +23,7 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
   labelStyle,
   containerStyle,
   setPaymentType,
+  accountStyle,
 }) => {
   const navigation: any = useNavigation();
 
@@ -128,11 +124,12 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
         confirmTitle="Log In to Your
         Online Checking Account"
         cancelTitle="Cancel"
-        onConfirm={() =>
+        onConfirm={() => {
+          setVisibleModal(false);
           navigation.navigate(Screens.paymentMethodsSetUp, {
             type: 'eCheck',
-          })
-        }
+          });
+        }}
         onCancel={() => setVisibleModal(false)}
         visible={visibleModal}
       />
@@ -164,11 +161,16 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
 
       {paymentMethod === 'bankWire' &&
         paymentMethods[paymentMethod].length === 0 && (
-          <EmptyPaymentMethod title="Add Bank Wire" type="bankWire" />
+          <EmptyPaymentMethod
+            style={accountStyle}
+            title="Add Bank Wire"
+            type="bankWire"
+          />
         )}
       {paymentMethod === 'eCheck' &&
         paymentMethods[paymentMethod].length === 0 && (
           <EmptyPaymentMethod
+            style={accountStyle}
             title="Link your bank account
         with Plaid"
             onPress={() => setVisibleModal(true)}
@@ -177,7 +179,11 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
       {(paymentMethod === 'creditCard' &&
         paymentMethods[paymentMethod].length === 0) ||
       (paymentMethod === 'creditCard' && creditCardsLength === 0) ? (
-        <EmptyPaymentMethod title="Add a Credit/Debit Card" type="creditCard" />
+        <EmptyPaymentMethod
+          style={accountStyle}
+          title="Add a Credit/Debit Card"
+          type="creditCard"
+        />
       ) : null}
       {((paymentMethod === 'creditCard' && creditCardsLength > 0) ||
         paymentMethod === 'eCheck' ||

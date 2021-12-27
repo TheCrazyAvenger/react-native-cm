@@ -51,12 +51,13 @@ export type FormInputProps = {
   label?: string;
   plaseholder: string;
   onChangeText: (...args: any) => void;
+  onChange?: (...args: any) => void;
   onFocus: (...args: any) => void;
   onBlur: (...args: any) => void;
   onInput?: (...args: any) => void;
   onContentSizeChange?: (...args: any) => void;
   height?: number;
-  leftPrefix?: string;
+  leftPrefix?: string | null;
   value: any;
   errorMessage?: any;
   isTouched: any;
@@ -81,7 +82,7 @@ export type PasswordItemProps = {
 };
 
 export type NotificationProps = {
-  text: string;
+  text: string | null;
   visible: boolean;
   onPress: any;
   textStyle?: {[key: string]: number | string};
@@ -214,8 +215,22 @@ export type AutoBuyItemProps = {
   endDate: string;
   style?: {[key: string]: number | string};
   id: number;
+  usedAmount: string;
+  account: string;
   keyId: number;
   onRemove: (...args: any) => void;
+};
+
+export type AutoBuyInfoProps = {
+  metal: string;
+  amount: number;
+  frequency: string;
+  paymentMethod: string;
+  startDate: string;
+  endDate: string;
+  usedAmount: string;
+  account: string;
+  style?: {[key: string]: number | string};
 };
 
 export type DatePickerProps = {
@@ -346,12 +361,14 @@ export type PaymentMethodPickerProps = {
   labelStyle?: {[key: string]: number | string};
   onChange: (value: any) => void;
   setPaymentType: (value: any) => void;
+  accountStyle?: {[key: string]: number | string};
 };
 
 export type EmptyPaymentMethodProps = {
   title: string;
   type?: string;
   onPress?: (...args: any) => void;
+  style?: {[key: string]: number | string};
 };
 
 export type CredentialsItemProps = {

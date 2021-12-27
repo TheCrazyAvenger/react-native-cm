@@ -16,6 +16,10 @@ export const styles = StyleSheet.create({
   pickerPlaceholder: {
     fontSize: 14,
   },
+  errorLink: {
+    fontFamily: 'OpenSans-SemiBold',
+    color: colors.primary,
+  },
   title: {
     color: colors.gray,
     marginBottom: 6,

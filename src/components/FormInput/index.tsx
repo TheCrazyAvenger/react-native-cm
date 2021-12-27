@@ -12,6 +12,9 @@ export const FormInput: React.FC<FormInputProps> = ({
   onChangeText,
   onFocus,
   onBlur,
+  onChange,
+  onInput,
+  onContentSizeChange,
   value,
   errorMessage,
   isTouched,
@@ -20,8 +23,6 @@ export const FormInput: React.FC<FormInputProps> = ({
   secureTextEntry,
   rightIcon,
   leftIcon,
-  onInput,
-  onContentSizeChange,
   height,
   disabled,
   leftPrefix,
@@ -55,6 +56,7 @@ export const FormInput: React.FC<FormInputProps> = ({
           keyboardType={keyboardType}
           autoFocus={autoFocus}
           onBlur={onBlur}
+          onChange={onChange}
           onTextInput={onInput}
           secureTextEntry={secureTextEntry}
           placeholder={plaseholder}

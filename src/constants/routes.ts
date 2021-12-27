@@ -24,6 +24,7 @@ export enum Screens {
   sellBuySetup = 'sellBuySetup',
   reviewSellBuy = 'reviewBuy',
   completeSellBuy = 'completeSellBuy',
+  billing = 'billing',
 
   reedemStack = 'reedemStack',
   catalog = 'catalog',
@@ -47,6 +48,7 @@ export enum Screens {
   contactUs = 'contactUs',
 
   verificationStack = 'verificationStack',
+  verificationInfo = 'verificationInfo',
   verification = 'verification',
   documentsVerification = 'documentsVerification',
   verificationComplete = 'verificationComplete',

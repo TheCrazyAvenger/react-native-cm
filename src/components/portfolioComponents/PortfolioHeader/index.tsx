@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {TouchableOpacity, useWindowDimensions, View} from 'react-native';
-import {Description, DescriptionBold, TitleMedium} from '@Typography';
+import {Description, DescriptionBold, Subtitle, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {colors} from '@constants';
 import {getColor, getMetalsColor, numberWithCommas} from '@utilities';
 import {useAppSelector} from '@hooks';
 import {GainsLossesArrow} from '@assets/images/potfolio';
 import {VictoryPie} from 'victory-native';
+import {EmptyDataScreen, Wrapper} from '@components';
 
 export const PortfolioHeader: React.FC<{gainsLosses: number}> = ({
   gainsLosses,
@@ -14,6 +15,17 @@ export const PortfolioHeader: React.FC<{gainsLosses: number}> = ({
   const [graph, setGraph] = useState('pie');
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
   const cashBalance = useAppSelector(state => state.auth.cashBalance);
+
+  const totalOwned = useMemo(
+    () =>
+      Object.values(ownedMetals).reduce(
+        (sum: number, next: number) => sum + next,
+        0,
+      ),
+    [ownedMetals],
+  );
+
+  const isEmpty = cashBalance === 0 && totalOwned === 0 ? true : false;
 
   const {width} = useWindowDimensions();
 
@@ -76,32 +88,48 @@ export const PortfolioHeader: React.FC<{gainsLosses: number}> = ({
 
       {graph === 'pie' ? (
         <View>
-          <VictoryPie
-            colorScale={pieColors}
-            origin={{y: 160, x: width / 2.25}}
-            innerRadius={130}
-            data={pieData}
-          />
-
-          <View style={styles.pieInfo}>
-            <TitleMedium style={{color: colors.primary}}>
-              $ {commonOwned} USD
-            </TitleMedium>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Description style={{color: getColor(gainsLosses)}}>
-                {`${gainsLosses < 0 ? '-' : '+'}$${numberWithCommas(
-                  Number(Math.abs(gainsLosses)).toFixed(2),
-                )} USD`}
+          {isEmpty ? (
+            <View>
+              <Subtitle style={styles.title}>Insufficient data</Subtitle>
+              <Description style={{...styles.description}}>
+                Top up your balance or make a purchase
               </Description>
-              <View
-                style={{
-                  marginLeft: 5,
-                  transform: [{rotate: gainsLosses >= 0 ? '0deg' : '180deg'}],
-                }}>
-                <GainsLossesArrow fill={gainsLosses >= 0 ? 'green' : 'red'} />
+
+              <Wrapper style={styles.emptyData} />
+            </View>
+          ) : (
+            <View>
+              <VictoryPie
+                colorScale={pieColors}
+                origin={{y: 160, x: width / 2.25}}
+                innerRadius={130}
+                data={pieData}
+              />
+              <View style={styles.pieInfo}>
+                <TitleMedium style={{color: colors.primary}}>
+                  $ {commonOwned} USD
+                </TitleMedium>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Description style={{color: getColor(gainsLosses)}}>
+                    {`${gainsLosses < 0 ? '-' : '+'}$${numberWithCommas(
+                      Number(Math.abs(gainsLosses)).toFixed(2),
+                    )} USD`}
+                  </Description>
+                  <View
+                    style={{
+                      marginLeft: 5,
+                      transform: [
+                        {rotate: gainsLosses >= 0 ? '0deg' : '180deg'},
+                      ],
+                    }}>
+                    <GainsLossesArrow
+                      fill={gainsLosses >= 0 ? 'green' : 'red'}
+                    />
+                  </View>
+                </View>
               </View>
             </View>
-          </View>
+          )}
         </View>
       ) : (
         <View style={{marginBottom: 100}} />

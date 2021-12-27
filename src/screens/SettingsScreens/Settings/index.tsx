@@ -1,5 +1,5 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
   Platform,
@@ -41,6 +41,7 @@ import {
   deleteLoginMethod,
   deletePasscode,
   setPasscode,
+  setPasscodeSetup,
 } from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
 import {cleanAutoBuy} from '@store/slices/autoBuySlice';
@@ -56,6 +57,7 @@ export const Settings: React.FC = () => {
 
   const loginMethods = useAppSelector(state => state.auth.loginMethods);
   const token = useAppSelector(state => state.auth.token);
+  const passcodeSetup: any = useAppSelector(state => state.auth.passcodeSetup);
 
   const {faceId, touchId}: any = loginMethods;
 
@@ -67,13 +69,16 @@ export const Settings: React.FC = () => {
   const shareApp = async () => {
     try {
       const result = await Share.share({
-        message:
-          'React Native | A framework for building native apps using React',
+        message: 'CyberMetals',
       });
     } catch (error: any) {
       Alert.alert(error.message);
     }
   };
+
+  useEffect(() => {
+    passcodeSetup && setPasscodeModal(true);
+  }, [passcodeSetup]);
 
   const createLoginMethod = async (value: boolean, method: string) => {
     try {
@@ -232,11 +237,14 @@ When complete, navigate back to the CyberMetals app to proceed."
         <MenuItem
           title="Secure With a Passcode"
           description="Set up a passcode to access CyberMetals without having to type your password"
-          onPress={() =>
-            loginMethods.passcode
-              ? removeLoginMethod('passcode', null)
-              : navigation.navigate(Screens.passcode)
-          }
+          onPress={() => {
+            if (loginMethods.passcode) {
+              removeLoginMethod('passcode', null);
+              dispatch(setPasscodeSetup(false));
+            } else {
+              navigation.navigate(Screens.passcode);
+            }
+          }}
           Image={Passcode}
           style={{marginBottom: 50}}
           type="switch"

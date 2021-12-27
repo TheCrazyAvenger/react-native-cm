@@ -1,8 +1,8 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
-import {Screens} from '@constants';
+import {Image, TouchableOpacity, View} from 'react-native';
+import {colors, Screens} from '@constants';
 import {styles} from './styles';
 import {
   CheckBoxItem,
@@ -10,29 +10,19 @@ import {
   FormInput,
   ItemPicker,
   PaymentMethodPicker,
+  Wrapper,
 } from '@components';
-import {getNextDay, getNextYear, validateNumbers} from '@utilities';
-import {Description, TitleMedium, Error} from '@Typography';
+import {getNextDay, validateNumbers} from '@utilities';
+import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {TextButton} from '@ui';
 import * as yup from 'yup';
-
-const autoBuySchema = yup.object().shape({
-  startDate: yup.string().required('Please enter Start Date'),
-  endDate: yup
-    .string()
-    .notOneOf([yup.ref('startDate')], 'Start Date must come before End Date')
-    .label('End Date')
-    .required('Please enter End Date'),
-  frequency: yup.string().required('Please enter Frequency'),
-  amount: yup
-    .number()
-    .required('Please enter amount')
-    .min(1, 'Minimum purchase amount is .001 ounces.'),
-});
+import {useAppSelector} from '@hooks';
 
 export const AutoBuySetUpForm: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
+
+  const cashBalance = useAppSelector(state => state.auth.cashBalance);
 
   const {type, prevValues} = route.params;
   const {data} = route.params;
@@ -40,6 +30,27 @@ export const AutoBuySetUpForm: React.FC = () => {
   const newDate = new Date();
 
   const [account, setAccount] = useState('');
+  const [usedAmount, setUsedAmount] = useState(
+    type && prevValues.usedAmount ? prevValues.usedAmount : 'USD',
+  );
+  const [pickerVisible, setPickerVisible] = useState(false);
+
+  const autoBuySchema = yup.object().shape({
+    startDate: yup.string().required('Please enter Start Date'),
+    endDate: yup
+      .string()
+      .notOneOf([yup.ref('startDate')], 'Start Date must come before End Date')
+      .label('End Date')
+      .required('Please enter End Date'),
+    frequency: yup.string().required('Please enter Frequency'),
+    amount: yup
+      .number()
+      .required('Please enter amount')
+      .min(
+        usedAmount === 'USD' ? 1 : 0.001,
+        'Minimum purchase amount is .001 ounces.',
+      ),
+  });
 
   const currentDate: any =
     newDate.getHours() > 16
@@ -69,6 +80,8 @@ export const AutoBuySetUpForm: React.FC = () => {
     navigation.navigate(Screens.reviewAutoBuy, {
       type: type ? type : null,
       amount,
+      account,
+      usedAmount,
       status: type ? status : 'Active',
       frequency,
       paymentMethod,
@@ -104,19 +117,29 @@ export const AutoBuySetUpForm: React.FC = () => {
         setFieldTouched,
         setFieldValue,
       }) => {
-        const checkDate = (date: string, field: string) => {
+        const checkStartDate = (date: string) => {
           if (new Date(date) < new Date(currentDate)) {
-            setFieldValue(field, new Date(currentDate).toLocaleDateString());
+            setFieldValue(
+              'startDate',
+              new Date(currentDate).toLocaleDateString(),
+            );
           } else {
-            setFieldValue(field, date);
+            setFieldValue('startDate', date);
           }
-          if (
-            new Date(date) <= new Date(values.startDate) &&
-            field === 'endDate'
-          ) {
-            const currentDate = new Date(values.startDate);
+
+          if (new Date(values.endDate) <= new Date(date)) {
+            const currentDate = new Date(date);
 
             setFieldValue('endDate', getNextDay(currentDate));
+          }
+        };
+
+        const checkEndDate = (date: string) => {
+          if (new Date(date) < new Date(values.startDate)) {
+            setFieldValue('endDate', getNextDay(values.startDate));
+            console.log(2);
+          } else {
+            setFieldValue('endDate', date);
           }
         };
 
@@ -132,6 +155,7 @@ export const AutoBuySetUpForm: React.FC = () => {
                   {label: 'Active', value: 'Active'},
                   {label: 'Paused', value: 'Paused'},
                 ]}
+                maxHeight={113}
                 errorMessage={errors.status}
                 isTouched={touched.status}
                 value={values.status}
@@ -147,7 +171,7 @@ export const AutoBuySetUpForm: React.FC = () => {
                   label="Start Date"
                   value={values.startDate}
                   onConfirm={date => {
-                    checkDate(date, 'startDate');
+                    checkStartDate(date);
                   }}
                 />
               </View>
@@ -159,7 +183,9 @@ export const AutoBuySetUpForm: React.FC = () => {
                   style={{marginBottom: -25}}
                   value={values.endDate}
                   disabled={values.checkBox}
-                  onConfirm={date => checkDate(date, 'endDate')}
+                  onConfirm={date => {
+                    checkEndDate(date);
+                  }}
                 />
                 <CheckBoxItem
                   value={values.checkBox}
@@ -189,15 +215,61 @@ export const AutoBuySetUpForm: React.FC = () => {
             />
 
             <Description style={styles.title}>
-              {data ? data.metal : null} Amount
+              {data ? data.name : null} Amount
             </Description>
             <FormInput
               onBlur={() => setFieldTouched('amount', true)}
               plaseholder="0.00"
-              leftPrefix="$"
+              leftPrefix={usedAmount === 'USD' ? '$' : null}
               onInput={() =>
                 setFieldValue('amount', validateNumbers(values.amount))
               }
+              rightIcon={() => (
+                <View>
+                  <TouchableOpacity
+                    onPress={() => setPickerVisible(true)}
+                    style={styles.amount}>
+                    <Description style={styles.amountTitle}>
+                      {usedAmount}
+                    </Description>
+                    <Image
+                      style={{marginLeft: 8}}
+                      source={require('@assets/images/settings/downIcon.png')}
+                    />
+                  </TouchableOpacity>
+                  {pickerVisible && (
+                    <View style={styles.amountPicker}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setUsedAmount('USD');
+                          setPickerVisible(false);
+                        }}>
+                        <SubtitleMedium
+                          style={{
+                            color:
+                              usedAmount === 'USD' ? colors.gray : colors.black,
+                          }}>
+                          USD
+                        </SubtitleMedium>
+                      </TouchableOpacity>
+                      <Wrapper style={styles.pickerWrap} />
+                      <TouchableOpacity
+                        onPress={() => {
+                          setUsedAmount('OZ');
+                          setPickerVisible(false);
+                        }}>
+                        <SubtitleMedium
+                          style={{
+                            color:
+                              usedAmount === 'OZ' ? colors.gray : colors.black,
+                          }}>
+                          OZ
+                        </SubtitleMedium>
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                </View>
+              )}
               keyboardType="numeric"
               onChangeText={handleChange('amount')}
               onFocus={() => setFieldTouched('amount', false)}
@@ -214,9 +286,37 @@ export const AutoBuySetUpForm: React.FC = () => {
 
             <View style={{marginHorizontal: 10, marginTop: 30}}>
               <TextButton
+                changeDisabledStyle={true}
+                disabledStyle={{
+                  backgroundColor:
+                    (values.paymentMethod === 'cashBalance' &&
+                      cashBalance < +values.amount) ||
+                    (values.paymentMethod === 'cashBalance' &&
+                      usedAmount === 'OZ' &&
+                      cashBalance < +values.amount * 1887)
+                      ? '#F39A9A'
+                      : '#C1D9FA',
+                }}
+                disabledTitle={
+                  (values.paymentMethod === 'cashBalance' &&
+                    cashBalance < +values.amount) ||
+                  (values.paymentMethod === 'cashBalance' &&
+                    usedAmount === 'OZ' &&
+                    cashBalance < +values.amount * 1887)
+                    ? 'Insufficient Funds'
+                    : null
+                }
                 style={{marginBottom: 20}}
                 title="Continue"
-                disabled={values.amount === ''}
+                disabled={
+                  values.amount === '' ||
+                  (!account && values.paymentMethod !== 'cashBalance') ||
+                  (values.paymentMethod === 'cashBalance' &&
+                    cashBalance < +values.amount) ||
+                  (values.paymentMethod === 'cashBalance' &&
+                    usedAmount === 'OZ' &&
+                    cashBalance < +values.amount * 1887)
+                }
                 solid
                 onPress={handleSubmit}
               />

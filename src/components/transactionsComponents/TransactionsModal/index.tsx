@@ -90,7 +90,7 @@ export const TransactionsModal: React.FC<TransactionsModalProps> = ({
             {type === 'Withdraw' && (
               <View>
                 <WithdrawTaxItem
-                  style={{paddingHorizontal: 0}}
+                  style={{paddingHorizontal: 0, marginTop: 0}}
                   amount={total}
                 />
 

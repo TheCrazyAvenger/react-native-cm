@@ -160,7 +160,7 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
                 <Error style={{marginBottom: 12}}>
                   Please{' '}
                   <Error
-                    onPress={() => navigation.navigate(Screens.profile)}
+                    onPress={() => navigation.navigate(Screens.billing)}
                     style={styles.errorLink}>
                     provide your Legal Address
                   </Error>{' '}

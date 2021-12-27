@@ -372,3 +372,21 @@ export const contactUsSchema = yup.object().shape({
     .max(250, 'The field should be less than or equal to 10 symbols ')
     .min(10, 'This field should contain at least 10 symbols'),
 });
+
+export const billingSchema = yup.object().shape({
+  streetAddress: yup
+    .string()
+    .required('Please enter your Legal Adress')
+    .max(30, 'The field should be less than or equal to 30 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  city: yup
+    .string()
+    .required('Please enter your Legal City')
+    .max(30, 'The field should be less than or equal to 30 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  state: yup.string().required('Please enter your Legal State'),
+  postalCode: yup
+    .number()
+    .min(5, 'At least 5 numbers')
+    .required('Please enter Postal Code'),
+});

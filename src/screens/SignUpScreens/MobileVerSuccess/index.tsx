@@ -80,7 +80,7 @@ export const MobileVerSuccess: React.FC = () => {
             lastName,
             password,
             mobile,
-            cashBalance: 1000,
+            cashBalance: 0,
             legalAdress: {
               streetAdress: null,
               city: null,

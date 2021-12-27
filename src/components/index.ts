@@ -60,6 +60,7 @@ export * from './settingsComponents/TransactonItem';
 
 export * from './autoBuyComponents/ProductItem';
 export * from './autoBuyComponents/AutoBuyItem';
+export * from './autoBuyComponents/AutoBuyInfo';
 
 export * from './priceAlertsComponents/PriceAlertItem';
 export * from './priceAlertsComponents/PriceAlertListItem';

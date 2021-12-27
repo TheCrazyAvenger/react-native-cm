@@ -1,22 +1,15 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  ScrollView,
-  TouchableNativeFeedback,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import React, {useEffect, useRef} from 'react';
+import {TouchableWithoutFeedback, View} from 'react-native';
 import {styles} from './styles';
 import {reviewBuySchema} from '../..';
 import {validatePasscode} from '@utilities';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {Input} from 'react-native-elements';
 import {colors} from '@constants';
-import {setPasscode} from '@store/slices/authSlice';
-import {LoadingItem} from '@components';
+import {setPasscode, setPasscodeSetup} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
-import {TextButton} from '@ui';
 
 export const PasscodeForm: React.FC<{
   setError: (...args: any) => void;
@@ -45,8 +38,11 @@ export const PasscodeForm: React.FC<{
         .ref(`/users/${token}/loginMethods/passcode`)
         .set(passcode);
       await dispatch(setPasscode({loginMethod: 'passcode', value: passcode}));
+
+      await dispatch(setPasscodeSetup({value: true}));
+
       await setLoading(false);
-      navigation.goBack({passcode: true});
+      navigation.pop();
     } catch (e) {
       console.log(e);
     }

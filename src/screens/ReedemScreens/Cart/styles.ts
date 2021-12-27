@@ -63,4 +63,8 @@ export const styles = StyleSheet.create({
     color: colors.primary,
     fontFamily: 'OpenSans-SemiBold',
   },
+  errorLink: {
+    fontFamily: 'OpenSans-SemiBold',
+    color: colors.primary,
+  },
 });

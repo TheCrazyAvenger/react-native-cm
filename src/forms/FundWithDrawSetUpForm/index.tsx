@@ -5,7 +5,7 @@ import {View} from 'react-native';
 import {colors, Screens} from '@constants';
 import {styles} from './styles';
 import {FormInput, ItemPicker, WithdrawTaxItem} from '@components';
-import {Description, SubtitleMedium, TitleMedium} from '@Typography';
+import {Description, Error, SubtitleMedium, TitleMedium} from '@Typography';
 import {TextButton} from '@ui';
 import {useAppSelector} from '@hooks';
 import {numberWithCommas, validateNumbers} from '@utilities';
@@ -19,7 +19,9 @@ export const FundWithDrawSetUpForm: React.FC = () => {
     state => state.paymentMethod.paymentMethods,
   );
   const cashBalance = useAppSelector(state => state.auth.cashBalance);
+  const verified = useAppSelector(state => state.auth.verified);
 
+  const [error, setError] = useState(false);
   const [eCheck, setECheck] = useState(
     paymentMethods.eCheck.length > 0 ? paymentMethods.eCheck[0].fullName : '',
   );
@@ -28,6 +30,10 @@ export const FundWithDrawSetUpForm: React.FC = () => {
       ? paymentMethods.bankWire[0].fullName
       : '',
   );
+
+  useEffect(() => {
+    !verified ? setError(true) : setError(false);
+  }, [verified]);
 
   useEffect(() => {
     paymentMethods.eCheck.length > 0 &&
@@ -99,7 +105,7 @@ export const FundWithDrawSetUpForm: React.FC = () => {
                   style={{marginHorizontal: 10, paddingHorizontal: 50}}
                   onPress={() =>
                     navigation.navigate(Screens.paymentMethodsSetUp, {
-                      type: 'eCheckAdd',
+                      type: 'eCheck Add',
                     })
                   }
                 />
@@ -113,7 +119,7 @@ export const FundWithDrawSetUpForm: React.FC = () => {
                   style={{marginHorizontal: 10, paddingHorizontal: 50}}
                   onPress={() =>
                     navigation.navigate(Screens.paymentMethodsSetUp, {
-                      type: 'bankWire',
+                      type: 'bankWire Add',
                     })
                   }
                 />
@@ -161,6 +167,20 @@ export const FundWithDrawSetUpForm: React.FC = () => {
             </View>
 
             <View style={{paddingHorizontal: 10}}>
+              {error && type === 'Withdraw' && (
+                <Error style={{marginBottom: 12}}>
+                  Your account is not yet verified. You must complete the
+                  account{' '}
+                  <Error
+                    onPress={() =>
+                      navigation.navigate(Screens.verificationStack)
+                    }
+                    style={styles.errorLink}>
+                    verification
+                  </Error>{' '}
+                  process before withdrawing funds.
+                </Error>
+              )}
               <TextButton
                 style={{marginBottom: 20}}
                 title="Continue"
@@ -179,7 +199,8 @@ export const FundWithDrawSetUpForm: React.FC = () => {
                 disabled={
                   !isValid ||
                   paymentMethods[paymentMethod].length === 0 ||
-                  (type === 'Withdraw' && cashBalance < +values.amount)
+                  (type === 'Withdraw' && cashBalance < +values.amount) ||
+                  (error && type === 'Withdraw')
                 }
                 solid
                 onPress={handleSubmit}

@@ -173,22 +173,12 @@ export const BuySetUpForm: React.FC = () => {
               }`}</TitleMedium>
             </View>
 
-            {legalAdress.city === null && (
-              <View style={styles.error}>
-                <Error>Please, indicate the Legal Address in your </Error>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate(Screens.profile)}>
-                  <Error style={styles.profileError}>Profile.</Error>
-                </TouchableOpacity>
-              </View>
-            )}
-
             <View style={{marginHorizontal: 10}}>
               {error && (
                 <Error style={{marginBottom: 12}}>
                   Please{' '}
                   <Error
-                    onPress={() => navigation.navigate(Screens.profile)}
+                    onPress={() => navigation.navigate(Screens.billing)}
                     style={styles.errorLink}>
                     provide your Legal Address
                   </Error>{' '}

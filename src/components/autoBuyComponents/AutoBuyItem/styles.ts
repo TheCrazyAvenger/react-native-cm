@@ -1,3 +1,4 @@
+import {colors} from '@constants';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -8,11 +9,15 @@ export const styles = StyleSheet.create({
   },
   cardHeader: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    marginRight: 20,
   },
   actionButtons: {
     flexDirection: 'row',
     justifyContent: 'center',
+    position: 'absolute',
+    right: 20,
+    top: 20,
   },
   topBorders: {
     borderTopStartRadius: 5,
@@ -23,12 +28,12 @@ export const styles = StyleSheet.create({
     borderBottomEndRadius: 5,
   },
   cardItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    marginRight: 40,
     marginBottom: 20,
   },
   cardTitle: {
-    fontFamily: 'OpenSans-Bold',
+    color: colors.gray,
+    marginBottom: 4,
   },
   row: {
     flexDirection: 'row',

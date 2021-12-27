@@ -2,7 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {Image, View} from 'react-native';
 import {Wrapper} from '../..';
 import {colors} from '@constants';
-import {Description, Illustration, Subtitle, TitleMedium} from '@Typography';
+import {
+  Description,
+  Illustration,
+  Subtitle,
+  SubtitleMedium,
+  TitleMedium,
+} from '@Typography';
 import {styles} from './styles';
 import {Logo} from '@assets/images';
 import {useAppSelector} from '@hooks';
@@ -42,16 +48,20 @@ export const Header: React.FC = () => {
         <Logo />
       </View>
       <View style={styles.headerItem}>
-        <View>
-          <Description style={{color: colors.white}}>
+        <View style={{maxWidth: '65%'}}>
+          <SubtitleMedium style={styles.value}>
             Your Account Value:
-          </Description>
-          <TitleMedium style={{color: colors.white}}>{`$${numberWithCommas(
+          </SubtitleMedium>
+          <TitleMedium
+            numberOfLines={1}
+            style={{
+              color: colors.white,
+            }}>{`$${numberWithCommas(
             Number(cashBalance + totalHoldings).toFixed(2),
           )} USD`}</TitleMedium>
         </View>
         <View style={{alignItems: 'flex-end'}}>
-          <Illustration style={{color: colors.white}}>
+          <Illustration style={{...styles.headerText, fontSize: 12}}>
             Total Performance
           </Illustration>
           <View style={styles.perfomance}>
@@ -76,17 +86,19 @@ export const Header: React.FC = () => {
       <Wrapper />
 
       <View style={styles.headerItem}>
-        <View>
-          <Description style={{color: colors.white}}>Cash Balance:</Description>
-          <Subtitle style={{color: colors.white}}>{`$${numberWithCommas(
+        <View style={{maxWidth: '50%'}}>
+          <Description style={styles.headerText}>Cash Balance:</Description>
+          <Subtitle
+            numberOfLines={1}
+            style={{color: colors.white}}>{`$${numberWithCommas(
             Number(cashBalance).toFixed(2),
           )} USD`}</Subtitle>
         </View>
-        <View style={{alignItems: 'flex-end'}}>
-          <Description style={{color: colors.white}}>
-            Metal Holdings:
-          </Description>
-          <Subtitle style={{color: colors.white}}>{`$${numberWithCommas(
+        <View style={{maxWidth: '50%', alignItems: 'flex-end'}}>
+          <Description style={styles.headerText}>Metal Holdings:</Description>
+          <Subtitle
+            numberOfLines={1}
+            style={{color: colors.white}}>{`$${numberWithCommas(
             Number(totalHoldings).toFixed(2),
           )} USD`}</Subtitle>
         </View>

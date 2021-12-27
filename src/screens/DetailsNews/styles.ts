@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 40,
-    marginTop: 15,
+    marginTop: 7,
   },
   social: {
     marginRight: 16,

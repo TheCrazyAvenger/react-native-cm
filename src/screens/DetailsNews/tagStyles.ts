@@ -1,6 +1,10 @@
 import {colors} from '../../constants';
 
 export const tagStyles = {
+  li: {
+    fontFamily: 'OpenSans-Regular',
+    color: colors.black,
+  },
   p: {
     fontFamily: 'OpenSans-Regular',
     fontSize: 16,
