@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
 import {KeyboardAvoidingView, Platform, StatusBar, View} from 'react-native';
-import {LoadingItem, SocialBlock} from '@components';
+import {SocialBlock} from '@components';
 import {Title} from '@Typography';
 import {LogInForm} from '../../../forms';
 import {Screen} from '@ui';
 import {styles} from './styles';
 import auth from '@react-native-firebase/auth';
-import {useAppDispatch, useAppSelector} from '@hooks';
-import {getData, loginHandler} from '@store/actions';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useAppDispatch} from '@hooks';
 import {Error} from '@Typography';
 import {useNavigation} from '@react-navigation/core';
 import {Screens} from '@constants';
@@ -23,11 +21,11 @@ export const LogIn: React.FC = () => {
     try {
       setError(null);
       setLoading(true);
+      console.log(values);
       const {email: userEmail, password} = values;
       await auth()
         .signInWithEmailAndPassword(userEmail, password)
         .then(async data => {
-          // await AsyncStorage.setItem('token', JSON.stringify(data.user.uid));
           setLoading(false);
 
           navigation.navigate(Screens.mobileVerCode, {
@@ -42,8 +40,8 @@ export const LogIn: React.FC = () => {
               'The email address or password does not match any account. Please try again.',
             );
           }
-          setError(error);
-          console.error(error);
+          setError(error.message);
+          console.log(error);
           setLoading(false);
         });
     } catch (e) {

@@ -14,6 +14,7 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
   labelStyle,
   errorStyle,
   errorMessage,
+  containerStyle,
   placeholderStyle,
   isTouched,
   disabled,
@@ -34,7 +35,7 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
   };
 
   return (
-    <View>
+    <View style={containerStyle}>
       {label && (
         <Description
           style={{

@@ -5,6 +5,7 @@ export * from './time';
 export * from './states';
 export * from './cookieLinks';
 export * from './cmCredentials';
+export * from './timelineData';
 
 export * from './secondsToTime';
 export * from './getNextYear';
@@ -33,3 +34,4 @@ export * from './getGainsLosses';
 export * from './getTransactionName';
 export * from './validatePasscode';
 export * from './cardInputValidation';
+export * from './getTimeLineDate';

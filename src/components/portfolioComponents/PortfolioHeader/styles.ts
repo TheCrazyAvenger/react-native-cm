@@ -55,4 +55,15 @@ export const styles = StyleSheet.create({
     color: colors.gray,
     paddingHorizontal: 50,
   },
+  tickLabels: {
+    fontSize: 14,
+    fontFamily: 'OpenSans-Regular',
+    color: colors.gray,
+  },
+  chartWrapper: {
+    backgroundColor: colors.primary,
+    marginTop: 0,
+    marginHorizontal: 40,
+    marginBottom: 12,
+  },
 });

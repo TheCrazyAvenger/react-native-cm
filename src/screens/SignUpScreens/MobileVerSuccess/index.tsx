@@ -7,9 +7,8 @@ import {styles} from './styles';
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {authSucces, setLoading} from '@store/slices/authSlice';
+import {authSucces} from '@store/slices/authSlice';
 import {useAppDispatch} from '@hooks';
-import {LoadingItem} from '@components';
 
 export const MobileVerSuccess: React.FC = () => {
   const route: any = useRoute();
@@ -117,7 +116,7 @@ export const MobileVerSuccess: React.FC = () => {
           setLoading(false);
           return setError('That email address is already in use!');
         }
-        setError(error);
+        setError(error.message);
         setLoading(false);
       });
   };

@@ -35,7 +35,7 @@ export const Portfolio: React.FC = () => {
   if (isLoading) return <LoadingItem />;
 
   return (
-    <Screen>
+    <Screen style={{paddingHorizontal: 0}}>
       <StatusBar
         barStyle="dark-content"
         translucent
@@ -43,7 +43,7 @@ export const Portfolio: React.FC = () => {
       />
 
       <PortfolioHeader gainsLosses={gainsLosses} />
-      <View style={{marginTop: -80}}>
+      <View style={{marginTop: -80, paddingHorizontal: 26}}>
         {data === [] || isLoading ? (
           <LoadingItem />
         ) : error ? (

@@ -255,6 +255,7 @@ export type ItemPickerProps = {
   errorMessage?: any;
   isTouched?: any;
   labelStyle?: {[key: string]: number | string};
+  containerStyle?: {[key: string]: number | string};
   errorStyle?: {[key: string]: number | string};
   onChange: (value: string) => void;
   items: {label: string; value: string}[];
