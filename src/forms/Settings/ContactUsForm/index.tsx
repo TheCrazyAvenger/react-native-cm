@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Formik} from 'formik';
-import {TextInput, View} from 'react-native';
+import {View} from 'react-native';
 import {FormInput} from '@components';
 import {styles} from './styles';
 import {useAppSelector} from '@hooks';

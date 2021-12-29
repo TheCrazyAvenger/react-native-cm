@@ -39,11 +39,9 @@ export const CompleteSellBuy: React.FC = () => {
         <TitleMedium style={styles.title}>
           You {operationType === 'Buy' ? 'Bought' : 'Sold'}{' '}
           {type === 'Success' ? (
-            <Image
-              source={require('../../../assets/images/settings/complete.png')}
-            />
+            <Image source={require('@assets/images/settings/complete.png')} />
           ) : (
-            <Image source={require('../../../assets/images/buy/error.png')} />
+            <Image source={require('@assets/images/buy/error.png')} />
           )}
         </TitleMedium>
 

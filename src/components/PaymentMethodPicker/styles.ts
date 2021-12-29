@@ -23,17 +23,6 @@ export const styles = StyleSheet.create({
     fontWeight: '400',
     marginHorizontal: 10,
   },
-  paymentMethod: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: colors.placeholder,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 15,
-    marginBottom: 25,
-    marginHorizontal: 10,
-  },
   paypal: {
     paddingHorizontal: 10,
     fontFamily: 'OpenSans-SemiBold',

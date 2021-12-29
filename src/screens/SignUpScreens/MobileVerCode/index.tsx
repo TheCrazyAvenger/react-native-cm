@@ -1,31 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {KeyboardAvoidingView, Platform, StatusBar, View} from 'react-native';
 import {Description, Title} from '@Typography';
 import {MobileVerCodeForm} from '../../../forms';
 import {Screen} from '@ui';
 import {styles} from './styles';
-import auth from '@react-native-firebase/auth';
-import {useRoute} from '@react-navigation/core';
 import {Notification} from '@components';
 
 export const MobileVerCode: React.FC = () => {
-  const route: any = useRoute();
-
   const [modal, setModal] = useState(true);
-
-  // const {mobile} = route.params!.values;
-
-  // useEffect(() => {
-  //   signUpWithCode();
-  // }, []);
-
-  // const signUpWithCode = async () => {
-  //   try {
-  //     await auth().signInWithPhoneNumber(mobile);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
 
   return (
     <KeyboardAvoidingView

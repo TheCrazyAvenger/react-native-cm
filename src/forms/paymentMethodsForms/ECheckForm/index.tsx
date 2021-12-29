@@ -1,9 +1,8 @@
-import {useNavigation, useRoute} from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {ScrollView, View} from 'react-native';
 import {styles} from './styles';
-import {SocialButton, TextButton} from '@ui';
-import {useAppSelector} from '@hooks';
+import {TextButton} from '@ui';
 import {Description, SubtitleMedium} from '@Typography';
 import {colors} from '@constants';
 
@@ -14,7 +13,6 @@ export const ECheckForm: React.FC<{
   loading: boolean;
 }> = ({onSubmit, type, label, loading}) => {
   const navigation: any = useNavigation();
-  const route: any = useRoute();
 
   return (
     <View style={styles.container}>

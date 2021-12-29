@@ -3,8 +3,8 @@ import {
   BottomTabBar,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
-import {colors, Screens} from '../../constants';
-import {NullString, Portfolio, Settings} from '../../screens';
+import {colors, Screens} from '@constants';
+import {NullString, Portfolio, Settings} from '@screens';
 import {styles} from './styles';
 import {Platform, View} from 'react-native';
 
@@ -15,7 +15,7 @@ import {
   PortfolioIcon,
   PricesIcon,
   SettingsIcon,
-} from '../../components/bottomTabsComponents';
+} from '@components';
 import {HomeStack} from '../HomeStack';
 import {PricesStack} from '@navigation/PricesStack';
 

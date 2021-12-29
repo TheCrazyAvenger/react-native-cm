@@ -1,5 +1,5 @@
 import {Mail, PhoneCall} from '@assets/images/settings';
-import {LoadingItem, Wrapper} from '@components';
+import {Wrapper} from '@components';
 import {Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
 import {Screen} from '@ui';
 import React, {useState} from 'react';
@@ -8,8 +8,6 @@ import {ContactUsForm} from '../../../forms';
 import {styles} from './styles';
 import database from '@react-native-firebase/database';
 import {useNavigation} from '@react-navigation/native';
-import LottieView from 'lottie-react-native';
-import {colors} from '@constants';
 
 export const ContactUs: React.FC = () => {
   const [loading, setLoading] = useState(false);

@@ -1,10 +1,8 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
 
 export const styles = StyleSheet.create({
-  noAlerts: {
-    width: '100%',
-    alignItems: 'center',
-    marginTop: '65%',
+  titleStyle: {
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 20,
   },
 });

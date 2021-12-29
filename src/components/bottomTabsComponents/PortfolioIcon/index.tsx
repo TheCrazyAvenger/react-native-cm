@@ -1,9 +1,11 @@
+import {ButtonsProps} from '@components';
 import React from 'react';
+//@ts-ignore
 import Svg, {Path} from 'react-native-svg';
-import {ButtonsProps} from '..';
 
 export const HomeIcon: React.FC<ButtonsProps> = ({color}) => {
   return (
+    //@ts-ignore
     <Svg
       width="23"
       height="24"

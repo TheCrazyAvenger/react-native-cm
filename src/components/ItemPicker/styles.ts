@@ -32,9 +32,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  errorLabel: {
-    color: colors.red,
-  },
   errorInput: {
     borderColor: colors.red,
   },

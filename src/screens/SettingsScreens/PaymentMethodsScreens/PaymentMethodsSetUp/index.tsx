@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {PaymentMethodsSetUpForm} from '../../../../forms';
 import {Screen} from '@ui';

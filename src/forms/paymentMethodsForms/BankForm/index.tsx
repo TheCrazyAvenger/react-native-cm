@@ -1,4 +1,4 @@
-import {useNavigation, useRoute} from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {ScrollView, View} from 'react-native';
@@ -17,7 +17,6 @@ export const BankForm: React.FC<{
   loading: boolean;
 }> = ({onSubmit, type, label, loading}) => {
   const navigation: any = useNavigation();
-  const route: any = useRoute();
 
   const paymentMethods = useAppSelector(
     state => state.paymentMethod.paymentMethods,

@@ -7,7 +7,7 @@ import {styles} from './styles';
 import Share from 'react-native-share';
 
 export const ForgotPassword: React.FC = () => {
-  const onShare = async (social: any) => {
+  const onShare = () => {
     const shareOptions: any = {
       social: Share.Social.EMAIL,
     };

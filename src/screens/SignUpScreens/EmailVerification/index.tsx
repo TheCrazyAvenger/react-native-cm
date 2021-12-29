@@ -4,7 +4,6 @@ import {ScrollView, StatusBar, View} from 'react-native';
 import {Notification} from '@components';
 import {Description, Illustration, Title, Error} from '@Typography';
 import {Screens} from '@constants';
-import {useAppDispatch} from '@hooks';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import auth from '@react-native-firebase/auth';
@@ -13,7 +12,6 @@ const BUNDLE_ID = 'com.cybermetals';
 
 const actionCodeSettings = {
   handleCodeInApp: true,
-  // URL must be whitelisted in the Firebase Console.
   url: 'https://cybermetals.page.link/qL6j',
   iOS: {
     bundleId: BUNDLE_ID,
@@ -34,18 +32,11 @@ export const EmailVerification: React.FC = () => {
   const [next, setNext] = useState(false);
 
   const values = route.params.values;
-  const dispatch = useAppDispatch();
 
   const changeEmail = () => {
     navigation.push(Screens.email, {
       type: 'change',
       values: {...values},
-    });
-  };
-
-  const goToError = () => {
-    navigation.push(Screens.emailVerError, {
-      values: {...route.params.values},
     });
   };
 

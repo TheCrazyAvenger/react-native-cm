@@ -9,7 +9,7 @@ import {
   Wrapper,
 } from '../..';
 import {colors, Screens} from '@constants';
-import {Description, Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
+import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {getTime, removeTags} from '@utilities';
 import {LoadingItem} from '@components';

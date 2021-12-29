@@ -1,7 +1,6 @@
 import React from 'react';
-import {Modal, Image, TouchableOpacity, View} from 'react-native';
-import {MenuModalProps} from '..';
-import {MenuModalItem} from '../..';
+import {Modal, TouchableOpacity, View} from 'react-native';
+import {MenuModalItem, MenuModalProps} from '../..';
 import {Screens} from '@constants';
 import {styles} from './styles';
 import {

@@ -2,7 +2,6 @@ import {InPresale, InStock, PreSale, Sale} from '@assets/images/reedem';
 import {ReedemItemProps} from '@components';
 import {colors} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
-import {setLoading} from '@store/slices/authSlice';
 import {addCart} from '@store/slices/reedemSlice';
 import {Illustration, Subtitle, SubtitleMedium} from '@Typography';
 import {TextButton} from '@ui';
@@ -19,7 +18,6 @@ export const ReedemItem: React.FC<ReedemItemProps> = ({
   availability,
   onSale,
   date,
-  onPress,
 }) => {
   const cart = useAppSelector(state => state.reedem.cart);
 

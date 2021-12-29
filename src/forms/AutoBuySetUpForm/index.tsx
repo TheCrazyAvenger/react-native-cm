@@ -281,6 +281,8 @@ export const AutoBuySetUpForm: React.FC = () => {
             <PaymentMethodPicker
               setPaymentType={value => setAccount(value)}
               label="Payment Method"
+              method={type && prevValues.paymentMethod}
+              account={type && prevValues.account}
               onChange={(value: any) => setFieldValue('paymentMethod', value)}
             />
 

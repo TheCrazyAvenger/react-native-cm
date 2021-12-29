@@ -4,6 +4,7 @@ export * from './SocialBlock';
 export * from './PaginationFooter';
 export * from './CheckBoxItem';
 export * from './FormInput';
+export * from './MaskFormInput';
 export * from './PasswordItem';
 export * from './Notification';
 export * from './DatePicker';
@@ -33,8 +34,13 @@ export * from './buyComponents/OrderInfo';
 export * from './buyComponents/CredentialsItem';
 
 export * from './pricesComponents/PricesGraph';
-export * from './pricesComponents/PricesChart';
 export * from './pricesComponents/PricesPaginator';
+
+export * from './bottomTabsComponents/HomeIcon';
+export * from './bottomTabsComponents/MenuModal';
+export * from './bottomTabsComponents/PortfolioIcon';
+export * from './bottomTabsComponents/PricesIcon';
+export * from './bottomTabsComponents/SettingsIcon';
 
 export * from './homeComponents/Header';
 export * from './homeComponents/MetalsCard';
@@ -45,7 +51,6 @@ export * from './homeComponents/MetalsItem';
 
 export * from './holdingsComponents/MetalPicker';
 export * from './holdingsComponents/HoldingsHeader';
-export * from './holdingsComponents/MetalDetails';
 export * from './holdingsComponents/PriceGraph';
 export * from './holdingsComponents/Chart';
 

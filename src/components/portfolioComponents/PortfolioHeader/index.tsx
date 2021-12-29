@@ -24,7 +24,6 @@ import {
   VictoryAxis,
   VictoryChart,
   VictoryPie,
-  VictoryPolarAxis,
 } from 'victory-native';
 import {ItemPicker, Wrapper} from '@components';
 //@ts-ignore
@@ -93,9 +92,9 @@ export const PortfolioHeader: React.FC<{gainsLosses: number}> = ({
                 chartTime === 1
                   ? i
                   : chartTime === 2
-                  ? i * 0.8
+                  ? i * 0.7
                   : chartTime === 3
-                  ? i * 3.9
+                  ? i * 3.8
                   : chartTime === 4
                   ? i * 45.6
                   : i * 228,
@@ -110,7 +109,7 @@ export const PortfolioHeader: React.FC<{gainsLosses: number}> = ({
 
   return (
     <View style={styles.container}>
-      <TitleMedium style={{alignSelf: 'center', marginBottom: 10}}>
+      <TitleMedium style={styles.mainTitle}>
         Portfolio
       </TitleMedium>
       <View style={styles.changeGraph}>
@@ -149,10 +148,6 @@ export const PortfolioHeader: React.FC<{gainsLosses: number}> = ({
           ) : (
             <View>
               <VictoryPie
-                animate={{
-                  duration: 1000,
-                  onLoad: {duration: 1000},
-                }}
                 colorScale={pieColors}
                 origin={{y: 160, x: width / 2.25}}
                 innerRadius={130}
@@ -207,10 +202,6 @@ export const PortfolioHeader: React.FC<{gainsLosses: number}> = ({
               parent: {
                 marginLeft: 20,
               },
-            }}
-            animate={{
-              duration: 1000,
-              onLoad: {duration: 1000},
             }}>
             <Defs>
               <LinearGradient
@@ -242,7 +233,7 @@ export const PortfolioHeader: React.FC<{gainsLosses: number}> = ({
               tickFormat={tick => tick}
             />
             <VictoryArea
-              data={data}
+              data={data.reverse()}
               style={{
                 parent: {paddingLeft: 10},
                 data: {fill: 'url(#gradientStroke)'},

@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../constants';
 
 export const styles = StyleSheet.create({
   buttonContainer: {
@@ -15,7 +14,6 @@ export const styles = StyleSheet.create({
     top: -25,
     justifyContent: 'center',
     alignItems: 'center',
-
     width: 60,
     height: 60,
     borderRadius: 50,

@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {Image, View} from 'react-native';
+import {View} from 'react-native';
 import {Wrapper} from '../..';
 import {colors} from '@constants';
 import {getColor, getMetalsColor, numberWithCommas} from '@utilities';
@@ -16,7 +16,7 @@ export const MetalsInfo: React.FC<{
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
   const operations = useAppSelector(state => state.operations.operations);
 
-  const {name, buy, ask} = data;
+  const {name, buy} = data;
   const color = getMetalsColor(name);
 
   const buyOperations = useMemo(

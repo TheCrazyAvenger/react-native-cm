@@ -10,7 +10,7 @@ import Share from 'react-native-share';
 export const ForgotPassSucces: React.FC = () => {
   const navigation: any = useNavigation();
 
-  const onShare = async (social: any) => {
+  const onShare = () => {
     const shareOptions: any = {
       social: Share.Social.EMAIL,
     };

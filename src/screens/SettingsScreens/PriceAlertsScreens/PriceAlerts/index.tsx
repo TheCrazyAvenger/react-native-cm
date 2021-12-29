@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StatusBar, View} from 'react-native';
+import {ScrollView, StatusBar} from 'react-native';
 import {
   EmptyDataScreen,
   LoadingItem,
@@ -11,14 +11,10 @@ import {
 import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {getPriceAlerts} from '@store/actions/priceAlerts';
-import {setLoading} from '@store/slices/authSlice';
 import {deletePriceAlerts} from '@store/slices/priceAlertSlice';
 import {Screen, TextButton} from '@ui';
 import {getMetal, metals} from '@utilities';
 import database from '@react-native-firebase/database';
-import {ShareRefer} from '@assets/images/settings';
-import {styles} from './styles';
-import {TitleMedium} from '@Typography';
 import {useGetDigitalProductsQuery} from '@api';
 
 export const PriceAlerts: React.FC = () => {
@@ -117,12 +113,7 @@ export const PriceAlerts: React.FC = () => {
               ),
           )
         ) : (
-          <View style={styles.noAlerts}>
-            <ShareRefer />
-            <TitleMedium style={{fontFamily: 'OpenSans-Regular'}}>
-              No alerts
-            </TitleMedium>
-          </View>
+          <EmptyDataScreen title="No alerts" />
         )}
       </ScrollView>
       <TextButton

@@ -1,7 +1,7 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {BuyingInfo, LoadingItem, ModalWindow} from '@components';
+import {BuyingInfo, ModalWindow} from '@components';
 import {TitleMedium} from '@Typography';
 import {Screen} from '@ui';
 import {styles} from './styles';
@@ -68,7 +68,7 @@ export const ReviewSellBuy: React.FC = () => {
         }}
       />
       <View>
-        <TitleMedium style={styles.timer}>
+        <TitleMedium numberOfLines={1} style={styles.timer}>
           Your pricing is locked for: {minutes}:
           {seconds < 10 ? `0${seconds}` : seconds}
         </TitleMedium>

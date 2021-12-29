@@ -9,7 +9,6 @@ import {Info} from '@assets/images/buy';
 import {Tooltip} from 'react-native-elements';
 import {useAppSelector} from '@hooks';
 import {numberWithCommas} from '@utilities';
-import {useRoute} from '@react-navigation/native';
 
 export const ProductItem: React.FC<ProductItemProps> = ({
   vault,
@@ -23,8 +22,6 @@ export const ProductItem: React.FC<ProductItemProps> = ({
   type,
 }) => {
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
-
-  const route: any = useRoute();
 
   return (
     <View style={{...styles.container, ...style}}>

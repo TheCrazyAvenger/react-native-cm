@@ -38,9 +38,7 @@ export const CompleteAutoBuy: React.FC = () => {
         ) : (
           <TitleMedium style={styles.title}>
             Auto Buy Setup Complete!{' '}
-            <Image
-              source={require('../../../../assets/images/settings/complete.png')}
-            />
+            <Image source={require('@assets/images/settings/complete.png')} />
           </TitleMedium>
         )}
 

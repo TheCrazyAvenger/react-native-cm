@@ -8,17 +8,4 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 16,
   },
-  cardItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  cardTitle: {
-    fontFamily: 'OpenSans-Bold',
-  },
-  noData: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 });

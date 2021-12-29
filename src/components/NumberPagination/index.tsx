@@ -40,9 +40,7 @@ export const NumberPagination: React.FC<NumberPaginationProps> = ({
         ...style,
         justifyContent: showView ? 'space-between' : 'flex-end',
       }}>
-      {currentPage === 0 || paginationRange.length < 2 ? (
-        <View style={{marginBottom: 20}} />
-      ) : showView ? (
+      {showView && (
         <View style={styles.paginationContainer}>
           <SubtitleMedium>View:</SubtitleMedium>
           <TouchableOpacity
@@ -82,7 +80,8 @@ export const NumberPagination: React.FC<NumberPaginationProps> = ({
             </SubtitleMedium>
           </TouchableOpacity>
         </View>
-      ) : null}
+      )}
+
       {currentPage === 0 || paginationRange.length < 2 ? (
         <View style={{marginBottom: 20}} />
       ) : (

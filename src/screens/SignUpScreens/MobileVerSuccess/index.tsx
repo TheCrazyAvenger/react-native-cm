@@ -1,4 +1,4 @@
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Image, ScrollView, StatusBar, View} from 'react-native';
 import {Description, Error, Title} from '@Typography';
@@ -12,7 +12,7 @@ import {useAppDispatch} from '@hooks';
 
 export const MobileVerSuccess: React.FC = () => {
   const route: any = useRoute();
-  const navigation: any = useNavigation();
+
   const dispatch = useAppDispatch();
   const [error, setError] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);

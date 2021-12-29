@@ -16,7 +16,6 @@ import {styles} from './styles';
 
 export const PaymentMethodsItem: React.FC<PaymentMethodsItemProps> = ({
   paymentMethod,
-  cardNumber,
   expiring,
   fullName,
   type,

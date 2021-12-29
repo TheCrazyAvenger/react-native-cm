@@ -1,7 +1,7 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import {colors, Screens} from '@constants';
 import {styles} from './styles';
 import {FormInput, ItemPicker, PaymentMethodPicker} from '@components';
@@ -43,8 +43,6 @@ export const BuySetUpForm: React.FC = () => {
       amountOz,
     });
   };
-
-  console.log(account);
 
   return (
     <Formik

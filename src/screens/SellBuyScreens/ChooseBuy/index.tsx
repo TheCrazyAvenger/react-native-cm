@@ -1,4 +1,4 @@
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StatusBar} from 'react-native';
 import {EmptyDataScreen, LoadingItem, ProductItem} from '@components';
@@ -8,7 +8,6 @@ import {useGetDigitalProductsQuery} from '@api';
 
 export const ChooseBuy: React.FC = () => {
   const navigation: any = useNavigation();
-  const route: any = useRoute();
 
   //@ts-ignore
   const {data = [], isLoading, error} = useGetDigitalProductsQuery();

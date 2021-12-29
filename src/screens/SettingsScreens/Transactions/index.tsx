@@ -11,8 +11,6 @@ import {useAppSelector} from '@hooks';
 import {Screen} from '@ui';
 import {View} from 'react-native';
 import {getTransactionName} from '@utilities';
-import {TitleMedium} from '@Typography';
-import {ShareRefer} from '@assets/images/settings';
 import {styles} from './styles';
 
 export const Transactions: React.FC = () => {
@@ -63,7 +61,10 @@ export const Transactions: React.FC = () => {
     <View style={{flex: 1}}>
       <OperationsPicker
         currentOperation={operationType}
-        onPress={value => setOperationType(value)}
+        onPress={value => {
+          setOperationType(value);
+          setCurrentPage(1);
+        }}
       />
 
       <Screen>
@@ -101,12 +102,10 @@ export const Transactions: React.FC = () => {
             />
           </View>
         ) : (
-          <View style={styles.noAlerts}>
-            <ShareRefer />
-            <TitleMedium style={{fontFamily: 'OpenSans-Regular'}}>
-              No Transactions
-            </TitleMedium>
-          </View>
+          <EmptyDataScreen
+            title="No Transactions"
+            titleStyle={styles.titleStyle}
+          />
         )}
       </Screen>
     </View>

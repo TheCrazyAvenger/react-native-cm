@@ -1,7 +1,7 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {LoadingItem, Wrapper} from '@components';
+import {Wrapper} from '@components';
 import {Subtitle, SubtitleMedium} from '@Typography';
 import {colors} from '@constants';
 import {PriceAlertsSetUpForm} from '../../../../forms';
@@ -92,13 +92,7 @@ export const PriceAlertSetUp: React.FC = () => {
             </SubtitleMedium>
           </View>
         </View>
-        <Wrapper
-          style={{
-            backgroundColor: colors.primary,
-            marginTop: 10,
-            marginBottom: 16,
-          }}
-        />
+        <Wrapper style={styles.wrapper} />
         <PriceAlertsSetUpForm
           onSubmit={goToNext}
           loading={loading}

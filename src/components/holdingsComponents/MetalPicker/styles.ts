@@ -14,7 +14,6 @@ export const styles = StyleSheet.create({
   marked: {
     width: '100%',
     height: 3,
-
     position: 'absolute',
     bottom: -5,
     borderRadius: 19,

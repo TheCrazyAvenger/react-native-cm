@@ -1,19 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Screens} from '../../constants';
-import {
-  ChooseBuy,
-  ChooseSell,
-  CompleteSellBuy,
-  DetailsNews,
-  Holdings,
-  Home,
-  News,
-  PaymentMethodsSetUp,
-  Profile,
-  ReviewSellBuy,
-  SellBuySetUp,
-} from '@screens';
+import {Screens} from '@constants';
+import {DetailsNews, Holdings, Home, News} from '@screens';
 import {styles} from './styles';
 import {BackButton} from '../BackButton';
 

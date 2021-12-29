@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -20,5 +19,8 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     paddingHorizontal: 9,
     marginBottom: 25,
+  },
+  expirationStyle: {
+    marginLeft: 0,
   },
 });

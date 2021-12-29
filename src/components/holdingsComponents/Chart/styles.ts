@@ -1,9 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../../constants';
 
 export const styles = StyleSheet.create({
-  noAlerts: {
+  buttons: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 100,
+    justifyContent: 'space-between',
+    marginTop: 24,
   },
 });

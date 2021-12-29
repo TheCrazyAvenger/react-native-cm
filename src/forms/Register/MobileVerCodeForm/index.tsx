@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Formik} from 'formik';
-import {ScrollView, TouchableOpacity, View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {FormInput, PaginationFooter} from '@components';
 import {mobileVerCodeSchema} from '../..';
 import {slides} from '@utilities';
@@ -9,11 +9,9 @@ import {useNavigation, useRoute} from '@react-navigation/core';
 import {Screens} from '@constants';
 import {Description, Error} from '@Typography';
 import {TextButton} from '@ui';
-import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useAppDispatch, useAppSelector} from '@hooks';
+import {useAppDispatch} from '@hooks';
 import {getData} from '@store/actions';
-import Hyperlink from 'react-native-hyperlink';
 import {getOperations} from '@store/actions/operations';
 import {getAutoBuy} from '@store/actions/autoBuy';
 import {getPriceAlerts} from '@store/actions/priceAlerts';
@@ -29,39 +27,11 @@ export const MobileVerCodeForm: React.FC<{showNotify: () => void}> = ({
 
   const {type, token} = route.params;
 
-  // const [confirm, setConfirm] = useState<any>(null);
-
   const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   getCode();
-  // }, []);
-
-  // const getCode = async () => {
-  //   try {
-  //     const confirmation = await auth().signInWithPhoneNumber(mobile);
-  //     await setConfirm(confirmation);
-  //   } catch (e: any) {
-  //     setError(e.message);
-  //     console.log(e);
-  //   }
-  // };
-
-  // async function confirmCode(code: string) {
-  //   try {
-  //     await confirm.confirm(code);
-  //     return true;
-  //   } catch (error) {
-  //     setError('Invalid code.');
-  //     console.log('Invalid code.');
-  //     return false;
-  //   }
-  // }
 
   const goToNext = async (values: any) => {
     try {
       setError(null);
-      // const isValid = await confirmCode(values.code);
 
       if (values.code === '1234567') {
         if (type === 'SignIn') {

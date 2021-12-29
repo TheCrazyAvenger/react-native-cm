@@ -8,7 +8,6 @@ import {styles} from './styles';
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Screens} from '@constants';
 import {TextButton} from '@ui';
-import auth from '@react-native-firebase/auth';
 
 export const EmailForm: React.FC = () => {
   const navigation: any = useNavigation();

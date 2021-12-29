@@ -1,15 +1,15 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import {colors, Screens} from '@constants';
 import {styles} from './styles';
-import {FormInput, ItemPicker, PaymentMethodPicker} from '@components';
+import {FormInput, PaymentMethodPicker} from '@components';
 import {Description, SubtitleMedium, TitleMedium, Error} from '@Typography';
 import {TextButton} from '@ui';
 import {Swiper} from '@assets/images/home';
 import {useAppSelector} from '@hooks';
-import {metals, numberWithCommas, validateNumbers} from '@utilities';
+import {numberWithCommas, validateNumbers} from '@utilities';
 import {sellSchema} from '../..';
 
 export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {

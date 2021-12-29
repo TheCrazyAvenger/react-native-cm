@@ -1,10 +1,10 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {EmptyDataScreen, ViewMoreButton, Wrapper} from '../..';
 import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {getColor, getOperationImage, numberWithCommas} from '@utilities';
-import {Description, Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
+import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {getOperations} from '@store/actions/operations';
 import {LoadingItem} from '@components';

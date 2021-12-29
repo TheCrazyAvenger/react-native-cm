@@ -1,12 +1,12 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Input} from 'react-native-elements';
-import {FormInputProps} from '..';
-import {Error, SubtitleMedium} from '@Typography';
+import {MaskFormInputProps} from '..';
+import {Description, Error} from '@Typography';
 import {colors} from '@constants';
 import {styles} from './styles';
+import MaskInput from 'react-native-mask-input';
 
-export const FormInput: React.FC<FormInputProps> = ({
+export const MaskFormInput: React.FC<MaskFormInputProps> = ({
   label,
   plaseholder,
   onChangeText,
@@ -20,38 +20,41 @@ export const FormInput: React.FC<FormInputProps> = ({
   isTouched,
   style,
   containerStyle,
+  labelStyle,
   secureTextEntry,
-  rightIcon,
-  leftIcon,
-  height,
-  disabled,
-  leftPrefix,
-  inputStyle,
+  RightIcon,
   keyboardType = 'default',
   errorStyle,
   maxLength,
   showError = true,
   multiline = false,
   autoFocus = false,
+  mask,
 }) => {
   const inputContainerStyle = [
     styles.inputContainerStyle,
     containerStyle,
     errorMessage && isTouched ? styles.errorInput : null,
-  ];
-  const labelStyle = [
-    styles.labelStyle,
-    errorMessage && isTouched ? styles.errorLabel : null,
+    style,
+    {paddingRight: 60},
   ];
 
   return (
-    <View>
+    <View style={{marginBottom: 25}}>
+      {label && (
+        <Description
+          style={{
+            ...styles.labelStyle,
+            ...labelStyle,
+            color: errorMessage && isTouched ? colors.red : colors.gray,
+          }}>
+          {label}
+        </Description>
+      )}
       <View>
-        <Input
-          rightIcon={rightIcon}
+        <MaskInput
           onTouchStart={onFocus}
           value={value}
-          label={label}
           maxLength={maxLength}
           keyboardType={keyboardType}
           autoFocus={autoFocus}
@@ -60,28 +63,17 @@ export const FormInput: React.FC<FormInputProps> = ({
           onTextInput={onInput}
           secureTextEntry={secureTextEntry}
           placeholder={plaseholder}
-          leftIcon={leftIcon}
+          mask={mask}
+          style={inputContainerStyle}
           onChangeText={onChangeText}
           onContentSizeChange={onContentSizeChange}
           placeholderTextColor={colors.placeholder}
-          inputStyle={{...styles.inputStyle, ...inputStyle}}
-          labelStyle={[...labelStyle, style]}
           multiline={multiline}
-          inputContainerStyle={[
-            ...inputContainerStyle,
-            {paddingLeft: leftPrefix ? 15 : 10, height: height ? height : 45},
-          ]}
-          disabled={disabled ? true : false}
         />
-        {leftPrefix && (
-          <SubtitleMedium
-            style={{
-              ...styles.leftPrefix,
-              color: value === '' ? colors.placeholder : colors.black,
-              top: label ? 36 : 11,
-            }}>
-            {leftPrefix}
-          </SubtitleMedium>
+        {RightIcon && (
+          <View style={styles.rightIcon}>
+            <RightIcon />
+          </View>
         )}
       </View>
       {errorMessage && isTouched && showError && (

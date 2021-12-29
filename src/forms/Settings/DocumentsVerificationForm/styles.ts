@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,7 +11,6 @@ export const styles = StyleSheet.create({
   imagePicker: {
     borderWidth: 1,
     paddingTop: 20,
-
     borderStyle: 'dashed',
     paddingBottom: 58,
   },

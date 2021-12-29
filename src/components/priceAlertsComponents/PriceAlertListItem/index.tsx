@@ -4,10 +4,8 @@ import {TouchableOpacity, View} from 'react-native';
 import {ModalWindow, PriceAlertListItemProps, Wrapper} from '../..';
 import {Delete, Edit} from '@assets/images/settings';
 import {colors, Screens} from '@constants';
-import {useAppDispatch} from '@hooks';
-import {getMetalImage} from '../../../utilities';
-
-import {Illustration, SubtitleMedium} from '../../Typography';
+import {getMetalImage} from '@utilities';
+import {Illustration, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
@@ -26,7 +24,7 @@ export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
   onRemove,
 }) => {
   const [visibleModal, setVisibleModal] = useState(false);
-  const dispatch = useAppDispatch();
+
   const Image = getMetalImage(metal);
   const navigation: any = useNavigation();
 

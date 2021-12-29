@@ -2,6 +2,15 @@ export type OnboardingItemProps = {
   item: {[key: string]: string | any};
 };
 
+export type ButtonsProps = {
+  color: string;
+};
+
+export type MenuModalProps = {
+  visible: boolean;
+  onPress: () => void;
+};
+
 export type TextProps = {
   style?: {[key: string]: number | string};
   numberOfLines?: number;
@@ -74,6 +83,32 @@ export type FormInputProps = {
   showError?: boolean;
   multiline?: boolean;
   autoFocus?: boolean;
+};
+
+export type MaskFormInputProps = {
+  label?: string;
+  plaseholder: string;
+  onChangeText: (...args: any) => void;
+  onChange?: (...args: any) => void;
+  onFocus: (...args: any) => void;
+  onBlur: (...args: any) => void;
+  onInput?: (...args: any) => void;
+  onContentSizeChange?: (...args: any) => void;
+  value: any;
+  errorMessage?: any;
+  isTouched: any;
+  style?: {[key: string]: number | string};
+  labelStyle?: {[key: string]: number | string};
+  containerStyle?: {[key: string]: number | string};
+  secureTextEntry?: boolean;
+  RightIcon?: any;
+  keyboardType?: any;
+  errorStyle?: {[key: string]: number | string};
+  maxLength?: number;
+  showError?: boolean;
+  multiline?: boolean;
+  autoFocus?: boolean;
+  mask: any;
 };
 
 export type PasswordItemProps = {
@@ -162,6 +197,8 @@ export type ChartProps = {
   chartTime: number;
   lineColor: any;
   setTime: (i: number) => void;
+  metalType: number;
+  metalsData?: any;
 };
 
 export type PricesItemProps = {
@@ -308,6 +345,7 @@ export type EmptyDataScreenProps = {
   descriptionStyle?: {[key: string]: number | string};
   onPress?: (...args: any) => void;
   style?: {[key: string]: number | string};
+  titleStyle?: {[key: string]: number | string};
 };
 
 export type FormImagePickerProps = {
@@ -363,6 +401,8 @@ export type PaymentMethodPickerProps = {
   onChange: (value: any) => void;
   setPaymentType: (value: any) => void;
   accountStyle?: {[key: string]: number | string};
+  method?: string;
+  account?: string;
 };
 
 export type EmptyPaymentMethodProps = {

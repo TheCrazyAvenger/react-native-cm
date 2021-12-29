@@ -1,13 +1,12 @@
-import {useNavigation, useRoute} from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React, {useState} from 'react';
 import {ScrollView, View} from 'react-native';
 import {styles} from './styles';
-import {DatePicker, FormInput, ItemPicker} from '@components';
+import {FormInput, ItemPicker, MaskFormInput} from '@components';
 import {Subtitle, Error} from '@Typography';
 import {TextButton} from '@ui';
 import {
-  cardInputValidation,
   cardNumberValidation,
   setCard,
   states,
@@ -30,13 +29,15 @@ export const CardForm: React.FC<{
 }> = ({onSubmit, type, label, loading}) => {
   const [cardType, setCardType] = useState<string | null>(null);
   const navigation: any = useNavigation();
+
   const paymentMethods = useAppSelector(
     state => state.paymentMethod.paymentMethods,
   );
   const firstName = useAppSelector(state => state.auth.firstName);
   const lastName = useAppSelector(state => state.auth.lastName);
+
   const [error, setError] = useState<null | string>(null);
-  const route: any = useRoute();
+
   const legalAdress = useAppSelector(state => state.auth.legalAdress);
   const {streetAdress, city, state, postalCode}: any = legalAdress;
 
@@ -108,19 +109,12 @@ export const CardForm: React.FC<{
               isTouched={touched.name}
             />
 
-            <FormInput
+            <MaskFormInput
               label="Card Number"
               plaseholder="Your Card Number"
               onChangeText={handleChange('cardNumber')}
               onFocus={() => setFieldTouched('cardNumber', false)}
-              onInput={() => {
-                checkType();
-                setFieldValue(
-                  'cardNumber',
-                  cardInputValidation(values.cardNumber),
-                );
-              }}
-              maxLength={19}
+              onInput={() => checkType()}
               keyboardType="numeric"
               value={values.cardNumber}
               onBlur={async () => {
@@ -132,7 +126,7 @@ export const CardForm: React.FC<{
                 checkType();
                 checkAllCards();
               }}
-              rightIcon={() =>
+              RightIcon={() =>
                 cardType === 'visa' ? (
                   <Visa />
                 ) : cardType === 'masterCard' ? (
@@ -143,22 +137,48 @@ export const CardForm: React.FC<{
                   <Discover />
                 ) : null
               }
+              mask={[
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                ' ',
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                ' ',
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                ' ',
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+              ]}
               errorMessage={errors.cardNumber}
               isTouched={touched.cardNumber}
             />
 
             <View style={styles.datePicker}>
               <View style={{width: '50%'}}>
-                <DatePicker
+                <MaskFormInput
+                  label="Expiration Date"
+                  plaseholder="Your Date"
+                  onChangeText={handleChange('expirationDate')}
+                  onFocus={() => setFieldTouched('expirationDate', false)}
+                  onInput={() => checkType()}
+                  keyboardType="numeric"
+                  style={styles.expirationStyle}
+                  labelStyle={styles.expirationStyle}
+                  errorStyle={styles.expirationStyle}
+                  value={values.expirationDate}
+                  onBlur={() => setFieldTouched('expirationDate', true)}
+                  mask={[/\d/, /\d/, '/', /\d/, /\d/]}
                   errorMessage={errors.expirationDate}
                   isTouched={touched.expirationDate}
-                  label="Expiration Date"
-                  value={values.expirationDate}
-                  onConfirm={date => setFieldValue('expirationDate', date)}
-                  style={{marginBottom: 21}}
-                  showIcon={false}
-                  type="card"
-                  errorStyle={{left: 0, top: 77}}
                 />
               </View>
               <View style={{marginLeft: 10, width: '50%'}}>
@@ -280,7 +300,7 @@ export const CardForm: React.FC<{
               </View>
             </View>
 
-            <FormInput
+            <MaskFormInput
               label="Phone"
               onBlur={async () => {
                 await setFieldValue('phone', values.phone.trim());
@@ -293,6 +313,22 @@ export const CardForm: React.FC<{
               keyboardType="phone-pad"
               errorMessage={errors.phone}
               isTouched={touched.phone}
+              mask={[
+                '(',
+                /\d/,
+                /\d/,
+                /\d/,
+                ')',
+                ' ',
+                /\d/,
+                /\d/,
+                /\d/,
+                '-',
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+              ]}
             />
 
             <View style={styles.buttons}>

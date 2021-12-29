@@ -1,4 +1,4 @@
-import {useNavigation, useRoute} from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {
@@ -27,7 +27,6 @@ import {
 
 export const Cart: React.FC = () => {
   const navigation: any = useNavigation();
-  const route: any = useRoute();
 
   const [account, setAccount] = useState('');
 

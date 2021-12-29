@@ -5,12 +5,12 @@ import {
   CredentialsItem,
   FundWithdrawInfo,
   OrderInfo,
+  WithdrawTaxItem,
   Wrapper,
 } from '@components';
 import {Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
 import {colors, Screens} from '@constants';
 import {Screen, TextButton} from '@ui';
-
 import {styles} from './styles';
 import {cmCredentials, getPaymentName, numberWithCommas} from '@utilities';
 
@@ -40,11 +40,9 @@ export const CompleteFundWithdraw: React.FC = () => {
         <TitleMedium style={styles.title}>
           {operationType === 'Fund' ? 'You Funded' : 'Withdrawal Requested'}{' '}
           {type === 'Success' ? (
-            <Image
-              source={require('../../../assets/images/settings/complete.png')}
-            />
+            <Image source={require('@assets/images/settings/complete.png')} />
           ) : (
-            <Image source={require('../../../assets/images/buy/error.png')} />
+            <Image source={require('@assets/images/buy/error.png')} />
           )}
         </TitleMedium>
 
@@ -57,26 +55,10 @@ export const CompleteFundWithdraw: React.FC = () => {
         />
 
         {operationType === 'Withdraw' && (
-          <View>
-            <View style={styles.subPrice}>
-              <SubtitleMedium style={styles.subPriceTitle}>
-                Sub total
-              </SubtitleMedium>
-              <SubtitleMedium
-                style={styles.subPriceTitle}>{`$${numberWithCommas(
-                Number(amount).toFixed(2),
-              )}`}</SubtitleMedium>
-            </View>
-            <View style={styles.subPrice}>
-              <SubtitleMedium style={styles.subPriceTitle}>
-                Fee 10%
-              </SubtitleMedium>
-              <SubtitleMedium
-                style={styles.subPriceTitle}>{`$${numberWithCommas(
-                Number(amount * 0.1).toFixed(2),
-              )}`}</SubtitleMedium>
-            </View>
-          </View>
+          <WithdrawTaxItem
+            style={{paddingHorizontal: 0, marginTop: 0}}
+            amount={amount}
+          />
         )}
 
         <View style={styles.price}>

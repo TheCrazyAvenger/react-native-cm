@@ -21,14 +21,7 @@ export const MenuItemSmall: React.FC<MenuItemSmallProps> = ({
           {title}
         </SubtitleMedium>
       </TouchableOpacity>
-      <Wrapper
-        style={{
-          backgroundColor: colors.gray,
-          marginTop: 0,
-          marginBottom: 15,
-          ...style,
-        }}
-      />
+      <Wrapper style={{...styles.wrapper, ...style}} />
     </>
   );
 };

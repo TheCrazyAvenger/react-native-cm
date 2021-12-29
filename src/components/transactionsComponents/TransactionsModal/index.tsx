@@ -15,7 +15,7 @@ import {useNavigation} from '@react-navigation/core';
 import {TransactionsModalProps} from '../..';
 import {SubtitleMedium, TitleMedium} from '@Typography';
 import {TextButton} from '@ui';
-import {getPaymentName, numberWithCommas} from '@utilities';
+import {numberWithCommas} from '@utilities';
 
 export const TransactionsModal: React.FC<TransactionsModalProps> = ({
   visible,
@@ -34,6 +34,12 @@ export const TransactionsModal: React.FC<TransactionsModalProps> = ({
   onPress,
 }) => {
   const navigation: any = useNavigation();
+
+  const openScreen = (screen: string, data?: any) => {
+    onPress();
+    navigation.navigate(screen, data);
+  };
+
   return (
     <Modal transparent visible={visible} animationType="fade">
       <ScrollView
@@ -131,6 +137,8 @@ export const TransactionsModal: React.FC<TransactionsModalProps> = ({
               status={
                 type === 'Buy' || type === 'Sell'
                   ? 'Completed'
+                  : type === 'Reedem'
+                  ? 'Awaiting Processing by JM'
                   : paymentMethod !== 'cashBalance' &&
                     paymentMethod !== 'creditCard'
                   ? 'Awaiting Payment'
@@ -153,18 +161,14 @@ export const TransactionsModal: React.FC<TransactionsModalProps> = ({
                 style={{marginBottom: 15}}
                 onPress={() =>
                   type === 'Buy'
-                    ? navigation.navigate(Screens.sellBuyStack, {type: 'Buy'})
+                    ? openScreen(Screens.sellBuyStack, {type: 'Buy'})
                     : type === 'Sell'
-                    ? navigation.navigate(Screens.sellBuyStack, {type: 'Sell'})
+                    ? openScreen(Screens.sellBuyStack, {type: 'Sell'})
                     : type === 'Fund'
-                    ? navigation.navigate(Screens.fundWithdrawStack, {
-                        type: 'Fund',
-                      })
+                    ? openScreen(Screens.fundWithdrawStack, {type: 'Fund'})
                     : type === 'Withdraw'
-                    ? navigation.navigate(Screens.fundWithdrawStack, {
-                        type: 'Withdraw',
-                      })
-                    : navigation.navigate(Screens.reedemStack)
+                    ? openScreen(Screens.fundWithdrawStack, {type: 'Withdraw'})
+                    : openScreen(Screens.reedemStack)
                 }
               />
               <TextButton title="Go Back to Transactions" onPress={onPress} />

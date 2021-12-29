@@ -1,15 +1,13 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React from 'react';
 import {StatusBar, View} from 'react-native';
 import {ActionsCard, Header, NewsCard, PricesGraph} from '@components';
-import {colors, Screens} from '@constants';
+import {Screens} from '@constants';
 import {useAppSelector} from '@hooks';
 import {Screen} from '@ui';
 import {useGetDigitalProductsQuery, useGetNewsQuery} from '@api';
 
 export const Prices: React.FC = () => {
-  const [metalType, setMetalType] = useState(1);
-
   // @ts-ignore
   const {data = [], isLoading} = useGetNewsQuery();
 
@@ -37,11 +35,7 @@ export const Prices: React.FC = () => {
       />
       <Header />
       <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
-        <PricesGraph
-          data={metalsData.data}
-          id={metalType}
-          isLoading={isMetalLoading}
-        />
+        <PricesGraph data={metalsData.data} id={1} isLoading={isMetalLoading} />
         {isEmpty ? (
           <ActionsCard
             title="Create Price Alert"

@@ -11,7 +11,6 @@ export const styles = StyleSheet.create({
     width: 6,
     height: 6,
     marginRight: 4,
-
     borderRadius: 50,
   },
 });

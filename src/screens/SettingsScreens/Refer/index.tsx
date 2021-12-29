@@ -1,11 +1,8 @@
-import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {EmptyDataScreen} from '@components';
 import {Alert, Share} from 'react-native';
 
 export const Refer: React.FC = () => {
-  const navigation: any = useNavigation();
-
   const shareApp = async () => {
     try {
       const result = await Share.share({

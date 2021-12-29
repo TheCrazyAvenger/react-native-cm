@@ -10,8 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Logo} from '@assets/images';
-import {OnboardingItem, PaginationFooter} from '../../components';
-
+import {OnboardingItem, PaginationFooter} from '@components';
 import {Description} from '@Typography';
 import {slides} from '@utilities';
 import {styles} from './styles';

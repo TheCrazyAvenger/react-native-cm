@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   price: {
@@ -31,14 +31,5 @@ export const styles = StyleSheet.create({
   priceTitle: {
     fontFamily: 'OpenSans-Bold',
     fontSize: 22,
-  },
-  subPriceTitle: {
-    color: colors.gray,
-  },
-  subPrice: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 12,
   },
 });

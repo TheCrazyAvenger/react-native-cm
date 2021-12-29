@@ -1,13 +1,13 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Screens} from '../../constants';
+import {Screens} from '@constants';
 import {
   AutoBuy,
   ChooseProduct,
   AutoBuySetup,
   ReviewAutoBuy,
   CompleteAutoBuy,
-} from '../../screens';
+} from '@screens';
 import {BackButton} from '../BackButton';
 import {styles} from './styles';
 

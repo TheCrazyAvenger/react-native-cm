@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Screens} from '../../constants';
-import {PaymentMethods, PaymentMethodsSetUp} from '../../screens';
-import {Notification} from '../../components';
+import {Screens} from '@constants';
+import {PaymentMethods, PaymentMethodsSetUp} from '@screens';
 
 const Stack = createNativeStackNavigator();
 

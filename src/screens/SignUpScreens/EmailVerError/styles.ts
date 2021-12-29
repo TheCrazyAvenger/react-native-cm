@@ -10,13 +10,4 @@ export const styles = StyleSheet.create({
     marginBottom: 37,
     paddingHorizontal: 35,
   },
-  footer: {
-    paddingHorizontal: 10,
-    marginVertical: 25,
-  },
-  title: {
-    marginBottom: 25,
-    textAlign: 'center',
-    marginHorizontal: 20,
-  },
 });

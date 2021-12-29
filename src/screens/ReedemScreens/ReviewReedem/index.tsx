@@ -150,7 +150,7 @@ export const ReviewReedem: React.FC = () => {
       />
 
       <View>
-        <TitleMedium style={styles.timer}>
+        <TitleMedium numberOfLines={1} style={styles.timer}>
           Your pricing is locked for: {minutes}:
           {seconds < 10 ? `0${seconds}` : seconds}
         </TitleMedium>

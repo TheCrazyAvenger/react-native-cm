@@ -1,28 +1,14 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   container: {
     paddingBottom: 20,
     paddingTop: 58,
   },
-  headerItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  perfomance: {
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    backgroundColor: colors.white,
-    borderRadius: 40,
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 6,
-  },
-  profit: {
-    color: colors.black,
-    fontFamily: 'OpenSans-Bold',
-    fontSize: 13,
+  mainTitle: {
+    alignSelf: 'center',
+    marginBottom: 10,
   },
   changeGraph: {
     flexDirection: 'row',
@@ -61,7 +47,7 @@ export const styles = StyleSheet.create({
     color: colors.gray,
   },
   chartWrapper: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.lightGray,
     marginTop: 0,
     marginHorizontal: 40,
     marginBottom: 12,

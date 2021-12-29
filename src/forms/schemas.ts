@@ -223,7 +223,13 @@ export const cardSchema = yup.object().shape({
       /^[а-яA-яa-zA-Z-\s]*$/,
       'Please enter only letters of the alphabet, hyphen (-) and spaces',
     ),
-  expirationDate: yup.string().required('Please enter your Date'),
+  expirationDate: yup
+    .string()
+    .required('Please enter your Date')
+    .matches(
+      /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/,
+      'Please enter a valid expiration date',
+    ),
   csc: yup
     .string()
     .required('Please enter your CSC')
@@ -265,7 +271,6 @@ export const bankSchema = yup.object().shape({
   routingNumber: yup
     .string()
     .required('Please enter your routing number')
-    .label('Number')
     .matches(/^[0-9]+$/, 'Please enter a valid routing number')
     .min(2, 'This field should contain at least 2 symbols'),
   accountNumber: yup

@@ -2,10 +2,9 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {ProfileForm} from '../../../forms';
 import {useAppDispatch, useAppSelector} from '@hooks';
-import {changeName, setAdress, setLoading} from '@store/slices/authSlice';
+import {changeName, setAdress} from '@store/slices/authSlice';
 import {Screen} from '@ui';
 import database from '@react-native-firebase/database';
-import {LoadingItem} from '@components';
 
 export const Profile: React.FC = () => {
   const navigation: any = useNavigation();

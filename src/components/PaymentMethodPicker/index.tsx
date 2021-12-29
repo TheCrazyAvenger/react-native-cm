@@ -24,6 +24,8 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
   containerStyle,
   setPaymentType,
   accountStyle,
+  method,
+  account,
 }) => {
   const navigation: any = useNavigation();
 
@@ -34,22 +36,15 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
   const token = useAppSelector(state => state.auth.token);
   const dispatch = useAppDispatch();
 
-  const [paymentMethod, setPaymentMethod] = useState('cashBalance');
+  const [paymentMethod, setPaymentMethod] = useState(
+    method ? method : 'cashBalance',
+  );
+
   const [visibleModal, setVisibleModal] = useState(false);
 
-  const [card, setCard] = useState(
-    paymentMethods.creditCard.length > 0
-      ? paymentMethods.creditCard[0].fullName
-      : '',
-  );
-  const [bankWire, setBankWire] = useState(
-    paymentMethods.bankWire.length > 0
-      ? paymentMethods.bankWire[0].fullName
-      : '',
-  );
-  const [eCheck, setEcheck] = useState(
-    paymentMethods.eCheck.length > 0 ? paymentMethods.eCheck[0].fullName : '',
-  );
+  const [card, setCard] = useState('');
+  const [bankWire, setBankWire] = useState('');
+  const [eCheck, setEcheck] = useState('');
 
   let creditCardsLength = 0;
 
@@ -65,13 +60,19 @@ export const PaymentMethodPicker: React.FC<PaymentMethodPickerProps> = ({
     );
 
   useEffect(() => {
-    paymentMethods.creditCard.length > 0 &&
-      creditCards.length > 0 &&
-      setCard(creditCards[0].fullName);
-    paymentMethods.bankWire.length > 0 &&
-      setBankWire(paymentMethods.bankWire[0].fullName);
-    paymentMethods.eCheck.length > 0 &&
-      setEcheck(paymentMethods.eCheck[0].fullName);
+    paymentMethod === 'creditCard' && account
+      ? setCard(account)
+      : paymentMethods.creditCard.length > 0 &&
+        creditCards.length > 0 &&
+        setCard(creditCards[0].fullName);
+    paymentMethod === 'bankWire' && account
+      ? setBankWire(account)
+      : paymentMethods.bankWire.length > 0 &&
+        setBankWire(paymentMethods.bankWire[0].fullName);
+    paymentMethod === 'eCheck' && account
+      ? setEcheck(account)
+      : paymentMethods.eCheck.length > 0 &&
+        setEcheck(paymentMethods.eCheck[0].fullName);
 
     setPaymentType(
       paymentMethod === 'creditCard' && creditCardsLength === 0

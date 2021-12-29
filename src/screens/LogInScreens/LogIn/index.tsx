@@ -6,13 +6,11 @@ import {LogInForm} from '../../../forms';
 import {Screen} from '@ui';
 import {styles} from './styles';
 import auth from '@react-native-firebase/auth';
-import {useAppDispatch} from '@hooks';
 import {Error} from '@Typography';
 import {useNavigation} from '@react-navigation/core';
 import {Screens} from '@constants';
 
 export const LogIn: React.FC = () => {
-  const dispatch = useAppDispatch();
   const [error, setError] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
   const navigation: any = useNavigation();
@@ -21,7 +19,7 @@ export const LogIn: React.FC = () => {
     try {
       setError(null);
       setLoading(true);
-      console.log(values);
+
       const {email: userEmail, password} = values;
       await auth()
         .signInWithEmailAndPassword(userEmail, password)

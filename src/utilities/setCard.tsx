@@ -1,6 +1,3 @@
-import {cardNumberValidation} from '.';
-import {Visa} from '../assets/images/settings';
-
 export const setCard = (value: string) => {
   const number = value.replace(/ /g, '');
   if (number.match(/^4[0-9]{12}(?:[0-9]{3})?$/)) {

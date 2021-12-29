@@ -1,5 +1,4 @@
 import React from 'react';
-import {VerificationForm} from '../../../../forms';
 import {Screen, TextButton} from '@ui';
 import {ScrollView, View} from 'react-native';
 import {Description, SubtitleMedium} from '@Typography';

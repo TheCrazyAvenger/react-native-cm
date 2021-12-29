@@ -59,7 +59,7 @@ export const Holdings: React.FC = () => {
           </View>
         </View>
 
-        <PriceGraph id={metalType} data={data.data} />
+        <PriceGraph metalType={metalType} id={metalType} data={data.data} />
 
         <NewsCard data={newsData} isLoading={isLoading} />
         <View style={{marginBottom: 100}} />

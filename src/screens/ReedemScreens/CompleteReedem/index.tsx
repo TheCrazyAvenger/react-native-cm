@@ -5,7 +5,6 @@ import {OrderInfo, ReedemInfo, TaxItem, Wrapper} from '@components';
 import {SubtitleMedium, TitleMedium} from '@Typography';
 import {colors, Screens} from '@constants';
 import {Screen, TextButton} from '@ui';
-
 import {styles} from './styles';
 
 export const CompleteReedem: React.FC = () => {

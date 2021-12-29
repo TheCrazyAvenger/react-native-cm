@@ -8,9 +8,4 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     marginBottom: 60,
   },
-  noAlerts: {
-    width: '100%',
-    alignItems: 'center',
-    marginTop: 100,
-  },
 });

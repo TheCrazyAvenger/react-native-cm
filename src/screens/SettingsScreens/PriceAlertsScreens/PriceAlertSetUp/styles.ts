@@ -1,5 +1,5 @@
+import {colors} from '@constants';
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../../constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -24,5 +24,10 @@ export const styles = StyleSheet.create({
   title: {
     fontFamily: 'OpenSans-Bold',
     marginLeft: 8,
+  },
+  wrapper: {
+    backgroundColor: colors.primary,
+    marginTop: 10,
+    marginBottom: 16,
   },
 });

@@ -1,12 +1,12 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {FundWithdrawInfo, LoadingItem, WithdrawTaxItem} from '@components';
-import {Description, Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
+import {FundWithdrawInfo, WithdrawTaxItem} from '@components';
+import {SubtitleMedium, TitleMedium} from '@Typography';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
-import {getMonth, getPaymentName, getTime, numberWithCommas} from '@utilities';
+import {getPaymentName, getTime, numberWithCommas} from '@utilities';
 import {updateCash} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
 import {addOperation} from '@store/slices/operationsSlice';

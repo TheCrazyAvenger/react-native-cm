@@ -5,14 +5,12 @@ import {DatePicker, FormInput} from '@components';
 import {verificationSchema} from '../..';
 import {styles} from './styles';
 import {useNavigation} from '@react-navigation/core';
-import {useAppDispatch, useAppSelector} from '@hooks';
+import {useAppSelector} from '@hooks';
 import {TextButton} from '@ui';
 import {Screens} from '@constants';
 
 export const VerificationForm: React.FC = () => {
   const navigation: any = useNavigation();
-
-  const dispatch = useAppDispatch();
 
   const firstName = useAppSelector(state => state.auth.firstName);
   const lastName = useAppSelector(state => state.auth.lastName);

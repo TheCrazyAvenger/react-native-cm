@@ -93,7 +93,7 @@ export const PriceAlertsSetUpForm: React.FC<any> = ({
                   borderBottomColor:
                     errors.value && touched.value ? colors.red : colors.gray,
                 }}
-                style={{textAlign: 'center'}}
+                textAlign="center"
                 value={values.value}
                 onChangeText={handleChange('value')}
                 onFocus={() => setFieldTouched('value', false)}

@@ -3,7 +3,6 @@ import {Modal, View} from 'react-native';
 import {ModalWindowProps} from '..';
 import {TextButton} from '@ui';
 import {Description, Subtitle} from '@Typography';
-
 import {styles} from './styles';
 
 export const ModalWindow: React.FC<ModalWindowProps> = ({

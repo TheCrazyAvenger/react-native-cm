@@ -1,10 +1,9 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   container: {
     paddingTop: 4,
-
     backgroundColor: colors.white,
   },
   title: {

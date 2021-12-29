@@ -1,52 +1,86 @@
-import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
-import {LineChart, Path} from 'react-native-svg-charts';
+import React, {useMemo} from 'react';
+import {TouchableOpacity, useWindowDimensions, View} from 'react-native';
 import {ChartProps, Wrapper} from '../..';
-import {colors} from '@constants';
-import {time} from '@utilities';
+import {colors, Screens} from '@constants';
+import {getMetal, time, timelineData} from '@utilities';
 import {SubtitleMedium} from '@Typography';
-
+import {
+  VictoryArea,
+  VictoryAxis,
+  VictoryChart,
+  VictoryGroup,
+} from 'victory-native';
 //@ts-ignore
-const Shadow: React.FC = ({line, lineColor}: {line: any; lineColor: any}) => (
-  <Path
-    key={'shadow'}
-    //@ts-ignore
-    y={10}
-    //@ts-ignore
-    d={line}
-    strokeOpacity={0.2}
-    fill={'none'}
-    strokeWidth={15}
-    stroke={lineColor}
-  />
-);
+import {Stop, LinearGradient, Defs} from 'react-native-svg';
+import {TextButton} from '@ui';
+import {styles} from './styles';
+import {useNavigation} from '@react-navigation/native';
 
 export const Chart: React.FC<ChartProps> = ({
   chartTime,
   setTime,
   lineColor,
+  metalType,
+  metalsData,
 }) => {
-  const data = [
-    [10, 10, 4, 91, 35, 53, -53, 24, 50, -20, 10],
-    [10, 10, 40, 95, -4, -24, 5, 45, 50, -20, 10],
-    [85, 91, 35, 53, -53, 24, 50, -20, 43, 54, 10],
-    [5, 53, -53, 24, 50, 43, -20, 10],
-    [10, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, 0, 10, 40, 95],
-  ];
+  const navigation: any = useNavigation();
+  const {width} = useWindowDimensions();
+
+  const data = useMemo(() => {
+    return timelineData[getMetal(metalType)][+chartTime].map(
+      (item: number, i: number) => ({x: i, y: item}),
+    );
+  }, [chartTime, metalType]);
 
   return (
     <View>
-      <LineChart
-        style={{height: 200}}
-        data={data[chartTime - 1]}
-        svg={{stroke: lineColor}}
-        contentInset={{top: 60, bottom: 40}}
-        animate>
-        {/* 
-        // @ts-ignore */}
-        <Shadow lineColor={lineColor} />
-      </LineChart>
-      <Wrapper style={{backgroundColor: colors.paleBlue, marginTop: 8}} />
+      <View style={{marginLeft: -50}}>
+        <VictoryChart
+          width={width}
+          height={170}
+          style={{parent: {marginBottom: 0}}}>
+          <VictoryAxis
+            style={{
+              axis: {stroke: colors.white},
+            }}
+            dependentAxis
+            tickFormat={() => ''}
+          />
+          <VictoryAxis
+            style={{
+              axis: {stroke: colors.white},
+            }}
+            tickFormat={() => ''}
+          />
+          <VictoryGroup
+            data={data}
+            style={{
+              parent: {paddingLeft: 10},
+              data: {
+                fill: 'url(#gradientStroke)',
+                stroke: lineColor,
+                strokeWidth: 2,
+              },
+            }}>
+            <Defs>
+              <LinearGradient
+                id="gradientStroke"
+                x1="0%"
+                y1="0%"
+                x2="0%"
+                y2="100%">
+                <Stop offset="0%" stopColor={lineColor} stopOpacity="0.4" />
+                <Stop offset="10%" stopColor={lineColor} stopOpacity="0.3" />
+                <Stop offset="80%" stopColor={lineColor} stopOpacity="0" />
+                <Stop offset="100%" stopColor={lineColor} stopOpacity="0" />
+              </LinearGradient>
+            </Defs>
+
+            <VictoryArea />
+          </VictoryGroup>
+        </VictoryChart>
+      </View>
+      <Wrapper style={{backgroundColor: colors.paleBlue, marginTop: -26}} />
       <View
         style={{
           flexDirection: 'row',
@@ -70,6 +104,33 @@ export const Chart: React.FC<ChartProps> = ({
           );
         })}
       </View>
+      {metalsData && (
+        <View style={styles.buttons}>
+          <View style={{width: '47%'}}>
+            <TextButton
+              title="Sell"
+              onPress={() =>
+                navigation.navigate(Screens.sellBuySetup, {
+                  data: metalsData,
+                  type: 'Sell',
+                })
+              }
+            />
+          </View>
+          <View style={{width: '47%'}}>
+            <TextButton
+              title="Buy"
+              solid
+              onPress={() =>
+                navigation.navigate(Screens.sellBuySetup, {
+                  data: metalsData,
+                  type: 'Buy',
+                })
+              }
+            />
+          </View>
+        </View>
+      )}
     </View>
   );
 };

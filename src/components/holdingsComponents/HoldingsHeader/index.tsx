@@ -1,8 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {Image, View} from 'react-native';
 import {HoldingsHeaderProps, MetalPicker, Wrapper} from '../..';
-import {colors} from '@constants';
-import {getMetalsColor, metals, numberWithCommas} from '@utilities';
+import {metals, numberWithCommas} from '@utilities';
 import {
   DescriptionBold,
   Illustration,

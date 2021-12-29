@@ -5,7 +5,6 @@ import {useNavigation} from '@react-navigation/native';
 import {Screen} from '@ui';
 import React from 'react';
 import {StatusBar} from 'react-native';
-import {styles} from './styles';
 
 export const ChooseWithdraw: React.FC = () => {
   const navigation: any = useNavigation();

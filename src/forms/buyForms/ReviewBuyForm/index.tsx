@@ -1,10 +1,10 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
-import React, {useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import React from 'react';
+import {View} from 'react-native';
 import {colors, Screens} from '@constants';
 import {styles} from './styles';
-import {CheckBoxItem, LoadingItem} from '@components';
+import {CheckBoxItem} from '@components';
 import {SubtitleMedium} from '@Typography';
 import {TextButton} from '@ui';
 import {reviewBuySchema} from '../..';

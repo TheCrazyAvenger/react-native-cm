@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import {CheckBox} from 'react-native-elements';
 import {CheckBoxProps} from '..';
 import {colors} from '@constants';

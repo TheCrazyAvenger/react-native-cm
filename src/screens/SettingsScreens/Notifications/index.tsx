@@ -1,4 +1,3 @@
-import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {StatusBar, View} from 'react-native';
 import {News, Promotions, TransactionsUpdate} from '@assets/images/settings';
@@ -9,9 +8,6 @@ import {setNotification} from '@store/slices/authSlice';
 import {useAppDispatch, useAppSelector} from '@hooks';
 
 export const Notifications: React.FC = () => {
-  const navigation: any = useNavigation();
-  const route: any = useRoute();
-
   const [loading, setLoading] = useState(false);
 
   const token = useAppSelector(state => state.auth.token);

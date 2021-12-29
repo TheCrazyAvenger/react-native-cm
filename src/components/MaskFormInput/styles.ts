@@ -5,7 +5,11 @@ export const styles = StyleSheet.create({
   inputContainerStyle: {
     borderWidth: 1,
     borderRadius: 5,
-    paddingHorizontal: 10,
+    paddingHorizontal: 14,
+    marginHorizontal: 10,
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 16,
+    fontWeight: '400',
     height: 45,
     position: 'relative',
     borderColor: colors.placeholder,
@@ -13,28 +17,22 @@ export const styles = StyleSheet.create({
   errorInput: {
     borderColor: colors.red,
   },
-  inputStyle: {
-    fontFamily: 'OpenSans-Regular',
-    fontSize: 16,
-    fontWeight: '400',
-  },
   labelStyle: {
     fontFamily: 'OpenSans-Regular',
     marginBottom: 6,
     fontSize: 14,
+    marginLeft: 10,
     fontWeight: '400',
     color: colors.gray,
   },
-  errorLabel: {
-    color: colors.red,
+  rightIcon: {
+    position: 'absolute',
+    right: 24,
+    top: 18,
   },
   error: {
-    marginTop: -15,
-    marginBottom: 16,
+    marginTop: 10,
     marginLeft: 10,
-  },
-  leftPrefix: {
-    position: 'absolute',
-    left: 20,
+    marginBottom: -10,
   },
 });

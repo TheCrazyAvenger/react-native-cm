@@ -1,11 +1,9 @@
-import {useNavigation, useRoute} from '@react-navigation/core';
 import React from 'react';
 import {View} from 'react-native';
 import {styles} from './styles';
 import {SocialButton} from '@ui';
 import {useAppSelector} from '@hooks';
 import {SubtitleMedium} from '@Typography';
-import {LoadingItem} from '@components';
 
 export const PayPalForm: React.FC<{
   onSubmit: (...args: any) => void;
@@ -16,9 +14,6 @@ export const PayPalForm: React.FC<{
   screen?: string;
   loading?: boolean;
 }> = ({onSubmit, type, label, style, labelStyle, screen, loading}) => {
-  const navigation: any = useNavigation();
-  const route: any = useRoute();
-
   const firstName = useAppSelector(state => state.auth.firstName);
   const lastName = useAppSelector(state => state.auth.lastName);
 

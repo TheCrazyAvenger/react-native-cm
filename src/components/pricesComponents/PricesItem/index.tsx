@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useWindowDimensions, View} from 'react-native';
-import {PricesChart, PricesItemProps, Wrapper} from '../..';
+import {Chart, PricesItemProps, Wrapper} from '../..';
 import {colors} from '@constants';
 import {Description, Subtitle} from '@Typography';
 import {styles} from './styles';
@@ -10,6 +10,8 @@ export const PricesItem: React.FC<PricesItemProps> = ({data}) => {
   const {name, buy, id, digitalMetal} = data;
   const {oneDayChange, oneDayPercentChange} = digitalMetal;
   const {width} = useWindowDimensions();
+  const [time, setTime] = useState(1);
+
   return (
     <View style={{...styles.container, width: width - 55}}>
       <View style={styles.header}>
@@ -35,11 +37,13 @@ export const PricesItem: React.FC<PricesItemProps> = ({data}) => {
           )}`}</Description>
         </View>
       </View>
-      <Wrapper style={{marginTop: 8}} />
-      <PricesChart
+      <Wrapper style={{marginTop: 50}} />
+      <Chart
         lineColor={getMetalsColor(id)}
-        metalData={data}
-        chartMetal={id}
+        metalType={id}
+        chartTime={time}
+        setTime={setTime}
+        metalsData={data}
       />
     </View>
   );

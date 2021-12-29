@@ -12,7 +12,6 @@ import {Subtitle, SubtitleMedium} from '@Typography';
 import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {getAutoBuy} from '@store/actions/autoBuy';
-import {setLoading} from '@store/slices/authSlice';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import database from '@react-native-firebase/database';
@@ -49,7 +48,8 @@ export const AutoBuy: React.FC = () => {
       await dispatch(deleteAutoBuy(id));
 
       setLoading(false);
-      setModalVisible(true);
+
+      autoBuy.length !== 1 && setModalVisible(true);
     } catch (e: any) {
       await setError(e);
       console.log(e);
@@ -79,7 +79,7 @@ export const AutoBuy: React.FC = () => {
     <>
       <Notification
         text="Auto Buy has been successfully canceled."
-        visible={modalVisible}
+        visible={autoBuy.length === 0 ? false : modalVisible}
         style={{top: 0}}
         onPress={() => setModalVisible(false)}
       />

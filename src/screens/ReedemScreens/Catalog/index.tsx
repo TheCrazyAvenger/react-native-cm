@@ -1,10 +1,14 @@
-import {ShareRefer} from '@assets/images/settings';
-import {LoadingItem, MetalPicker, ReedemItem, Wrapper} from '@components';
+import {
+  EmptyDataScreen,
+  LoadingItem,
+  MetalPicker,
+  ReedemItem,
+  Wrapper,
+} from '@components';
 import {colors} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {getReedem} from '@store/actions/reedem';
 import {setLoading} from '@store/slices/authSlice';
-import {TitleMedium} from '@Typography';
 import {Screen} from '@ui';
 import {metals} from '@utilities';
 import React, {useEffect, useState} from 'react';
@@ -78,12 +82,7 @@ export const Catalog: React.FC = () => {
                 />
               ))
             ) : (
-              <View style={styles.noAlerts}>
-                <ShareRefer />
-                <TitleMedium style={{fontFamily: 'OpenSans-Regular'}}>
-                  No data
-                </TitleMedium>
-              </View>
+              <EmptyDataScreen title="No data" />
             )}
           </View>
         </ScrollView>

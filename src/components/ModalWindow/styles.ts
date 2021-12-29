@@ -14,11 +14,6 @@ export const styles = StyleSheet.create({
     padding: 26,
     borderRadius: 4,
   },
-  image: {
-    marginRight: 10,
-    width: 30,
-    height: 30,
-  },
   title: {
     marginBottom: 12,
     fontFamily: 'OpenSans-Bold',

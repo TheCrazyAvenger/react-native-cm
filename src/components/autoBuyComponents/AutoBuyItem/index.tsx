@@ -58,6 +58,7 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
         startDate,
         endDate,
         usedAmount,
+        account,
         id,
       },
     });

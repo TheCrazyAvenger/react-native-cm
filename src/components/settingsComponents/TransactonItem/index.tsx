@@ -1,8 +1,6 @@
-import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
 import {TouchableOpacity, View} from 'react-native';
 import {TransactionsModal} from '../..';
-import {useAppDispatch, useAppSelector} from '@hooks';
 import {Description, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 import {TransactionItemProps} from 'src/components/PropTypes';
@@ -27,7 +25,6 @@ export const TransactonItem: React.FC<TransactionItemProps> = ({
   localeDate,
   style,
 }) => {
-  const navigation: any = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
 
   const containerStyle = [

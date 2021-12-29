@@ -5,7 +5,6 @@ export const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     marginLeft: 20,
-
     justifyContent: 'center',
     borderRadius: 5,
     overflow: 'hidden',
