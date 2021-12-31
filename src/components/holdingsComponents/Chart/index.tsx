@@ -1,9 +1,8 @@
 import React, {useMemo} from 'react';
-import {TouchableOpacity, useWindowDimensions, View} from 'react-native';
-import {ChartProps, Wrapper} from '../..';
+import {useWindowDimensions, View} from 'react-native';
+import {ChartProps, TimePicker, Wrapper} from '../..';
 import {colors, Screens} from '@constants';
-import {getMetal, time, timelineData} from '@utilities';
-import {SubtitleMedium} from '@Typography';
+import {getMetal, timelineData} from '@utilities';
 import {
   VictoryArea,
   VictoryAxis,
@@ -81,29 +80,8 @@ export const Chart: React.FC<ChartProps> = ({
         </VictoryChart>
       </View>
       <Wrapper style={{backgroundColor: colors.paleBlue, marginTop: -26}} />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        {time.map((item, i) => {
-          const color = item.id === chartTime ? colors.primary : colors.black;
-          const fontFamily =
-            item.id === chartTime ? 'OpenSans-SemiBold' : 'OpenSans-Regular';
-          return (
-            <TouchableOpacity
-              key={i}
-              style={{marginHorizontal: 12}}
-              activeOpacity={0.7}
-              onPress={() => setTime(item.id)}>
-              <SubtitleMedium style={{color, fontFamily}}>
-                {item.time}
-              </SubtitleMedium>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
+      <TimePicker chartTime={chartTime} setTime={setTime} />
+
       {metalsData && (
         <View style={styles.buttons}>
           <View style={{width: '47%'}}>

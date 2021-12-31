@@ -203,6 +203,7 @@ export type ChartProps = {
 
 export type PricesItemProps = {
   data: any;
+  currentIndex: number;
 };
 
 export type PricesChartProps = {
@@ -508,4 +509,25 @@ export type NumberPaginationProps = {
 export type WithdrawTaxItemProps = {
   style?: {[key: string]: number | string};
   amount: string | number;
+};
+
+export type TimePickerProps = {
+  chartTime: number;
+  setTime: (...args: any) => void;
+};
+
+export type PieChartProps = {
+  gainsLosses: number;
+  commonOwned: string;
+};
+
+export type PortfolioHeaderProps = {
+  gainsLosses: number;
+  isEmpty: boolean;
+  commonOwned: string;
+};
+
+export type PricesGraphProps = {
+  data: any;
+  isLoading: boolean;
 };

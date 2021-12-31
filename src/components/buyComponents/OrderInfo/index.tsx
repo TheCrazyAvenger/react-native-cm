@@ -4,6 +4,7 @@ import {OrderInfoProps} from '../..';
 import {Description, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 import {colors} from '@constants';
+import {getTime} from '@utilities';
 
 export const OrderInfo: React.FC<OrderInfoProps> = ({
   order,
@@ -12,10 +13,7 @@ export const OrderInfo: React.FC<OrderInfoProps> = ({
   status,
   style,
 }) => {
-  const date = new Date();
-
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
+  const {hours, minutes} = getTime(new Date());
 
   return (
     <View>
@@ -37,7 +35,7 @@ export const OrderInfo: React.FC<OrderInfoProps> = ({
             <SubtitleMedium style={styles.infoText}>{orderDate}</SubtitleMedium>
           ) : (
             <SubtitleMedium style={styles.infoText}>
-              {date.toLocaleDateString()}
+              {new Date().toLocaleDateString()}
             </SubtitleMedium>
           )}
         </View>

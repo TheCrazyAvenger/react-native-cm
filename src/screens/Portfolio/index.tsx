@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {StatusBar, View} from 'react-native';
 import {
   EmptyDataScreen,
@@ -25,6 +25,26 @@ export const Portfolio: React.FC = () => {
     // @ts-ignore
     useGetDigitalProductsQuery();
 
+  const totalOwned = useMemo(
+    () =>
+      Object.values(ownedMetals).reduce(
+        (sum: number, next: number) => sum + next,
+        0,
+      ),
+    [ownedMetals],
+  );
+
+  const commonOwned = numberWithCommas(
+    Number(
+      Object.values(ownedMetals).reduce(
+        (acc, next) => (acc += next * 1887),
+        0,
+      ) + cashBalance,
+    ).toFixed(2),
+  );
+
+  const isEmpty = cashBalance === 0 && totalOwned === 0 ? true : false;
+
   useEffect(() => {
     if (!isLoading && data !== [] && !error) {
       const {gainsLosses} = getGainsLosses(data, operations, ownedMetals);
@@ -42,7 +62,11 @@ export const Portfolio: React.FC = () => {
         backgroundColor={'transparent'}
       />
 
-      <PortfolioHeader gainsLosses={gainsLosses} />
+      <PortfolioHeader
+        commonOwned={commonOwned}
+        isEmpty={isEmpty}
+        gainsLosses={gainsLosses}
+      />
       <View style={{marginTop: -80, paddingHorizontal: 26}}>
         {data === [] || isLoading ? (
           <LoadingItem />

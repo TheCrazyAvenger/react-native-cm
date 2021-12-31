@@ -3,13 +3,9 @@ import {Animated, FlatList, View} from 'react-native';
 import {PricesItem} from '../PricesItem';
 import {PricesPaginator} from '../PricesPaginator';
 import {styles} from './styles';
-import {EmptyDataScreen, LoadingItem} from '@components';
+import {EmptyDataScreen, LoadingItem, PricesGraphProps} from '@components';
 
-export const PricesGraph: React.FC<{
-  id: number;
-  data: any;
-  isLoading: boolean;
-}> = ({id, data, isLoading}) => {
+export const PricesGraph: React.FC<PricesGraphProps> = ({data, isLoading}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const slidesRef: any = useRef(null);
@@ -27,7 +23,9 @@ export const PricesGraph: React.FC<{
         <View>
           <FlatList
             data={data}
-            renderItem={({item}) => <PricesItem data={item} />}
+            renderItem={({item}) => (
+              <PricesItem data={item} currentIndex={currentIndex} />
+            )}
             horizontal
             showsHorizontalScrollIndicator={false}
             pagingEnabled

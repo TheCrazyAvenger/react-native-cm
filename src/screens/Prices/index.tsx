@@ -35,7 +35,7 @@ export const Prices: React.FC = () => {
       />
       <Header />
       <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
-        <PricesGraph data={metalsData.data} id={1} isLoading={isMetalLoading} />
+        <PricesGraph data={metalsData.data} isLoading={isMetalLoading} />
         {isEmpty ? (
           <ActionsCard
             title="Create Price Alert"

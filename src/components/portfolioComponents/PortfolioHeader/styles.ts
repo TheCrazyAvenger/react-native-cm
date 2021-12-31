@@ -16,15 +16,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
-  pieInfo: {
-    position: 'absolute',
-    alignItems: 'center',
-    justifyContent: 'center',
-    left: 0,
-    top: -70,
-    bottom: 0,
-    right: 0,
-  },
   emptyData: {
     marginTop: 20,
     backgroundColor: colors.primary,
@@ -40,16 +31,5 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.gray,
     paddingHorizontal: 50,
-  },
-  tickLabels: {
-    fontSize: 14,
-    fontFamily: 'OpenSans-Regular',
-    color: colors.gray,
-  },
-  chartWrapper: {
-    backgroundColor: colors.lightGray,
-    marginTop: 0,
-    marginHorizontal: 40,
-    marginBottom: 12,
   },
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 //@ts-ignore
 import Svg, {Path} from 'react-native-svg';
-import {ButtonsProps} from '..';
+import {ButtonsProps} from '@components';
 
 export const PortfolioIcon: React.FC<ButtonsProps> = ({color}) => {
   return (

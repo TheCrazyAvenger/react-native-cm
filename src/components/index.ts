@@ -53,9 +53,12 @@ export * from './holdingsComponents/MetalPicker';
 export * from './holdingsComponents/HoldingsHeader';
 export * from './holdingsComponents/PriceGraph';
 export * from './holdingsComponents/Chart';
+export * from './holdingsComponents/TimePicker';
 
 export * from './portfolioComponents/PortfolioHeader';
 export * from './portfolioComponents/MetalsInfo';
+export * from './portfolioComponents/PieChart';
+export * from './portfolioComponents/TimelineChart';
 
 export * from './settingsComponents/SettingsHeader';
 export * from './settingsComponents/MenuItem';

@@ -5,8 +5,9 @@ import {colors} from '@constants';
 import {Description, Subtitle} from '@Typography';
 import {styles} from './styles';
 import {getMetalsColor, numberWithCommas} from '@utilities';
+import {LoadingItem} from '@components';
 
-export const PricesItem: React.FC<PricesItemProps> = ({data}) => {
+export const PricesItem: React.FC<PricesItemProps> = ({data, currentIndex}) => {
   const {name, buy, id, digitalMetal} = data;
   const {oneDayChange, oneDayPercentChange} = digitalMetal;
   const {width} = useWindowDimensions();
@@ -38,13 +39,19 @@ export const PricesItem: React.FC<PricesItemProps> = ({data}) => {
         </View>
       </View>
       <Wrapper style={{marginTop: 50}} />
-      <Chart
-        lineColor={getMetalsColor(id)}
-        metalType={id}
-        chartTime={time}
-        setTime={setTime}
-        metalsData={data}
-      />
+      {id === currentIndex + 1 ? (
+        <Chart
+          lineColor={getMetalsColor(id)}
+          metalType={id}
+          chartTime={time}
+          setTime={setTime}
+          metalsData={data}
+        />
+      ) : (
+        <View style={{flex: 1}}>
+          <LoadingItem />
+        </View>
+      )}
     </View>
   );
 };

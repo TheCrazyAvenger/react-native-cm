@@ -86,9 +86,7 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
               </Illustration>
               <View style={{marginLeft: 6}}>
                 {totalPerfomance >= 0 ? (
-                  <Image
-                    source={require('../../../assets/images/home/upArrow.png')}
-                  />
+                  <Image source={require('@assets/images/home/upArrow.png')} />
                 ) : (
                   <DownArrow />
                 )}
