@@ -19,11 +19,10 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
   setMetal,
   data,
 }) => {
-  const {name, buy, digitalMetal, id} = data[metalType - 1];
+  const {name, buy, digitalMetal} = data[metalType - 1];
   const {oneDayChange} = digitalMetal;
 
   const [gainsLosses, setGainLosses] = useState(0);
-  const [acquisitionCost, setAcquisitionCost] = useState(0);
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
   const operations = useAppSelector(state => state.operations.operations);
 
@@ -41,19 +40,28 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
     [operations, metalType],
   );
 
-  const holdingsPriceAsk = ownedMetals[name] * buy;
+  const holdingsPriceAsk = useMemo(
+    () => ownedMetals[name] * buy,
+    [ownedMetals[name]],
+  );
+
+  const totalAcquisitionCost = useMemo(
+    () =>
+      buyOperations.reduce(
+        (acc: number, next: any) => acc + +next.oz * +next.spot,
+        0,
+      ),
+    [buyOperations],
+  );
 
   useEffect(() => {
-    if (buyOperations[0]) {
-      setAcquisitionCost(
-        buyOperations[0].oz * buyOperations[0].usd.split('$')[1],
-      );
-    }
-    setGainLosses(holdingsPriceAsk - acquisitionCost);
-  }, [holdingsPriceAsk, acquisitionCost, buyOperations]);
+    setGainLosses(holdingsPriceAsk - totalAcquisitionCost);
+  }, [holdingsPriceAsk, totalAcquisitionCost, buyOperations]);
 
-  const totalPerfomance =
-    holdingsPriceAsk === 0 ? 0 : (gainsLosses / holdingsPriceAsk) * 1;
+  const totalPerfomance = useMemo(
+    () => (holdingsPriceAsk === 0 ? 0 : gainsLosses / totalAcquisitionCost),
+    [gainsLosses],
+  );
 
   return (
     <LinearGradient

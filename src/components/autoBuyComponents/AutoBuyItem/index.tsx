@@ -38,7 +38,7 @@ export const AutoBuyItem: React.FC<AutoBuyItemProps> = ({
       const expiringDate = new Date(endDate);
       if (today > expiringDate) setIsExpiried(true);
     }
-  }, []);
+  }, [endDate]);
 
   const containerStyle = [
     styles.container,

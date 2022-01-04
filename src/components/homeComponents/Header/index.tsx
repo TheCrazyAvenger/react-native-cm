@@ -33,14 +33,13 @@ export const Header: React.FC = () => {
         data,
         operations,
         ownedMetals,
+        'percent',
       );
       setTotalHoldings(metalHoldings);
 
-      setTotalPerfomance(
-        metalHoldings === 0 ? 0 : (gainsLosses / metalHoldings) * 1,
-      );
+      setTotalPerfomance(metalHoldings === 0 ? 0 : gainsLosses);
     }
-  }, [data, operations]);
+  }, [data, operations, ownedMetals]);
 
   return (
     <View style={styles.container}>

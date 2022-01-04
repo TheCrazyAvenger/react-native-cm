@@ -2,6 +2,7 @@ export const getGainsLosses = (
   data: any,
   operations: any,
   ownedMetals: any,
+  type: 'cash' | 'percent' = 'cash',
 ) => {
   const gainsLosses = data.data.reduce((acc: number, metal: any) => {
     const {name, buy} = metal;
@@ -16,15 +17,17 @@ export const getGainsLosses = (
       );
 
     const holdingsPriceAsk = ownedMetals[name] * buy;
-    //   buyOperations.reduce((acc: number, next: any) => acc + +next.oz, 0) * buy;
 
-    let acquisitionCost = 0;
+    const totalAcquisitionCost = buyOperations.reduce(
+      (acc: number, next: any) => acc + +next.oz * +next.spot,
+      0,
+    );
 
-    if (buyOperations[0]) {
-      acquisitionCost = buyOperations[0].oz * +buyOperations[0].total;
-    }
-
-    return acc + holdingsPriceAsk - acquisitionCost * ownedMetals[name];
+    return type === 'cash'
+      ? acc + (holdingsPriceAsk - totalAcquisitionCost)
+      : totalAcquisitionCost === 0
+      ? acc + (holdingsPriceAsk - totalAcquisitionCost)
+      : acc + (holdingsPriceAsk - totalAcquisitionCost) / totalAcquisitionCost;
   }, 0);
 
   const metalHoldings = data.data.reduce((acc: number, metal: any) => {

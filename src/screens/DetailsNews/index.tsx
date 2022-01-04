@@ -1,5 +1,5 @@
 import {useRoute} from '@react-navigation/core';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StatusBar,
   TouchableOpacity,
@@ -15,8 +15,7 @@ import {tagStyles} from './tagStyles';
 import {SubtitleMedium, Title} from '@Typography';
 import {getTime, removeTags} from '@utilities';
 import {useGetNewsByIdMutation, useGetNewsQuery} from '@api';
-import {useAppDispatch, useAppSelector} from '@hooks';
-import {setLoading} from '@store/slices/authSlice';
+import {useAppDispatch} from '@hooks';
 import Share from 'react-native-share';
 import {colors} from '@constants';
 
@@ -28,7 +27,7 @@ export const DetailsNews: React.FC = () => {
 
   const {url} = route.params;
 
-  const loading = useAppSelector(state => state.auth.loading);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useAppDispatch();
   const {width} = useWindowDimensions();
@@ -41,9 +40,9 @@ export const DetailsNews: React.FC = () => {
 
   const getNews = async () => {
     try {
-      dispatch(setLoading(true));
+      setLoading(true);
       await getNewsById(url);
-      dispatch(setLoading(false));
+      setLoading(false);
     } catch (e) {
       console.log(e);
     }

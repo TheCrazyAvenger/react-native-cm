@@ -1,12 +1,11 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
-  verified: {
-    borderWidth: 1,
-    marginVertical: 18,
-    borderRadius: 48,
-    paddingHorizontal: 12,
-    paddingVertical: 4,
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  header: {
     alignItems: 'center',
   },
   text: {

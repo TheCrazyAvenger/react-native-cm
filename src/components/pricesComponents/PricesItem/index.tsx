@@ -5,16 +5,15 @@ import {colors} from '@constants';
 import {Description, Subtitle} from '@Typography';
 import {styles} from './styles';
 import {getMetalsColor, numberWithCommas} from '@utilities';
-import {LoadingItem} from '@components';
 
-export const PricesItem: React.FC<PricesItemProps> = ({data, currentIndex}) => {
+export const PricesItem: React.FC<PricesItemProps> = ({data}) => {
   const {name, buy, id, digitalMetal} = data;
   const {oneDayChange, oneDayPercentChange} = digitalMetal;
   const {width} = useWindowDimensions();
   const [time, setTime] = useState(1);
 
   return (
-    <View style={{...styles.container, width: width - 55}}>
+    <View style={{...styles.container, width: width - 43}}>
       <View style={styles.header}>
         <Subtitle style={{...styles.cardTitle, color: getMetalsColor(id)}}>
           {name}
@@ -39,19 +38,14 @@ export const PricesItem: React.FC<PricesItemProps> = ({data, currentIndex}) => {
         </View>
       </View>
       <Wrapper style={{marginTop: 50}} />
-      {id === currentIndex + 1 ? (
-        <Chart
-          lineColor={getMetalsColor(id)}
-          metalType={id}
-          chartTime={time}
-          setTime={setTime}
-          metalsData={data}
-        />
-      ) : (
-        <View style={{flex: 1}}>
-          <LoadingItem />
-        </View>
-      )}
+
+      <Chart
+        lineColor={getMetalsColor(id)}
+        metalType={id}
+        chartTime={time}
+        setTime={setTime}
+        metalsData={data}
+      />
     </View>
   );
 };

@@ -12,6 +12,7 @@ import {colors, Screens} from '@constants';
 import {useAppSelector} from '@hooks';
 import {Screen} from '@ui';
 import {useGetDigitalProductsQuery, useGetNewsQuery} from '@api';
+import {styles} from './styles';
 
 export const Home: React.FC = () => {
   const navigation: any = useNavigation();
@@ -27,14 +28,14 @@ export const Home: React.FC = () => {
     useGetDigitalProductsQuery();
 
   return (
-    <Screen style={{paddingHorizontal: 0}}>
+    <Screen style={styles.container}>
       <StatusBar
         barStyle="light-content"
         translucent
         backgroundColor={colors.primary}
       />
       <Header />
-      <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
+      <Screen type="View" style={styles.bodyContainer}>
         <View>
           <MetalsCard
             data={metalsData}

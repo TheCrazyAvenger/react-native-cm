@@ -7,18 +7,15 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 49,
+    marginBottom: 25,
+  },
+  userInfo: {
+    maxWidth: '70%',
   },
   userName: {
     fontFamily: 'OpenSans-Bold',
     color: colors.primary,
     fontSize: 22,
     maxWidth: '100%',
-  },
-  verified: {
-    borderWidth: 1,
-    marginBottom: 25,
-    borderRadius: 48,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
   },
 });

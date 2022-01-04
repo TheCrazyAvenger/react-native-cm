@@ -203,7 +203,6 @@ export type ChartProps = {
 
 export type PricesItemProps = {
   data: any;
-  currentIndex: number;
 };
 
 export type PricesChartProps = {

@@ -6,6 +6,7 @@ import {Screens} from '@constants';
 import {useAppSelector} from '@hooks';
 import {Screen} from '@ui';
 import {useGetDigitalProductsQuery, useGetNewsQuery} from '@api';
+import {styles} from './styles';
 
 export const Prices: React.FC = () => {
   // @ts-ignore
@@ -27,14 +28,14 @@ export const Prices: React.FC = () => {
       : false;
 
   return (
-    <Screen style={{paddingHorizontal: 0}}>
+    <Screen style={styles.container}>
       <StatusBar
         barStyle="light-content"
         translucent
         backgroundColor={'transparent'}
       />
       <Header />
-      <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
+      <Screen type="View" style={styles.bodyContainer}>
         <PricesGraph data={metalsData.data} isLoading={isMetalLoading} />
         {isEmpty ? (
           <ActionsCard

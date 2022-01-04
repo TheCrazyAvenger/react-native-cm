@@ -17,7 +17,7 @@ export const Holdings: React.FC = () => {
   const {data: newsData = [], isLoading} = useGetNewsQuery();
 
   return (
-    <Screen style={{paddingHorizontal: 0}}>
+    <Screen style={styles.container}>
       <StatusBar
         barStyle="light-content"
         translucent
@@ -28,7 +28,7 @@ export const Holdings: React.FC = () => {
         metalType={metalType}
         setMetal={setMetalType}
       />
-      <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
+      <Screen type="View" style={styles.bodyContainer}>
         <View style={styles.buttons}>
           <View>
             <TextButton

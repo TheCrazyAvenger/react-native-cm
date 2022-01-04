@@ -65,6 +65,7 @@ export * from './settingsComponents/MenuItem';
 export * from './settingsComponents/MenuItemSmall';
 export * from './settingsComponents/OperationsPicker';
 export * from './settingsComponents/TransactonItem';
+export * from './settingsComponents/VerificationItem';
 
 export * from './autoBuyComponents/ProductItem';
 export * from './autoBuyComponents/AutoBuyItem';

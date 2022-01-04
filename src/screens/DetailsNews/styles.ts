@@ -1,3 +1,4 @@
+import {colors} from '@constants';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -10,6 +11,7 @@ export const styles = StyleSheet.create({
   },
   date: {
     marginTop: 8,
+    color: colors.gray,
   },
   socials: {
     flexDirection: 'row',
