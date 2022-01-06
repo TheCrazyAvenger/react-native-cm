@@ -160,6 +160,7 @@ export type TransactionsModalProps = {
   visible: boolean;
   date: string;
   spot: number;
+  price_with_tax: number;
   account: string;
   total: string;
   cart: any;
@@ -429,6 +430,7 @@ export type TransactionItemProps = {
   product: string;
   quantity: number;
   total: string;
+  price_with_tax: number;
   cart: any;
   shippingMethod: string;
   type: string;
@@ -508,6 +510,7 @@ export type NumberPaginationProps = {
 export type WithdrawTaxItemProps = {
   style?: {[key: string]: number | string};
   amount: string | number;
+  price_with_tax?: number;
 };
 
 export type TimePickerProps = {

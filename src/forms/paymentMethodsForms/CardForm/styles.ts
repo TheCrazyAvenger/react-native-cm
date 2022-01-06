@@ -23,4 +23,7 @@ export const styles = StyleSheet.create({
   expirationStyle: {
     marginLeft: 0,
   },
+  cardImage: {
+    marginTop: -6,
+  },
 });

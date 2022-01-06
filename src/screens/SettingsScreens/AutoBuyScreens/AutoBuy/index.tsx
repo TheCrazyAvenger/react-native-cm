@@ -49,7 +49,7 @@ export const AutoBuy: React.FC = () => {
 
       setLoading(false);
 
-      autoBuy.length !== 1 && setModalVisible(true);
+      setModalVisible(true);
     } catch (e: any) {
       await setError(e);
       console.log(e);
@@ -70,7 +70,10 @@ export const AutoBuy: React.FC = () => {
               purchases of digital metals in increments that fit your timeframe
               and budget."
         buttonTitle="Add New"
-        onPress={() => navigation.navigate(Screens.chooseProduct)}
+        onPress={() => {
+          setModalVisible(false);
+          navigation.navigate(Screens.chooseProduct);
+        }}
       />
     );
   }

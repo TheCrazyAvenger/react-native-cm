@@ -66,12 +66,12 @@ export const CompleteAutoBuy: React.FC = () => {
                 solid
                 style={{marginBottom: 20}}
                 title="Set up another Auto Buy"
-                onPress={() => navigation.pop(3)}
+                onPress={() => navigation.pop(2)}
               />
               <TextButton
                 title="Go to Dashboard"
                 style={{marginBottom: 5}}
-                onPress={() => navigation.pop(4)}
+                onPress={() => navigation.pop(3)}
               />
             </>
           )}

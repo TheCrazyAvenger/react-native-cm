@@ -10,7 +10,7 @@ import {getPaymentName, getTime, numberWithCommas} from '@utilities';
 import {updateCash} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
 import {addOperation} from '@store/slices/operationsSlice';
-import {Screens} from '@constants';
+import {FUND_TAX, Screens, WITHDRAW_TAX} from '@constants';
 
 export const ReviewFundWithdraw: React.FC = () => {
   const navigation: any = useNavigation();
@@ -46,7 +46,11 @@ export const ReviewFundWithdraw: React.FC = () => {
         type: `${type === 'Fund' ? 'Fund' : 'Withdraw'}`,
         localeDate: `${month}/${day}/${year}`,
         date: `${monthName} ${day}, ${year}`,
-        total: type === 'Fund' ? +amount - +amount * 0.0299 : +amount,
+        price_with_tax:
+          type === 'Fund'
+            ? +amount - +amount * FUND_TAX
+            : +amount - +amount * WITHDRAW_TAX,
+        total: +amount,
         order,
         account:
           type === 'Fund' && paymentMethod === 'eCheck'
@@ -81,7 +85,7 @@ export const ReviewFundWithdraw: React.FC = () => {
 
       navigation.replace(Screens.completeFundWithdraw, {
         type: 'Success',
-        amount: type === 'Fund' ? +amount - +amount * 0.0299 : +amount,
+        amount: +amount,
         order,
         account,
         paymentMethod,
@@ -91,7 +95,7 @@ export const ReviewFundWithdraw: React.FC = () => {
       await setLoading(false);
       navigation.replace(Screens.completeFundWithdraw, {
         type: 'Error',
-        amount: type === 'Fund' ? +amount - +amount * 0.0299 : +amount,
+        amount: +amount,
         order: '-',
         account,
         paymentMethod,
@@ -134,8 +138,8 @@ export const ReviewFundWithdraw: React.FC = () => {
           <TitleMedium style={styles.priceTitle}>{`$${numberWithCommas(
             Number(
               type === 'Fund'
-                ? +amount - +amount * 0.0299
-                : +amount - +amount * 0.1,
+                ? +amount - +amount * FUND_TAX
+                : +amount - +amount * WITHDRAW_TAX,
             ).toFixed(2),
           )}`}</TitleMedium>
         </View>

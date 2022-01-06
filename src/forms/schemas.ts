@@ -203,7 +203,6 @@ export const cardSchema = yup.object().shape({
     .string()
     .required('Please enter your card number')
     .label('Card Number')
-    .max(19)
     .matches(/[0-9] /, 'Please enter a valid card number'),
   firstName: yup
     .string()
@@ -234,7 +233,7 @@ export const cardSchema = yup.object().shape({
     .string()
     .required('Please enter your CSC')
     .matches(/^[0-9]+$/, 'Please enter a valid CSC')
-    .min(3, 'The field should contain at least 3 symbols')
+    .min(3, 'Please enter a valid CSC')
     .max(4, 'The field should be less than or equal to 4 symbols '),
 
   address: yup

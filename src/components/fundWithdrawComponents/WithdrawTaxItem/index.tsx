@@ -4,9 +4,11 @@ import {SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 import {numberWithCommas} from '@utilities';
 import {WithdrawTaxItemProps} from '@components';
+import {WITHDRAW_TAX} from '@constants';
 
 export const WithdrawTaxItem: React.FC<WithdrawTaxItemProps> = ({
   amount,
+  price_with_tax,
   style,
 }) => {
   return (
@@ -20,7 +22,9 @@ export const WithdrawTaxItem: React.FC<WithdrawTaxItemProps> = ({
       <View style={styles.subPrice}>
         <SubtitleMedium style={styles.subPriceTitle}>Fee 10%</SubtitleMedium>
         <SubtitleMedium style={styles.subPriceTitle}>{`$${numberWithCommas(
-          Number(+amount * 0.1).toFixed(2),
+          Number(
+            price_with_tax ? +amount - price_with_tax : +amount * WITHDRAW_TAX,
+          ).toFixed(2),
         )}`}</SubtitleMedium>
       </View>
     </View>

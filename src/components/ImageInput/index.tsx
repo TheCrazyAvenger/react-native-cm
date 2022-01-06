@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, Alert, View, TouchableOpacity} from 'react-native';
-import {ImageInputProps} from '..';
+import {ImageInputProps} from '@components';
 import {styles} from './styles';
 import ImagePicker from 'react-native-image-crop-picker';
 import {Close, Plus} from '@assets/images/settings';

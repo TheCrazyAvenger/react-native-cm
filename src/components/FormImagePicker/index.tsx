@@ -1,6 +1,7 @@
 import {useFormikContext} from 'formik';
 import React from 'react';
-import {FormImagePickerProps, ImageInputList} from '..';
+import {View} from 'react-native';
+import {FormImagePickerProps, ImageInputList} from '@components';
 
 export const FormImagePicker: React.FC<FormImagePickerProps> = ({name}) => {
   const {setFieldValue, values}: any = useFormikContext();
@@ -19,6 +20,8 @@ export const FormImagePicker: React.FC<FormImagePickerProps> = ({name}) => {
   };
 
   return (
-    <ImageInputList uris={uris} onAdd={addHandler} onRemove={removeHandler} />
+    <View>
+      <ImageInputList uris={uris} onAdd={addHandler} onRemove={removeHandler} />
+    </View>
   );
 };

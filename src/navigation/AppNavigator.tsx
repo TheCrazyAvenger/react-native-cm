@@ -14,11 +14,10 @@ import SplashScreen from 'react-native-splash-screen';
 
 export const AppNavigator: React.FC = () => {
   const token = useAppSelector(state => state.auth.token);
-  const error = useAppSelector(state => state.auth.error);
 
   const dispatch = useAppDispatch();
 
-  const [showOnBoarding, setShowOnboarding] = useState(true);
+  const [showOnBoarding, setShowOnboarding] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const checkOnboarding = async () => {
@@ -30,10 +29,10 @@ export const AppNavigator: React.FC = () => {
 
       if (value === null) {
         setShowOnboarding(true);
-        setLoading(false);
+        await setLoading(false);
         return SplashScreen.hide();
       } else {
-        setShowOnboarding(false);
+        await setShowOnboarding(false);
       }
       if (token) {
         await dispatch(getData());
@@ -43,8 +42,9 @@ export const AppNavigator: React.FC = () => {
         await dispatch(getPriceAlerts());
         await dispatch(getPaymentMethod());
       }
-      SplashScreen.hide();
-      return setLoading(false);
+
+      await setLoading(false);
+      return SplashScreen.hide();
     } catch (e) {
       SplashScreen.hide();
       setLoading(false);
@@ -53,9 +53,12 @@ export const AppNavigator: React.FC = () => {
   };
 
   useEffect(() => {
-    SplashScreen.hide();
     checkOnboarding();
   }, []);
+
+  useEffect(() => {
+    token && setShowOnboarding(false);
+  }, [token]);
 
   return (
     <NavigationContainer>

@@ -28,6 +28,15 @@ export const PaymentMethods: React.FC = () => {
   const loading = useAppSelector(state => state.auth.loading);
   const token = useAppSelector(state => state.auth.token);
 
+  const isEmpty =
+    paymentMethods.cashBalance.length === 0 &&
+    paymentMethods.creditCard.length === 0 &&
+    paymentMethods.bankWire.length === 0 &&
+    paymentMethods.payPal.length === 0 &&
+    paymentMethods.eCheck.length === 0
+      ? true
+      : false;
+
   useEffect(() => {
     getList();
   }, []);
@@ -49,30 +58,26 @@ export const PaymentMethods: React.FC = () => {
         ? 'PayPal'
         : 'bank account',
     );
+
     setRemoveModal(true);
   };
 
-  if (loading) {
-    return <LoadingItem />;
-  }
+  useEffect(() => {
+    isEmpty && setRemoveModal(false);
+  }, [isEmpty]);
 
-  if (
-    paymentMethods.cashBalance.length === 0 &&
-    paymentMethods.creditCard.length === 0 &&
-    paymentMethods.bankWire.length === 0 &&
-    paymentMethods.payPal.length === 0 &&
-    paymentMethods.eCheck.length === 0
-  ) {
+  if (isEmpty) {
     return (
       <EmptyDataScreen
         title="No Payment Methods Available"
         text="CyberMetals accepts ACH/eChecks, Credit/Debit Cards, Bank Wire, Cryptos and more. You can even connect your bank account to enjoy the ease of quick payments."
         buttonTitle="Add New Payment Method"
-        onPress={() =>
+        onPress={() => {
+          setRemoveModal(false);
           navigation.navigate(Screens.paymentMethodsSetUp, {
             type: 'creditCard',
-          })
-        }
+          });
+        }}
       />
     );
   }

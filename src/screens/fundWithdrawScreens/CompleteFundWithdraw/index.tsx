@@ -9,7 +9,7 @@ import {
   Wrapper,
 } from '@components';
 import {Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
-import {colors, Screens} from '@constants';
+import {colors, FUND_TAX, Screens, WITHDRAW_TAX} from '@constants';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import {cmCredentials, getPaymentName, numberWithCommas} from '@utilities';
@@ -65,7 +65,9 @@ export const CompleteFundWithdraw: React.FC = () => {
           <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
           <TitleMedium style={styles.priceTitle}>{`$${numberWithCommas(
             Number(
-              operationType === 'Fund' ? +amount : amount - amount * 0.1,
+              operationType === 'Fund'
+                ? amount - amount * FUND_TAX
+                : amount - amount * WITHDRAW_TAX,
             ).toFixed(2),
           )}`}</TitleMedium>
         </View>

@@ -65,10 +65,7 @@ export const DocumentsVerificationForm: React.FC = () => {
                         ? colors.red
                         : colors.primary,
                   }}>
-                  <FormImagePicker
-                    // setError={value => setError(value)}
-                    name="documents"
-                  />
+                  <FormImagePicker name="documents" />
                 </View>
                 {errors.documents && touched.documents ? (
                   <Error style={styles.error}>{errors.documents}</Error>

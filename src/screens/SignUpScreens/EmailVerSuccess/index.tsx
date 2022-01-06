@@ -32,7 +32,7 @@ export const EmailVerSuccess: React.FC = () => {
           </View>
           <Image
             style={{alignSelf: 'center'}}
-            source={require('../../../assets/images/register/complete.png')}
+            source={require('@assets/images/register/complete.png')}
           />
         </ScrollView>
         <PaginationFooter

@@ -2,7 +2,7 @@ import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
-import {colors, Screens} from '@constants';
+import {colors, FUND_TAX, Screens, WITHDRAW_TAX} from '@constants';
 import {styles} from './styles';
 import {FormInput, ItemPicker, WithdrawTaxItem} from '@components';
 import {Description, Error, SubtitleMedium, TitleMedium} from '@Typography';
@@ -158,8 +158,8 @@ export const FundWithDrawSetUpForm: React.FC = () => {
                   ? numberWithCommas(
                       Number(
                         type === 'Fund'
-                          ? +values.amount - +values.amount * 0.0299
-                          : +values.amount - +values.amount * 0.1,
+                          ? +values.amount - +values.amount * FUND_TAX
+                          : +values.amount - +values.amount * WITHDRAW_TAX,
                       ).toFixed(2),
                     )
                   : '0.00'

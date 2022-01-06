@@ -22,6 +22,7 @@ export const TransactionsModal: React.FC<TransactionsModalProps> = ({
   date,
   spot,
   product,
+  price_with_tax,
   type,
   cart,
   shippingMethod,
@@ -86,7 +87,7 @@ export const TransactionsModal: React.FC<TransactionsModalProps> = ({
                     <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
                     <TitleMedium
                       style={styles.priceTitle}>{`$${numberWithCommas(
-                      Number(+total).toFixed(2),
+                      Number(price_with_tax).toFixed(2),
                     )}`}</TitleMedium>
                   </View>
                 )}
@@ -98,12 +99,13 @@ export const TransactionsModal: React.FC<TransactionsModalProps> = ({
                 <WithdrawTaxItem
                   style={{paddingHorizontal: 0, marginTop: 0}}
                   amount={total}
+                  price_with_tax={price_with_tax}
                 />
 
                 <View style={styles.price}>
                   <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
                   <TitleMedium style={styles.priceTitle}>{`$${numberWithCommas(
-                    Number(+total - +total * 0.1).toFixed(2),
+                    Number(price_with_tax).toFixed(2),
                   )}`}</TitleMedium>
                 </View>
               </View>

@@ -10,6 +10,7 @@ export const TransactonItem: React.FC<TransactionItemProps> = ({
   product,
   quantity,
   total,
+  price_with_tax,
   type,
   shippingMethod,
   cart,
@@ -41,6 +42,7 @@ export const TransactonItem: React.FC<TransactionItemProps> = ({
         spot={spot}
         account={account}
         total={total}
+        price_with_tax={price_with_tax}
         cart={cart}
         shippingMethod={shippingMethod}
         product={product}

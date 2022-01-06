@@ -40,18 +40,30 @@ export const EmailVerification: React.FC = () => {
     });
   };
 
+  const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(0);
+  useEffect(() => {
+    let myInterval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(myInterval);
+        } else {
+          setMinutes(minutes - 1);
+          setSeconds(59);
+        }
+      }
+    }, 1000);
+    return () => {
+      clearInterval(myInterval);
+    };
+  });
 
   useEffect(() => {
     sendEmail();
   }, []);
-
-  useEffect(() => {
-    if (next === true)
-      navigation.push(Screens.emailVerSuccess, {
-        values: {...route.params.values},
-      });
-  }, [next]);
 
   const sendEmail = async () => {
     try {
@@ -64,17 +76,18 @@ export const EmailVerification: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (seconds > 0) {
-      setTimeout(() => setSeconds(seconds - 1), 1000);
-    }
-  }, [seconds]);
-
   const resentEmail = () => {
     sendEmail();
     setShowNotify(true);
-    setSeconds(59);
+    setMinutes(1);
   };
+
+  useEffect(() => {
+    if (next === true)
+      navigation.push(Screens.emailVerSuccess, {
+        values: {...route.params.values},
+      });
+  }, [next]);
 
   return (
     <Screen type="View">
@@ -102,7 +115,7 @@ export const EmailVerification: React.FC = () => {
         <View style={styles.buttons}>
           {seconds > 0 ? (
             <Illustration style={styles.resendTimer}>
-              Please wait 1 minute before clicking Resend Email (0:
+              Please wait 1 minute before clicking Resend Email ({minutes}:
               {`${seconds < 10 ? '0' : ''}${seconds}`})
             </Illustration>
           ) : null}

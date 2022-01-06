@@ -73,6 +73,7 @@ export const Transactions: React.FC = () => {
             {currentOperationsData.map((item: any, i: number) => (
               <TransactonItem
                 key={item.id}
+                price_with_tax={item.price_with_tax}
                 product={item.product}
                 quantity={item.oz}
                 total={item.total}

@@ -6,12 +6,7 @@ import {styles} from './styles';
 import {FormInput, ItemPicker, MaskFormInput} from '@components';
 import {Subtitle, Error} from '@Typography';
 import {TextButton} from '@ui';
-import {
-  cardNumberValidation,
-  setCard,
-  states,
-  validatePasscode,
-} from '@utilities';
+import {setCard, states, validatePasscode} from '@utilities';
 import {cardSchema} from '../..';
 import {
   AmericanExpress,
@@ -20,6 +15,7 @@ import {
   Visa,
 } from '@assets/images/settings';
 import {useAppSelector} from '@hooks';
+import {cardMasks} from '@constants';
 
 export const CardForm: React.FC<{
   onSubmit: (...args: any) => void;
@@ -27,16 +23,18 @@ export const CardForm: React.FC<{
   label: string;
   loading: boolean;
 }> = ({onSubmit, type, label, loading}) => {
-  const [cardType, setCardType] = useState<string | null>(null);
   const navigation: any = useNavigation();
+
+  const [cardType, setCardType] = useState<string | null>(null);
+  const [error, setError] = useState<null | string>(null);
+
+  const [cardMask, setCardMask] = useState(cardMasks['visa']);
 
   const paymentMethods = useAppSelector(
     state => state.paymentMethod.paymentMethods,
   );
   const firstName = useAppSelector(state => state.auth.firstName);
   const lastName = useAppSelector(state => state.auth.lastName);
-
-  const [error, setError] = useState<null | string>(null);
 
   const legalAdress = useAppSelector(state => state.auth.legalAdress);
   const {streetAdress, city, state, postalCode}: any = legalAdress;
@@ -76,6 +74,9 @@ export const CardForm: React.FC<{
         setFieldValue,
       }) => {
         const checkType = () => {
+          values.cardNumber[0] === '3'
+            ? setCardMask(cardMasks['americanExpress'])
+            : setCardMask(cardMasks['visa']);
           setCardType(setCard(values.cardNumber));
         };
 
@@ -119,10 +120,6 @@ export const CardForm: React.FC<{
               value={values.cardNumber}
               onBlur={async () => {
                 setFieldTouched('cardNumber', true);
-                setFieldValue(
-                  'cardNumber',
-                  cardNumberValidation(values.cardNumber),
-                );
                 checkType();
                 checkAllCards();
               }}
@@ -130,34 +127,18 @@ export const CardForm: React.FC<{
                 cardType === 'visa' ? (
                   <Visa />
                 ) : cardType === 'masterCard' ? (
-                  <MasterCard />
+                  <View style={styles.cardImage}>
+                    <MasterCard />
+                  </View>
                 ) : cardType === 'americanExpress' ? (
-                  <AmericanExpress />
+                  <View style={styles.cardImage}>
+                    <AmericanExpress />
+                  </View>
                 ) : cardType === 'discover' ? (
                   <Discover />
                 ) : null
               }
-              mask={[
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-                ' ',
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-                ' ',
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-                ' ',
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-              ]}
+              mask={cardMask}
               errorMessage={errors.cardNumber}
               isTouched={touched.cardNumber}
             />

@@ -135,9 +135,8 @@ export const AutoBuySetUpForm: React.FC = () => {
         };
 
         const checkEndDate = (date: string) => {
-          if (new Date(date) < new Date(values.startDate)) {
+          if (new Date(date) <= new Date(values.startDate)) {
             setFieldValue('endDate', getNextDay(values.startDate));
-            console.log(2);
           } else {
             setFieldValue('endDate', date);
           }

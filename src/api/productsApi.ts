@@ -4,7 +4,7 @@ import {BASE_URL} from '@env';
 export const productsApi = createApi({
   reducerPath: 'productsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://dev-backend.cybermetals.com/api',
+    baseUrl: BASE_URL,
   }),
   endpoints: builder => ({
     getDigitalProducts: builder.query({
