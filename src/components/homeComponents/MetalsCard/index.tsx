@@ -14,6 +14,10 @@ export const MetalsCard: React.FC<MetalsCardProps> = ({
 }) => {
   const navigation: any = useNavigation();
 
+  const handleHoldings = () => {
+    navigation.navigate(Screens.holdings, {id: metalId + 1, data});
+  };
+
   return (
     <View
       style={{...styles.container, height: isLoading || error ? 188 : 'auto'}}>
@@ -22,11 +26,7 @@ export const MetalsCard: React.FC<MetalsCardProps> = ({
       ) : error ? (
         <EmptyDataScreen style={{marginTop: 15}} title="No data" />
       ) : (
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() =>
-            navigation.navigate(Screens.holdings, {id: metalId + 1, data})
-          }>
+        <TouchableOpacity activeOpacity={0.7} onPress={handleHoldings}>
           <MetalsItem data={data.data[metalId]} />
         </TouchableOpacity>
       )}

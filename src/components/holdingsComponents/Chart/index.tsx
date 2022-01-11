@@ -25,6 +25,13 @@ export const Chart: React.FC<ChartProps> = ({
   const navigation: any = useNavigation();
   const {width} = useWindowDimensions();
 
+  const handleSellBuy = (type: string) => {
+    navigation.navigate(Screens.sellBuySetup, {
+      data: metalsData,
+      type,
+    });
+  };
+
   const data = useMemo(() => {
     return timelineData[getMetal(metalType)][+chartTime].map(
       (item: number, i: number) => ({x: i, y: item}),
@@ -85,26 +92,13 @@ export const Chart: React.FC<ChartProps> = ({
       {metalsData && (
         <View style={styles.buttons}>
           <View style={{width: '47%'}}>
-            <TextButton
-              title="Sell"
-              onPress={() =>
-                navigation.navigate(Screens.sellBuySetup, {
-                  data: metalsData,
-                  type: 'Sell',
-                })
-              }
-            />
+            <TextButton title="Sell" onPress={() => handleSellBuy('Sell')} />
           </View>
           <View style={{width: '47%'}}>
             <TextButton
               title="Buy"
               solid
-              onPress={() =>
-                navigation.navigate(Screens.sellBuySetup, {
-                  data: metalsData,
-                  type: 'Buy',
-                })
-              }
+              onPress={() => handleSellBuy('Buy')}
             />
           </View>
         </View>

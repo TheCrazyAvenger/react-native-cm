@@ -19,6 +19,10 @@ export const ActivityCard: React.FC = () => {
 
   const dispatch = useAppDispatch();
 
+  const handleTransactions = () => {
+    navigation.navigate(Screens.transactions);
+  };
+
   const checkOperations = async () => {
     setLoading(true);
     await dispatch(getOperations());
@@ -82,9 +86,7 @@ export const ActivityCard: React.FC = () => {
         <EmptyDataScreen style={{marginTop: 50}} title="No recent activity" />
       )}
       {!loading && operations.length > 0 ? (
-        <ViewMoreButton
-          onPress={() => navigation.navigate(Screens.transactions)}
-        />
+        <ViewMoreButton onPress={handleTransactions} />
       ) : null}
     </View>
   );

@@ -26,6 +26,14 @@ export const NewsCard: React.FC<NewsCardProps> = ({data, isLoading, style}) => {
     return data.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, pageSize, data]);
 
+  const handleNews = () => {
+    navigation.navigate(Screens.news);
+  };
+
+  const handleDetailsNews = (body: any) => {
+    navigation.push(Screens.detailsNews, body);
+  };
+
   return (
     <View>
       <View
@@ -36,10 +44,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({data, isLoading, style}) => {
         <View style={{...styles.cardItem, marginBottom: 15}}>
           <TitleMedium>Market News</TitleMedium>
           {data.length !== 0 && data.length <= 4 && (
-            <ViewMoreButton
-              style={{marginTop: 0}}
-              onPress={() => navigation.navigate(Screens.news)}
-            />
+            <ViewMoreButton style={{marginTop: 0}} onPress={handleNews} />
           )}
         </View>
         <View>
@@ -54,7 +59,7 @@ export const NewsCard: React.FC<NewsCardProps> = ({data, isLoading, style}) => {
                   <TouchableOpacity
                     activeOpacity={0.7}
                     onPress={() =>
-                      navigation.push(Screens.detailsNews, {
+                      handleDetailsNews({
                         id,
                         body,
                         title,

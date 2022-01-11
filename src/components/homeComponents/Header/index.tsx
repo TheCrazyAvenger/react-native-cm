@@ -70,12 +70,12 @@ export const Header: React.FC = () => {
             {totalPerfomance >= 0 ? (
               <Image
                 style={{marginLeft: 6}}
-                source={require('../../../assets/images/home/upArrow.png')}
+                source={require('@assets/images/home/upArrow.png')}
               />
             ) : (
               <Image
                 style={{marginLeft: 6}}
-                source={require('../../../assets/images/home/downArrow.png')}
+                source={require('@assets/images/home/downArrow.png')}
               />
             )}
           </View>
