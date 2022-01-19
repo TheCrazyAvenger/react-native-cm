@@ -32,7 +32,7 @@ export * from './SettingsScreens/Notifications';
 export * from './SettingsScreens/Profile';
 export * from './SettingsScreens/CookiePolicy';
 export * from './SettingsScreens/Transactions';
-export * from './SettingsScreens/StorageFees';
+export * from './SettingsScreens/Invoices';
 export * from './SettingsScreens/Passcode';
 export * from './SettingsScreens/ContactUs';
 

@@ -8,6 +8,7 @@ import {
   CompleteSellBuy,
   ContactUs,
   CookiePolicy,
+  Invoices,
   Notifications,
   Passcode,
   Password,
@@ -16,7 +17,6 @@ import {
   Refer,
   ReviewSellBuy,
   SellBuySetUp,
-  StorageFees,
   Transactions,
 } from '@screens';
 import {styles} from './styles';
@@ -101,9 +101,9 @@ export const MainNavigator: React.FC = () => {
           component={Transactions}
         />
         <Stack.Screen
-          name={Screens.storageFees}
-          options={{title: 'Storage Fees'}}
-          component={StorageFees}
+          name={Screens.invoices}
+          options={{title: 'Invoices'}}
+          component={Invoices}
         />
         <Stack.Screen
           name={Screens.sellBuyStack}

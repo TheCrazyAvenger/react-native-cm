@@ -26,6 +26,7 @@ export * from './paymentMethodsForms/PayPalForm';
 export * from './paymentMethodsForms/ECheckForm';
 
 export * from './Settings/ProfileForm';
+export * from './Settings/LegalAddressForm';
 export * from './Settings/VerificationForm';
 export * from './Settings/DocumentsVerificationForm';
 export * from './Settings/PasscodeForm';
