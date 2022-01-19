@@ -20,12 +20,13 @@ export const Home: React.FC = () => {
   const operations = useAppSelector(state => state.operations.operations);
   const autoBuy = useAppSelector(state => state.autoBuy.autoBuy);
 
-  // @ts-ignore
-  const {data = [], isLoading} = useGetNewsQuery();
+  const {data = [], isLoading} = useGetNewsQuery({});
 
-  const {data: metalsData = [], isLoading: isMetalsLoading, error} =
-    // @ts-ignore
-    useGetDigitalProductsQuery();
+  const {
+    data: metalsData = [],
+    isLoading: isMetalsLoading,
+    error,
+  } = useGetDigitalProductsQuery({});
 
   return (
     <Screen style={styles.container}>

@@ -20,7 +20,7 @@ export const store = configureStore({
     reedem: reedemSlice,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(
+    getDefaultMiddleware({serializableCheck: false}).concat(
       newsApi.middleware,
       productsApi.middleware,
       chartsApi.middleware,

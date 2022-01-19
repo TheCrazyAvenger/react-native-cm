@@ -5,10 +5,10 @@ export * from './time';
 export * from './states';
 export * from './cookieLinks';
 export * from './cmCredentials';
-export * from './timelineData';
 
 export * from './secondsToTime';
 export * from './getNextYear';
+export * from './getTimePicker';
 export * from './getNextDay';
 export * from './getColor';
 export * from './getMetalImage';
