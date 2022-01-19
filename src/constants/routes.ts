@@ -9,6 +9,11 @@ export enum Screens {
   holdings = 'holdings',
   portfolio = 'portfolio',
 
+  holdingsGold = 'holdingsGold',
+  holdingsSilver = 'holdingsSilver',
+  holdingsPlatinum = 'holdingsPlatinum',
+  holdingsPalladium = 'holdingsPalladium',
+
   pricesStack = 'pricesStack',
   prices = 'prices',
 

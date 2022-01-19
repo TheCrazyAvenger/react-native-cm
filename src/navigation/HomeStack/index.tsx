@@ -1,9 +1,10 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '@constants';
-import {DetailsNews, Holdings, Home, News} from '@screens';
+import {DetailsNews, Home, News} from '@screens';
 import {styles} from './styles';
 import {BackButton} from '../BackButton';
+import {HoldinsStack} from '@navigation/HoldinsStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +15,19 @@ export const HomeStack: React.FC = () => {
         headerShown: false,
       }}>
       <Stack.Screen name={Screens.home} component={Home} />
-      <Stack.Screen name={Screens.holdings} component={Holdings} />
+      <Stack.Screen
+        options={{
+          title: 'Holdings',
+          headerShown: true,
+          headerBackVisible: false,
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+
+          headerTitleStyle: styles.holdingsTitleStyle,
+        }}
+        name={Screens.holdings}
+        component={HoldinsStack}
+      />
       <Stack.Group
         screenOptions={{
           headerLeft: () => <BackButton />,

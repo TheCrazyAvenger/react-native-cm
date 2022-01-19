@@ -9,10 +9,10 @@ import {styles} from './styles';
 
 export const PriceGraph: React.FC<{id: number; data: any; metalType: number}> =
   ({data, id, metalType}) => {
-    const {buy, digitalMetal} = data[id - 1];
+    const {buy, digitalMetal} = data[id];
     const {oneDayChange, oneDayPercentChange} = digitalMetal;
     const [chartTime, setChartTime] = useState(1);
-    const lineColor = metals[id - 1].color;
+    const lineColor = metals[id].color;
 
     return (
       <View style={styles.container}>

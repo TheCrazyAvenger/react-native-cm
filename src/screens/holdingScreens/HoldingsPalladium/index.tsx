@@ -1,19 +1,34 @@
-import {useNavigation, useRoute} from '@react-navigation/native';
-import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect} from 'react';
 import {StatusBar, View} from 'react-native';
 import {HoldingsHeader, NewsCard, PriceGraph} from '@components';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
-import {useGetNewsQuery} from '@api';
+import {useGetDigitalProductsQuery, useGetNewsQuery} from '@api';
 import {Screens} from '@constants';
+import {metals} from '@utilities';
 
-export const Holdings: React.FC = () => {
+export const HoldingsPalladium: React.FC = () => {
   const navigation: any = useNavigation();
-  const route: any = useRoute();
-  const {id, data} = route.params;
-  const [metalType, setMetalType] = useState(id);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      navigation.getParent().setOptions({
+        headerStyle: {
+          backgroundColor: metals[3].color,
+        },
+      });
+      navigation.setOptions({
+        tabBarStyle: {backgroundColor: metals[3].color},
+      });
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const {data: newsData = [], isLoading} = useGetNewsQuery({});
+
+  const {data: metalsData = []} = useGetDigitalProductsQuery({});
 
   return (
     <Screen style={styles.container}>
@@ -22,11 +37,7 @@ export const Holdings: React.FC = () => {
         translucent
         backgroundColor={'transparent'}
       />
-      <HoldingsHeader
-        data={data.data}
-        metalType={metalType}
-        setMetal={setMetalType}
-      />
+      <HoldingsHeader data={metalsData.data} metalType={3} />
       <Screen type="View" style={styles.bodyContainer}>
         <View style={styles.buttons}>
           <View>
@@ -36,7 +47,7 @@ export const Holdings: React.FC = () => {
               disabled={isLoading}
               onPress={() =>
                 navigation.navigate(Screens.sellBuySetup, {
-                  data: data.data[metalType - 1],
+                  data: metalsData.data[3],
                   type: 'Sell',
                 })
               }
@@ -50,7 +61,7 @@ export const Holdings: React.FC = () => {
               style={styles.button}
               onPress={() =>
                 navigation.navigate(Screens.sellBuySetup, {
-                  data: data.data[metalType - 1],
+                  data: metalsData.data[3],
                   type: 'Buy',
                 })
               }
@@ -58,7 +69,7 @@ export const Holdings: React.FC = () => {
           </View>
         </View>
 
-        <PriceGraph metalType={metalType} id={metalType} data={data.data} />
+        <PriceGraph metalType={4} id={3} data={metalsData.data} />
 
         <NewsCard data={newsData} isLoading={isLoading} />
         <View style={{marginBottom: 100}} />
