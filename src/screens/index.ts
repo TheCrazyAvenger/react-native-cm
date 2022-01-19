@@ -1,10 +1,14 @@
 export * from './Onboarding';
 export * from './Welcome';
 export * from './Home';
-export * from './Holdings';
 export * from './Portfolio';
 export * from './Prices';
 export * from './NullScreen';
+
+export * from './holdingScreens/HoldingsGold';
+export * from './holdingScreens/HoldingsSilver';
+export * from './holdingScreens/HoldingsPlatinum';
+export * from './holdingScreens/HoldingsPalladium';
 
 export * from './News';
 export * from './DetailsNews';

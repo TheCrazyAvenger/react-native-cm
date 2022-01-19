@@ -191,7 +191,6 @@ export type OperationsPickerProps = {
 export type HoldingsHeaderProps = {
   metalType: number;
   data: any;
-  setMetal: (id: number) => void;
 };
 
 export type ChartProps = {

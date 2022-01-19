@@ -4,7 +4,7 @@ import {colors} from '@constants';
 export const styles = StyleSheet.create({
   container: {
     paddingBottom: 20,
-    paddingTop: 58,
+    paddingTop: 18,
     paddingHorizontal: 26,
   },
   title: {

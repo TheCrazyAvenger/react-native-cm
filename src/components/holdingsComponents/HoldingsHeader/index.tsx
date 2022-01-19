@@ -16,10 +16,9 @@ import LinearGradient from 'react-native-linear-gradient';
 
 export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
   metalType,
-  setMetal,
   data,
 }) => {
-  const {name, buy, digitalMetal} = data[metalType - 1];
+  const {name, buy, digitalMetal} = data[metalType];
   const {oneDayChange} = digitalMetal;
 
   const [gainsLosses, setGainLosses] = useState(0);
@@ -64,13 +63,11 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
   );
 
   return (
-    <LinearGradient
-      colors={metals[metalType - 1].linearGradient}
-      style={{flex: 1}}>
+    <LinearGradient colors={metals[metalType].linearGradient} style={{flex: 1}}>
       <View style={styles.container}>
-        <TitleMedium style={styles.title}>Holdings</TitleMedium>
-        <MetalPicker currentMetal={metalType} onPress={setMetal} />
-        <Wrapper style={{marginTop: 4}} />
+        {/* <TitleMedium style={styles.title}>Holdings</TitleMedium>
+        <MetalPicker currentMetal={metalType} onPress={setMetal} /> */}
+
         <View style={styles.headerItem}>
           <View>
             <SubtitleMedium style={styles.headerText}>Balance:</SubtitleMedium>
