@@ -184,7 +184,7 @@ When complete, navigate back to the CyberMetals app to proceed."
         <MenuItem
           title="Invoices"
           description="Edit name and view address detail"
-          onPress={() => navigation.navigate(Screens.storageFees)}
+          onPress={() => navigation.navigate(Screens.invoices)}
           Image={StorageFees}
         />
         <MenuItem

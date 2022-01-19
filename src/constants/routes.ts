@@ -48,7 +48,7 @@ export enum Screens {
   profile = 'profile',
   cookiePolicy = 'cookiePolicy',
   transactions = 'transactions',
-  storageFees = 'storageFees',
+  invoices = 'invoices',
   passcode = 'passcode',
   contactUs = 'contactUs',
 

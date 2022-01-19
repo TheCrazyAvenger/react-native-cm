@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
-import {ProfileForm} from '../../../forms';
+import {LegalAddressForm, ProfileForm} from '../../../forms';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {changeName, setAdress} from '@store/slices/authSlice';
 import {Screen} from '@ui';
@@ -18,8 +18,6 @@ export const Profile: React.FC = () => {
     try {
       setLoading(true);
       const {
-        firstName,
-        lastName,
         legalStreetAdress,
         legalCity,
         legalState,
@@ -46,8 +44,8 @@ export const Profile: React.FC = () => {
 
       await database()
         .ref(`/users/${token}`)
-        .update({firstName, lastName, legalAdress, shippingAdress});
-      await dispatch(changeName({firstName, lastName}));
+        .update({legalAdress, shippingAdress});
+
       await dispatch(setAdress({legalAdress, shippingAdress}));
       await setLoading(false);
       navigation.pop();
@@ -58,8 +56,9 @@ export const Profile: React.FC = () => {
   };
 
   return (
-    <Screen style={{paddingHorizontal: 16}} type="View">
-      <ProfileForm loading={loading} onSubmit={saveChanges} />
+    <Screen style={{paddingHorizontal: 16}}>
+      <ProfileForm />
+      <LegalAddressForm loading={loading} onSubmit={saveChanges} />
     </Screen>
   );
 };

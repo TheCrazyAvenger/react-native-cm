@@ -122,6 +122,9 @@ export const profileSchema = yup.object().shape({
       /^[а-яA-яa-zA-Z-\s]*$/,
       'Please enter only letters of the alphabet, hyphen (-) and spaces',
     ),
+});
+
+export const addressSchema = yup.object().shape({
   legalStreetAdress: yup
     .string()
     .required('Please enter your Legal Adress')
