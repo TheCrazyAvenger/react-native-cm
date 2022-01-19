@@ -1,5 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
-import {productsApi, newsApi} from '@api';
+import {productsApi, newsApi, chartsApi} from '@api';
 import authSlice from './slices/authSlice';
 import autoBuySlice from './slices/autoBuySlice';
 import operationsSlice from './slices/operationsSlice';
@@ -11,6 +11,7 @@ export const store = configureStore({
   reducer: {
     [newsApi.reducerPath]: newsApi.reducer,
     [productsApi.reducerPath]: productsApi.reducer,
+    [chartsApi.reducerPath]: chartsApi.reducer,
     auth: authSlice,
     autoBuy: autoBuySlice,
     priceAlerts: priceAlertSlice,
@@ -19,7 +20,11 @@ export const store = configureStore({
     reedem: reedemSlice,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(newsApi.middleware, productsApi.middleware),
+    getDefaultMiddleware().concat(
+      newsApi.middleware,
+      productsApi.middleware,
+      chartsApi.middleware,
+    ),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
