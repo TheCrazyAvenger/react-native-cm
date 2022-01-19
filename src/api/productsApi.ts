@@ -8,7 +8,7 @@ export const productsApi = createApi({
     baseUrl: BASE_URL,
   }),
   endpoints: builder => ({
-    getChartsData: builder.query({
+    getDigitalProducts: builder.query({
       query: () => ({
         url: '/digital-products',
         headers: {
@@ -20,4 +20,4 @@ export const productsApi = createApi({
   }),
 });
 
-export const {useGetChartsDataQuery} = productsApi;
+export const {useGetDigitalProductsQuery} = productsApi;

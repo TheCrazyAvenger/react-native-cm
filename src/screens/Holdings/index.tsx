@@ -13,8 +13,7 @@ export const Holdings: React.FC = () => {
   const {id, data} = route.params;
   const [metalType, setMetalType] = useState(id);
 
-  //@ts-ignore
-  const {data: newsData = [], isLoading} = useGetNewsQuery();
+  const {data: newsData = [], isLoading} = useGetNewsQuery({});
 
   return (
     <Screen style={styles.container}>

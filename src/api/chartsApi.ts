@@ -8,7 +8,7 @@ export const chartsApi = createApi({
     baseUrl: BASE_URL,
   }),
   endpoints: builder => ({
-    getDigitalProducts: builder.query({
+    getChatsData: builder.query({
       query: data => ({
         url: `/charts/metals?type=${data.type}`,
         headers: {
@@ -17,7 +17,17 @@ export const chartsApi = createApi({
         },
       }),
     }),
+    updateChartsData: builder.mutation({
+      query: data => ({
+        url: `/charts/metals?type=${data.type}`,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
-export const {useGetDigitalProductsQuery} = chartsApi;
+export const {useGetChatsDataQuery, useUpdateChartsDataMutation} = chartsApi;
