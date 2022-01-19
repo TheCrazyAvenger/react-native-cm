@@ -5,7 +5,7 @@ import {
   Onboarding4,
   Onboarding5,
   Onboarding6,
-} from '../assets/images/onboarding';
+} from '@assets/images/onboarding';
 
 export const slides = [
   {

@@ -1,50 +1,71 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {FundWithdrawInfo, LoadingItem} from '@components';
-import {Description, Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
+import {FundWithdrawInfo, WithdrawTaxItem} from '@components';
+import {SubtitleMedium, TitleMedium} from '@Typography';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
-import {getMonth, getPaymentName, numberWithCommas} from '@utilities';
-import {setLoading, updateCash} from '@store/slices/authSlice';
+import {getPaymentName, getTime, numberWithCommas} from '@utilities';
+import {updateCash} from '@store/slices/authSlice';
 import database from '@react-native-firebase/database';
 import {addOperation} from '@store/slices/operationsSlice';
-import {Screens} from '@constants';
+import {FUND_TAX, Screens, WITHDRAW_TAX} from '@constants';
 
 export const ReviewFundWithdraw: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
-  const loading = useAppSelector(state => state.auth.loading);
+  const [loading, setLoading] = useState(false);
   const cashBalance = useAppSelector(state => state.auth.cashBalance);
   const token = useAppSelector(state => state.auth.token);
 
   const dispatch = useAppDispatch();
 
-  const {paymentMethod, amount} = route.params;
-  const {type} = route.params;
+  const {paymentMethod, amount, account, type} = route.params;
+
+  useEffect(() => {
+    navigation.setOptions({
+      title:
+        type === 'Fund' ? 'Funding Confirmation' : 'Withdrawing Confirmation',
+    });
+  }, []);
 
   const fundWithDraw = async () => {
     try {
+      const order = Math.round(Math.random() * (10000 - 1) + 1);
       const date = new Date();
-      const month = getMonth(date.getMonth());
-      const day = date.getDate();
-      const year = date.getFullYear();
+      const {month, monthName, day, year, hours, minutes} = getTime(date);
 
       const id = `${Math.round(Math.random() * 1000000)}_${
         type === 'Fund' ? 'fund' : 'withdraw'
       }`;
 
       const data = {
-        type: `${type === 'Fund' ? 'Fund' : 'Withdraw'} Cash`,
-        date: `${month} ${day}, ${year}`,
+        title: `${type === 'Fund' ? 'Fund' : 'Withdraw'} Cash`,
+        type: `${type === 'Fund' ? 'Fund' : 'Withdraw'}`,
+        localeDate: `${month}/${day}/${year}`,
+        date: `${monthName} ${day}, ${year}`,
+        price_with_tax:
+          type === 'Fund'
+            ? +amount - +amount * FUND_TAX
+            : +amount - +amount * WITHDRAW_TAX,
+        total: +amount,
+        order,
+        account:
+          type === 'Fund' && paymentMethod === 'eCheck'
+            ? account
+            : type === 'Withdraw'
+            ? account
+            : null,
+        paymentMethod: getPaymentName(paymentMethod),
+        time: `${hours}:${minutes < 10 ? '0' + minutes : minutes}`,
         usd: `${type === 'Fund' ? '+' : '-'} $${amount}`,
         image: `${type === 'Fund' ? 'fund' : 'withdraw'}`,
         id,
       };
 
-      dispatch(setLoading(true));
+      setLoading(true);
 
       await database().ref(`/users/${token}/operations/${id}`).set(data);
 
@@ -52,37 +73,37 @@ export const ReviewFundWithdraw: React.FC = () => {
 
       const newCashValue =
         type === 'Fund'
-          ? cashBalance + +amount
-          : cashBalance - (+amount - +amount * 0.1);
+          ? cashBalance + (+amount - +amount * 0.0299)
+          : cashBalance - +amount;
 
       await database()
         .ref(`/users/${token}`)
         .update({cashBalance: newCashValue});
       await dispatch(updateCash(newCashValue));
 
-      await dispatch(setLoading(false));
+      await setLoading(false);
 
-      navigation.push(Screens.completeFundWithdraw, {
+      navigation.replace(Screens.completeFundWithdraw, {
         type: 'Success',
-        amount,
+        amount: +amount,
+        order,
+        account,
         paymentMethod,
         operationType: type === 'Fund' ? 'Fund' : 'Withdraw',
       });
     } catch (e) {
-      await dispatch(setLoading(false));
-      navigation.push(Screens.completeFundWithdraw, {
+      await setLoading(false);
+      navigation.replace(Screens.completeFundWithdraw, {
         type: 'Error',
-        amount,
+        amount: +amount,
+        order: '-',
+        account,
         paymentMethod,
         operationType: type === 'Fund' ? 'Fund' : 'Withdraw',
       });
       console.log(e);
     }
   };
-
-  if (loading) {
-    return <LoadingItem />;
-  }
 
   return (
     <Screen>
@@ -101,13 +122,25 @@ export const ReviewFundWithdraw: React.FC = () => {
           style={{marginHorizontal: 0}}
           type={type}
           amount={amount}
+          account={account}
           method={getPaymentName(paymentMethod)}
         />
+
+        {type === 'Withdraw' && (
+          <WithdrawTaxItem
+            style={{paddingHorizontal: 0, marginTop: 0}}
+            amount={amount}
+          />
+        )}
 
         <View style={styles.price}>
           <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
           <TitleMedium style={styles.priceTitle}>{`$${numberWithCommas(
-            Number(amount).toFixed(2),
+            Number(
+              type === 'Fund'
+                ? +amount - +amount * FUND_TAX
+                : +amount - +amount * WITHDRAW_TAX,
+            ).toFixed(2),
           )}`}</TitleMedium>
         </View>
 
@@ -131,6 +164,8 @@ export const ReviewFundWithdraw: React.FC = () => {
         <View>
           <TextButton
             solid
+            loading={loading}
+            disabled={loading}
             style={{marginBottom: 20}}
             title={`Confirm ${type === 'Fund' ? 'Deposit' : 'Withdraw'}`}
             onPress={fundWithDraw}

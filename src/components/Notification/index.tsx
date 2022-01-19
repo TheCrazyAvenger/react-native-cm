@@ -10,13 +10,21 @@ export const Notification: React.FC<NotificationProps> = ({
   visible,
   onPress,
   style,
+  textStyle,
+  buttonColor,
 }) => {
   return visible ? (
     <View style={{...styles.notification, ...style}}>
       <TouchableOpacity style={styles.closeIcon} onPress={onPress}>
-        <Image source={require('@assets/images/register/close.png')} />
+        {buttonColor === 'white' ? (
+          <Image source={require('@assets/images/register/closeWhite.png')} />
+        ) : (
+          <Image source={require('@assets/images/register/close.png')} />
+        )}
       </TouchableOpacity>
-      <Description style={{color: colors.primary}}>{text}</Description>
+      <Description style={{color: colors.primary, ...textStyle}}>
+        {text}
+      </Description>
     </View>
   ) : null;
 };

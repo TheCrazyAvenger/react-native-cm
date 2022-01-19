@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   dateTitle: {
@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     marginBottom: 6,
   },
   date: {
+    height: 45,
     padding: 10,
     flexDirection: 'row',
     borderWidth: 1,
@@ -20,12 +21,11 @@ export const styles = StyleSheet.create({
     marginBottom: 6,
     fontWeight: '400',
     color: colors.gray,
-    fontSize: 16,
+    fontSize: 14,
   },
   error: {
-    position: 'absolute',
-    left: 10,
-    top: 81,
+    marginLeft: 10,
+    marginTop: 10,
   },
   errorInput: {
     borderColor: colors.red,

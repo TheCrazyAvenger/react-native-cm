@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {ScrollView, StatusBar, View} from 'react-native';
+import {ScrollView, StatusBar} from 'react-native';
 import {
   EmptyDataScreen,
   LoadingItem,
@@ -11,19 +11,16 @@ import {
 import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {getPriceAlerts} from '@store/actions/priceAlerts';
-import {setLoading} from '@store/slices/authSlice';
 import {deletePriceAlerts} from '@store/slices/priceAlertSlice';
 import {Screen, TextButton} from '@ui';
-import {metals} from '@utilities';
+import {getMetal, metals} from '@utilities';
 import database from '@react-native-firebase/database';
-import {ShareRefer} from '@assets/images/settings';
-import {styles} from './styles';
-import {TitleMedium} from '@Typography';
+import {useGetDigitalProductsQuery} from '@api';
 
 export const PriceAlerts: React.FC = () => {
   const navigation: any = useNavigation();
   const priceAlerts = useAppSelector(state => state.priceAlerts.priceAlerts);
-  const loading = useAppSelector(state => state.auth.loading);
+  const [loading, setLoading] = useState(false);
   const token = useAppSelector(state => state.auth.token);
   const [metalType, setMetalType] = useState(1);
 
@@ -34,9 +31,14 @@ export const PriceAlerts: React.FC = () => {
   }, []);
 
   const getList = async () => {
-    dispatch(setLoading(true));
-    await dispatch(getPriceAlerts());
-    dispatch(setLoading(false));
+    try {
+      setLoading(true);
+      await dispatch(getPriceAlerts());
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      console.log(e);
+    }
   };
 
   const removeItem = async (data: any) => {
@@ -44,7 +46,10 @@ export const PriceAlerts: React.FC = () => {
     await dispatch(deletePriceAlerts({metal: data.metal, id: data.id}));
   };
 
-  if (loading) {
+  //@ts-ignore
+  const {data = [], isLoading, error} = useGetDigitalProductsQuery();
+
+  if (loading || isLoading || data === []) {
     return <LoadingItem />;
   }
 
@@ -98,6 +103,9 @@ export const PriceAlerts: React.FC = () => {
                   date={item.date}
                   time={item.time}
                   id={item.id}
+                  keyId={getMetal(item.metal) + 1}
+                  error={error}
+                  data={data.data}
                   color={item.color}
                   value={item.value}
                   onRemove={removeItem}
@@ -105,19 +113,20 @@ export const PriceAlerts: React.FC = () => {
               ),
           )
         ) : (
-          <View style={styles.noAlerts}>
-            <ShareRefer />
-            <TitleMedium style={{fontFamily: 'OpenSans-Regular'}}>
-              No alerts
-            </TitleMedium>
-          </View>
+          <EmptyDataScreen title="No alerts" />
         )}
       </ScrollView>
       <TextButton
-        title="Create Price Alert"
+        title={error ? 'No data' : 'Create Price Alert'}
         solid
+        disabled={error}
         style={{marginBottom: 25}}
-        onPress={() => navigation.navigate(Screens.choosePriceAlert)}
+        onPress={() =>
+          navigation.navigate(Screens.priceAlertSetUp, {
+            id: metalType,
+            data: data.data,
+          })
+        }
       />
     </Screen>
   );

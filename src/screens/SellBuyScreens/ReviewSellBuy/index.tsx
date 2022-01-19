@@ -1,9 +1,8 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {BuyingInfo, LoadingItem, ModalWindow} from '@components';
+import {BuyingInfo, ModalWindow} from '@components';
 import {TitleMedium} from '@Typography';
-import {useAppDispatch, useAppSelector} from '@hooks';
 import {Screen} from '@ui';
 import {styles} from './styles';
 import {ReviewBuyForm} from '../../../forms';
@@ -13,13 +12,19 @@ export const ReviewSellBuy: React.FC = () => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
 
-  const loading = useAppSelector(state => state.auth.loading);
+  const [loading, setLoading] = useState(false);
 
   const [modalVisble, setModalVisible] = useState(false);
 
-  const {amountOz, paymentMethod, amount, data} = route.params;
+  const {amountOz, paymentMethod, amount, data, account} = route.params;
   const {name, spot} = data;
   const {type} = route.params;
+
+  useEffect(() => {
+    navigation.setOptions({
+      title: type === 'Sell' ? 'Selling Confirmation' : 'Buying Confirmation',
+    });
+  }, []);
 
   let myInterval: any = null;
   const [minutes, setMinutes] = useState(3);
@@ -44,10 +49,6 @@ export const ReviewSellBuy: React.FC = () => {
     };
   });
 
-  if (loading) {
-    return <LoadingItem />;
-  }
-
   return (
     <Screen>
       <StatusBar
@@ -61,13 +62,13 @@ export const ReviewSellBuy: React.FC = () => {
         visible={modalVisble}
         confirmTitle="Update"
         onConfirm={() => {
-          setMinutes(0);
-          setSeconds(30);
+          setMinutes(3);
+          setSeconds(0);
           setModalVisible(false);
         }}
       />
       <View>
-        <TitleMedium style={styles.timer}>
+        <TitleMedium numberOfLines={1} style={styles.timer}>
           Your pricing is locked for: {minutes}:
           {seconds < 10 ? `0${seconds}` : seconds}
         </TitleMedium>
@@ -82,11 +83,14 @@ export const ReviewSellBuy: React.FC = () => {
           metal={name}
           amount={amount}
           spot={spot}
+          account={account}
           amountOz={amountOz}
           paymentMethod={getPaymentName(paymentMethod)}
         />
 
         <ReviewBuyForm
+          updateLoading={value => setLoading(value)}
+          loading={loading}
           operationType={type}
           onPress={() => clearInterval(myInterval)}
         />

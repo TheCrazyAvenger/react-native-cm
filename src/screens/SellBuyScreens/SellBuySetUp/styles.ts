@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -15,11 +15,13 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     marginHorizontal: 10,
   },
+  infoText: {
+    fontFamily: 'OpenSans-SemiBold',
+  },
   info: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignItems: 'center',
-
     marginHorizontal: 10,
     marginBottom: 15,
   },

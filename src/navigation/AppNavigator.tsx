@@ -5,42 +5,49 @@ import {useAppDispatch, useAppSelector} from '../hooks/hooks';
 import {getData} from '../store/actions';
 import {AuthStack} from './AuthStack';
 import {MainNavigator} from './MainNavigator';
-import {setLoading} from '../store/slices/authSlice';
 import {LoadingItem} from '../components';
 import {getOperations} from '../store/actions/operations';
 import {getAutoBuy} from '../store/actions/autoBuy';
 import {getPriceAlerts} from '../store/actions/priceAlerts';
 import {getPaymentMethod} from '@store/actions/paymentMethod';
+import SplashScreen from 'react-native-splash-screen';
 
 export const AppNavigator: React.FC = () => {
   const token = useAppSelector(state => state.auth.token);
-  const loading = useAppSelector(state => state.auth.loading);
 
   const dispatch = useAppDispatch();
 
-  const [showOnBoarding, setShowOnboarding] = useState(true);
+  const [showOnBoarding, setShowOnboarding] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const checkOnboarding = async () => {
-    dispatch(setLoading(true));
+    setLoading(true);
     try {
       const value = await AsyncStorage.getItem('@viewedOnboarding');
       // await AsyncStorage.removeItem('@viewedOnboarding');
-      await dispatch(getData());
+      const token = await AsyncStorage.getItem('token');
 
-      await dispatch(getOperations());
-      await dispatch(getAutoBuy());
-      await dispatch(getPriceAlerts());
-      await dispatch(getPaymentMethod());
+      if (value === null) {
+        setShowOnboarding(true);
+        await setLoading(false);
+        return SplashScreen.hide();
+      } else {
+        await setShowOnboarding(false);
+      }
+      if (token) {
+        await dispatch(getData());
 
-      if (value !== null) {
-        setShowOnboarding(false);
-        return dispatch(setLoading(false));
+        await dispatch(getOperations());
+        await dispatch(getAutoBuy());
+        await dispatch(getPriceAlerts());
+        await dispatch(getPaymentMethod());
       }
 
-      setShowOnboarding(true);
-
-      return dispatch(setLoading(false));
+      await setLoading(false);
+      return SplashScreen.hide();
     } catch (e) {
+      SplashScreen.hide();
+      setLoading(false);
       console.log(e);
     }
   };
@@ -49,9 +56,13 @@ export const AppNavigator: React.FC = () => {
     checkOnboarding();
   }, []);
 
+  useEffect(() => {
+    token && setShowOnboarding(false);
+  }, [token]);
+
   return (
     <NavigationContainer>
-      {token ? (
+      {token && !loading ? (
         <MainNavigator />
       ) : loading ? (
         <LoadingItem />

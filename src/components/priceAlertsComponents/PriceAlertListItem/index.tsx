@@ -4,10 +4,8 @@ import {TouchableOpacity, View} from 'react-native';
 import {ModalWindow, PriceAlertListItemProps, Wrapper} from '../..';
 import {Delete, Edit} from '@assets/images/settings';
 import {colors, Screens} from '@constants';
-import {useAppDispatch} from '@hooks';
-import {getMetalImage} from '../../../utilities';
-
-import {Illustration, SubtitleMedium} from '../../Typography';
+import {getMetalImage} from '@utilities';
+import {Illustration, SubtitleMedium} from '@Typography';
 import {styles} from './styles';
 
 export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
@@ -18,12 +16,15 @@ export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
   time,
   color,
   value,
+  keyId,
+  data,
+  error,
   id,
   style,
   onRemove,
 }) => {
   const [visibleModal, setVisibleModal] = useState(false);
-  const dispatch = useAppDispatch();
+
   const Image = getMetalImage(metal);
   const navigation: any = useNavigation();
 
@@ -40,6 +41,8 @@ export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
         condition,
         id,
       },
+      id: keyId,
+      data,
     });
   };
 
@@ -62,7 +65,9 @@ export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
 
           <View style={{marginLeft: 8}}>
             <SubtitleMedium style={{fontFamily: 'OpenSans-Bold'}}>
-              {`${condition} ${value}%`}
+              {`${condition.split(' ').slice(0, 2).join(' ')} ${value}${
+                condition.split(' ')[2]
+              }`}
             </SubtitleMedium>
             <Illustration>
               Created on {date} {time}
@@ -70,9 +75,11 @@ export const PriceAlertListItem: React.FC<PriceAlertListItemProps> = ({
           </View>
         </View>
         <View style={styles.actionButtons}>
-          <TouchableOpacity onPress={goToEdit}>
-            <Edit />
-          </TouchableOpacity>
+          {!error && (
+            <TouchableOpacity onPress={goToEdit}>
+              <Edit />
+            </TouchableOpacity>
+          )}
           <TouchableOpacity
             style={{marginLeft: 15}}
             onPress={() => setVisibleModal(true)}>

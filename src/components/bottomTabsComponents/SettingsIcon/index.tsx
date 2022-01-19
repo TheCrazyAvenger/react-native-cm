@@ -1,9 +1,11 @@
+import {ButtonsProps} from '@components';
 import React from 'react';
+//@ts-ignore
 import Svg, {Path} from 'react-native-svg';
-import {ButtonsProps} from '..';
 
 export const SettingsIcon: React.FC<ButtonsProps> = ({color}) => {
   return (
+    //@ts-ignore
     <Svg
       width="24"
       height="24"

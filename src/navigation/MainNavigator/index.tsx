@@ -1,16 +1,24 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Screens} from '../../constants';
+import {Screens} from '@constants';
 import {BottomTabs} from '../BottomTabs';
 import {
+  ChooseBuy,
+  ChooseSell,
+  CompleteSellBuy,
+  ContactUs,
   CookiePolicy,
   Notifications,
+  Passcode,
   Password,
+  PaymentMethodsSetUp,
   Profile,
   Refer,
+  ReviewSellBuy,
+  SellBuySetUp,
   StorageFees,
   Transactions,
-} from '../../screens';
+} from '@screens';
 import {styles} from './styles';
 import {BackButton} from '../BackButton';
 import {AutoBuyStack} from '../AutoBuyStack';
@@ -111,6 +119,36 @@ export const MainNavigator: React.FC = () => {
           name={Screens.reedemStack}
           options={{headerShown: false}}
           component={ReedemStack}
+        />
+        <Stack.Screen
+          name={Screens.passcode}
+          options={{title: 'Secure with a passcode'}}
+          component={Passcode}
+        />
+        <Stack.Screen
+          name={Screens.contactUs}
+          options={{title: 'Contact Us'}}
+          component={ContactUs}
+        />
+      </Stack.Group>
+      <Stack.Group
+        screenOptions={{
+          headerLeft: () => <BackButton />,
+          headerTitleAlign: 'center',
+          headerTitleStyle: styles.headerTitleStyle,
+          headerShadowVisible: false,
+        }}>
+        <Stack.Screen name={Screens.chooseSell} component={ChooseSell} />
+        <Stack.Screen name={Screens.chooseBuy} component={ChooseBuy} />
+        <Stack.Screen name={Screens.sellBuySetup} component={SellBuySetUp} />
+        <Stack.Screen name={Screens.reviewSellBuy} component={ReviewSellBuy} />
+        <Stack.Screen
+          name={Screens.completeSellBuy}
+          component={CompleteSellBuy}
+        />
+        <Stack.Screen
+          name={Screens.paymentMethodsSetUp}
+          component={PaymentMethodsSetUp}
         />
       </Stack.Group>
     </Stack.Navigator>

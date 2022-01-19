@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   inputContainerStyle: {
@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
   labelStyle: {
     fontFamily: 'OpenSans-Regular',
     marginBottom: 6,
+    fontSize: 14,
     fontWeight: '400',
     color: colors.gray,
   },
@@ -28,8 +29,12 @@ export const styles = StyleSheet.create({
     color: colors.red,
   },
   error: {
+    marginTop: -15,
+    marginBottom: 16,
+    marginLeft: 10,
+  },
+  leftPrefix: {
     position: 'absolute',
-    left: 10,
-    top: 81,
+    left: 20,
   },
 });

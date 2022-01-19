@@ -1,12 +1,17 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {AutoBuyItem, EmptyDataScreen, LoadingItem, Wrapper} from '@components';
+import {
+  AutoBuyItem,
+  EmptyDataScreen,
+  LoadingItem,
+  Notification,
+  Wrapper,
+} from '@components';
 import {Subtitle, SubtitleMedium} from '@Typography';
 import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {getAutoBuy} from '@store/actions/autoBuy';
-import {setLoading} from '@store/slices/authSlice';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import database from '@react-native-firebase/database';
@@ -18,22 +23,39 @@ export const AutoBuy: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const autoBuy = useAppSelector(state => state.autoBuy.autoBuy);
-  const loading = useAppSelector(state => state.auth.loading);
   const token = useAppSelector(state => state.auth.token);
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     getList();
   }, []);
 
   const getList = async () => {
-    dispatch(setLoading(true));
+    setLoading(true);
     await dispatch(getAutoBuy());
-    dispatch(setLoading(false));
+    setLoading(false);
   };
 
   const removeItem = async (id: number) => {
-    await database().ref(`/users/${token}/autoBuy/${id}`).remove();
-    await dispatch(deleteAutoBuy(id));
+    try {
+      setError(null);
+      setLoading(true);
+      await database().ref(`/users/${token}/autoBuy/${id}`).remove();
+      await dispatch(deleteAutoBuy(id));
+
+      setLoading(false);
+
+      setModalVisible(true);
+    } catch (e: any) {
+      await setError(e);
+      console.log(e);
+      setLoading(false);
+      setErrorModalVisible(true);
+    }
   };
 
   if (loading) {
@@ -48,59 +70,84 @@ export const AutoBuy: React.FC = () => {
               purchases of digital metals in increments that fit your timeframe
               and budget."
         buttonTitle="Add New"
-        onPress={() => navigation.navigate(Screens.chooseProduct)}
+        onPress={() => {
+          setModalVisible(false);
+          navigation.navigate(Screens.chooseProduct);
+        }}
       />
     );
   }
 
   return (
-    <Screen>
-      <StatusBar
-        barStyle="dark-content"
-        translucent
-        backgroundColor={'transparent'}
+    <>
+      <Notification
+        text="Auto Buy has been successfully canceled."
+        visible={autoBuy.length === 0 ? false : modalVisible}
+        style={{top: 0}}
+        onPress={() => setModalVisible(false)}
       />
-      <View>
-        <SubtitleMedium style={styles.description}>
-          CyberMetals Auto Buy program allows you to make recurring purchases of
-          digital metals in increments that fit your timeframe and budget.
-        </SubtitleMedium>
-        <TextButton
-          title="Set Up Auto Buy"
-          solid
-          onPress={() => navigation.navigate(Screens.chooseProduct)}
-        />
-      </View>
-      <Wrapper style={{backgroundColor: colors.paleBlue, marginTop: 44}} />
-      <View style={styles.activeSectionHeader}>
-        <Subtitle style={styles.activeSectionTitle}>
-          Active Auto Buy Transactions
-        </Subtitle>
-        <SubtitleMedium>
-          View, edit, or cancel your existing Auto Buy transactions.
-        </SubtitleMedium>
-      </View>
+      <Notification
+        text={error}
+        visible={errorModalVisible}
+        buttonColor="white"
+        style={{top: 0, backgroundColor: colors.red, borderColor: colors.red}}
+        textStyle={{color: colors.white}}
+        onPress={() => setErrorModalVisible(false)}
+      />
 
-      {autoBuy && (
-        <View style={{marginBottom: 20}}>
-          {autoBuy.map(
-            (item: any) =>
-              item !== null && (
-                <AutoBuyItem
-                  key={item.id}
-                  id={item.id}
-                  metal={item.metal}
-                  amount={item.amount}
-                  frequency={item.frequency}
-                  endDate={item.endDate}
-                  startDate={item.startDate}
-                  paymentMethod={item.paymentMethod}
-                  onRemove={removeItem}
-                />
-              ),
-          )}
+      <Screen>
+        <StatusBar
+          barStyle="dark-content"
+          translucent
+          backgroundColor={'transparent'}
+        />
+
+        <View>
+          <SubtitleMedium style={styles.description}>
+            CyberMetals Auto Buy program allows you to make recurring purchases
+            of digital metals in increments that fit your timeframe and budget.
+          </SubtitleMedium>
+          <TextButton
+            title="Set Up Auto Buy"
+            solid
+            onPress={() => navigation.navigate(Screens.chooseProduct)}
+          />
         </View>
-      )}
-    </Screen>
+        <Wrapper style={{backgroundColor: colors.primary, marginTop: 44}} />
+        <View style={styles.activeSectionHeader}>
+          <Subtitle style={styles.activeSectionTitle}>
+            Active Auto Buy Transactions
+          </Subtitle>
+          <SubtitleMedium>
+            View, edit, or cancel your existing Auto Buy transactions.
+          </SubtitleMedium>
+        </View>
+
+        {autoBuy && (
+          <View style={{marginBottom: 20}}>
+            {autoBuy.map(
+              (item: any, i: number) =>
+                item !== null && (
+                  <AutoBuyItem
+                    key={item.id}
+                    account={item.account}
+                    status={item.status}
+                    id={item.id}
+                    usedAmount={item.usedAmount}
+                    keyId={i}
+                    metal={item.metal}
+                    amount={item.amount}
+                    frequency={item.frequency}
+                    endDate={item.endDate}
+                    startDate={item.startDate}
+                    paymentMethod={item.paymentMethod}
+                    onRemove={removeItem}
+                  />
+                ),
+            )}
+          </View>
+        )}
+      </Screen>
+    </>
   );
 };

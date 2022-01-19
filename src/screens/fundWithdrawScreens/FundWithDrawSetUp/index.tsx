@@ -1,4 +1,4 @@
-import {useNavigation, useRoute} from '@react-navigation/core';
+import {useRoute} from '@react-navigation/core';
 import React from 'react';
 import {View} from 'react-native';
 import {TitleMedium} from '@Typography';
@@ -9,12 +9,11 @@ import {useAppSelector} from '@hooks';
 import {FundWithdrawInfo} from '@components';
 
 export const FundWithDrawSetUp: React.FC = () => {
-  const navigation: any = useNavigation();
   const route: any = useRoute();
 
   const cashBalance = useAppSelector(state => state.auth.cashBalance);
 
-  const {type, paymentMethod} = route.params;
+  const {type} = route.params;
 
   return (
     <Screen>

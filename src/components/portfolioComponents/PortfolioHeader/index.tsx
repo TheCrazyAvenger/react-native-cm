@@ -1,44 +1,25 @@
 import React, {useState} from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
-import {Description, DescriptionBold, TitleMedium} from '@Typography';
-import {PieChart} from 'react-native-svg-charts';
+import {TouchableOpacity, View} from 'react-native';
+import {Description, DescriptionBold, Subtitle, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {colors} from '@constants';
-import {getColor, metals} from '@utilities';
+import {
+  PieChart,
+  PortfolioHeaderProps,
+  TimelineChart,
+  Wrapper,
+} from '@components';
 
-export const PortfolioHeader: React.FC = () => {
+export const PortfolioHeader: React.FC<PortfolioHeaderProps> = ({
+  gainsLosses,
+  isEmpty,
+  commonOwned,
+}) => {
   const [graph, setGraph] = useState('pie');
-  const data: Array<number> = [];
-
-  metals.map(item => data.push(item.owned));
-
-  const commonOwned = parseFloat(
-    (data.reduce((acc, next) => (acc += next)) + 1084.1).toFixed(2),
-  );
-
-  const pieData = data
-    .filter(value => value > 0)
-    .map((value, index) => ({
-      value,
-      svg: {
-        fill: metals[index].color,
-      },
-      key: `pie-${index}`,
-    }));
-
-  pieData.push({
-    value: 1084,
-    svg: {
-      fill: colors.black,
-    },
-    key: `pie-${5}`,
-  });
 
   return (
     <View style={styles.container}>
-      <TitleMedium style={{alignSelf: 'center', marginBottom: 10}}>
-        Portfolio
-      </TitleMedium>
+      <TitleMedium style={styles.mainTitle}>Portfolio</TitleMedium>
       <View style={styles.changeGraph}>
         <TouchableOpacity activeOpacity={0.7} onPress={() => setGraph('pie')}>
           <DescriptionBold
@@ -60,29 +41,25 @@ export const PortfolioHeader: React.FC = () => {
           </DescriptionBold>
         </TouchableOpacity>
       </View>
+
       {graph === 'pie' ? (
-        <PieChart
-          animate
-          style={{height: 200}}
-          innerRadius={90}
-          outerRadius={100}
-          data={pieData}>
-          <View style={{alignItems: 'center', justifyContent: 'center'}}>
-            <TitleMedium style={{color: colors.primary}}>
-              $ {commonOwned} USD
-            </TitleMedium>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <Description style={{color: getColor(368.4)}}>
-                $368.40 USD
+        <View style={{paddingHorizontal: 26}}>
+          {isEmpty ? (
+            <View>
+              <Subtitle style={styles.title}>Insufficient data</Subtitle>
+              <Description style={{...styles.description}}>
+                Top up your balance or make a purchase
               </Description>
-              <Image
-                style={{marginLeft: 5}}
-                source={require('../../../assets/images/potfolio/upArrow.png')}
-              />
+
+              <Wrapper style={styles.emptyData} />
             </View>
-          </View>
-        </PieChart>
-      ) : null}
+          ) : (
+            <PieChart commonOwned={commonOwned} gainsLosses={gainsLosses} />
+          )}
+        </View>
+      ) : (
+        <TimelineChart />
+      )}
     </View>
   );
 };

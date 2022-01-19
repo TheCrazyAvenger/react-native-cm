@@ -1,10 +1,14 @@
-export const getMetal = (name: string) => {
-  const metals = {
+export const getMetal = (name: string | number) => {
+  const metals: any = {
     Gold: 0,
     Silver: 1,
     Palladium: 2,
     Platinum: 3,
+    1: 'Gold',
+    2: 'Silver',
+    3: 'Palladium',
+    4: 'Platinum',
   };
-  //@ts-ignore
-  return metals[name] | null;
+
+  return metals[name];
 };

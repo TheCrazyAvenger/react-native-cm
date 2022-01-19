@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   cardTitle: {
@@ -11,5 +11,11 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingHorizontal: 26,
+  },
+  noData: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 160,
   },
 });

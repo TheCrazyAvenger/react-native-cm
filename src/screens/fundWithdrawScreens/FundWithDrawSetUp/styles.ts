@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -14,21 +13,5 @@ export const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Regular',
     marginBottom: 15,
     marginHorizontal: 10,
-  },
-  info: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-
-    marginHorizontal: 10,
-    marginBottom: 15,
-  },
-  infoItem: {
-    marginBottom: 20,
-    marginRight: 35,
-  },
-  infoTitle: {
-    color: colors.gray,
-    marginBottom: 4,
   },
 });

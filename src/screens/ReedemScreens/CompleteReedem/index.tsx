@@ -1,11 +1,10 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, StatusBar, View} from 'react-native';
 import {OrderInfo, ReedemInfo, TaxItem, Wrapper} from '@components';
 import {SubtitleMedium, TitleMedium} from '@Typography';
 import {colors, Screens} from '@constants';
 import {Screen, TextButton} from '@ui';
-
 import {styles} from './styles';
 
 export const CompleteReedem: React.FC = () => {
@@ -13,7 +12,14 @@ export const CompleteReedem: React.FC = () => {
 
   const route: any = useRoute();
 
-  const {shippingMethod, paymentMethod, cart, type, amount} = route.params;
+  useEffect(() => {
+    navigation.setOptions({
+      title: 'Redeeming Confirmation',
+    });
+  }, []);
+
+  const {shippingMethod, paymentMethod, cart, type, amount, order, account} =
+    route.params;
 
   return (
     <Screen>
@@ -38,6 +44,7 @@ export const CompleteReedem: React.FC = () => {
           paymentMethod={paymentMethod}
           shippingMethod={shippingMethod}
           cart={cart}
+          account={account}
         />
 
         <TaxItem
@@ -52,11 +59,7 @@ export const CompleteReedem: React.FC = () => {
 
         <OrderInfo
           style={{marginHorizontal: 0, marginBottom: 20}}
-          order={
-            type === 'Success'
-              ? Math.round(Math.random() * (10000 - 1) + 1)
-              : '-'
-          }
+          order={order}
           status={type === 'Success' ? 'Awaiting Processing by JM' : 'Error'}
         />
 

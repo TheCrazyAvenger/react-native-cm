@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,19 +7,15 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: 49,
-
-    flexWrap: 'wrap',
+    marginBottom: 25,
+  },
+  userInfo: {
+    maxWidth: '70%',
   },
   userName: {
     fontFamily: 'OpenSans-Bold',
     color: colors.primary,
-    maxWidth: '80%',
-  },
-  verified: {
-    borderWidth: 1,
-    marginBottom: 25,
-    borderRadius: 48,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    fontSize: 22,
+    maxWidth: '100%',
   },
 });

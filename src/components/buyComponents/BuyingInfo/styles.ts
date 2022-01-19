@@ -1,12 +1,11 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   info: {
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',
-    marginHorizontal: 10,
   },
   infoItem: {
     marginBottom: 20,
@@ -16,16 +15,20 @@ export const styles = StyleSheet.create({
     color: colors.gray,
     marginBottom: 4,
   },
-  infoText: {},
+  infoText: {
+    fontFamily: 'OpenSans-SemiBold',
+  },
   price: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginBottom: 20,
-    marginHorizontal: 10,
   },
   priceTitle: {
     fontFamily: 'OpenSans-Bold',
     fontSize: 22,
+  },
+  account: {
+    fontFamily: 'OpenSans-SemiBold',
   },
 });

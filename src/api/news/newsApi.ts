@@ -1,9 +1,11 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {BASE_URL} from '@env';
+console.log(BASE_URL);
 
 export const newsApi = createApi({
   reducerPath: 'newsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://qa-backend.jmgoldx.com/api/',
+    baseUrl: BASE_URL,
   }),
   endpoints: builder => ({
     getFullNews: builder.query({
@@ -17,9 +19,9 @@ export const newsApi = createApi({
       }),
     }),
     getNewsById: builder.mutation({
-      query: id => ({
+      query: url => ({
         method: 'GET',
-        url: `/show-market-news-one?id=${id}`,
+        url: `/show-market-news-one?url=${url}`,
       }),
     }),
   }),

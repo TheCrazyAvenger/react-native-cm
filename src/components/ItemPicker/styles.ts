@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   dropdown: {
@@ -24,8 +24,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Regular',
     marginBottom: 6,
     fontWeight: '400',
-    color: colors.gray,
-    fontSize: 16,
+    fontSize: 14,
   },
   item: {
     padding: 17,
@@ -33,16 +32,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  errorLabel: {
-    color: colors.red,
-  },
   errorInput: {
     borderColor: colors.red,
   },
   error: {
-    position: 'absolute',
-    left: 10,
-    top: 75,
+    marginLeft: 10,
+    marginTop: 10,
   },
   textItem: {
     flex: 1,

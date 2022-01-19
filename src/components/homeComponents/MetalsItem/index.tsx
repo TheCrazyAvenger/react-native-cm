@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {View} from 'react-native';
 import {MetalsItemProps, Wrapper} from '../..';
@@ -11,7 +10,6 @@ import {useAppSelector} from '@hooks';
 export const MetalsItem: React.FC<MetalsItemProps> = ({data}) => {
   const {id, name, buy, digitalMetal, spot} = data;
   const {oneDayChange, oneDayPercentChange} = digitalMetal;
-  const navigation: any = useNavigation();
 
   const ownedMetals = useAppSelector(state => state.auth.ownedMetals);
 

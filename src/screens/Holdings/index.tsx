@@ -1,7 +1,7 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {StatusBar, View} from 'react-native';
-import {HoldingsHeader, MetalsDetails, NewsCard, PriceGraph} from '@components';
+import {HoldingsHeader, NewsCard, PriceGraph} from '@components';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import {useGetNewsQuery} from '@api';
@@ -17,7 +17,7 @@ export const Holdings: React.FC = () => {
   const {data: newsData = [], isLoading} = useGetNewsQuery();
 
   return (
-    <Screen style={{paddingHorizontal: 0}}>
+    <Screen style={styles.container}>
       <StatusBar
         barStyle="light-content"
         translucent
@@ -28,14 +28,18 @@ export const Holdings: React.FC = () => {
         metalType={metalType}
         setMetal={setMetalType}
       />
-      <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
+      <Screen type="View" style={styles.bodyContainer}>
         <View style={styles.buttons}>
           <View>
             <TextButton
               title="Sell"
               style={styles.button}
+              disabled={isLoading}
               onPress={() =>
-                navigation.navigate(Screens.sellBuyStack, {type: 'Sell'})
+                navigation.navigate(Screens.sellBuySetup, {
+                  data: data.data[metalType - 1],
+                  type: 'Sell',
+                })
               }
             />
           </View>
@@ -43,17 +47,22 @@ export const Holdings: React.FC = () => {
             <TextButton
               solid
               title="Buy"
+              disabled={isLoading}
               style={styles.button}
               onPress={() =>
-                navigation.navigate(Screens.sellBuyStack, {type: 'Buy'})
+                navigation.navigate(Screens.sellBuySetup, {
+                  data: data.data[metalType - 1],
+                  type: 'Buy',
+                })
               }
             />
           </View>
         </View>
 
-        <PriceGraph id={metalType} data={data.data} />
+        <PriceGraph metalType={metalType} id={metalType} data={data.data} />
 
         <NewsCard data={newsData} isLoading={isLoading} />
+        <View style={{marginBottom: 100}} />
       </Screen>
     </Screen>
   );

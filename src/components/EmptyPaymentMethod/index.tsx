@@ -11,11 +11,12 @@ export const EmptyPaymentMethod: React.FC<EmptyPaymentMethodProps> = ({
   title,
   type,
   onPress,
+  style,
 }) => {
   const navigation: any = useNavigation();
 
   return (
-    <View style={styles.container}>
+    <View style={{...styles.container, ...style}}>
       <SubtitleMedium style={styles.title}>Account</SubtitleMedium>
       <TextButton
         titleStyle={{fontFamily: 'OpenSans-SemiBold'}}
@@ -28,7 +29,7 @@ export const EmptyPaymentMethod: React.FC<EmptyPaymentMethodProps> = ({
             ? onPress
             : () =>
                 navigation.navigate(Screens.paymentMethodsSetUp, {
-                  type,
+                  type: `${type} Add`,
                 })
         }
       />

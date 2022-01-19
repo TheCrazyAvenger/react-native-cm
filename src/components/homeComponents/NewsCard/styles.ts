@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     borderColor: 'rgba(47, 128, 237, 0.3)',
-    marginBottom: 100,
   },
   cardItem: {
     flexDirection: 'row',

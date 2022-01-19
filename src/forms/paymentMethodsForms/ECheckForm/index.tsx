@@ -1,9 +1,8 @@
-import {useNavigation, useRoute} from '@react-navigation/core';
+import {useNavigation} from '@react-navigation/core';
 import React from 'react';
 import {ScrollView, View} from 'react-native';
 import {styles} from './styles';
-import {SocialButton, TextButton} from '@ui';
-import {useAppSelector} from '@hooks';
+import {TextButton} from '@ui';
 import {Description, SubtitleMedium} from '@Typography';
 import {colors} from '@constants';
 
@@ -11,12 +10,9 @@ export const ECheckForm: React.FC<{
   onSubmit: (...args: any) => void;
   type: string;
   label: string;
-}> = ({onSubmit, type, label}) => {
+  loading: boolean;
+}> = ({onSubmit, type, label, loading}) => {
   const navigation: any = useNavigation();
-  const route: any = useRoute();
-
-  const firstName = useAppSelector(state => state.auth.firstName);
-  const lastName = useAppSelector(state => state.auth.lastName);
 
   return (
     <View style={styles.container}>
@@ -37,10 +33,19 @@ export const ECheckForm: React.FC<{
       <View style={styles.buttons}>
         <TextButton
           solid
+          loading={loading}
+          disabled={loading}
           onPress={() =>
             onSubmit({
               paymentMethod: type,
-              cardNumber: 'CHASE CHECKING ACCOUNT ending with 1234',
+              name: `CHASE`,
+              accountNumber: `${Math.round(
+                Math.random() * (9999 - 1000 + 1) + 1000,
+              )}`,
+              accountType:
+                Math.round(Math.random() * (10 + 1)) > 5
+                  ? 'CHECKING ACCOUNT'
+                  : 'SAVING ACCOUNT',
               label,
             })
           }

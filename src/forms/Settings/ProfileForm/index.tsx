@@ -10,9 +10,10 @@ import {Description, Subtitle} from '@Typography';
 import {states} from '@utilities';
 import {colors} from '@constants';
 
-export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
-  onSubmit,
-}) => {
+export const ProfileForm: React.FC<{
+  onSubmit: (...args: any) => void;
+  loading: boolean;
+}> = ({onSubmit, loading}) => {
   const email = useAppSelector(state => state.auth.userEmail);
   const firstName = useAppSelector(state => state.auth.firstName);
   const lastName = useAppSelector(state => state.auth.lastName);
@@ -27,8 +28,6 @@ export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
     state: stateShipping,
     postalCode: postalCodeShipping,
   }: any = shippingAdress;
-
-  console.log(legalAdress);
 
   return (
     <Formik
@@ -53,16 +52,21 @@ export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
         handleSubmit,
         values,
         errors,
+        isValid,
         touched,
         setFieldValue,
         setFieldTouched,
       }) => {
         const changeFields = () => {
           if (!values.checkBox) {
-            setFieldValue('shippingStreetAdress', values.legalStreetAdress);
-            setFieldValue('shippingCity', values.legalCity);
-            setFieldValue('shippingState', values.legalState);
-            setFieldValue('shippingCode', values.legalCode);
+            values.shippingStreetAdress !== values.legalStreetAdress &&
+              setFieldValue('shippingStreetAdress', values.legalStreetAdress);
+            values.shippingCity !== values.legalCity &&
+              setFieldValue('shippingCity', values.legalCity);
+            values.shippingState !== values.legalState &&
+              setFieldValue('shippingState', values.legalState);
+            values.shippingCode !== values.legalCode &&
+              setFieldValue('shippingCode', values.legalCode);
             setDisabled(true);
           } else {
             setDisabled(false);
@@ -113,6 +117,13 @@ export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
                 plaseholder="Your Street Address"
                 onChangeText={handleChange('legalStreetAdress')}
                 onFocus={() => setFieldTouched('legalStreetAdress', false)}
+                onInput={() =>
+                  values.checkBox &&
+                  setFieldValue(
+                    'shippingStreetAdress',
+                    values.legalStreetAdress,
+                  )
+                }
                 value={values.legalStreetAdress}
                 errorMessage={errors.legalStreetAdress}
                 isTouched={touched.legalStreetAdress}
@@ -123,6 +134,10 @@ export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
                 plaseholder="Your City"
                 onChangeText={handleChange('legalCity')}
                 onFocus={() => setFieldTouched('legalCity', false)}
+                onInput={() =>
+                  values.checkBox &&
+                  setFieldValue('shippingCity', values.legalCity)
+                }
                 value={values.legalCity}
                 errorMessage={errors.legalCity}
                 isTouched={touched.legalCity}
@@ -131,7 +146,10 @@ export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
                 label="State"
                 items={[...states.map(item => ({label: item, value: item}))]}
                 value={values.legalState}
-                onChange={value => setFieldValue('legalState', value)}
+                onChange={value => {
+                  values.checkBox && setFieldValue('shippingState', value);
+                  setFieldValue('legalState', value);
+                }}
                 errorMessage={errors.legalState}
                 isTouched={touched.legalState}
               />
@@ -141,6 +159,10 @@ export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
                 plaseholder="Your Postal Code"
                 onChangeText={handleChange('legalCode')}
                 onFocus={() => setFieldTouched('legalCode', false)}
+                onInput={() =>
+                  values.checkBox &&
+                  setFieldValue('shippingCode', values.legalCode)
+                }
                 value={values.legalCode}
                 errorMessage={errors.legalCode}
                 isTouched={touched.legalCode}
@@ -209,7 +231,9 @@ export const ProfileForm: React.FC<{onSubmit: (...args: any) => void}> = ({
             <TextButton
               title="Save Changes"
               solid
-              style={{marginBottom: 25}}
+              loading={loading}
+              disabled={!isValid || loading}
+              style={{marginBottom: 25, marginHorizontal: 10}}
               onPress={handleSubmit}
             />
           </View>

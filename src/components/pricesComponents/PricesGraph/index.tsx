@@ -1,13 +1,16 @@
-import React, {useRef, useState} from 'react';
-import {Animated, FlatList, View} from 'react-native';
-import {metals} from '@utilities';
+import React, {useCallback, useRef, useState} from 'react';
+import {FlatList, View} from 'react-native';
 import {PricesItem} from '../PricesItem';
 import {PricesPaginator} from '../PricesPaginator';
+import {styles} from './styles';
+import {EmptyDataScreen, LoadingItem, PricesGraphProps} from '@components';
 
-export const PricesGraph: React.FC<{id: number}> = ({id}) => {
+export const PricesGraph: React.FC<PricesGraphProps> = ({data, isLoading}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollX = useRef(new Animated.Value(0)).current;
   const slidesRef: any = useRef(null);
+
+  const renderItem = useCallback(({item}) => <PricesItem data={item} />, []);
+  const keyExtractor = useCallback(item => item.id.toString(), []);
 
   //@ts-ignore
   const viewableItemsChanged = useRef(({viewableItems}) => {
@@ -16,29 +19,34 @@ export const PricesGraph: React.FC<{id: number}> = ({id}) => {
 
   const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current;
 
-  return (
+  return data ? (
     <View>
       <FlatList
-        data={metals}
-        renderItem={({item}) => <PricesItem data={item} />}
+        initialNumToRender={1}
+        maxToRenderPerBatch={1}
+        removeClippedSubviews
+        data={data}
+        renderItem={renderItem}
         horizontal
         showsHorizontalScrollIndicator={false}
         pagingEnabled
         bounces={false}
         bouncesZoom={false}
-        keyExtractor={item => item.id.toString()}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {x: scrollX}}}],
-          {
-            useNativeDriver: false,
-          },
-        )}
+        keyExtractor={keyExtractor}
         scrollEventThrottle={32}
         onViewableItemsChanged={viewableItemsChanged}
         viewabilityConfig={viewConfig}
         ref={slidesRef}
       />
-      <PricesPaginator data={metals} currentIndex={currentIndex} />
+      <PricesPaginator data={data} currentIndex={currentIndex} />
+    </View>
+  ) : isLoading ? (
+    <View style={styles.container}>
+      <LoadingItem />
+    </View>
+  ) : (
+    <View style={styles.container}>
+      <EmptyDataScreen style={{marginTop: 160}} title="No data" />
     </View>
   );
 };

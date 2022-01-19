@@ -4,7 +4,6 @@ import {ScrollView, StatusBar, View} from 'react-native';
 import {Notification} from '@components';
 import {Description, Illustration, Title, Error} from '@Typography';
 import {Screens} from '@constants';
-import {useAppDispatch} from '@hooks';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import auth from '@react-native-firebase/auth';
@@ -13,7 +12,6 @@ const BUNDLE_ID = 'com.cybermetals';
 
 const actionCodeSettings = {
   handleCodeInApp: true,
-  // URL must be whitelisted in the Firebase Console.
   url: 'https://cybermetals.page.link/qL6j',
   iOS: {
     bundleId: BUNDLE_ID,
@@ -34,7 +32,6 @@ export const EmailVerification: React.FC = () => {
   const [next, setNext] = useState(false);
 
   const values = route.params.values;
-  const dispatch = useAppDispatch();
 
   const changeEmail = () => {
     navigation.push(Screens.email, {
@@ -43,24 +40,30 @@ export const EmailVerification: React.FC = () => {
     });
   };
 
-  const goToError = () => {
-    navigation.push(Screens.emailVerError, {
-      values: {...route.params.values},
-    });
-  };
-
+  const [minutes, setMinutes] = useState(1);
   const [seconds, setSeconds] = useState(0);
+  useEffect(() => {
+    let myInterval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(myInterval);
+        } else {
+          setMinutes(minutes - 1);
+          setSeconds(59);
+        }
+      }
+    }, 1000);
+    return () => {
+      clearInterval(myInterval);
+    };
+  });
 
   useEffect(() => {
     sendEmail();
   }, []);
-
-  useEffect(() => {
-    if (next === true)
-      navigation.push(Screens.emailVerSuccess, {
-        values: {...route.params.values},
-      });
-  }, [next]);
 
   const sendEmail = async () => {
     try {
@@ -73,17 +76,18 @@ export const EmailVerification: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    if (seconds > 0) {
-      setTimeout(() => setSeconds(seconds - 1), 1000);
-    }
-  }, [seconds]);
-
   const resentEmail = () => {
     sendEmail();
     setShowNotify(true);
-    setSeconds(59);
+    setMinutes(1);
   };
+
+  useEffect(() => {
+    if (next === true)
+      navigation.push(Screens.emailVerSuccess, {
+        values: {...route.params.values},
+      });
+  }, [next]);
 
   return (
     <Screen type="View">
@@ -106,14 +110,12 @@ export const EmailVerification: React.FC = () => {
             follow the instructions in the email to complete the registration
             process.
           </Description>
-          {error && (
-            <Error style={{marginHorizontal: 10, marginTop: 10}}>{error}</Error>
-          )}
+          {error && <Error style={{marginTop: 10}}>{error}</Error>}
         </ScrollView>
         <View style={styles.buttons}>
           {seconds > 0 ? (
             <Illustration style={styles.resendTimer}>
-              Please wait 1 minute before clicking Resend Email (0:
+              Please wait 1 minute before clicking Resend Email ({minutes}:
               {`${seconds < 10 ? '0' : ''}${seconds}`})
             </Illustration>
           ) : null}

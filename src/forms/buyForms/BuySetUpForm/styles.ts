@@ -1,15 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
-  mainTitle: {
-    fontFamily: 'OpenSans-Regular',
-    marginBottom: 20,
-    marginHorizontal: 10,
-  },
   amount: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
   },
   price: {
@@ -20,35 +15,20 @@ export const styles = StyleSheet.create({
     marginBottom: 15,
     marginHorizontal: 10,
   },
-  title: {
-    color: colors.gray,
-    marginBottom: 6,
-    fontFamily: 'OpenSans-Regular',
-    fontSize: 16,
-    fontWeight: '400',
-    marginHorizontal: 10,
-  },
-  paymentMethod: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: colors.placeholder,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 15,
-    marginBottom: 15,
-    marginHorizontal: 10,
-  },
   priceTitle: {
     fontFamily: 'OpenSans-Bold',
     fontSize: 22,
   },
-  error: {
-    paddingHorizontal: 10,
-    marginBottom: 12,
+  inputLabel: {
+    color: colors.gray,
+    marginBottom: 6,
+    fontFamily: 'OpenSans-Regular',
+    fontSize: 14,
+    fontWeight: '400',
+    marginHorizontal: 10,
   },
-  profileError: {
-    fontFamily: 'OpenSans-SemiBold',
+  errorLink: {
     color: colors.primary,
+    fontFamily: 'OpenSans-SemiBold',
   },
 });

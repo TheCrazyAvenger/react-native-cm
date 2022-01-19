@@ -4,8 +4,23 @@ import {Description, Title} from '@Typography';
 import {ForgotPassForm} from '../../../forms';
 import {Screen} from '@ui';
 import {styles} from './styles';
+import Share from 'react-native-share';
 
 export const ForgotPassword: React.FC = () => {
+  const onShare = () => {
+    const shareOptions: any = {
+      social: Share.Social.EMAIL,
+    };
+
+    Share.shareSingle(shareOptions)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        err && console.log(err);
+      });
+  };
+
   return (
     <Screen type="View">
       <StatusBar
@@ -24,7 +39,7 @@ export const ForgotPassword: React.FC = () => {
           or junk folder. If you still haven’t received it, please review the
           email address entered for accuracy and resubmit your request. For
           further assistance, contact us at 
-          <Description style={styles.email}>
+          <Description onPress={onShare} style={styles.email}>
             support@cybermetals.com.
           </Description>
         </Description>

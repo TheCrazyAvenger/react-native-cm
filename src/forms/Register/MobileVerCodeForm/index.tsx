@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Formik} from 'formik';
 import {ScrollView, View} from 'react-native';
 import {FormInput, PaginationFooter} from '@components';
@@ -9,59 +9,49 @@ import {useNavigation, useRoute} from '@react-navigation/core';
 import {Screens} from '@constants';
 import {Description, Error} from '@Typography';
 import {TextButton} from '@ui';
-import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useAppDispatch} from '@hooks';
+import {getData} from '@store/actions';
+import {getOperations} from '@store/actions/operations';
+import {getAutoBuy} from '@store/actions/autoBuy';
+import {getPriceAlerts} from '@store/actions/priceAlerts';
+import {getPaymentMethod} from '@store/actions/paymentMethod';
 
-export const MobileVerCodeForm: React.FC = () => {
+export const MobileVerCodeForm: React.FC<{showNotify: () => void}> = ({
+  showNotify,
+}) => {
   const navigation: any = useNavigation();
   const route: any = useRoute();
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const {type} = route.params;
-  const {token} = route.params;
-  const {mobile} = route.params.values;
-  const [confirm, setConfirm] = useState<any>(null);
+  const {type, token} = route.params;
 
-  useEffect(() => {
-    getCode();
-  }, []);
-
-  const getCode = async () => {
-    try {
-      const confirmation = await auth().signInWithPhoneNumber(mobile);
-      await setConfirm(confirmation);
-    } catch (e: any) {
-      setError(e.message);
-      console.log(e);
-    }
-  };
-
-  async function confirmCode(code: string) {
-    try {
-      await confirm.confirm(code);
-      return true;
-    } catch (error) {
-      setError('Invalid code.');
-      console.log('Invalid code.');
-      return false;
-    }
-  }
-  console.log(error);
+  const dispatch = useAppDispatch();
 
   const goToNext = async (values: any) => {
     try {
       setError(null);
-      const isValid = await confirmCode(values.code);
 
-      if (isValid || values.code === '1234567') {
-        type === 'SignIn'
-          ? await AsyncStorage.setItem('token', JSON.stringify(token))
-          : navigation.push(Screens.mobileVerSuccess, {
-              values: {...route.params.values},
-            });
+      if (values.code === '1234567') {
+        if (type === 'SignIn') {
+          setLoading(true);
+          await AsyncStorage.setItem('token', JSON.stringify(token));
+          await dispatch(getOperations());
+          await dispatch(getAutoBuy());
+          await dispatch(getPriceAlerts());
+          await dispatch(getPaymentMethod());
+          dispatch(getData());
+        } else {
+          navigation.push(Screens.mobileVerSuccess, {
+            values: {...route.params.values},
+          });
+        }
+      } else {
+        setError('Wrong code (just type 1234567)');
       }
     } catch (error: any) {
-      setError('Something went wromg...');
+      setError('Something went wrong...');
       console.log(error);
     }
   };
@@ -70,7 +60,7 @@ export const MobileVerCodeForm: React.FC = () => {
     <Formik
       validationSchema={mobileVerCodeSchema}
       initialValues={{
-        code: '',
+        code: '1234567',
       }}
       onSubmit={values => goToNext(values)}>
       {({
@@ -94,21 +84,24 @@ export const MobileVerCodeForm: React.FC = () => {
               errorMessage={errors.code}
               isTouched={touched.code}
             />
-            {type === 'SignIn' ? (
-              <Description style={{paddingHorizontal: 10}}>
-                Have not received the code or has the time expired?{' '}
-                <Description style={styles.description}>Send again</Description>
+
+            <Description style={{paddingHorizontal: 10}}>
+              Have not received the code or has the time expired?{' '}
+              <Description onPress={showNotify} style={styles.description}>
+                Send again{' '}
               </Description>
-            ) : (
-              <Description style={{paddingHorizontal: 10}}>
-                Have not received the code or has the time expired?{' '}
-                <Description style={styles.description}>Send again</Description>{' '}
-                or{' '}
-                <Description style={styles.description}>
-                  Change mobile number
+              {type === 'SignUp' && (
+                <Description>
+                  or{' '}
+                  <Description
+                    onPress={() => navigation.goBack()}
+                    style={styles.description}>
+                    Change mobile number
+                  </Description>
                 </Description>
-              </Description>
-            )}
+              )}
+            </Description>
+
             {error && (
               <Error style={{marginHorizontal: 10, marginTop: 10}}>
                 {error}
@@ -120,12 +113,14 @@ export const MobileVerCodeForm: React.FC = () => {
               solid
               style={{marginBottom: 25}}
               title="Confirm"
-              disabled={!isValid}
+              disabled={!isValid || loading}
+              loading={loading}
               onPress={handleSubmit}
             />
           ) : (
             <PaginationFooter
               data={slides}
+              disabled={!isValid}
               currentIndex={5}
               onPress={handleSubmit}
               title="Continue"

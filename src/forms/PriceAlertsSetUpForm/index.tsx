@@ -2,7 +2,7 @@ import {useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
 import React from 'react';
 import {View} from 'react-native';
-import {priceAlertsSchema} from '..';
+import * as yup from 'yup';
 import {colors} from '@constants';
 import {styles} from './styles';
 import {ItemPicker} from '@components';
@@ -10,7 +10,20 @@ import {SubtitleMedium, Error} from '@Typography';
 import {TextButton} from '@ui';
 import {Input} from 'react-native-elements';
 
-export const PriceAlertsSetUpForm: React.FC<any> = ({metal, onSubmit}) => {
+const priceAlertsSchema = yup.object().shape({
+  condition: yup.string().required('Please enter Condition'),
+  value: yup
+    .number()
+    .required('Please enter value')
+    .min(0.5, 'At least 0.5%')
+    .max(100, 'Only 100%'),
+});
+
+export const PriceAlertsSetUpForm: React.FC<any> = ({
+  metal,
+  onSubmit,
+  loading,
+}) => {
   const route: any = useRoute();
 
   const {type, prevValues} = route.params;
@@ -19,8 +32,8 @@ export const PriceAlertsSetUpForm: React.FC<any> = ({metal, onSubmit}) => {
     <Formik
       validationSchema={priceAlertsSchema}
       initialValues={{
-        condition: type ? prevValues.condition : 'Decreases By',
-        value: type ? prevValues.value : 0.5,
+        condition: type ? prevValues.condition : 'Decreases By %',
+        value: type ? prevValues.value : '0.5',
       }}
       onSubmit={values => onSubmit(values)}>
       {({
@@ -29,6 +42,7 @@ export const PriceAlertsSetUpForm: React.FC<any> = ({metal, onSubmit}) => {
         values,
         errors,
         touched,
+        isValid,
         setFieldTouched,
         setFieldValue,
       }) => {
@@ -36,21 +50,38 @@ export const PriceAlertsSetUpForm: React.FC<any> = ({metal, onSubmit}) => {
           <View style={styles.container}>
             <View style={{marginBottom: 16}}>
               <SubtitleMedium style={{fontFamily: 'OpenSans-SemiBold'}}>
-                Alert me when 1 oz of {metal}
+                Notify me when 1 oz of {metal}
               </SubtitleMedium>
             </View>
 
             <ItemPicker
               style={{marginHorizontal: 0, width: '75%', marginBottom: 20}}
               value={values.condition}
+              maxHeight={340}
               items={[
                 {
                   label: 'Decreases By %',
-                  value: 'Decreases By',
+                  value: 'Decreases By %',
                 },
                 {
                   label: 'Increases By %',
-                  value: 'Increases By',
+                  value: 'Increases By %',
+                },
+                {
+                  label: 'Decreases By $',
+                  value: 'Decreases By $',
+                },
+                {
+                  label: 'Increases By $',
+                  value: 'Increases By $',
+                },
+                {
+                  label: 'Falls Below $',
+                  value: 'Falls Below $',
+                },
+                {
+                  label: 'Rises Above $',
+                  value: 'Rises Above $',
                 },
               ]}
               onChange={value => setFieldValue('condition', value)}
@@ -62,8 +93,8 @@ export const PriceAlertsSetUpForm: React.FC<any> = ({metal, onSubmit}) => {
                   borderBottomColor:
                     errors.value && touched.value ? colors.red : colors.gray,
                 }}
-                style={{textAlign: 'center'}}
-                value={`${values.value}`}
+                textAlign="center"
+                value={values.value}
                 onChangeText={handleChange('value')}
                 onFocus={() => setFieldTouched('value', false)}
                 onBlur={() => setFieldTouched('value', true)}
@@ -75,6 +106,8 @@ export const PriceAlertsSetUpForm: React.FC<any> = ({metal, onSubmit}) => {
             </View>
 
             <TextButton
+              loading={loading}
+              disabled={loading || !isValid}
               title={type ? 'Edit Alert' : 'Create Alert'}
               solid
               style={{marginBottom: 10}}

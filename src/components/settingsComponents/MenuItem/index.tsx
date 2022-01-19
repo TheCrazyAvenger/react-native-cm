@@ -14,6 +14,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
   style,
   type,
   switchValue,
+  disabledSwitch = false,
 }) => {
   return (
     <TouchableOpacity
@@ -29,6 +30,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
       </View>
       {type && (
         <Switch
+          disabled={disabledSwitch}
           value={switchValue}
           color={colors.primary}
           onValueChange={onPress}

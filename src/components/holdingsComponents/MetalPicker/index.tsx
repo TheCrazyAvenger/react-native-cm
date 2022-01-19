@@ -37,6 +37,9 @@ export const MetalPicker: React.FC<MetalPickerProps> = ({
                 style={{
                   ...styles.title,
                   color: isColorfull,
+                  fontFamily: isMarked
+                    ? 'OpenSans-SemiBold'
+                    : 'OpenSans-Regular',
                 }}>
                 {item.metal}
               </SubtitleMedium>

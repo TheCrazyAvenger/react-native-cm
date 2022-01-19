@@ -15,16 +15,21 @@ export const EmailForm: React.FC = () => {
 
   const {type} = route.params;
   const {firstName, lastName, password} = route.params.values;
-  console.log(type);
 
-  const goToNext = (values: {[key: string]: string | boolean}) => {
+  const goToNext = (values: {[key: string]: string}) => {
+    const {email} = values;
     type
       ? navigation.push(Screens.emailVerification, {
-          values: {...values, firstName, lastName, password},
+          values: {
+            email: email.trim().toLowerCase(),
+            firstName,
+            lastName,
+            password,
+          },
         })
       : navigation.push(Screens.password, {
           type: 'SignUp',
-          values: {...values, ...route.params.values},
+          values: {email: email.trim().toLowerCase(), ...route.params.values},
         });
   };
 
@@ -40,6 +45,7 @@ export const EmailForm: React.FC = () => {
         handleSubmit,
         values,
         errors,
+        isValid,
         touched,
         setFieldTouched,
       }) => (
@@ -67,6 +73,7 @@ export const EmailForm: React.FC = () => {
             <PaginationFooter
               data={slides}
               currentIndex={1}
+              disabled={!isValid}
               onPress={handleSubmit}
               title="Continue"
               style={styles.footer}

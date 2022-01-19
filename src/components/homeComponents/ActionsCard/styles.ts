@@ -6,9 +6,4 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     marginBottom: 20,
   },
-  cardItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
 });

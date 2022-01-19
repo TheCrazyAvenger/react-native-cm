@@ -1,6 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Screens} from '../../constants';
+import {Screens} from '@constants';
 import {
   Email,
   EmailVerError,
@@ -12,7 +12,7 @@ import {
   MobileVerification,
   MobileVerSuccess,
   Password,
-} from '../../screens';
+} from '@screens';
 
 const Stack = createNativeStackNavigator();
 

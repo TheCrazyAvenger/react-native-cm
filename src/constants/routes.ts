@@ -19,14 +19,12 @@ export enum Screens {
   reviewFundWithdraw = 'reviewFundWithdraw',
   completeFundWithdraw = 'completeFundWithdraw',
 
-  bankAccountStack = 'bankAccountStack',
-  addBankAccount = 'addBankAccount',
-
   sellBuyStack = 'sellBuyStack',
   chooseBuy = 'chooseBuy',
   sellBuySetup = 'sellBuySetup',
   reviewSellBuy = 'reviewBuy',
   completeSellBuy = 'completeSellBuy',
+  billing = 'billing',
 
   reedemStack = 'reedemStack',
   catalog = 'catalog',
@@ -39,17 +37,18 @@ export enum Screens {
   news = 'news',
   detailsNews = 'detailsNews',
 
-  settingsStack = 'settingsStack',
   settings = 'settings',
   refer = 'refer',
   notifications = 'notifications',
   profile = 'profile',
-  changePassword = 'changePassword',
   cookiePolicy = 'cookiePolicy',
   transactions = 'transactions',
   storageFees = 'storageFees',
+  passcode = 'passcode',
+  contactUs = 'contactUs',
 
   verificationStack = 'verificationStack',
+  verificationInfo = 'verificationInfo',
   verification = 'verification',
   documentsVerification = 'documentsVerification',
   verificationComplete = 'verificationComplete',

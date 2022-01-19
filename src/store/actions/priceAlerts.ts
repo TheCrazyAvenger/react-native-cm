@@ -31,8 +31,6 @@ export const getPriceAlerts = createAsyncThunk(
           );
           return priceAlertsList;
         });
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   },
 );

@@ -6,9 +6,10 @@ export type ScreenProps = {
 export type TextButtonProps = {
   title: string;
   solid?: boolean;
+  loading?: boolean;
   onPress: () => void;
   style?: {[key: string]: number | string};
-  disabled?: boolean;
+  disabled?: any;
   disabledStyle?: {[key: string]: number | string};
   changeDisabledStyle?: boolean;
   disabledTitle?: string | null;
@@ -20,4 +21,5 @@ export type SocialButtonProps = {
   onPress: () => void;
   style?: {[key: string]: number | string};
   borderColor: string;
+  disabled?: boolean;
 };

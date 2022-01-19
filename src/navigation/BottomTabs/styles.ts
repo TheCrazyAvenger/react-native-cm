@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   navigatorContainer: {
@@ -27,7 +27,6 @@ export const styles = StyleSheet.create({
     fontSize: 10,
     lineHeight: 13.62,
   },
-
   xFillLine: {
     position: 'absolute',
     bottom: 0,

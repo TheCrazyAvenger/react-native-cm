@@ -2,7 +2,6 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Screens} from '@constants';
 import {
-  AddBankAccount,
   ChooseFund,
   ChooseWithdraw,
   CompleteFundWithdraw,
@@ -38,7 +37,6 @@ export const FundWithdrawStack: React.FC = () => {
         name={Screens.fundWithDrawSetUp}
         component={FundWithDrawSetUp}
       />
-      <Stack.Screen name={Screens.addBankAccount} component={AddBankAccount} />
       <Stack.Screen
         name={Screens.paymentMethodsSetUp}
         component={PaymentMethodsSetUp}

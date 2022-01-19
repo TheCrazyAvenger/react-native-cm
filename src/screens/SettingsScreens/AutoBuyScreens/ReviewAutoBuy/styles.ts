@@ -1,5 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../../constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,15 +9,8 @@ export const styles = StyleSheet.create({
     borderColor: 'rgba(47, 128, 237, 0.3)',
     borderRadius: 5,
   },
-
   title: {
     fontFamily: 'OpenSans-Regular',
-    marginBottom: 20,
-  },
-  reviewItem: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
     marginBottom: 20,
   },
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {ImageInput, ImageInputListProps} from '..';
+import {ImageInput, ImageInputListProps} from '@components';
 import {styles} from './styles';
 
 export const ImageInputList: React.FC<ImageInputListProps> = ({

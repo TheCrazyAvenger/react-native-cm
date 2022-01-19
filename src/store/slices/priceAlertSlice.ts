@@ -35,6 +35,14 @@ export const priceAlertSlice = createSlice({
         }),
       ];
     },
+    cleanPriceAlerts: state => {
+      state.priceAlerts = {
+        Gold: [],
+        Silver: [],
+        Palladium: [],
+        Platinum: [],
+      };
+    },
   },
   extraReducers: builder => {
     builder.addCase(
@@ -47,7 +55,11 @@ export const priceAlertSlice = createSlice({
     );
   },
 });
-export const {addAlert, deletePriceAlerts, updatePriceAlerts} =
-  priceAlertSlice.actions;
+export const {
+  addAlert,
+  deletePriceAlerts,
+  updatePriceAlerts,
+  cleanPriceAlerts,
+} = priceAlertSlice.actions;
 
 export default priceAlertSlice.reducer;

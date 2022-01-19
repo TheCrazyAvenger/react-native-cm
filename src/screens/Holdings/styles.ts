@@ -1,6 +1,9 @@
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 0,
+  },
   buttons: {
     marginBottom: 20,
     flexDirection: 'row',
@@ -9,5 +12,10 @@ export const styles = StyleSheet.create({
   },
   button: {
     width: '91.5%',
+  },
+  bodyContainer: {
+    paddingTop: 20,
+    paddingBottom: 4,
+    paddingHorizontal: 20,
   },
 });

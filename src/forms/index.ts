@@ -11,6 +11,7 @@ export * from './AutoBuySetUpForm';
 
 export * from './buyForms/BuySetUpForm';
 export * from './buyForms/ReviewBuyForm';
+export * from './buyForms/BillingForm';
 
 export * from './sellForms/SellSetUpForm';
 
@@ -27,5 +28,7 @@ export * from './paymentMethodsForms/ECheckForm';
 export * from './Settings/ProfileForm';
 export * from './Settings/VerificationForm';
 export * from './Settings/DocumentsVerificationForm';
+export * from './Settings/PasscodeForm';
+export * from './Settings/ContactUsForm';
 
 export * from './schemas';

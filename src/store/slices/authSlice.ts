@@ -15,6 +15,9 @@ export interface AuthState {
   legalAdress: {[key: string]: string | null | number};
   shippingAdress: {[key: string]: string | null | number};
   ownedMetals: {[key: string]: number};
+  loginMethods: {[key: string]: string | null | boolean};
+  passcodeSetup: boolean;
+  notifications: {[key: string]: boolean};
 }
 
 const initialState: AuthState = {
@@ -27,7 +30,7 @@ const initialState: AuthState = {
   userEmail: null,
   error: null,
   verified: false,
-  loading: true,
+  loading: false,
   legalAdress: {
     streetAdress: '',
     city: '',
@@ -45,6 +48,17 @@ const initialState: AuthState = {
     Silver: 0,
     Palladium: 0,
     Platinum: 0,
+  },
+  loginMethods: {
+    touchId: false,
+    faceId: false,
+    passcode: null,
+  },
+  passcodeSetup: false,
+  notifications: {
+    transactions: false,
+    promotions: false,
+    marketNews: false,
   },
 };
 
@@ -65,6 +79,8 @@ export const authSlice = createSlice({
         legalAdress,
         shippingAdress,
         ownedMetals,
+        loginMethods,
+        notifications,
       } = action.payload;
       state.token = token;
       state.verified = verified;
@@ -77,6 +93,8 @@ export const authSlice = createSlice({
       state.legalAdress = legalAdress;
       state.shippingAdress = shippingAdress;
       state.ownedMetals = ownedMetals;
+      state.loginMethods = loginMethods;
+      state.notifications = notifications;
     },
     changeName: (state, action: PayloadAction<{[key: string]: string}>) => {
       state.firstName = action.payload.firstName;
@@ -86,6 +104,9 @@ export const authSlice = createSlice({
       const {legalAdress, shippingAdress} = action.payload;
       state.legalAdress = legalAdress;
       state.shippingAdress = shippingAdress;
+    },
+    setLegalAdress: (state, action: PayloadAction<any>) => {
+      state.legalAdress = action.payload;
     },
     setVerified: (state, action: PayloadAction<boolean>) => {
       state.verified = action.payload;
@@ -97,14 +118,31 @@ export const authSlice = createSlice({
       state.cashBalance = action.payload;
     },
     updateOwnedMetals: (state, action: PayloadAction<any>) => {
-      const {metal, newAmount} = action.payload;
+      const {name, newAmount} = action.payload;
 
-      state.ownedMetals[metal] = newAmount;
+      state.ownedMetals[name] = newAmount;
+    },
+    setPasscode: (state, action: PayloadAction<any>) => {
+      const {loginMethod, value} = action.payload;
+      state.loginMethods[loginMethod] = value;
+    },
+    setPasscodeSetup: (state, action: PayloadAction<any>) => {
+      state.passcodeSetup = action.payload;
+    },
+    deleteLoginMethod: (state, action: PayloadAction<any>) => {
+      state.loginMethods[action.payload] = false;
+    },
+    deletePasscode: (state, action: PayloadAction<any>) => {
+      state.loginMethods[action.payload] = null;
+    },
+    setNotification: (state, action: PayloadAction<any>) => {
+      const {notification, value} = action.payload;
+      state.notifications[notification] = value;
     },
   },
   extraReducers: builder => {
     builder.addCase(getData.fulfilled, (state, action: PayloadAction<any>) => {
-      if (action.payload) {
+      if (action.payload.data) {
         const {
           token,
           userEmail,
@@ -117,7 +155,9 @@ export const authSlice = createSlice({
           legalAdress,
           shippingAdress,
           ownedMetals,
-        } = action.payload;
+          loginMethods,
+          notifications,
+        } = action.payload.data;
 
         state.token = token;
         state.verified = verified;
@@ -130,15 +170,18 @@ export const authSlice = createSlice({
         state.legalAdress = legalAdress;
         state.shippingAdress = shippingAdress;
         state.ownedMetals = ownedMetals;
+        state.loginMethods = loginMethods;
+        state.notifications = notifications;
+      }
+      if (action.payload.error) {
+        state.error = action.payload.error;
       }
     });
     builder.addCase(
       loginHandler.fulfilled,
       (state, action: PayloadAction<any>) => {
         if (action.payload) {
-          const {mobile} = action.payload;
-
-          state.mobile = mobile;
+          state.mobile = action.payload;
         }
       },
     );
@@ -173,6 +216,16 @@ export const authSlice = createSlice({
         Palladium: 0,
         Platinum: 0,
       };
+      state.loginMethods = {
+        touchId: false,
+        faceId: false,
+        passcode: null,
+      };
+      state.notifications = {
+        transactions: false,
+        promotions: false,
+        marketNews: false,
+      };
     });
   },
 });
@@ -183,7 +236,13 @@ export const {
   setLoading,
   updateCash,
   setAdress,
+  setLegalAdress,
   updateOwnedMetals,
+  setPasscode,
+  deleteLoginMethod,
+  setNotification,
+  deletePasscode,
+  setPasscodeSetup,
 } = authSlice.actions;
 
 export default authSlice.reducer;

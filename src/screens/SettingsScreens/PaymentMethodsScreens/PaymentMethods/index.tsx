@@ -1,7 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ScrollView, StatusBar, View} from 'react-native';
-import {EmptyDataScreen, LoadingItem, PaymentMethodsItem} from '@components';
+import {
+  EmptyDataScreen,
+  LoadingItem,
+  Notification,
+  PaymentMethodsItem,
+} from '@components';
 import {Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {setLoading} from '@store/slices/authSlice';
@@ -12,6 +17,8 @@ import {deletePaymentMethods} from '@store/slices/paymentMethodsSlice';
 
 export const PaymentMethods: React.FC = () => {
   const navigation: any = useNavigation();
+  const [removeModal, setRemoveModal] = useState(false);
+  const [method, setMethod] = useState('');
 
   const dispatch = useAppDispatch();
 
@@ -20,6 +27,15 @@ export const PaymentMethods: React.FC = () => {
   );
   const loading = useAppSelector(state => state.auth.loading);
   const token = useAppSelector(state => state.auth.token);
+
+  const isEmpty =
+    paymentMethods.cashBalance.length === 0 &&
+    paymentMethods.creditCard.length === 0 &&
+    paymentMethods.bankWire.length === 0 &&
+    paymentMethods.payPal.length === 0 &&
+    paymentMethods.eCheck.length === 0
+      ? true
+      : false;
 
   useEffect(() => {
     getList();
@@ -33,36 +49,47 @@ export const PaymentMethods: React.FC = () => {
 
   const removeItem = async (type: string, id: number) => {
     await database().ref(`/users/${token}/paymentMethods/${id}`).remove();
+
     await dispatch(deletePaymentMethods({paymentMethod: type, id}));
+    await setMethod(
+      type === 'creditCard'
+        ? 'Credit Cart'
+        : type === 'payPal'
+        ? 'PayPal'
+        : 'bank account',
+    );
+
+    setRemoveModal(true);
   };
 
-  if (loading) {
-    return <LoadingItem />;
-  }
+  useEffect(() => {
+    isEmpty && setRemoveModal(false);
+  }, [isEmpty]);
 
-  if (
-    paymentMethods.cashBalance.length === 0 &&
-    paymentMethods.creditCard.length === 0 &&
-    paymentMethods.bankWire.length === 0 &&
-    paymentMethods.payPal.length === 0 &&
-    paymentMethods.eCheck.length === 0
-  ) {
+  if (isEmpty) {
     return (
       <EmptyDataScreen
         title="No Payment Methods Available"
         text="CyberMetals accepts ACH/eChecks, Credit/Debit Cards, Bank Wire, Cryptos and more. You can even connect your bank account to enjoy the ease of quick payments."
         buttonTitle="Add New Payment Method"
-        onPress={() =>
+        onPress={() => {
+          setRemoveModal(false);
           navigation.navigate(Screens.paymentMethodsSetUp, {
             type: 'creditCard',
-          })
-        }
+          });
+        }}
       />
     );
   }
 
   return (
     <Screen type="View">
+      <Notification
+        text={`The linked ${method} has been successfully removed from your CyberMetals account.`}
+        visible={removeModal}
+        style={{top: 0, paddingRight: 70}}
+        onPress={() => setRemoveModal(false)}
+      />
       <StatusBar
         barStyle="dark-content"
         translucent
@@ -78,6 +105,7 @@ export const PaymentMethods: React.FC = () => {
                   item !== null && (
                     <PaymentMethodsItem
                       key={item.id}
+                      fullName={item.fullName}
                       type={item.cardType ? item.cardType : 'Unknown'}
                       id={item.id}
                       expiring={

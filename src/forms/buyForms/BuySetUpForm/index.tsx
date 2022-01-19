@@ -1,7 +1,7 @@
 import {useNavigation, useRoute} from '@react-navigation/core';
 import {Formik} from 'formik';
-import React from 'react';
-import {TouchableOpacity, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View} from 'react-native';
 import {colors, Screens} from '@constants';
 import {styles} from './styles';
 import {FormInput, ItemPicker, PaymentMethodPicker} from '@components';
@@ -20,7 +20,15 @@ export const BuySetUpForm: React.FC = () => {
   const paymentMethods = useAppSelector(
     state => state.paymentMethod.paymentMethods,
   );
+
+  const [error, setError] = useState(false);
+
   const legalAdress = useAppSelector(state => state.auth.legalAdress);
+  const [account, setAccount] = useState('');
+
+  useEffect(() => {
+    legalAdress.city === '' ? setError(true) : setError(false);
+  }, [legalAdress]);
 
   const goToNext = (values: {[key: string]: string | number}) => {
     const {amount, amountOz, frequency, paymentMethod} = values;
@@ -30,6 +38,7 @@ export const BuySetUpForm: React.FC = () => {
       type: 'Buy',
       amount,
       frequency,
+      account,
       paymentMethod,
       amountOz,
     });
@@ -56,21 +65,27 @@ export const BuySetUpForm: React.FC = () => {
         setFieldValue,
       }) => {
         const getOz = () => {
-          return `${(+values.amount / 1887).toFixed(3)}`;
+          if (+values.amount > 0)
+            return `${(+values.amount / 1887).toFixed(3)}`;
+        };
+
+        const getUsd = () => {
+          if (+values.amountOz > 0)
+            return `${(+values.amountOz * 1887).toFixed(0)}`;
         };
 
         return (
           <View>
+            <Description style={styles.inputLabel}>Amount</Description>
             <View style={styles.amount}>
-              <View style={{width: '47%'}}>
+              <View style={{width: '49%'}}>
                 <FormInput
                   onBlur={async () => {
                     setFieldTouched('amount', true);
                     setFieldTouched('amountOz', true);
                     await setFieldValue('amountOz', getOz());
                   }}
-                  label="Amount"
-                  plaseholder="USD"
+                  plaseholder="0.00"
                   keyboardType="numeric"
                   onChangeText={handleChange('amount')}
                   onFocus={() => {
@@ -83,6 +98,7 @@ export const BuySetUpForm: React.FC = () => {
                   }}
                   errorStyle={{width: '180%'}}
                   value={values.amount}
+                  leftPrefix="$"
                   errorMessage={errors.amount}
                   isTouched={touched.amount}
                   rightIcon={() => (
@@ -92,22 +108,30 @@ export const BuySetUpForm: React.FC = () => {
                   )}
                 />
               </View>
-              <View style={{marginBottom: 40}}>
+              <View style={{marginTop: 14, marginHorizontal: -10}}>
                 <Swiper />
               </View>
-              <View style={{width: '47%'}}>
+              <View style={{width: '49%'}}>
                 <FormInput
-                  onBlur={() => {
+                  onBlur={async () => {
+                    setFieldTouched('amount', true);
                     setFieldTouched('amountOz', true);
+                    await setFieldValue('amount', getUsd());
                   }}
-                  plaseholder="OZ"
+                  plaseholder="0"
                   onChangeText={handleChange('amountOz')}
-                  onFocus={() => setFieldTouched('amountOz', false)}
+                  onFocus={() => {
+                    setFieldTouched('amount', false);
+                    setFieldTouched('amountOz', false);
+                  }}
+                  onInput={() => {
+                    setFieldValue('amountOz', validateNumbers(values.amountOz));
+                    setFieldValue('amount', getUsd());
+                  }}
                   value={values.amountOz}
                   isTouched={touched.amountOz}
                   errorMessage={errors.amountOz}
                   showError={false}
-                  disabled
                   rightIcon={() => (
                     <SubtitleMedium style={{color: colors.gray}}>
                       OZ
@@ -133,6 +157,7 @@ export const BuySetUpForm: React.FC = () => {
             />
 
             <PaymentMethodPicker
+              setPaymentType={value => setAccount(value)}
               label="Payment Method"
               onChange={(value: any) => setFieldValue('paymentMethod', value)}
             />
@@ -142,39 +167,51 @@ export const BuySetUpForm: React.FC = () => {
               <TitleMedium style={styles.priceTitle}>{`$${
                 values.amount
                   ? numberWithCommas(Number(values.amount).toFixed(2))
-                  : 0
+                  : '0.00'
               }`}</TitleMedium>
             </View>
 
-            {legalAdress.city === null && (
-              <View style={styles.error}>
-                <Error>Please, indicate the Legal Address in your </Error>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate(Screens.profile)}>
-                  <Error style={styles.profileError}>Profile.</Error>
-                </TouchableOpacity>
-              </View>
-            )}
-
             <View style={{marginHorizontal: 10}}>
+              {error && (
+                <Error style={{marginBottom: 12}}>
+                  Please{' '}
+                  <Error
+                    onPress={() => navigation.navigate(Screens.billing)}
+                    style={styles.errorLink}>
+                    provide your Legal Address
+                  </Error>{' '}
+                  in order to initiate this transaction.
+                </Error>
+              )}
               <TextButton
                 style={{marginBottom: 20}}
                 title="Confirm Buy"
                 changeDisabledStyle={true}
                 disabledStyle={{
                   backgroundColor:
-                    cashBalance < +values.amount ? '#F39A9A' : '#C1D9FA',
+                    values.paymentMethod === 'cashBalance' &&
+                    cashBalance < +values.amount
+                      ? '#F39A9A'
+                      : '#C1D9FA',
                 }}
                 disabledTitle={
-                  cashBalance < +values.amount ? 'Insufficient Funds' : null
+                  values.paymentMethod === 'cashBalance' &&
+                  cashBalance < +values.amount
+                    ? 'Insufficient Funds'
+                    : null
                 }
                 disabled={
+                  values.paymentMethod === 'cashBalance' &&
                   cashBalance < +values.amount
                     ? true
                     : paymentMethods[values.paymentMethod].length === 0 &&
                       values.paymentMethod !== 'cashBalance'
                     ? true
                     : !isValid
+                    ? true
+                    : account === '' && values.paymentMethod !== 'cashBalance'
+                    ? true
+                    : error
                     ? true
                     : false
                 }

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/core';
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {
   Animated,
   FlatList,
@@ -10,8 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Logo} from '@assets/images';
-import {OnboardingItem, PaginationFooter} from '../../components';
-
+import {OnboardingItem, PaginationFooter} from '@components';
 import {Description} from '@Typography';
 import {slides} from '@utilities';
 import {styles} from './styles';
@@ -20,8 +19,14 @@ export const Onboarding: React.FC = () => {
   const navigation: any = useNavigation();
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const scrollX = useRef(new Animated.Value(0)).current;
   const slidesRef: any = useRef(null);
+
+  const renderItem = useCallback(
+    ({item}) => <OnboardingItem item={item} />,
+    [],
+  );
+
+  const keyExtractor = useCallback(item => item.id.toString(), []);
 
   //@ts-ignore
   const viewableItemsChanged = useRef(({viewableItems}) => {
@@ -30,7 +35,7 @@ export const Onboarding: React.FC = () => {
 
   const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current;
 
-  const scrollTo = async () => {
+  const scrollTo = () => {
     if (currentIndex < slides.length - 1) {
       slidesRef.current.scrollToIndex({index: currentIndex + 1});
     } else {
@@ -61,18 +66,17 @@ export const Onboarding: React.FC = () => {
         </View>
         <View style={{flex: 3}}>
           <FlatList
+            initialNumToRender={1}
+            maxToRenderPerBatch={1}
+            removeClippedSubviews
             data={slides}
-            renderItem={({item}) => <OnboardingItem item={item} />}
+            renderItem={renderItem}
             horizontal
             showsHorizontalScrollIndicator={false}
             pagingEnabled
             bounces={false}
             bouncesZoom={false}
-            keyExtractor={item => item.id}
-            onScroll={Animated.event(
-              [{nativeEvent: {contentOffset: {x: scrollX}}}],
-              {useNativeDriver: false},
-            )}
+            keyExtractor={keyExtractor}
             scrollEventThrottle={32}
             onViewableItemsChanged={viewableItemsChanged}
             viewabilityConfig={viewConfig}

@@ -1,5 +1,5 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, StatusBar, View} from 'react-native';
 import {BuyingInfo, CredentialsItem, OrderInfo, Wrapper} from '@components';
 import {Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
@@ -7,18 +7,26 @@ import {colors, Screens} from '@constants';
 import {Screen, TextButton} from '@ui';
 
 import {styles} from './styles';
-import {cmCredentials} from '@utilities';
+import {cmCredentials, getPaymentName} from '@utilities';
 
 export const CompleteSellBuy: React.FC = () => {
   const navigation: any = useNavigation();
 
   const route: any = useRoute();
 
-  const {amountOz, paymentMethod, amount, data, type} = route.params;
+  const {amountOz, paymentMethod, amount, data, order, type, account} =
+    route.params;
   const {name, spot, id} = data;
   const {operationType} = route.params;
 
-  console.log(id);
+  useEffect(() => {
+    navigation.setOptions({
+      title:
+        operationType === 'Sell'
+          ? 'Selling Confirmation'
+          : 'Buying Confirmation',
+    });
+  }, []);
 
   return (
     <Screen>
@@ -31,11 +39,9 @@ export const CompleteSellBuy: React.FC = () => {
         <TitleMedium style={styles.title}>
           You {operationType === 'Buy' ? 'Bought' : 'Sold'}{' '}
           {type === 'Success' ? (
-            <Image
-              source={require('../../../assets/images/settings/complete.png')}
-            />
+            <Image source={require('@assets/images/settings/complete.png')} />
           ) : (
-            <Image source={require('../../../assets/images/buy/error.png')} />
+            <Image source={require('@assets/images/buy/error.png')} />
           )}
         </TitleMedium>
 
@@ -44,17 +50,14 @@ export const CompleteSellBuy: React.FC = () => {
           metal={name}
           amount={amount}
           spot={spot}
+          account={account}
           amountOz={amountOz}
-          paymentMethod={paymentMethod}
+          paymentMethod={getPaymentName(paymentMethod)}
         />
         <Wrapper style={{marginTop: 0, backgroundColor: colors.primary}} />
 
         <OrderInfo
-          order={
-            type === 'Success'
-              ? Math.round(Math.random() * (10000 - 1) + 1)
-              : '-'
-          }
+          order={order}
           status={
             type !== 'Success'
               ? 'Error'

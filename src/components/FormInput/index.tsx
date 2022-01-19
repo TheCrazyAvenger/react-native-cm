@@ -1,8 +1,8 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {Input} from 'react-native-elements';
 import {FormInputProps} from '..';
-import {Error} from '@Typography';
+import {Error, SubtitleMedium} from '@Typography';
 import {colors} from '@constants';
 import {styles} from './styles';
 
@@ -12,6 +12,9 @@ export const FormInput: React.FC<FormInputProps> = ({
   onChangeText,
   onFocus,
   onBlur,
+  onChange,
+  onInput,
+  onContentSizeChange,
   value,
   errorMessage,
   isTouched,
@@ -20,11 +23,16 @@ export const FormInput: React.FC<FormInputProps> = ({
   secureTextEntry,
   rightIcon,
   leftIcon,
-  onInput,
+  height,
   disabled,
+  leftPrefix,
+  inputStyle,
   keyboardType = 'default',
   errorStyle,
+  maxLength,
   showError = true,
+  multiline = false,
+  autoFocus = false,
 }) => {
   const inputContainerStyle = [
     styles.inputContainerStyle,
@@ -38,24 +46,44 @@ export const FormInput: React.FC<FormInputProps> = ({
 
   return (
     <View>
-      <Input
-        rightIcon={rightIcon}
-        onTouchStart={onFocus}
-        value={value}
-        label={label}
-        keyboardType={keyboardType}
-        onBlur={onBlur}
-        onTextInput={onInput}
-        secureTextEntry={secureTextEntry}
-        placeholder={plaseholder}
-        leftIcon={leftIcon}
-        onChangeText={onChangeText}
-        placeholderTextColor={colors.placeholder}
-        inputStyle={styles.inputStyle}
-        labelStyle={[...labelStyle, style]}
-        inputContainerStyle={[...inputContainerStyle]}
-        disabled={disabled ? true : false}
-      />
+      <View>
+        <Input
+          rightIcon={rightIcon}
+          onTouchStart={onFocus}
+          value={value}
+          label={label}
+          maxLength={maxLength}
+          keyboardType={keyboardType}
+          autoFocus={autoFocus}
+          onBlur={onBlur}
+          onChange={onChange}
+          onTextInput={onInput}
+          secureTextEntry={secureTextEntry}
+          placeholder={plaseholder}
+          leftIcon={leftIcon}
+          onChangeText={onChangeText}
+          onContentSizeChange={onContentSizeChange}
+          placeholderTextColor={colors.placeholder}
+          inputStyle={{...styles.inputStyle, ...inputStyle}}
+          labelStyle={[...labelStyle, style]}
+          multiline={multiline}
+          inputContainerStyle={[
+            ...inputContainerStyle,
+            {paddingLeft: leftPrefix ? 15 : 10, height: height ? height : 45},
+          ]}
+          disabled={disabled ? true : false}
+        />
+        {leftPrefix && (
+          <SubtitleMedium
+            style={{
+              ...styles.leftPrefix,
+              color: value === '' ? colors.placeholder : colors.black,
+              top: label ? 36 : 11,
+            }}>
+            {leftPrefix}
+          </SubtitleMedium>
+        )}
+      </View>
       {errorMessage && isTouched && showError && (
         <Error style={{...styles.error, ...errorStyle}}>{errorMessage}</Error>
       )}

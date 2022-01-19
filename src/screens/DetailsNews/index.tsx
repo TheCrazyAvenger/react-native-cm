@@ -1,6 +1,11 @@
 import {useRoute} from '@react-navigation/core';
-import React, {useEffect} from 'react';
-import {TouchableOpacity, useWindowDimensions, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  StatusBar,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import {LoadingItem, NewsCard} from '@components';
 import {Screen} from '@ui';
 import {styles} from './styles';
@@ -10,9 +15,9 @@ import {tagStyles} from './tagStyles';
 import {SubtitleMedium, Title} from '@Typography';
 import {getTime, removeTags} from '@utilities';
 import {useGetNewsByIdMutation, useGetNewsQuery} from '@api';
-import {useAppDispatch, useAppSelector} from '@hooks';
-import {setLoading} from '@store/slices/authSlice';
+import {useAppDispatch} from '@hooks';
 import Share from 'react-native-share';
+import {colors} from '@constants';
 
 export const DetailsNews: React.FC = () => {
   const route: any = useRoute();
@@ -20,14 +25,14 @@ export const DetailsNews: React.FC = () => {
   //@ts-ignore
   const {data: newsData = [], isLoading} = useGetNewsQuery();
 
-  const {id} = route.params;
+  const {url} = route.params;
 
-  const loading = useAppSelector(state => state.auth.loading);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useAppDispatch();
   const {width} = useWindowDimensions();
 
-  const [getNewsById, {data = []}] = useGetNewsByIdMutation();
+  const [getNewsById, {data = [], error}] = useGetNewsByIdMutation();
 
   useEffect(() => {
     getNews();
@@ -35,9 +40,9 @@ export const DetailsNews: React.FC = () => {
 
   const getNews = async () => {
     try {
-      dispatch(setLoading(true));
-      await getNewsById(id);
-      dispatch(setLoading(false));
+      setLoading(true);
+      await getNewsById(url);
+      setLoading(false);
     } catch (e) {
       console.log(e);
     }
@@ -50,14 +55,13 @@ export const DetailsNews: React.FC = () => {
   const {hours, minutes, month, day, year} = getTime(data.created_at);
 
   const onShare = async (social: any) => {
-    const shareOptions = {
+    const shareOptions: any = {
       title: data.title,
       message: removeTags(data.body),
       url: data.uri,
       social: social,
     };
 
-    //@ts-ignore
     Share.shareSingle(shareOptions)
       .then(res => {
         console.log(res);
@@ -69,39 +73,59 @@ export const DetailsNews: React.FC = () => {
 
   return (
     <Screen>
+      <StatusBar
+        barStyle="dark-content"
+        translucent
+        backgroundColor={colors.white}
+      />
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Title>{data.title}</Title>
-          <SubtitleMedium style={styles.date}>
-            {`${hours}:${minutes}, ${month}/${day}/${year}`}
-          </SubtitleMedium>
-        </View>
+        {data.body && (
+          <View style={styles.header}>
+            <Title>{data.title}</Title>
+            <SubtitleMedium style={styles.date}>
+              {`${hours}:${minutes}, ${month}/${day}/${year}`}
+            </SubtitleMedium>
+          </View>
+        )}
 
         <RenderHtml
           ignoredDomTags={['button']}
           contentWidth={width - 100}
-          source={{html: data.body ? data.body : `<p></P>`}}
+          source={{
+            html: data.body
+              ? data.body
+              : error
+              ? //@ts-ignore
+                error.data
+              : '<p>Something went wrong</p>',
+          }}
           tagsStyles={tagStyles}
         />
 
-        <View style={styles.socials}>
-          <TouchableOpacity
-            onPress={() => onShare(Share.Social.FACEBOOK)}
-            style={styles.social}>
-            <Facebook />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => onShare(Share.Social.TWITTER)}
-            style={styles.social}>
-            <Twitter />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => onShare(Share.Social.EMAIL)}
-            style={styles.social}>
-            <LinkedIn />
-          </TouchableOpacity>
-        </View>
-        <NewsCard data={newsData} isLoading={isLoading} />
+        {data.body && (
+          <View style={styles.socials}>
+            <TouchableOpacity
+              onPress={() => onShare(Share.Social.FACEBOOK)}
+              style={styles.social}>
+              <Facebook />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => onShare(Share.Social.TWITTER)}
+              style={styles.social}>
+              <Twitter />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => onShare(Share.Social.LINKEDIN)}
+              style={styles.social}>
+              <LinkedIn />
+            </TouchableOpacity>
+          </View>
+        )}
+        <NewsCard
+          style={{marginTop: data.body ? 0 : 40}}
+          data={newsData}
+          isLoading={isLoading}
+        />
       </View>
     </Screen>
   );

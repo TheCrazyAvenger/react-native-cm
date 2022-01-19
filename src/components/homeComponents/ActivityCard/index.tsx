@@ -1,20 +1,27 @@
 import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
-import {ViewMoreButton, Wrapper} from '../..';
-import {colors} from '@constants';
+import {View} from 'react-native';
+import {EmptyDataScreen, ViewMoreButton, Wrapper} from '../..';
+import {colors, Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
-import {getColor, getOperationImage} from '@utilities';
+import {getColor, getOperationImage, numberWithCommas} from '@utilities';
 import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {styles} from './styles';
 import {getOperations} from '@store/actions/operations';
 import {LoadingItem} from '@components';
+import {useNavigation} from '@react-navigation/core';
 
 export const ActivityCard: React.FC = () => {
   const operations = useAppSelector(state => state.operations.operations);
 
+  const navigation: any = useNavigation();
+
   const [loading, setLoading] = useState(false);
 
   const dispatch = useAppDispatch();
+
+  const handleTransactions = () => {
+    navigation.navigate(Screens.transactions);
+  };
 
   const checkOperations = async () => {
     setLoading(true);
@@ -26,29 +33,30 @@ export const ActivityCard: React.FC = () => {
     checkOperations();
   }, []);
 
-  const isData = operations.length > 0 ? true : false;
-
   return (
     <View style={styles.container}>
       <TitleMedium style={{marginBottom: 20}}>Recent Activity</TitleMedium>
-      {loading ? (
-        <LoadingItem />
-      ) : isData ? (
+      {operations.length > 0 ? (
         operations
-          .slice(-5)
-          .reverse()
+          .filter((item: any) => item.type)
+          .sort(
+            (item: any, next: any) =>
+              new Date(`${item.date}, ${item.time}`) <
+              new Date(`${next.date}, ${next.time}`),
+          )
+          .slice(0, 5)
           .map((operation: any, i: number) => {
-            const {type, date, usd, image, oz, id}: any = operation;
+            const {title, date, usd, total, image, oz, id}: any = operation;
             const Image = getOperationImage(image);
 
             return (
-              <React.Fragment key={id}>
-                <TouchableOpacity activeOpacity={0.7} style={styles.cardItem}>
+              <View key={id}>
+                <View style={styles.cardContainer}>
                   <View style={styles.cardItem}>
                     <Image />
                     <View>
-                      <SubtitleMedium style={styles.type}>
-                        {type}
+                      <SubtitleMedium numberOfLines={1} style={styles.type}>
+                        {title}
                       </SubtitleMedium>
                       <Description>{date}</Description>
                     </View>
@@ -56,22 +64,29 @@ export const ActivityCard: React.FC = () => {
                   <View style={{alignItems: 'flex-end'}}>
                     <SubtitleMedium
                       style={{...styles.type, color: getColor(usd)}}>
-                      {usd}
+                      {`${
+                        usd.split(' ')[0] === '-' ? '-' : '+'
+                      } $${numberWithCommas(Number(total).toFixed(2))}`}
                     </SubtitleMedium>
                     <Description>{oz ? `${oz} oz` : null}</Description>
                   </View>
-                </TouchableOpacity>
-                {i === 4 ? null : (
+                </View>
+                {operations.length < 5 &&
+                operations.length === i + 1 ? null : i === 4 ? null : (
                   <Wrapper style={{backgroundColor: colors.primary}} />
                 )}
-              </React.Fragment>
+              </View>
             );
           })
+      ) : loading ? (
+        <View style={{height: 251}}>
+          <LoadingItem />
+        </View>
       ) : (
-        <SubtitleMedium>Empty</SubtitleMedium>
+        <EmptyDataScreen style={{marginTop: 50}} title="No recent activity" />
       )}
-      {!loading && isData ? (
-        <ViewMoreButton onPress={() => console.log(1)} />
+      {!loading && operations.length > 0 ? (
+        <ViewMoreButton onPress={handleTransactions} />
       ) : null}
     </View>
   );

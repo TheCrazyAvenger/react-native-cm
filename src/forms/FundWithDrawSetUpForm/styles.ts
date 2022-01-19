@@ -1,13 +1,12 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   price: {
-    marginTop: 18,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 30,
+    marginVertical: 20,
     marginHorizontal: 10,
   },
   eCheckPicker: {
@@ -16,6 +15,10 @@ export const styles = StyleSheet.create({
   },
   pickerPlaceholder: {
     fontSize: 14,
+  },
+  errorLink: {
+    fontFamily: 'OpenSans-SemiBold',
+    color: colors.primary,
   },
   title: {
     color: colors.gray,

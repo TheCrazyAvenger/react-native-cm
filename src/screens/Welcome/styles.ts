@@ -7,11 +7,4 @@ export const styles = StyleSheet.create({
   authButtons: {
     marginTop: 56,
   },
-  social: {
-    alignItems: 'center',
-    marginTop: 90,
-  },
-  socialButtons: {
-    marginTop: 16,
-  },
 });

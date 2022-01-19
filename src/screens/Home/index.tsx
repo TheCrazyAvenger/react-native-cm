@@ -1,19 +1,18 @@
 import {useNavigation} from '@react-navigation/core';
-import React, {useState} from 'react';
+import React from 'react';
 import {StatusBar, View} from 'react-native';
 import {
   ActionsCard,
   ActivityCard,
   Header,
-  LoadingItem,
   MetalsCard,
   NewsCard,
 } from '@components';
-import {Screens} from '@constants';
+import {colors, Screens} from '@constants';
 import {useAppSelector} from '@hooks';
 import {Screen} from '@ui';
-import {metals} from '@utilities';
 import {useGetDigitalProductsQuery, useGetNewsQuery} from '@api';
+import {styles} from './styles';
 
 export const Home: React.FC = () => {
   const navigation: any = useNavigation();
@@ -24,23 +23,47 @@ export const Home: React.FC = () => {
   // @ts-ignore
   const {data = [], isLoading} = useGetNewsQuery();
 
+  const {data: metalsData = [], isLoading: isMetalsLoading, error} =
+    // @ts-ignore
+    useGetDigitalProductsQuery();
+
   return (
-    <Screen style={{paddingHorizontal: 0}}>
+    <Screen style={styles.container}>
       <StatusBar
         barStyle="light-content"
         translucent
-        backgroundColor={'transparent'}
+        backgroundColor={colors.primary}
       />
       <Header />
-      <Screen type="View" style={{paddingTop: 20, paddingBottom: 4}}>
+      <Screen type="View" style={styles.bodyContainer}>
         <View>
-          <MetalsCard metalId={0} />
-          <MetalsCard metalId={1} />
-          <MetalsCard metalId={2} />
-          <MetalsCard metalId={3} />
+          <MetalsCard
+            data={metalsData}
+            isLoading={isMetalsLoading}
+            error={error}
+            metalId={0}
+          />
+          <MetalsCard
+            data={metalsData}
+            isLoading={isMetalsLoading}
+            error={error}
+            metalId={1}
+          />
+          <MetalsCard
+            data={metalsData}
+            isLoading={isMetalsLoading}
+            error={error}
+            metalId={2}
+          />
+          <MetalsCard
+            data={metalsData}
+            isLoading={isMetalsLoading}
+            error={error}
+            metalId={3}
+          />
         </View>
 
-        {operations.length === 0 ? (
+        {operations.filter((item: any) => item.type === 'Buy').length === 0 ? (
           <ActionsCard
             title="Start Trading"
             description="Build your portfolio with CyberMetals."
@@ -62,6 +85,7 @@ export const Home: React.FC = () => {
         ) : null}
         <ActivityCard />
         <NewsCard data={data} isLoading={isLoading} />
+        <View style={{marginBottom: 100}} />
       </Screen>
     </Screen>
   );

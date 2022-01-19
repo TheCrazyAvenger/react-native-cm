@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {KeyboardAvoidingView, Platform, StatusBar, View} from 'react-native';
 import {SocialBlock} from '@components';
 import {Title} from '@Typography';
@@ -6,30 +6,41 @@ import {LogInForm} from '../../../forms';
 import {Screen} from '@ui';
 import {styles} from './styles';
 import auth from '@react-native-firebase/auth';
-import {useAppDispatch, useAppSelector} from '@hooks';
-import {getData} from '@store/actions';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import {setLoading} from '@store/slices/authSlice';
+import {Error} from '@Typography';
+import {useNavigation} from '@react-navigation/core';
+import {Screens} from '@constants';
 
 export const LogIn: React.FC = () => {
-  const loading = useAppSelector(state => state.auth.loading);
-  const dispatch = useAppDispatch();
+  const [error, setError] = useState<null | string>(null);
+  const [loading, setLoading] = useState(false);
+  const navigation: any = useNavigation();
 
   const authHandler = async (values: any) => {
     try {
-      dispatch(setLoading(true));
+      setError(null);
+      setLoading(true);
+
       const {email: userEmail, password} = values;
       await auth()
         .signInWithEmailAndPassword(userEmail, password)
         .then(async data => {
-          await AsyncStorage.setItem('token', JSON.stringify(data.user.uid));
-          await dispatch(getData());
-          dispatch(setLoading(false));
+          setLoading(false);
+
+          navigation.navigate(Screens.mobileVerCode, {
+            type: 'SignIn',
+            token: data.user.uid.toString(),
+          });
         })
         .catch(error => {
-          console.error(error);
-          dispatch(setLoading(false));
+          if (error.code === 'auth/user-not-found') {
+            setLoading(false);
+            return setError(
+              'The email address or password does not match any account. Please try again.',
+            );
+          }
+          setError(error.message);
+          console.log(error);
+          setLoading(false);
         });
     } catch (e) {
       console.log(e);
@@ -45,12 +56,19 @@ export const LogIn: React.FC = () => {
         translucent
         backgroundColor={'transparent'}
       />
+
       <Screen>
         <View style={styles.header}>
           <Title style={{marginBottom: 15}}>Log in</Title>
         </View>
         <View style={{justifyContent: 'space-between', flex: 1}}>
-          <LogInForm onSubmit={authHandler} />
+          {error && (
+            <Error style={{marginHorizontal: 10, marginBottom: 16}}>
+              {error}
+            </Error>
+          )}
+
+          <LogInForm loading={loading} onSubmit={authHandler} />
           <SocialBlock
             style={{marginHorizontal: 10, marginTop: 32, marginBottom: 25}}
           />

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,9 +9,6 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(47, 128, 237, 0.3)',
     borderRadius: 5,
-  },
-  stepsTitle: {
-    fontFamily: 'OpenSans-Bold',
   },
   title: {
     fontFamily: 'OpenSans-Regular',

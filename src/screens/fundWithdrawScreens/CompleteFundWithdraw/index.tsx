@@ -1,16 +1,16 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, StatusBar, View} from 'react-native';
 import {
   CredentialsItem,
   FundWithdrawInfo,
   OrderInfo,
+  WithdrawTaxItem,
   Wrapper,
 } from '@components';
 import {Subtitle, SubtitleMedium, TitleMedium} from '@Typography';
-import {colors, Screens} from '@constants';
+import {colors, FUND_TAX, Screens, WITHDRAW_TAX} from '@constants';
 import {Screen, TextButton} from '@ui';
-
 import {styles} from './styles';
 import {cmCredentials, getPaymentName, numberWithCommas} from '@utilities';
 
@@ -19,9 +19,15 @@ export const CompleteFundWithdraw: React.FC = () => {
 
   const route: any = useRoute();
 
-  const {paymentMethod, amount, type, operationType} = route.params;
+  const {paymentMethod, amount, type, operationType, order, account} =
+    route.params;
 
-  const totalAmount = amount - amount * 0.1;
+  useEffect(() => {
+    navigation.setOptions({
+      title:
+        type === 'Fund' ? 'Funding Confirmation' : 'Withdrawing Confirmation',
+    });
+  }, []);
 
   return (
     <Screen>
@@ -34,59 +40,42 @@ export const CompleteFundWithdraw: React.FC = () => {
         <TitleMedium style={styles.title}>
           {operationType === 'Fund' ? 'You Funded' : 'Withdrawal Requested'}{' '}
           {type === 'Success' ? (
-            <Image
-              source={require('../../../assets/images/settings/complete.png')}
-            />
+            <Image source={require('@assets/images/settings/complete.png')} />
           ) : (
-            <Image source={require('../../../assets/images/buy/error.png')} />
+            <Image source={require('@assets/images/buy/error.png')} />
           )}
         </TitleMedium>
 
         <FundWithdrawInfo
           style={{marginHorizontal: 0}}
-          type={type}
+          type={operationType}
           amount={amount}
+          account={account}
           method={getPaymentName(paymentMethod)}
         />
 
         {operationType === 'Withdraw' && (
-          <View>
-            <View style={styles.subPrice}>
-              <SubtitleMedium style={styles.subPriceTitle}>
-                Sub total
-              </SubtitleMedium>
-              <SubtitleMedium
-                style={styles.subPriceTitle}>{`$${numberWithCommas(
-                Number(amount).toFixed(2),
-              )}`}</SubtitleMedium>
-            </View>
-            <View style={styles.subPrice}>
-              <SubtitleMedium style={styles.subPriceTitle}>
-                Fee 10%
-              </SubtitleMedium>
-              <SubtitleMedium
-                style={styles.subPriceTitle}>{`$${numberWithCommas(
-                Number(amount * 0.1).toFixed(2),
-              )}`}</SubtitleMedium>
-            </View>
-          </View>
+          <WithdrawTaxItem
+            style={{paddingHorizontal: 0, marginTop: 0}}
+            amount={amount}
+          />
         )}
 
         <View style={styles.price}>
           <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
           <TitleMedium style={styles.priceTitle}>{`$${numberWithCommas(
-            Number(totalAmount).toFixed(2),
+            Number(
+              operationType === 'Fund'
+                ? amount - amount * FUND_TAX
+                : amount - amount * WITHDRAW_TAX,
+            ).toFixed(2),
           )}`}</TitleMedium>
         </View>
         <Wrapper style={{marginTop: 0, backgroundColor: colors.primary}} />
 
         <OrderInfo
           style={{marginHorizontal: 0}}
-          order={
-            type === 'Success'
-              ? Math.round(Math.random() * (10000 - 1) + 1)
-              : '-'
-          }
+          order={order}
           status={
             type !== 'Success'
               ? 'Error'

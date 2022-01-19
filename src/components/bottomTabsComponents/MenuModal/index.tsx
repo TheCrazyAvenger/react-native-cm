@@ -1,7 +1,6 @@
 import React from 'react';
-import {Modal, Image, TouchableOpacity, View} from 'react-native';
-import {MenuModalProps} from '..';
-import {MenuModalItem} from '../..';
+import {Modal, TouchableOpacity, View} from 'react-native';
+import {MenuModalItem, MenuModalProps} from '../..';
 import {Screens} from '@constants';
 import {styles} from './styles';
 import {
@@ -16,6 +15,14 @@ import {useNavigation} from '@react-navigation/core';
 
 export const MenuModal: React.FC<MenuModalProps> = ({visible, onPress}) => {
   const navigation: any = useNavigation();
+
+  const handleNavigation = (screen: string, type?: string) => {
+    navigation.navigate(screen, {
+      type,
+    });
+    onPress();
+  };
+
   return (
     <Modal transparent visible={visible} animationType="fade">
       <View style={styles.container}>
@@ -24,54 +31,33 @@ export const MenuModal: React.FC<MenuModalProps> = ({visible, onPress}) => {
             title="Buy"
             text="Buy gold, silver, platinum and palladium"
             Image={BuyMetal}
-            onPress={() => {
-              navigation.navigate(Screens.sellBuyStack, {
-                type: 'Buy',
-              });
-              onPress();
-            }}
+            onPress={() => handleNavigation(Screens.sellBuyStack, 'Buy')}
           />
           <MenuModalItem
             title="Sell"
             text="Sell your gold, silver, platinum or palladium"
             Image={SellMetal}
-            onPress={() => {
-              navigation.navigate(Screens.sellBuyStack, {
-                type: 'Sell',
-              });
-              onPress();
-            }}
+            onPress={() => handleNavigation(Screens.sellBuyStack, 'Sell')}
           />
           <MenuModalItem
             title="Fund"
             text="Deposit your funds"
             Image={Fund}
-            onPress={() => {
-              navigation.navigate(Screens.fundWithdrawStack, {
-                type: 'Fund',
-              });
-              onPress();
-            }}
+            onPress={() => handleNavigation(Screens.fundWithdrawStack, 'Fund')}
           />
           <MenuModalItem
             title="Withdraw"
             text="Widthdraw your funds"
             Image={Withdraw}
-            onPress={() => {
-              navigation.navigate(Screens.fundWithdrawStack, {
-                type: 'Withdraw',
-              });
-              onPress();
-            }}
+            onPress={() =>
+              handleNavigation(Screens.fundWithdrawStack, 'Withdraw')
+            }
           />
           <MenuModalItem
             title="Redeem"
             text="Redeem your holdings for physical metals"
             Image={Redeem}
-            onPress={() => {
-              navigation.navigate(Screens.reedemStack);
-              onPress();
-            }}
+            onPress={() => handleNavigation(Screens.reedemStack)}
           />
         </View>
         <TouchableOpacity

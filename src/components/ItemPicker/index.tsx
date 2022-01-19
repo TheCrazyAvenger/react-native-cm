@@ -14,10 +14,12 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
   labelStyle,
   errorStyle,
   errorMessage,
+  containerStyle,
   placeholderStyle,
   isTouched,
   disabled,
   items,
+  textStyle,
   showArrow = true,
   LeftIcon,
   maxHeight,
@@ -33,12 +35,12 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
   };
 
   return (
-    <View>
+    <View style={containerStyle}>
       {label && (
         <Description
           style={{
             ...labelStyle,
-            ...(errorMessage && isTouched ? styles.errorLabel : null),
+            color: errorMessage && isTouched ? colors.red : colors.gray,
             ...styles.label,
             marginBottom: 6,
             marginHorizontal: 10,
@@ -60,7 +62,7 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
         }}
         selectedTextStyle={{
           ...styles.selectedTextStyle,
-          ...placeholderStyle,
+          ...textStyle,
           color: disabled ? colors.placeholder : colors.black,
         }}
         data={items}
@@ -85,13 +87,9 @@ export const ItemPicker: React.FC<ItemPickerProps> = ({
         }
         renderRightIcon={() =>
           !showArrow ? null : isFocus ? (
-            <Image
-              source={require('../../assets/images/settings/upIcon.png')}
-            />
+            <Image source={require('@assets/images/settings/upIcon.png')} />
           ) : (
-            <Image
-              source={require('../../assets/images/settings/downIcon.png')}
-            />
+            <Image source={require('@assets/images/settings/downIcon.png')} />
           )
         }
         renderItem={renderItem}

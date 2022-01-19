@@ -3,39 +3,53 @@ import * as yup from 'yup';
 export const introduceSchema = yup.object().shape({
   firstName: yup
     .string()
-    .required('Please enter your First Name')
+    .required('Please enter your first name')
     .max(50, 'The field should be less than or equal to 50 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   lastName: yup
     .string()
-    .required('Please enter your Last Name')
+    .required('Please enter your last name')
     .max(50, 'The field should be less than or equal to 50 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   checkBox: yup.boolean().required().oneOf([true]),
 });
 
 export const emailSchema = yup.object().shape({
   email: yup
     .string()
-    .email()
-    .label('Email adress')
+    .email('Please check your email format')
     .required('Please enter your email')
-    .max(50, 'The field should be less than or equal to 50 symbols '),
+    .max(64, 'This field should be less than or equal to 64 symbols'),
 });
 
 export const passwordSchema = yup.object().shape({
   password: yup
     .string()
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
-      {message: 'All conditions must be met'},
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,32}$/,
+      {
+        message:
+          'The password must have at least eight characters with one uppercase letter, one lower case letter, one number (0-9), one symbol (e.g. !@#$%^&*) and no spaces',
+      },
     )
-    .required('Password is required')
+    .max(32, 'This field should be less than or equal to 32 symbols')
+    .required('Please enter your password')
     .notOneOf([yup.ref('currentPassword')], `Don't use your old password`),
   confirmPassword: yup
     .string()
-    .required('Confirm your password')
-    .oneOf([yup.ref('password')], 'Passwords does not match'),
+    .required(' Please confirm your password')
+    .oneOf(
+      [yup.ref('password')],
+      'The password and confirmation password do not match',
+    ),
 });
 
 export const mobileSchema = yup.object().shape({
@@ -52,27 +66,32 @@ export const mobileVerCodeSchema = yup.object().shape({
 export const logInSchema = yup.object().shape({
   email: yup
     .string()
-    .email()
-    .label('Email adress')
+    .email('Please check your email format')
     .required('Please enter your email')
-    .max(50, 'The field should be less than or equal to 50 symbols '),
-  password: yup.string().required('Password is required'),
+    .max(64, 'This field should be less than or equal to 64 symbols'),
+  password: yup.string().required('Please enter your password'),
 });
 
 export const forgotPassSchema = yup.object().shape({
   email: yup
     .string()
-    .email()
-    .label('Email adress')
+    .email('Please check your email format')
     .required('Please enter your email')
-    .max(50, 'The field should be less than or equal to 50 symbols '),
+    .max(64, 'This field should be less than or equal to 64 symbols'),
 });
 
 export const autoBuySchema = yup.object().shape({
   startDate: yup.string().required('Please enter Start Date'),
-  endDate: yup.string().label('End Date').required('Please enter End Date'),
+  endDate: yup
+    .string()
+    .notOneOf([yup.ref('startDate')], 'Start Date must come before End Date')
+    .label('End Date')
+    .required('Please enter End Date'),
   frequency: yup.string().required('Please enter Frequency'),
-  amount: yup.number().required('Please enter amount'),
+  amount: yup
+    .number()
+    .required('Please enter amount')
+    .min(1, 'Minimum purchase amount is .001 ounces.'),
 });
 
 export const priceAlertsSchema = yup.object().shape({
@@ -87,14 +106,22 @@ export const priceAlertsSchema = yup.object().shape({
 export const profileSchema = yup.object().shape({
   firstName: yup
     .string()
-    .required('Please enter your First Name')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter your first name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   lastName: yup
     .string()
-    .required('Please enter your Last Name')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter your last name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   legalStreetAdress: yup
     .string()
     .required('Please enter your Legal Adress')
@@ -130,39 +157,27 @@ export const profileSchema = yup.object().shape({
 export const verificationSchema = yup.object().shape({
   firstName: yup
     .string()
-    .required('Please enter your First Name')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter your first name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   lastName: yup
     .string()
-    .required('Please enter your Last Name')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter your last name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   dateOfBirth: yup.string().required('Please enter your Date of Birth'),
   mobile: yup
     .string()
     .required('Please enter your phone number')
     .matches(/^\+[1-9]{1}[0-9]{3,14}$/, {message: 'Enter correct number'}),
-  address1: yup
-    .string()
-    .required('Please enter your Address 1')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
-  address2: yup
-    .string()
-    .required('Please enter your Address 2')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
-  city: yup
-    .string()
-    .required('Please enter your City')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
-  state: yup.string().required('Please enter your State'),
-  postalCode: yup
-    .number()
-    .min(5, 'At least 5 numbers')
-    .required('Please enter Postal Code'),
 });
 
 export const documentsVerificationSchema = yup.object().shape({
@@ -177,52 +192,71 @@ export const paymentMethodSchema = yup.object().shape({
 export const cardSchema = yup.object().shape({
   name: yup
     .string()
-    .required('Please enter your Name on Card')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter the name on your card')
+    .max(100, '“This field should be less than or equal to 100 symbols”')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   cardNumber: yup
     .string()
-    .required('Please enter your Card Number')
+    .required('Please enter your card number')
     .label('Card Number')
-    .max(19)
-    .matches(/[0-9] /, 'Please enter correct number'),
+    .matches(/[0-9] /, 'Please enter a valid card number'),
   firstName: yup
     .string()
-    .required('Please enter your First Name')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter your first name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
   lastName: yup
     .string()
-    .required('Please enter your Last Name')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
-    .min(2, 'This field should contain at least 2 symbols'),
-  expirationDate: yup.string().required('Please enter your Date'),
+    .required('Please enter your last name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
+  expirationDate: yup
+    .string()
+    .required('Please enter your Date')
+    .matches(
+      /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/,
+      'Please enter a valid expiration date',
+    ),
   csc: yup
     .string()
-    .label('CSC')
     .required('Please enter your CSC')
-    .matches(/[0-9]{3}/, 'Please enter correct CSC'),
+    .matches(/^[0-9]+$/, 'Please enter a valid CSC')
+    .min(3, 'Please enter a valid CSC')
+    .max(4, 'The field should be less than or equal to 4 symbols '),
+
   address: yup
     .string()
-    .required('Please enter your Address')
+    .required('Please enter your street address')
     .min(2, 'This field should contain at least 2 symbols'),
   city: yup
     .string()
-    .required('Please enter your City')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
+    .required('Please enter your city')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
     .min(2, 'This field should contain at least 2 symbols'),
-  state: yup.string().required('Please enter your State'),
+  state: yup.string().required('Please enter your state'),
   postalCode: yup
     .string()
-    .matches(/[0-9]{5}/, 'Please enter correct code')
-    .required('Please enter Code'),
+    .matches(/[0-9]{5}/, 'Please enter a valid postal code')
+    .required('Please enter your postal code'),
   phone: yup
     .string()
     .required('Please enter your phone number')
     .matches(
       /^[\\(]{0,1}([0-9]){3}[\\)]{0,1}[ ]?([^0-1]){1}([0-9]){2}[ ]?[-]?[ ]?([0-9]){4}[ ]*((x){0,1}([0-9]){1,5}){0,1}$/,
       {
-        message: 'Enter correct number',
+        message: 'Please check your mobile number format',
       },
     ),
 });
@@ -230,39 +264,39 @@ export const cardSchema = yup.object().shape({
 export const bankSchema = yup.object().shape({
   name: yup
     .string()
-    .required('Please enter your Name on Card')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
+    .required('Please enter your bank name')
+    .max(100, 'The field should be less than or equal to 100 symbols ')
     .min(2, 'This field should contain at least 2 symbols'),
-  cardNumber: yup
+  routingNumber: yup
     .string()
-    .required('Please enter your Card Number')
-    .label('Number')
-    .matches(/[0-9]{4}/, 'Please enter correct number'),
+    .required('Please enter your routing number')
+    .matches(/^[0-9]+$/, 'Please enter a valid routing number')
+    .min(2, 'This field should contain at least 2 symbols'),
   accountNumber: yup
     .string()
-    .required('Please enter your Card Number')
-    .max(8)
-    .label('Number')
-    .matches(/[0-9]{8}/, 'Please enter correct number'),
-  accountType: yup.string().required('Please enter your State'),
+    .required('Please enter your account number')
+    .matches(/^[0-9]+$/, 'Please enter a valid account number')
+    .min(2, 'This field should contain at least 2 symbols'),
+  accountType: yup.string().required('Please enter your account type'),
   accountName: yup
     .string()
-    .required('Please enter Exact Account Name')
-    .min(2, 'This field should contain at least 2 symbols'),
+    .required('Please enter your exact account name')
+    .min(2, 'This field should contain at least 2 symbols')
+    .max(100, 'The field should be less than or equal to 100 symbols '),
   address: yup
     .string()
-    .required('Please enter your Address')
+    .required('PPlease enter your street address')
     .min(2, 'This field should contain at least 2 symbols'),
   city: yup
     .string()
-    .required('Please enter your City')
-    .max(16, 'The field should be less than or equal to 16 symbols ')
+    .required('Please enter your city')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
     .min(2, 'This field should contain at least 2 symbols'),
-  state: yup.string().required('Please enter your State'),
+  state: yup.string().required('Please enter your state'),
   postalCode: yup
     .string()
-    .matches(/[0-9]{5}/, 'Please enter correct code')
-    .required('Please enter Code'),
+    .matches(/[0-9]{5}/, 'Please enter a valid postal code')
+    .required('Please enter your postal code'),
 });
 
 export const buySchema = yup.object().shape({
@@ -296,8 +330,67 @@ export const reviewBuySchema = yup.object().shape({
 export const fundWithdrawSchema = yup.object().shape({
   amount: yup
     .number()
-    .required('Please enter Amount.')
-    .min(100, 'Minimum amount is $100.00')
-    .max(500000, 'Maximum amount is $500,000.00'),
+    .required('Please enter amount.')
+    .min(
+      100,
+      'Bank Wires have a minimum amount of $100.00 and a maximum amount of $500,000.00, please adjust your funding amount.',
+    )
+    .max(
+      500000,
+      'Bank Wires have a minimum amount of $100.00 and a maximum amount of $500,000.00, please adjust your funding amount.',
+    ),
   paymentMethod: yup.string().required('Please enter Payment Method'),
+});
+
+export const contactUsSchema = yup.object().shape({
+  firstName: yup
+    .string()
+    .required('Please enter your first name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
+  lastName: yup
+    .string()
+    .required('Please enter your last name')
+    .max(50, 'The field should be less than or equal to 50 symbols ')
+    .min(2, 'This field should contain at least 2 symbols')
+    .matches(
+      /^[а-яA-яa-zA-Z-\s]*$/,
+      'Please enter only letters of the alphabet, hyphen (-) and spaces',
+    ),
+  email: yup
+    .string()
+    .email('Please check your email format')
+    .required('Please enter your email')
+    .max(64, 'This field should be less than or equal to 64 symbols'),
+  mobile: yup
+    .string()
+    .required('Please enter your phone number')
+    .matches(/^\+[1-9]{1}[0-9]{3,14}$/, {message: 'Enter correct number'}),
+  message: yup
+    .string()
+    .required('Please enter your message')
+    .max(250, 'The field should be less than or equal to 10 symbols ')
+    .min(10, 'This field should contain at least 10 symbols'),
+});
+
+export const billingSchema = yup.object().shape({
+  streetAddress: yup
+    .string()
+    .required('Please enter your Legal Adress')
+    .max(30, 'The field should be less than or equal to 30 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  city: yup
+    .string()
+    .required('Please enter your Legal City')
+    .max(30, 'The field should be less than or equal to 30 symbols ')
+    .min(2, 'This field should contain at least 2 symbols'),
+  state: yup.string().required('Please enter your Legal State'),
+  postalCode: yup
+    .number()
+    .min(5, 'At least 5 numbers')
+    .required('Please enter Postal Code'),
 });

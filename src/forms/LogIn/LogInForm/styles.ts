@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     marginBottom: 25,
   },
   forgotPass: {
-    fontFamily: 'OpenSans-Semibold',
+    fontFamily: 'OpenSans-SemiBold',
     color: colors.primary,
     fontWeight: '600',
     paddingHorizontal: 10,

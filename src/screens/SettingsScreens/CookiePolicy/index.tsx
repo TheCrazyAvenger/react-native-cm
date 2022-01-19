@@ -1,4 +1,3 @@
-import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Linking, StatusBar, TouchableOpacity, View} from 'react-native';
 import {SubtitleMedium, TitleMedium} from '@Typography';
@@ -7,8 +6,6 @@ import {cookieLinks} from '@utilities';
 import {styles} from './styles';
 
 export const CookiePolicy: React.FC = () => {
-  const navigation: any = useNavigation();
-
   const openLink = (link: string) => {
     Linking.openURL(link);
   };

@@ -32,6 +32,9 @@ export const reedemSlice = createSlice({
         return item;
       });
     },
+    cleanCart: state => {
+      state.cart = [];
+    },
   },
   extraReducers: builder => {
     builder.addCase(
@@ -42,6 +45,6 @@ export const reedemSlice = createSlice({
     );
   },
 });
-export const {addCart, deleteCart, updateCart} = reedemSlice.actions;
+export const {addCart, deleteCart, updateCart, cleanCart} = reedemSlice.actions;
 
 export default reedemSlice.reducer;

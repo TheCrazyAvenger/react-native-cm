@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {colors} from '../../../constants';
+import {colors} from '@constants';
 
 export const styles = StyleSheet.create({
   info: {
@@ -27,5 +27,8 @@ export const styles = StyleSheet.create({
   cartName: {
     fontFamily: 'OpenSans-SemiBold',
     width: '75%',
+  },
+  account: {
+    fontFamily: 'OpenSans-SemiBold',
   },
 });

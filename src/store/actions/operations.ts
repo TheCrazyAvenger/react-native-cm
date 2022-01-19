@@ -18,8 +18,6 @@ export const getOperations = createAsyncThunk(
 
           return [...Object.values(data)];
         });
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   },
 );

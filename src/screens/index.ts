@@ -14,11 +14,11 @@ export * from './SellBuyScreens/SellBuySetUp';
 export * from './SellBuyScreens/ReviewSellBuy';
 export * from './SellBuyScreens/CompleteSellBuy';
 export * from './SellBuyScreens/ChooseSell';
+export * from './SellBuyScreens/Billing';
 
 export * from './fundWithdrawScreens/ChooseFund';
 export * from './fundWithdrawScreens/ChooseWithdraw';
 export * from './fundWithdrawScreens/FundWithDrawSetUp';
-export * from './fundWithdrawScreens/AddBankAccount';
 export * from './fundWithdrawScreens/ReviewFundWithdraw';
 export * from './fundWithdrawScreens/CompleteFundWithdraw';
 
@@ -26,12 +26,14 @@ export * from './SettingsScreens/Settings';
 export * from './SettingsScreens/Refer';
 export * from './SettingsScreens/Notifications';
 export * from './SettingsScreens/Profile';
-export * from './SettingsScreens/ChangePassword';
 export * from './SettingsScreens/CookiePolicy';
 export * from './SettingsScreens/Transactions';
 export * from './SettingsScreens/StorageFees';
+export * from './SettingsScreens/Passcode';
+export * from './SettingsScreens/ContactUs';
 
 export * from './SettingsScreens/VerificationScreens/Verification';
+export * from './SettingsScreens/VerificationScreens/VerificationInfo';
 export * from './SettingsScreens/VerificationScreens/DocumentsVerification';
 export * from './SettingsScreens/VerificationScreens/VerificationComplete';
 
