@@ -16,6 +16,7 @@ import {Cart as CartImage} from '@assets/images/reedem';
 import {useNavigation} from '@react-navigation/core';
 import {useAppSelector} from '@hooks';
 import {Illustration} from '@Typography';
+import {ReedemTabs} from '@navigation/ReedemTabs';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,7 +33,7 @@ export const ReedemStack: React.FC = () => {
         headerShadowVisible: false,
       }}>
       <Stack.Screen
-        name={Screens.catalog}
+        name={Screens.reedemTabs}
         options={{
           title: 'Reedem',
           headerRight: () => {
@@ -52,7 +53,7 @@ export const ReedemStack: React.FC = () => {
             );
           },
         }}
-        component={Catalog}
+        component={ReedemTabs}
       />
       <Stack.Screen
         name={Screens.cart}

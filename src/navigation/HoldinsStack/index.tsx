@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState} from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {colors, Screens} from '@constants';
 import {
@@ -7,34 +7,29 @@ import {
   HoldingsPlatinum,
   HoldingsSilver,
 } from '@screens';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import {metals} from '@utilities';
 import {styles} from './styles';
+import {HoldingsHeader} from '@navigation/HoldingsHeader';
 
 const Tab = createMaterialTopTabNavigator();
 
 export const HoldinsStack: React.FC = () => {
-  const navigation: any = useNavigation();
   const route: any = useRoute();
+  const [index, setIndex] = useState(0);
 
   const {id} = route.params;
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerStyle: {
-        backgroundColor: metals[id - 1].color,
-      },
-    });
-  }, []);
-
   return (
     <Tab.Navigator
+      tabBar={(props: any) => (
+        <HoldingsHeader index={index} setIndex={setIndex} props={props} />
+      )}
       screenOptions={{
         tabBarActiveTintColor: colors.white,
         tabBarLabelStyle: styles.tabBarLabelStyle,
-        tabBarStyle: {
-          backgroundColor: metals[id - 1].color,
-        },
+        tabBarContentContainerStyle: styles.tabBarContentContainerStyle,
+        tabBarStyle: {backgroundColor: metals[index].color, elevation: 0},
         tabBarIndicatorStyle: styles.tabBarIndicatorStyle,
         tabBarIndicatorContainerStyle: styles.tabBarIndicatorContainerStyle,
         tabBarInactiveTintColor: colors.white,

@@ -465,7 +465,6 @@ export type ReedemItemProps = {
   availability: string;
   onSale: boolean;
   date?: string;
-  onPress: (...args: any) => void;
 };
 
 export type CartItemProps = {

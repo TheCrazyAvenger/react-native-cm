@@ -1,13 +1,12 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {Image, View} from 'react-native';
-import {HoldingsHeaderProps, MetalPicker, Wrapper} from '../..';
+import {HoldingsHeaderProps, Wrapper} from '../..';
 import {metals, numberWithCommas} from '@utilities';
 import {
   DescriptionBold,
   Illustration,
   Subtitle,
   SubtitleMedium,
-  TitleMedium,
 } from '@Typography';
 import {styles} from './styles';
 import {useAppSelector} from '@hooks';
@@ -65,9 +64,6 @@ export const HoldingsHeader: React.FC<HoldingsHeaderProps> = ({
   return (
     <LinearGradient colors={metals[metalType].linearGradient} style={{flex: 1}}>
       <View style={styles.container}>
-        {/* <TitleMedium style={styles.title}>Holdings</TitleMedium>
-        <MetalPicker currentMetal={metalType} onPress={setMetal} /> */}
-
         <View style={styles.headerItem}>
           <View>
             <SubtitleMedium style={styles.headerText}>Balance:</SubtitleMedium>

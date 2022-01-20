@@ -17,9 +17,8 @@ export const styles = StyleSheet.create({
   },
   tabBarIndicatorStyle: {
     borderRadius: 19,
-    bottom: -1,
+    bottom: 0,
     height: 3,
-    backgroundColor: colors.white,
   },
   tabBarIndicatorContainerStyle: {
     marginHorizontal: 13,

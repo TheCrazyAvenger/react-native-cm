@@ -111,7 +111,7 @@ export const Settings: React.FC = () => {
         visible={passcodeModal}
         onPress={() => setPasscodeModal(false)}
       />
-      <Screen>
+      <Screen style={styles.container}>
         <StatusBar
           barStyle="dark-content"
           translucent

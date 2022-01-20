@@ -62,7 +62,7 @@ export const MetalsItem: React.FC<MetalsItemProps> = ({data}) => {
           <Illustration style={{fontSize: 14, marginBottom: 5}}>
             $ Change
           </Illustration>
-          <SubtitleMedium>{`${oneDayChange > 0 ? '+' : '-'}$${numberWithCommas(
+          <SubtitleMedium>{`${oneDayChange >= 0 ? '+' : '-'}$${numberWithCommas(
             Number(Math.abs(oneDayChange)).toFixed(2),
           )}`}</SubtitleMedium>
         </View>

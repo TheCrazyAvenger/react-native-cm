@@ -1,33 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StatusBar, View} from 'react-native';
 import {HoldingsHeader, NewsCard, PriceGraph} from '@components';
 import {Screen, TextButton} from '@ui';
 import {styles} from './styles';
 import {useGetDigitalProductsQuery, useGetNewsQuery} from '@api';
 import {Screens} from '@constants';
-import {metals} from '@utilities';
 
 export const HoldingsGold: React.FC = () => {
   const navigation: any = useNavigation();
-
-  console.log(navigation.isFocused());
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      navigation.setOptions({
-        tabBarStyle: {backgroundColor: metals[0].color},
-      });
-
-      navigation.getParent().setOptions({
-        headerStyle: {
-          backgroundColor: metals[0].color,
-        },
-      });
-    });
-
-    return unsubscribe;
-  }, [navigation]);
 
   const {data: newsData = [], isLoading} = useGetNewsQuery({});
 

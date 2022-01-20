@@ -5,4 +5,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Bold',
     marginBottom: 15,
   },
+  container: {
+    paddingHorizontal: 20,
+  },
 });

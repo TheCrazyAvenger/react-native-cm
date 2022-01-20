@@ -18,7 +18,7 @@ export const HomeStack: React.FC = () => {
       <Stack.Screen
         options={{
           title: 'Holdings',
-          headerShown: true,
+          // headerShown: true,
           headerBackVisible: false,
           headerTitleAlign: 'center',
           headerShadowVisible: false,

@@ -26,13 +26,16 @@ export const BuyingInfo: React.FC<BuyingInfoProps> = ({
         </View>
         <View style={styles.infoItem}>
           <Description style={styles.infoTitle}>Spot</Description>
-          <SubtitleMedium
-            style={styles.infoText}>{`$${spot}/oz`}</SubtitleMedium>
+          <SubtitleMedium style={styles.infoText}>{`$${numberWithCommas(
+            Number(spot).toFixed(2),
+          )}/oz`}</SubtitleMedium>
         </View>
         <View style={styles.infoItem}>
           <Description style={styles.infoTitle}>Amount</Description>
           <SubtitleMedium style={styles.infoText}>
-            {`${amountOz} oz of ${metal} at $${spot}`}
+            {`${amountOz} oz of ${metal} at $${numberWithCommas(
+              Number(spot).toFixed(2),
+            )}`}
           </SubtitleMedium>
         </View>
 

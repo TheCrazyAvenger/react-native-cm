@@ -47,7 +47,11 @@ export * from './SettingsScreens/AutoBuyScreens/AutoBuySetUp';
 export * from './SettingsScreens/AutoBuyScreens/ReviewAutoBuy';
 export * from './SettingsScreens/AutoBuyScreens/CompleteAutoBuy';
 
-export * from './SettingsScreens/PriceAlertsScreens/PriceAlerts';
+export * from './SettingsScreens/PriceAlertsScreens/PriceAlertsEmpty';
+export * from './SettingsScreens/PriceAlertsScreens/PriceAlertsGold';
+export * from './SettingsScreens/PriceAlertsScreens/PriceAlertsSilver';
+export * from './SettingsScreens/PriceAlertsScreens/PriceAlertsPlatinum';
+export * from './SettingsScreens/PriceAlertsScreens/PriceAlertsPalladium';
 export * from './SettingsScreens/PriceAlertsScreens/ChoosePriceAlert';
 export * from './SettingsScreens/PriceAlertsScreens/PriceAlertSetUp';
 
@@ -71,6 +75,10 @@ export * from './LogInScreens/ForgotPassError';
 export * from './LogInScreens/ForgotPassDone';
 
 export * from './ReedemScreens/Catalog';
+export * from './ReedemScreens/CatalogGold';
+export * from './ReedemScreens/CatalogSilver';
+export * from './ReedemScreens/CatalogPlatinum';
+export * from './ReedemScreens/CatalogPalladium';
 export * from './ReedemScreens/Cart';
 export * from './ReedemScreens/ReviewReedem';
 export * from './ReedemScreens/CompleteReedem';

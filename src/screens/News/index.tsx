@@ -14,7 +14,7 @@ export const News: React.FC = () => {
   }
 
   return (
-    <Screen>
+    <Screen style={{paddingHorizontal: 20}}>
       <StatusBar
         barStyle="dark-content"
         translucent

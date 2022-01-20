@@ -1,14 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StatusBar} from 'react-native';
-import {
-  EmptyDataScreen,
-  LoadingItem,
-  MetalPicker,
-  PriceAlertListItem,
-  Wrapper,
-} from '@components';
-import {colors, Screens} from '@constants';
+import {EmptyDataScreen, LoadingItem, PriceAlertListItem} from '@components';
+import {Screens} from '@constants';
 import {useAppDispatch, useAppSelector} from '@hooks';
 import {getPriceAlerts} from '@store/actions/priceAlerts';
 import {deletePriceAlerts} from '@store/slices/priceAlertSlice';
@@ -17,12 +11,11 @@ import {getMetal, metals} from '@utilities';
 import database from '@react-native-firebase/database';
 import {useGetDigitalProductsQuery} from '@api';
 
-export const PriceAlerts: React.FC = () => {
+export const PriceAlertsSilver: React.FC = () => {
   const navigation: any = useNavigation();
   const priceAlerts = useAppSelector(state => state.priceAlerts.priceAlerts);
   const [loading, setLoading] = useState(false);
   const token = useAppSelector(state => state.auth.token);
-  const [metalType, setMetalType] = useState(1);
 
   const dispatch = useAppDispatch();
 
@@ -46,55 +39,26 @@ export const PriceAlerts: React.FC = () => {
     await dispatch(deletePriceAlerts({metal: data.metal, id: data.id}));
   };
 
-  //@ts-ignore
-  const {data = [], isLoading, error} = useGetDigitalProductsQuery();
+  const {data = [], isLoading, error} = useGetDigitalProductsQuery({});
 
   if (loading || isLoading || data === []) {
     return <LoadingItem />;
   }
 
-  if (
-    priceAlerts.Gold.length === 0 &&
-    priceAlerts.Silver.length === 0 &&
-    priceAlerts.Platinum.length === 0 &&
-    priceAlerts.Palladium.length === 0
-  ) {
-    return (
-      <EmptyDataScreen
-        title="No Alerts For Now"
-        text="Receive instant text notifications when prices go above or below
-          your price targets."
-        buttonTitle="Create Price Alert"
-        onPress={() => navigation.navigate(Screens.choosePriceAlert)}
-      />
-    );
-  }
-
   return (
-    <Screen type="View">
+    <Screen style={{paddingTop: 20}} type="View">
       <StatusBar
         barStyle="dark-content"
         translucent
         backgroundColor={'transparent'}
       />
-      <MetalPicker
-        colorfull={true}
-        currentMetal={metalType}
-        onPress={setMetalType}
-      />
-      <Wrapper
-        style={{
-          marginTop: 4,
-          marginBottom: 24,
-          backgroundColor: colors.primary,
-        }}
-      />
+
       <ScrollView showsVerticalScrollIndicator={false}>
-        {priceAlerts[metals[metalType - 1].metal].length ? (
-          priceAlerts[metals[metalType - 1].metal].map(
+        {priceAlerts.Silver.length ? (
+          priceAlerts.Silver.map(
             (item: any) =>
               item !== null &&
-              item.metal === metals[metalType - 1].metal && (
+              item.metal === metals[1].metal && (
                 <PriceAlertListItem
                   key={item.id}
                   metal={item.metal}
@@ -123,7 +87,7 @@ export const PriceAlerts: React.FC = () => {
         style={{marginBottom: 25}}
         onPress={() =>
           navigation.navigate(Screens.priceAlertSetUp, {
-            id: metalType,
+            id: 2,
             data: data.data,
           })
         }

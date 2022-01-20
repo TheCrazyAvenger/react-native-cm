@@ -85,6 +85,10 @@ export const TransactonItem: React.FC<TransactionItemProps> = ({
             <SubtitleMedium>{type}</SubtitleMedium>
           </View>
           <View style={styles.transactionItem}>
+            <Description style={styles.transactionTitle}>Order</Description>
+            <SubtitleMedium style={styles.order}>{order}</SubtitleMedium>
+          </View>
+          <View style={styles.transactionItem}>
             <Description style={styles.transactionTitle}>Date</Description>
             <SubtitleMedium>{localeDate}</SubtitleMedium>
           </View>

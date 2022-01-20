@@ -32,7 +32,12 @@ export enum Screens {
   billing = 'billing',
 
   reedemStack = 'reedemStack',
+  reedemTabs = 'reedemTabs',
   catalog = 'catalog',
+  catalogGold = 'catalogGold',
+  catalogSilver = 'catalogSilver',
+  catalogPlatinum = 'catalogPlatinum',
+  catalogPalladium = 'catalogPalladium',
   cart = 'cart',
   reviewReedem = 'reviewReedem',
   completeReedem = 'completeReedem',
@@ -70,7 +75,12 @@ export enum Screens {
   paymentMethodsSetUp = 'paymentMethodsSetUp',
 
   priceAlertsStack = 'priceAlertsStack',
+  priceAlertsTabs = 'priceAlertsTabs',
   priceAlerts = 'priceAlerts',
+  priceAlertsGold = 'priceAlertsGold',
+  priceAlertsSilver = 'priceAlertsSilver',
+  priceAlertsPlatinum = 'priceAlertsPlatinum',
+  priceAlertsPalladium = 'priceAlertsPalladium',
   choosePriceAlert = 'choosePriceAlert',
   priceAlertSetUp = 'priceAlertSetUp',
 

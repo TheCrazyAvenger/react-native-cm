@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   transactionItem: {
-    marginRight: 20,
+    marginRight: 40,
     marginBottom: 20,
   },
   transactionTitle: {
@@ -34,5 +34,9 @@ export const styles = StyleSheet.create({
     marginVertical: 10,
     fontFamily: 'OpenSans-SemiBold',
     color: colors.primary,
+  },
+  order: {
+    color: colors.primary,
+    fontFamily: 'OpenSans-SemiBold',
   },
 });
