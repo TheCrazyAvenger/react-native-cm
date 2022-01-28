@@ -25,6 +25,7 @@ export * from './removeTags';
 export * from './getTime';
 export * from './validateNumbers';
 export * from './numberWithCommas';
+export * from './removeCommas';
 export * from './getPaymentName';
 export * from './getMetalsColor';
 export * from './getReedemImage';

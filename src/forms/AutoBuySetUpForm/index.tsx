@@ -12,7 +12,7 @@ import {
   PaymentMethodPicker,
   Wrapper,
 } from '@components';
-import {getNextDay, validateNumbers} from '@utilities';
+import {getNextDay, removeCommas, validateNumbers} from '@utilities';
 import {Description, SubtitleMedium, TitleMedium} from '@Typography';
 import {TextButton} from '@ui';
 import * as yup from 'yup';
@@ -44,7 +44,7 @@ export const AutoBuySetUpForm: React.FC = () => {
       .required('Please enter End Date'),
     frequency: yup.string().required('Please enter Frequency'),
     amount: yup
-      .number()
+      .string()
       .required('Please enter amount')
       .min(
         usedAmount === 'USD' ? 1 : 0.001,
@@ -79,7 +79,7 @@ export const AutoBuySetUpForm: React.FC = () => {
 
     navigation.navigate(Screens.reviewAutoBuy, {
       type: type ? type : null,
-      amount,
+      amount: removeCommas(amount),
       account,
       usedAmount,
       status: type ? status : 'Active',

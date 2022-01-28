@@ -10,7 +10,7 @@ import {TextButton} from '@ui';
 import {buySchema} from '../..';
 import {Swiper} from '@assets/images/home';
 import {useAppSelector} from '@hooks';
-import {numberWithCommas, validateNumbers} from '@utilities';
+import {numberWithCommas, removeCommas, validateNumbers} from '@utilities';
 
 export const BuySetUpForm: React.FC = () => {
   const navigation: any = useNavigation();
@@ -36,7 +36,7 @@ export const BuySetUpForm: React.FC = () => {
     navigation.navigate(Screens.reviewSellBuy, {
       data: route.params.data,
       type: 'Buy',
-      amount,
+      amount: removeCommas(amount),
       frequency,
       account,
       paymentMethod,
@@ -65,13 +65,13 @@ export const BuySetUpForm: React.FC = () => {
         setFieldValue,
       }) => {
         const getOz = () => {
-          if (+values.amount > 0)
-            return `${(+values.amount / 1887).toFixed(3)}`;
+          if (+removeCommas(values.amount) > 0)
+            return `${(+removeCommas(values.amount) / 1887).toFixed(3)}`;
         };
 
         const getUsd = () => {
-          if (+values.amountOz > 0)
-            return `${(+values.amountOz * 1887).toFixed(0)}`;
+          if (+removeCommas(values.amountOz) > 0)
+            return `${(+removeCommas(values.amountOz) * 1887).toFixed(0)}`;
         };
 
         return (
@@ -125,7 +125,10 @@ export const BuySetUpForm: React.FC = () => {
                     setFieldTouched('amountOz', false);
                   }}
                   onInput={() => {
-                    setFieldValue('amountOz', validateNumbers(values.amountOz));
+                    setFieldValue(
+                      'amountOz',
+                      validateNumbers(values.amountOz, 4),
+                    );
                     setFieldValue('amount', getUsd());
                   }}
                   value={values.amountOz}
@@ -166,7 +169,9 @@ export const BuySetUpForm: React.FC = () => {
               <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
               <TitleMedium style={styles.priceTitle}>{`$${
                 values.amount
-                  ? numberWithCommas(Number(values.amount).toFixed(2))
+                  ? numberWithCommas(
+                      Number(removeCommas(values.amount)).toFixed(2),
+                    )
                   : '0.00'
               }`}</TitleMedium>
             </View>

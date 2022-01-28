@@ -9,7 +9,7 @@ import {Description, SubtitleMedium, TitleMedium, Error} from '@Typography';
 import {TextButton} from '@ui';
 import {Swiper} from '@assets/images/home';
 import {useAppSelector} from '@hooks';
-import {numberWithCommas, validateNumbers} from '@utilities';
+import {numberWithCommas, removeCommas, validateNumbers} from '@utilities';
 import {sellSchema} from '../..';
 
 export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
@@ -37,7 +37,7 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
     navigation.navigate(Screens.reviewSellBuy, {
       data: route.params.data,
       type: 'Sell',
-      amount,
+      amount: removeCommas(amount),
       account,
       frequency: null,
       paymentMethod,
@@ -65,14 +65,15 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
         setFieldValue,
       }) => {
         const getOz = () => {
-          if (+values.amount > 0)
-            return `${(+values.amount / 1887).toFixed(3)}`;
+          if (+removeCommas(values.amount) > 0)
+            return `${(+removeCommas(values.amount) / 1887).toFixed(3)}`;
         };
 
         const getUsd = () => {
-          if (+values.amountOz > 0)
-            return `${(+values.amountOz * 1887).toFixed(2)}`;
+          if (+removeCommas(values.amountOz) > 0)
+            return `${(+removeCommas(values.amountOz) * 1887).toFixed(0)}`;
         };
+
         return (
           <View>
             <Description style={styles.inputLabel}>Amount</Description>
@@ -124,7 +125,10 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
                     setFieldTouched('amountOz', false);
                   }}
                   onInput={() => {
-                    setFieldValue('amountOz', validateNumbers(values.amountOz));
+                    setFieldValue(
+                      'amountOz',
+                      validateNumbers(values.amountOz, 4),
+                    );
                     setFieldValue('amount', getUsd());
                   }}
                   value={values.amountOz}
@@ -150,7 +154,9 @@ export const SellSetUpForm: React.FC<{metal: string}> = ({metal}) => {
               <TitleMedium style={styles.priceTitle}>Total</TitleMedium>
               <TitleMedium style={styles.priceTitle}>{`$${
                 values.amount
-                  ? numberWithCommas(Number(values.amount).toFixed(2))
+                  ? numberWithCommas(
+                      Number(removeCommas(values.amount)).toFixed(2),
+                    )
                   : '0.00'
               }`}</TitleMedium>
             </View>

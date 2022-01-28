@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "807007186340",
-    "firebase_url": "https://cyber-metals-default-rtdb.firebaseio.com",
-    "project_id": "cyber-metals",
-    "storage_bucket": "cyber-metals.appspot.com"
+    "project_number": "828312443696",
+    "firebase_url": "https://react-native-cm-35b95-default-rtdb.firebaseio.com",
+    "project_id": "react-native-cm-35b95",
+    "storage_bucket": "react-native-cm-35b95.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:807007186340:android:ad89c2e9b12587ac44e531",
+        "mobilesdk_app_id": "1:828312443696:android:d4b8907e343da6a922c6f5",
         "android_client_info": {
           "package_name": "com.cybermetals"
         }
       },
       "oauth_client": [
         {
-          "client_id": "807007186340-9bamuop561el0agvdv0na7ckiu5ret66.apps.googleusercontent.com",
+          "client_id": "828312443696-pr9jskr5qndj0l1k71p0i3tkbru0656m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cybermetals",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "828312443696-9b5277jv3vrfmmbnu0tn74jc747m7hbj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyByqTmBJhUTNM3wFgSQiTrAAxikmEJh9N0"
+          "current_key": "AIzaSyDtnbbIE-gAXmV91wTi1iOyO57Ba6ohsiI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "807007186340-9bamuop561el0agvdv0na7ckiu5ret66.apps.googleusercontent.com",
+              "client_id": "828312443696-9b5277jv3vrfmmbnu0tn74jc747m7hbj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

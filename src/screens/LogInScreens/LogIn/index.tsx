@@ -26,6 +26,7 @@ export const LogIn: React.FC = () => {
         .then(async data => {
           setLoading(false);
 
+          console.log(data.user.uid);
           navigation.navigate(Screens.mobileVerCode, {
             type: 'SignIn',
             token: data.user.uid.toString(),
