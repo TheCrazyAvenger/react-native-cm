@@ -2,7 +2,7 @@ import {MaterialTopTabBar} from '@react-navigation/material-top-tabs';
 import {TitleMedium} from '@Typography';
 import {metals} from '@utilities';
 import React, {useEffect} from 'react';
-import {View} from 'react-native';
+import {Animated, View} from 'react-native';
 import {styles} from './styles';
 
 export const HoldingsHeader: React.FC<{
@@ -10,19 +10,29 @@ export const HoldingsHeader: React.FC<{
   setIndex: (...args: any) => void;
   index: number;
 }> = ({props, setIndex, index}) => {
+  const animation = React.useRef(new Animated.Value(index)).current;
   useEffect(() => {
     setIndex(props.navigationState.index);
+
+    Animated.timing(animation, {
+      toValue: index,
+      duration: 160,
+      useNativeDriver: false,
+    }).start();
   }, [props]);
 
   return (
     <View>
-      <View
+      <Animated.View
         style={{
-          backgroundColor: metals[index].color,
+          backgroundColor: animation.interpolate({
+            inputRange: [0, 1, 2, 3],
+            outputRange: ['#FFBD00', '#2F80ED', '#219653', '#F2994A'],
+          }),
           alignItems: 'center',
         }}>
         <TitleMedium style={styles.title}>Holdings</TitleMedium>
-      </View>
+      </Animated.View>
       <MaterialTopTabBar {...props} />
       <View
         style={{

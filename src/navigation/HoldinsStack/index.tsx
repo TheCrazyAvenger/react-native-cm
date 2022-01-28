@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {colors, Screens} from '@constants';
 import {
@@ -8,9 +8,9 @@ import {
   HoldingsSilver,
 } from '@screens';
 import {useRoute} from '@react-navigation/native';
-import {metals} from '@utilities';
 import {styles} from './styles';
 import {HoldingsHeader} from '@navigation/HoldingsHeader';
+import {Animated} from 'react-native';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -19,6 +19,16 @@ export const HoldinsStack: React.FC = () => {
   const [index, setIndex] = useState(0);
 
   const {id} = route.params;
+
+  const animation = React.useRef(new Animated.Value(id)).current;
+
+  useEffect(() => {
+    Animated.timing(animation, {
+      toValue: index,
+      duration: 160,
+      useNativeDriver: false,
+    }).start();
+  }, [index]);
 
   return (
     <Tab.Navigator
@@ -29,7 +39,14 @@ export const HoldinsStack: React.FC = () => {
         tabBarActiveTintColor: colors.white,
         tabBarLabelStyle: styles.tabBarLabelStyle,
         tabBarContentContainerStyle: styles.tabBarContentContainerStyle,
-        tabBarStyle: {backgroundColor: metals[index].color, elevation: 0},
+        //@ts-ignore
+        tabBarStyle: {
+          backgroundColor: animation.interpolate({
+            inputRange: [0, 1, 2, 3],
+            outputRange: ['#FFBD00', '#2F80ED', '#219653', '#F2994A'],
+          }),
+          elevation: 0,
+        },
         tabBarIndicatorStyle: styles.tabBarIndicatorStyle,
         tabBarIndicatorContainerStyle: styles.tabBarIndicatorContainerStyle,
         tabBarInactiveTintColor: colors.white,
